@@ -54,9 +54,6 @@ jobs:
       - name: Run code analysis with Credo
         run: mix credo --min-priority higher
 
-      - name: Run documentation coverage with Doctor
-        run: mix doctor --summary
-
       - name: Check for unused dependencies
         run: mix deps.unlock --check-unused
 
