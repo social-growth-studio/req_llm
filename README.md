@@ -49,6 +49,8 @@ end
 # Configure API keys using JidoKeys (secure, in-memory storage)
 ReqLLM.put_key(:anthropic_api_key, "sk-ant-...")
 
+# Keys in .env are automatically picked up via the JidoKeys package via Dotenvy
+
 model = "anthropic:claude-3-sonnet"
 
 # Simple text generation
