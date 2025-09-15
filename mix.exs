@@ -42,6 +42,7 @@ defmodule ReqLLM.MixProject do
           "guides/core-concepts.md",
           "guides/api-reference.md",
           "guides/data-structures.md",
+          "guides/model-metadata.md",
           "guides/capability-testing.md",
           "guides/adding_a_provider.md"
         ],
