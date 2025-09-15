@@ -95,7 +95,7 @@ ReqLLM.stream_text!(model, "Write a short story")
 |> Stream.run()
 
 # Embeddings
-{:ok, embeddings} = ReqLLM.generate_embeddings("openai:text-embedding-3-small", ["Hello", "World"])
+{:ok, embeddings} = ReqLLM.embed_many("openai:text-embedding-3-small", ["Hello", "World"])
 ```
 
 ## Provider Support
