@@ -1,10 +1,13 @@
 defmodule ReqLLM.MixProject do
   use Mix.Project
 
+  @version "1.0.0-rc.2"
+  @source_url "https://github.com/agentjido/req_llm"
+
   def project do
     [
       app: :req_llm,
-      version: "1.0.0-rc.1",
+      version: @version,
       elixir: "~> 1.15",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -31,9 +34,9 @@ defmodule ReqLLM.MixProject do
 
       # Documentation
       name: "ReqLLM",
-      source_url: "https://github.com/agentjido/req_llm",
-      homepage_url: "https://github.com/agentjido/req_llm",
-      source_ref: "v1.0.0-rc.1",
+      source_url: @source_url,
+      homepage_url: @source_url,
+      source_ref: "v#{@version}",
       docs: [
         main: "readme",
         extras: [
@@ -89,7 +92,7 @@ defmodule ReqLLM.MixProject do
       description: "Composable Elixir library for LLM interactions built on Req",
       licenses: ["Apache-2.0"],
       maintainers: ["Mike Hostetler"],
-      links: %{"GitHub" => "https://github.com/agentjido/req_llm"},
+      links: %{"GitHub" => @source_url},
       files: ~w(lib priv mix.exs LICENSE README.md AGENTS.md usage-rules.md guides .formatter.exs)
     ]
   end
