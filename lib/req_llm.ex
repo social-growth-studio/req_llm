@@ -36,7 +36,7 @@ defmodule ReqLLM do
 
   ## Configuration
 
-  ReqLLM uses the Kagi keyring for API key storage:
+  ReqLLM uses the JidoKeys keyring for API key storage:
 
       # Store API keys in session keyring
       ReqLLM.put_key(:anthropic_api_key, "sk-ant-...")
