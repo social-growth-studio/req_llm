@@ -70,13 +70,13 @@ defmodule ReqLLM.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:req, "~> 0.5"},
       {:jason, "~> 1.4"},
+      {:jido_keys, "~> 1.0"},
       {:nimble_options, "~> 1.1"},
-      {:typed_struct, "~> 0.3.0"},
-      {:splode, "~> 0.2.3"},
+      {:req, "~> 0.5"},
       {:server_sent_events, "~> 0.2"},
-      {:jido_keys, "~> 1.0", optional: true},
+      {:splode, "~> 0.2.3"},
+      {:typed_struct, "~> 0.3.0"},
 
       # Dev/test dependencies
       {:ex_doc, "~> 0.31", only: :dev, runtime: false},
