@@ -2,7 +2,7 @@
   "result": {
     "data": {
       "error": null,
-      "id": "gen-1757783998-xbeRiOu51gVWZQ7gUqXu",
+      "id": "gen-1758029435-IT9Yn4bS3gg1OeYqPrk9",
       "message": {
         "name": null,
         "metadata": {},
@@ -19,8 +19,8 @@
             "metadata": {},
             "text": null,
             "url": null,
+            "tool_call_id": "call_1ncFaqxXGV6MelppqBCDr30U",
             "media_type": null,
-            "tool_call_id": "call_G0xAOy2uXY2ttjTbSXDHIhSC",
             "tool_name": "get_weather"
           }
         ],
@@ -45,8 +45,8 @@
                 "metadata": {},
                 "text": null,
                 "url": null,
+                "tool_call_id": "call_1ncFaqxXGV6MelppqBCDr30U",
                 "media_type": null,
-                "tool_call_id": "call_G0xAOy2uXY2ttjTbSXDHIhSC",
                 "tool_name": "get_weather"
               }
             ],
@@ -60,11 +60,12 @@
         "output_tokens": 16,
         "total_tokens": 94
       },
+      "object": null,
       "model": "openai/gpt-4o-mini",
       "stream?": false,
       "finish_reason": "tool_calls",
       "provider_meta": {
-        "created": 1757783998,
+        "created": 1758029435,
         "native_finish_reason": "tool_calls",
         "object": "chat.completion",
         "provider": "OpenAI",
@@ -73,5 +74,5 @@
     },
     "type": "ok_req_llm_response"
   },
-  "captured_at": "2025-09-13T17:19:58.836612Z"
+  "captured_at": "2025-09-16T13:30:36.843117Z"
 }

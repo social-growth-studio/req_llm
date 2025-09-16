@@ -17,12 +17,13 @@ defmodule ReqLLM.ProviderTest.ObjectGeneration do
     quote bind_quoted: [provider: provider, model: model] do
       use ExUnit.Case, async: false
 
-      import ReqLLM.Test.LiveFixture
+      import ReqLLM.Context
+      import ReqLLM.ProviderTestHelpers
 
-      alias ReqLLM.Test.LiveFixture, as: ReqFixture
-
+      @moduletag :capture_log
       @moduletag :coverage
-      @moduletag provider
+      @moduletag category: :object_generation
+      @moduletag provider: provider
 
       describe "object generation" do
         test "basic non-streaming object generation" do
@@ -33,16 +34,17 @@ defmodule ReqLLM.ProviderTest.ObjectGeneration do
             hobbies: [type: {:list, :string}, doc: "List of hobbies and interests"]
           ]
 
-          result =
-            use_fixture(unquote(provider), "basic_object_generation", fn ->
-              ReqLLM.generate_object(
-                unquote(model),
-                "Generate a fictional character profile with name, age, occupation, and hobbies",
-                schema
+          {:ok, response} =
+            ReqLLM.generate_object(
+              unquote(model),
+              "Generate a fictional character profile with name, age, occupation, and hobbies",
+              schema,
+              fixture_opts(
+                unquote(provider),
+                "basic_object_generation",
+                param_bundles().deterministic
               )
-            end)
-
-          {:ok, response} = result
+            )
 
           # Verify we got a successful response
           assert response.message
@@ -82,21 +84,21 @@ defmodule ReqLLM.ProviderTest.ObjectGeneration do
             skills: [type: {:list, :string}, doc: "List of professional skills"]
           ]
 
-          result =
-            use_fixture(unquote(provider), "streaming_object_generation", fn ->
-              ReqLLM.stream_object(
-                unquote(model),
-                "Generate a detailed profile for a software engineer with name, age, occupation, and skills",
-                schema
+          {:ok, response} =
+            ReqLLM.stream_object(
+              unquote(model),
+              "Generate a detailed profile for a software engineer with name, age, occupation, and skills",
+              schema,
+              fixture_opts(
+                unquote(provider),
+                "streaming_object_generation",
+                param_bundles().deterministic
               )
-            end)
+            )
 
-          {:ok, response} = result
-
-          if ReqLLM.Test.LiveFixture.live_mode?() do
-            # Live mode: test actual streaming behavior
-            assert response.stream?
-
+          # For streaming responses in the new system, check if it's truly streaming
+          if response.stream? do
+            # Live streaming mode: test actual streaming behavior
             # Get the object stream and collect objects
             objects =
               response
@@ -123,7 +125,7 @@ defmodule ReqLLM.ProviderTest.ObjectGeneration do
             # The JSON delta accumulation fix should ensure complete objects
             refute first_object == %{}
           else
-            # Cached mode: response was materialized from stream
+            # Fixture mode: response was materialized from stream
             # Extract object from the materialized response  
             object = ReqLLM.Response.object(response)
 
@@ -153,16 +155,17 @@ defmodule ReqLLM.ProviderTest.ObjectGeneration do
             key_products: [type: {:list, :string}, doc: "Main products or services"]
           ]
 
-          result =
-            use_fixture(unquote(provider), "complex_object_generation", fn ->
-              ReqLLM.generate_object(
-                unquote(model),
-                "Generate a complete profile for a tech startup company including name, founding year, location, and other details",
-                schema
+          {:ok, response} =
+            ReqLLM.generate_object(
+              unquote(model),
+              "Generate a complete profile for a tech startup company including name, founding year, location, and other details",
+              schema,
+              fixture_opts(
+                unquote(provider),
+                "complex_object_generation",
+                param_bundles().deterministic
               )
-            end)
-
-          {:ok, response} = result
+            )
 
           # Extract the object
           object = ReqLLM.Response.object(response)
@@ -215,26 +218,39 @@ defmodule ReqLLM.ProviderTest.ObjectGeneration do
 
           prompt = "Generate a blog article metadata"
 
-          # Non-streaming version
-          non_stream_result =
-            use_fixture(unquote(provider), "object_consistency_non_stream", fn ->
-              ReqLLM.generate_object(unquote(model), prompt, schema)
-            end)
+          opts =
+            fixture_opts(unquote(provider), "object_consistency", param_bundles().deterministic)
 
-          {:ok, non_stream_response} = non_stream_result
+          # Non-streaming version
+          {:ok, non_stream_response} =
+            ReqLLM.generate_object(
+              unquote(model),
+              prompt,
+              schema,
+              fixture_opts(
+                unquote(provider),
+                "object_consistency_non_stream",
+                param_bundles().deterministic
+              )
+            )
 
           # Streaming version  
-          stream_result =
-            use_fixture(unquote(provider), "object_consistency_stream", fn ->
-              ReqLLM.stream_object(unquote(model), prompt, schema)
-            end)
-
-          {:ok, stream_response} = stream_result
+          {:ok, stream_response} =
+            ReqLLM.stream_object(
+              unquote(model),
+              prompt,
+              schema,
+              fixture_opts(
+                unquote(provider),
+                "object_consistency_stream",
+                param_bundles().deterministic
+              )
+            )
 
           # Extract objects
           non_stream_object = ReqLLM.Response.object(non_stream_response)
 
-          if ReqLLM.Test.LiveFixture.live_mode?() do
+          if stream_response.stream? do
             # Live streaming mode
             [stream_object | _] =
               stream_response
@@ -257,7 +273,7 @@ defmodule ReqLLM.ProviderTest.ObjectGeneration do
             assert is_integer(non_stream_object["word_count"])
             assert is_integer(stream_object["word_count"])
           else
-            # Cached mode - both should be materialized objects
+            # Fixture mode - both should be materialized objects
             stream_object = ReqLLM.Response.object(stream_response)
 
             assert is_map(non_stream_object) and map_size(non_stream_object) > 0
