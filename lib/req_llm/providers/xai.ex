@@ -74,55 +74,6 @@ defmodule ReqLLM.Providers.XAI do
   Ensures that structured output requests have adequate token limits while delegating
   other operations to the default implementation.
   """
-  @impl ReqLLM.Provider
-  def prepare_request(:object, model_spec, prompt, opts) do
-    compiled_schema = Keyword.fetch!(opts, :compiled_schema)
-
-    structured_output_tool =
-      ReqLLM.Tool.new!(
-        name: "structured_output",
-        description: "Generate structured output matching the provided schema",
-        parameter_schema: compiled_schema.schema,
-        callback: fn _args -> {:ok, "structured output generated"} end
-      )
-
-    opts_with_tool =
-      opts
-      |> Keyword.update(:tools, [structured_output_tool], &[structured_output_tool | &1])
-      |> Keyword.put(:tool_choice, %{type: "function", function: %{name: "structured_output"}})
-
-    # Adjust max_completion_tokens for structured output with xAI-specific handling
-    provider_opts = Keyword.get(opts_with_tool, :provider_options, [])
-
-    opts_with_tokens =
-      case Keyword.get(provider_opts, :max_completion_tokens) do
-        nil ->
-          Keyword.put(
-            opts_with_tool,
-            :provider_options,
-            Keyword.put(provider_opts, :max_completion_tokens, 4096)
-          )
-
-        tokens when tokens < 200 ->
-          Keyword.put(
-            opts_with_tool,
-            :provider_options,
-            Keyword.put(provider_opts, :max_completion_tokens, 200)
-          )
-
-        _tokens ->
-          opts_with_tool
-      end
-
-    # Use the default chat preparation with structured output tools
-    ReqLLM.Provider.Defaults.prepare_request(
-      __MODULE__,
-      :chat,
-      model_spec,
-      prompt,
-      opts_with_tokens
-    )
-  end
 
   # Override to reject unsupported operations
   def prepare_request(:embedding, _model_spec, _input, _opts) do
@@ -219,6 +170,51 @@ defmodule ReqLLM.Providers.XAI do
     {opts, Enum.reverse(warnings)}
   end
 
+  # Helper functions for X.AI response_format (same as OpenAI)
+  defp add_response_format(body, nil), do: body
+
+  defp add_response_format(body, compiled_schema) do
+    json_schema = ReqLLM.Schema.to_json(compiled_schema.schema)
+    openai_schema = convert_to_openai_schema(json_schema)
+
+    response_format = %{
+      type: "json_schema",
+      json_schema: %{
+        name: "structured_output",
+        strict: true,
+        schema: openai_schema
+      }
+    }
+
+    Map.put(body, :response_format, response_format)
+  end
+
+  defp convert_to_openai_schema(%{"type" => "object"} = schema) do
+    schema
+    |> Map.put("additionalProperties", false)
+    |> then(fn s ->
+      case s do
+        %{"properties" => properties} when is_map(properties) ->
+          converted_properties =
+            Map.new(properties, fn {k, v} ->
+              {k, convert_to_openai_schema(v)}
+            end)
+
+          Map.put(s, "properties", converted_properties)
+
+        _ ->
+          s
+      end
+    end)
+  end
+
+  defp convert_to_openai_schema(%{"type" => "array", "items" => items} = schema)
+       when is_map(items) do
+    Map.put(schema, "items", convert_to_openai_schema(items))
+  end
+
+  defp convert_to_openai_schema(schema), do: schema
+
   @doc """
   Custom body encoding that adds xAI-specific extensions to the default OpenAI-compatible format.
 
@@ -228,6 +224,7 @@ defmodule ReqLLM.Providers.XAI do
   - search_parameters (Live Search configuration)
   - parallel_tool_calls (with skip for true default)
   - stream_options (streaming configuration)
+  - response_format (for structured output via :object operations)
   """
   @impl ReqLLM.Provider
   def encode_body(request) do
@@ -244,6 +241,14 @@ defmodule ReqLLM.Providers.XAI do
       |> maybe_put(:search_parameters, request.options[:search_parameters])
       |> maybe_put_skip(:parallel_tool_calls, request.options[:parallel_tool_calls], [true])
       |> maybe_put(:stream_options, request.options[:stream_options])
+      |> then(fn body ->
+        # Add response_format for structured output if compiled_schema is present
+        if request.options[:compiled_schema] do
+          add_response_format(body, request.options[:compiled_schema])
+        else
+          body
+        end
+      end)
 
     # Re-encode with xAI extensions
     encoded_body = Jason.encode!(enhanced_body)

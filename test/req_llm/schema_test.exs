@@ -8,12 +8,12 @@ defmodule ReqLLM.SchemaTest do
     test "compiles valid keyword schemas" do
       schema = [name: [type: :string, required: true], age: [type: :pos_integer, default: 0]]
       assert {:ok, compiled} = Schema.compile(schema)
-      assert %NimbleOptions{} = compiled
+      assert %{schema: ^schema, nimble_schema: %NimbleOptions{}} = compiled
     end
 
     test "compiles empty schema" do
       assert {:ok, compiled} = Schema.compile([])
-      assert %NimbleOptions{} = compiled
+      assert %{schema: [], nimble_schema: %NimbleOptions{}} = compiled
     end
 
     test "returns error for invalid input types" do

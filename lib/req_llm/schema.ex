@@ -96,7 +96,17 @@ defmodule ReqLLM.Schema do
   """
   @spec compile(keyword() | any()) :: {:ok, NimbleOptions.t()} | {:error, ReqLLM.Error.t()}
   def compile(schema) when is_list(schema) do
-    {:ok, NimbleOptions.new!(schema)}
+    # Pre-process schema to handle nested schemas with :properties
+    processed_schema = preprocess_nested_schema(schema)
+    
+    # Create a custom compiled schema that stores both the original and processed versions
+    compiled = %{
+      schema: schema,
+      processed_schema: processed_schema,
+      nimble_schema: NimbleOptions.new!(processed_schema)
+    }
+    
+    {:ok, compiled}
   rescue
     e ->
       {:error,
@@ -113,6 +123,35 @@ defmodule ReqLLM.Schema do
        parameter: "Schema must be a keyword list, got: #{inspect(schema)}"
      )}
   end
+  
+  # Preprocess schema to convert nested :properties into NimbleOptions-compatible format
+  defp preprocess_nested_schema(schema) do
+    Enum.map(schema, fn {key, opts} ->
+      processed_opts = 
+        case opts do
+          opts when is_list(opts) ->
+            opts
+            # Remove :properties from NimbleOptions (store separately for JSON conversion)
+            |> Keyword.delete(:properties)
+            # Convert :object type to :map for NimbleOptions compatibility
+            |> convert_object_types()
+          _ -> 
+            opts
+        end
+      
+      {key, processed_opts}
+    end)
+  end
+
+  # Convert custom types to NimbleOptions-compatible types
+  defp convert_object_types(opts) do
+    case opts[:type] do
+      :object -> Keyword.put(opts, :type, :map)
+      {:list, :object} -> Keyword.put(opts, :type, {:list, :map})
+      _ -> opts
+    end
+  end
+
 
   @doc """
   Converts a keyword schema to JSON Schema format.
@@ -153,8 +192,13 @@ defmodule ReqLLM.Schema do
       %{"type" => "object", "properties" => %{}}
 
   """
-  @spec to_json(keyword()) :: map()
+  @spec to_json(keyword() | map()) :: map()
   def to_json([]), do: %{"type" => "object", "properties" => %{}}
+  
+  # Handle new compiled schema format
+  def to_json(%{original_schema: schema}) when is_list(schema) do
+    to_json(schema)
+  end
 
   def to_json(schema) when is_list(schema) do
     {properties, required} =
@@ -181,34 +225,31 @@ defmodule ReqLLM.Schema do
   end
 
   # Private helper functions
+  
+  # Helper function to add nested properties to an object schema
+  defp add_nested_properties(base_schema, properties) when is_list(properties) do
+    {nested_properties, required} =
+      Enum.reduce(properties, {%{}, []}, fn {key, opts}, {props_acc, req_acc} ->
+        property_name = to_string(key)
+        json_prop = nimble_type_to_json_schema(opts[:type] || :string, opts)
+        
+        new_props = Map.put(props_acc, property_name, json_prop)
+        new_req = if opts[:required], do: [property_name | req_acc], else: req_acc
+        
+        {new_props, new_req}
+      end)
+    
+    base_schema
+    |> Map.put("properties", nested_properties)
+    |> then(fn schema ->
+      if required != [] do
+        Map.put(schema, "required", Enum.reverse(required))
+      else
+        schema
+      end
+    end)
+  end
 
-  @doc """
-  Converts a NimbleOptions type to JSON Schema property definition.
-
-  Takes a NimbleOptions type atom and options, converting them to the
-  corresponding JSON Schema property definition with proper type mapping.
-
-  ## Parameters
-
-  - `type` - The NimbleOptions type atom (e.g., `:string`, `:integer`, `{:list, :string}`)
-  - `opts` - Additional options including `:doc` for description
-
-  ## Returns
-
-  A map representing the JSON Schema property definition.
-
-  ## Examples
-
-      iex> ReqLLM.Schema.nimble_type_to_json_schema(:string, doc: "A text field")
-      %{"type" => "string", "description" => "A text field"}
-
-      iex> ReqLLM.Schema.nimble_type_to_json_schema({:list, :integer}, [])
-      %{"type" => "array", "items" => %{"type" => "integer"}}
-
-      iex> ReqLLM.Schema.nimble_type_to_json_schema(:pos_integer, doc: "Positive number")
-      %{"type" => "integer", "minimum" => 1, "description" => "Positive number"}
-
-  """
   @spec nimble_type_to_json_schema(atom() | tuple(), keyword()) :: map()
   def nimble_type_to_json_schema(type, opts) do
     base_schema =
@@ -249,17 +290,60 @@ defmodule ReqLLM.Schema do
         {:list, :pos_integer} ->
           %{"type" => "array", "items" => %{"type" => "integer", "minimum" => 1}}
 
+        {:list, :map} ->
+          base_items = %{"type" => "object"}
+          items_schema = case opts[:properties] do
+            properties when is_list(properties) ->
+              add_nested_properties(base_items, properties)
+            _ ->
+              base_items
+          end
+          %{"type" => "array", "items" => items_schema}
+
+        {:list, :object} ->
+          base_items = %{"type" => "object"}
+          items_schema = case opts[:properties] do
+            properties when is_list(properties) ->
+              add_nested_properties(base_items, properties)
+            _ ->
+              base_items
+          end
+          %{"type" => "array", "items" => items_schema}
+
         {:list, item_type} ->
           %{"type" => "array", "items" => nimble_type_to_json_schema(item_type, [])}
 
         :map ->
-          %{"type" => "object"}
+          base_schema = %{"type" => "object"}
+          # Check if this map has nested properties defined
+          case opts[:properties] do
+            properties when is_list(properties) ->
+              add_nested_properties(base_schema, properties)
+            _ ->
+              base_schema
+          end
 
         {:map, _} ->
-          %{"type" => "object"}
+          base_schema = %{"type" => "object"}
+          # Check if this map has nested properties defined
+          case opts[:properties] do
+            properties when is_list(properties) ->
+              add_nested_properties(base_schema, properties)
+            _ ->
+              base_schema
+          end
 
         :keyword_list ->
           %{"type" => "object"}
+
+        :object ->
+          base_schema = %{"type" => "object"}
+          case opts[:properties] do
+            properties when is_list(properties) ->
+              add_nested_properties(base_schema, properties)
+            _ ->
+              base_schema
+          end
 
         :atom ->
           %{"type" => "string"}
@@ -454,7 +538,7 @@ defmodule ReqLLM.Schema do
           {key, v}
         end)
 
-      case NimbleOptions.validate(keyword_data, compiled_schema) do
+      case NimbleOptions.validate(keyword_data, compiled_schema.nimble_schema) do
         {:ok, validated_data} ->
           {:ok, validated_data}
 

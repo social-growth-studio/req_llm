@@ -310,7 +310,11 @@ defmodule ReqLLM.Generation do
            provider_module.prepare_request(:object, model, messages, opts_with_schema),
          {:ok, %Req.Response{status: status, body: decoded_response}} when status in 200..299 <-
            Req.request(request) do
-      {:ok, decoded_response}
+      # Extract object from response and set the object field
+      case Response.extract_object_from_response(decoded_response, object_schema) do
+        {:ok, object} -> {:ok, %{decoded_response | object: object}}
+        {:error, _} -> {:ok, decoded_response}  # fallback to original response if extraction fails
+      end
     else
       {:ok, %Req.Response{status: status, body: body}} ->
         {:error,

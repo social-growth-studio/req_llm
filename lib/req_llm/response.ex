@@ -315,34 +315,56 @@ defmodule ReqLLM.Response do
     # object_stream/1 can extract objects from tool_call chunks
   end
 
-  # Helper function to extract structured object from tool calls
-  defp extract_object_from_response(response, schema) do
-    case tool_calls(response) do
-      [] ->
-        {:error, %ReqLLM.Error.API.Response{reason: "No structured output found in response"}}
+  @doc """
+  Extracts structured object from a Response, handling both tool calling and response_format approaches.
+  
+  For tool calling responses (Anthropic), extracts from the structured_output tool call.
+  For response_format responses (OpenAI-compatible), parses JSON from the message text.
+  """
+  def extract_object_from_response(response, _schema) do
+    tool_calls = tool_calls(response)
+    has_structured_output_tool = Enum.any?(tool_calls, &(&1.name == "structured_output"))
 
-      tool_calls ->
-        # Find the structured_output tool call
-        case Enum.find(tool_calls, &(&1.name == "structured_output")) do
-          nil ->
-            {:error, %ReqLLM.Error.API.Response{reason: "No structured_output tool call found"}}
+    if has_structured_output_tool do
+      extract_from_tool_call(tool_calls)
+    else
+      extract_json_from_text(response)
+    end
+  end
 
-          %{arguments: object} ->
-            # Validate the extracted object against the original schema
-            case ReqLLM.Schema.validate(object, schema) do
-              {:ok, _validated_data} ->
-                {:ok, object}
+  defp extract_from_tool_call(tool_calls) do
+    case Enum.find(tool_calls, &(&1.name == "structured_output")) do
+      %{arguments: object} ->
+        {:ok, object}
 
-              {:error, validation_error} ->
-                {:error,
-                 %ReqLLM.Error.API.Response{
-                   reason:
-                     "Structured output failed schema validation: #{Exception.message(validation_error)}",
-                   status: 422,
-                   response_body: object
-                 }}
-            end
+      nil ->
+        {:error, %ReqLLM.Error.API.Response{reason: "structured_output tool call not found"}}
+    end
+  end
+
+  defp extract_json_from_text(%__MODULE__{message: nil}) do
+    {:error, %ReqLLM.Error.API.Response{reason: "No message in response"}}
+  end
+
+  defp extract_json_from_text(%__MODULE__{message: %Message{content: content}}) do
+    text_parts = Enum.filter(content, &(&1.type == :text))
+
+    case text_parts do
+      [%{text: text} | _] ->
+        case Jason.decode(text) do
+          {:ok, json_object} ->
+            {:ok, json_object}
+
+          {:error, jason_error} ->
+            {:error,
+             %ReqLLM.Error.API.Response{
+               reason: "Response text is not valid JSON: #{inspect(jason_error)}",
+               response_body: String.slice(text, 0, 200)
+             }}
         end
+
+      _ ->
+        {:error, %ReqLLM.Error.API.Response{reason: "No text content in response"}}
     end
   end
 

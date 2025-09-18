@@ -66,38 +66,11 @@ defmodule ReqLLM.Providers.OpenAI do
   """
   @impl ReqLLM.Provider
 
-  def prepare_request(:object, model_spec, prompt, opts) do
-    compiled_schema = Keyword.fetch!(opts, :compiled_schema)
-
-    structured_output_tool =
-      ReqLLM.Tool.new!(
-        name: "structured_output",
-        description: "Generate structured output matching the provided schema",
-        parameter_schema: compiled_schema.schema,
-        callback: fn _args -> {:ok, "structured output generated"} end
-      )
-
-    opts_with_tool =
-      opts
-      |> Keyword.update(:tools, [structured_output_tool], &[structured_output_tool | &1])
-      |> Keyword.put(:tool_choice, %{type: "function", function: %{name: "structured_output"}})
-      |> Keyword.put_new(:max_tokens, 4096)
-
-    prepare_request(:chat, model_spec, prompt, opts_with_tool)
-  end
-
-  # Delegate all other operations to defaults
+  # All operations delegated to defaults - structured output handled via response_format in encode_body
   def prepare_request(operation, model_spec, input, opts) do
-    case ReqLLM.Provider.Defaults.prepare_request(__MODULE__, operation, model_spec, input, opts) do
-      {:error, %ReqLLM.Error.Invalid.Parameter{parameter: param}} ->
-        # Customize error message for unsupported operations
-        custom_param = String.replace(param, inspect(__MODULE__), "OpenAI provider")
-        {:error, ReqLLM.Error.Invalid.Parameter.exception(parameter: custom_param)}
-
-      result ->
-        result
-    end
+    ReqLLM.Provider.Defaults.prepare_request(__MODULE__, operation, model_spec, input, opts)
   end
+
 
   @doc """
   Translates provider-specific options for different model types.
@@ -162,13 +135,64 @@ defmodule ReqLLM.Providers.OpenAI do
           add_embedding_options(body, request.options)
 
         _ ->
-          add_token_limits(body, request.options[:model], request.options)
+          body_with_tokens = add_token_limits(body, request.options[:model], request.options)
+          # Add response_format for structured output if compiled_schema is present
+          if request.options[:compiled_schema] do
+            add_response_format(body_with_tokens, request.options[:compiled_schema])
+          else
+            body_with_tokens
+          end
       end
 
     # Re-encode with enhancements
     encoded_body = Jason.encode!(enhanced_body)
     Map.put(request, :body, encoded_body)
   end
+
+  # Helper functions for OpenAI response_format
+  defp add_response_format(body, nil), do: body
+
+  defp add_response_format(body, compiled_schema) do
+    json_schema = ReqLLM.Schema.to_json(compiled_schema.schema)
+    openai_schema = convert_to_openai_schema(json_schema)
+
+    response_format = %{
+      type: "json_schema",
+      json_schema: %{
+        name: "structured_output",
+        strict: true,
+        schema: openai_schema
+      }
+    }
+
+    Map.put(body, :response_format, response_format)
+  end
+
+  defp convert_to_openai_schema(%{"type" => "object"} = schema) do
+    schema
+    |> Map.put("additionalProperties", false)
+    |> then(fn s ->
+      case s do
+        %{"properties" => properties} when is_map(properties) ->
+          converted_properties =
+            Map.new(properties, fn {k, v} ->
+              {k, convert_to_openai_schema(v)}
+            end)
+
+          Map.put(s, "properties", converted_properties)
+
+        _ ->
+          s
+      end
+    end)
+  end
+
+  defp convert_to_openai_schema(%{"type" => "array", "items" => items} = schema)
+       when is_map(items) do
+    Map.put(schema, "items", convert_to_openai_schema(items))
+  end
+
+  defp convert_to_openai_schema(schema), do: schema
 
   defp add_embedding_options(body, request_options) do
     provider_opts = request_options[:provider_options] || []

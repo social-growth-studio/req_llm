@@ -347,7 +347,7 @@ defmodule ReqLLM.Tool do
   defp validate_input(%__MODULE__{compiled: schema}, input) do
     normalized_input = normalize_input_keys(input)
 
-    case NimbleOptions.validate(normalized_input, schema) do
+    case NimbleOptions.validate(normalized_input, schema.nimble_schema) do
       {:ok, validated_input} ->
         {:ok, validated_input}
 

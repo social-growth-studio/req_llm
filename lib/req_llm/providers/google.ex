@@ -97,33 +97,6 @@ defmodule ReqLLM.Providers.Google do
     end
   end
 
-  def prepare_request(:object, model_spec, prompt, opts) do
-    compiled_schema = Keyword.fetch!(opts, :compiled_schema)
-
-    structured_output_tool =
-      ReqLLM.Tool.new!(
-        name: "structured_output",
-        description: "Generate structured output matching the provided schema",
-        parameter_schema: compiled_schema.schema,
-        callback: fn _args -> {:ok, "structured output generated"} end
-      )
-
-    # Adjust max_tokens for structured output with Google-specific minimums
-    opts_with_tokens =
-      case Keyword.get(opts, :max_tokens) do
-        nil -> Keyword.put(opts, :max_tokens, 4096)
-        tokens when tokens < 200 -> Keyword.put(opts, :max_tokens, 200)
-        _tokens -> opts
-      end
-
-    opts_with_tool =
-      opts_with_tokens
-      |> Keyword.update(:tools, [structured_output_tool], &[structured_output_tool | &1])
-      |> Keyword.put(:tool_choice, %{type: "function", function: %{name: "structured_output"}})
-      |> Keyword.put(:operation, :object)
-
-    prepare_request(:chat, model_spec, prompt, opts_with_tool)
-  end
 
   def prepare_request(:embedding, model_spec, text, opts) do
     # Handle dimensions as a provider-specific option if passed at top level
@@ -185,21 +158,38 @@ defmodule ReqLLM.Providers.Google do
 
     api_key = ReqLLM.Keys.get!(model, user_opts)
 
-    # Register extra options that might be passed but aren't standard Req options
-    extra_option_keys =
-      [:model, :compiled_schema, :temperature, :max_tokens, :app_referer, :app_title, :fixture] ++
-        __MODULE__.supported_provider_options()
+    # Extract tools separately to avoid validation issues
+    {tools, other_opts} = Keyword.pop(user_opts, :tools, [])
+    
+    # Process options using the Provider.Options module
+    {:ok, opts} = ReqLLM.Provider.Options.process(__MODULE__, :chat, model, other_opts)
+    
+    # Add tools back after validation
+    opts = Keyword.put(opts, :tools, tools)
+
+    # Add response_schema if present for structured output
+    opts =
+      if user_opts[:response_schema] do
+        Keyword.put(opts, :response_schema, user_opts[:response_schema])
+      else
+        opts
+      end
+
+    base_url = Keyword.get(user_opts, :base_url, default_base_url())
+    req_keys = __MODULE__.supported_provider_options() ++ [:context, :operation, :text, :stream, :model, :provider_options, :response_schema]
 
     request
     # Google uses query parameter for API key, not Authorization header
-    |> Req.Request.register_options(extra_option_keys)
-    |> Req.Request.merge_options([model: model.model, params: [key: api_key]] ++ user_opts)
+    |> Req.Request.register_options(req_keys)
+    |> Req.Request.merge_options(
+      Keyword.take(opts, req_keys) ++
+        [model: model.model, base_url: base_url, params: [key: api_key]]
+    )
     |> ReqLLM.Step.Error.attach()
     |> Req.Request.append_request_steps(llm_encode_body: &__MODULE__.encode_body/1)
-    |> ReqLLM.Step.Stream.maybe_attach(user_opts[:stream] == true, model)
+    |> ReqLLM.Step.Stream.maybe_attach(opts[:stream])
     |> Req.Request.append_response_steps(llm_decode_response: &__MODULE__.decode_response/1)
     |> ReqLLM.Step.Usage.attach(model)
-    |> ReqLLM.Step.Fixture.maybe_attach(model, user_opts)
   end
 
   @impl ReqLLM.Provider
@@ -223,6 +213,43 @@ defmodule ReqLLM.Providers.Google do
         {Keyword.put(rest, :stream, stream_value), []}
     end
   end
+
+  # Helper functions for Google schema conversion
+  defp add_response_schema(generation_config, nil), do: generation_config
+
+  defp add_response_schema(generation_config, compiled_schema) do
+    json_schema = ReqLLM.Schema.to_json(compiled_schema.schema)
+    google_schema = convert_to_google_schema(json_schema)
+
+    Map.put(generation_config, :responseMimeType, "application/json")
+    |> Map.put(:responseSchema, google_schema)
+  end
+
+  defp convert_to_google_schema(%{"type" => type} = schema) when is_binary(type) do
+    google_type = String.upcase(type)
+
+    schema
+    |> Map.put("type", google_type)
+    |> then(fn s ->
+      case {google_type, s} do
+        {"OBJECT", %{"properties" => properties}} when is_map(properties) ->
+          converted_properties =
+            Map.new(properties, fn {k, v} ->
+              {k, convert_to_google_schema(v)}
+            end)
+
+          Map.put(s, "properties", converted_properties)
+
+        {"ARRAY", %{"items" => items}} when is_map(items) ->
+          Map.put(s, "items", convert_to_google_schema(items))
+
+        _ ->
+          s
+      end
+    end)
+  end
+
+  defp convert_to_google_schema(schema), do: schema
 
   # Req pipeline steps
   @impl ReqLLM.Provider
@@ -281,6 +308,14 @@ defmodule ReqLLM.Providers.Google do
       |> maybe_put(:topP, request.options[:top_p])
       |> maybe_put(:topK, request.options[:top_k])
       |> maybe_put(:candidateCount, request.options[:google_candidate_count] || 1)
+      |> then(fn config ->
+        # Add response schema for structured output if compiled_schema is present
+        if request.options[:compiled_schema] do
+          add_response_schema(config, request.options[:compiled_schema])
+        else
+          config
+        end
+      end)
 
     %{}
     |> maybe_put(:systemInstruction, system_instruction)
