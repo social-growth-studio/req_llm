@@ -84,6 +84,23 @@ defimpl ReqLLM.Context.Codec, for: ReqLLM.Providers.Google.Context do
   end
 
   defp encode_content_part(%ReqLLM.Message.ContentPart{
+         type: :file,
+         data: data,
+         media_type: media_type
+       })
+       when is_binary(data) do
+    # Encode the binary data as base64 for inline transmission
+    encoded_data = Base.encode64(data)
+
+    %{
+      inline_data: %{
+        mime_type: media_type,
+        data: encoded_data
+      }
+    }
+  end
+
+  defp encode_content_part(%ReqLLM.Message.ContentPart{
          type: :tool_call,
          tool_name: name,
          input: input,
