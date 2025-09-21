@@ -1,200 +1,58 @@
 defmodule ReqLLM.Providers.Anthropic.Response do
-  @moduledoc false
-  defstruct [:payload]
-  @type t :: %__MODULE__{payload: term()}
-end
+  @moduledoc """
+  Anthropic-specific response decoding for the Messages API format.
 
-# Protocol implementation for Anthropic-specific response decoding
-defimpl ReqLLM.Response.Codec, for: ReqLLM.Providers.Anthropic.Response do
-  alias ReqLLM.{Response, Context, Message, StreamChunk, Model}
+  Handles decoding Anthropic Messages API responses to ReqLLM structures.
+
+  ## Anthropic Response Format
+
+      %{
+        "id" => "msg_01XFDUDYJgAACzvnptvVoYEL",
+        "type" => "message",
+        "role" => "assistant",
+        "model" => "claude-3-5-sonnet-20241022",
+        "content" => [
+          %{"type" => "text", "text" => "Hello! How can I help you today?"}
+        ],
+        "stop_reason" => "stop",
+        "stop_sequence" => nil,
+        "usage" => %{
+          "input_tokens" => 10,
+          "output_tokens" => 20
+        }
+      }
+
+  ## Streaming Format
+
+  Anthropic uses Server-Sent Events (SSE) with different event types:
+  - message_start: Initial message metadata
+  - content_block_start: Start of content block
+  - content_block_delta: Incremental content
+  - content_block_stop: End of content block
+  - message_delta: Final message updates
+  - message_stop: End of message
+
+  """
 
   @doc """
-  Decode wrapped Anthropic response struct.
-
-  This handles tagged wrapper structs created by wrap_response.
+  Decode Anthropic response data to ReqLLM.Response.
   """
-  def decode_response(%{payload: _data} = _wrapped_response) do
-    # Wrapped responses without model should use decode_response/2 instead
-    {:error, :not_implemented}
-  end
-
-  @doc """
-  Decode wrapped Anthropic response struct with model information.
-  """
-  def decode_response(
-        %{payload: stream} = _wrapped_response,
-        %Model{provider: :anthropic} = model
-      )
-      when is_struct(stream, Stream) do
-    # Use the new StreamDecoder to properly handle tool call accumulation
-    chunk_stream = ReqLLM.Providers.Anthropic.StreamDecoder.build_stream(stream)
-
-    response = %Response{
-      id: "stream-#{System.unique_integer([:positive])}",
-      model: model.model || "unknown",
-      context: %Context{messages: []},
-      message: nil,
-      stream?: true,
-      stream: chunk_stream,
-      usage: %{input_tokens: 0, output_tokens: 0, total_tokens: 0},
-      finish_reason: nil,
-      provider_meta: %{}
-    }
-
-    {:ok, response}
-  end
-
-  def decode_response(%{payload: data} = _wrapped_response, %Model{provider: :anthropic} = model)
-      when is_map(data) do
-    result =
-      ReqLLM.Providers.Anthropic.ResponseDecoder.decode_anthropic_json(
-        data,
-        model.model || "unknown"
-      )
-
-    result
-  rescue
-    error ->
-      {:error, error}
-  catch
-    {:decode_error, reason} ->
-      {:error, %ReqLLM.Error.API.Response{reason: reason}}
-  end
-
-  def decode_response(_wrapped_response, _model) do
-    {:error, :unsupported_provider}
-  end
-
-  def encode_request(_), do: {:error, :not_implemented}
-end
-
-# Protocol implementation for direct Map decoding (zero-ceremony API)
-defimpl ReqLLM.Response.Codec, for: Map do
-  alias ReqLLM.{Response, Context, Message, StreamChunk, Model}
-
-  @doc """
-  Direct decoding from raw Map response data.
-
-  Handles both Anthropic and OpenAI provider maps; other providers will get not_implemented.
-  """
-  def decode_response(_data), do: {:error, :not_implemented}
-
-  def decode_response(data, %Model{provider: :anthropic} = model) when is_map(data) do
-    # Only handle maps that look like Anthropic responses (have id, model, or content keys)
-    if Map.has_key?(data, "id") or Map.has_key?(data, "model") or Map.has_key?(data, "content") do
-      try do
-        result =
-          ReqLLM.Providers.Anthropic.ResponseDecoder.decode_anthropic_json(
-            data,
-            model.model || "unknown"
-          )
-
-        result
-      rescue
-        error -> {:error, error}
-      catch
-        {:decode_error, reason} ->
-          {:error, %ReqLLM.Error.API.Response{reason: reason}}
-      end
-    else
-      {:error, :not_implemented}
-    end
-  end
-
-  def decode_response(data, %Model{provider: :openai} = model) when is_map(data) do
-    # Only handle maps that look like OpenAI responses
-    if Map.has_key?(data, "choices") or Map.has_key?(data, "id") or Map.has_key?(data, "object") do
-      try do
-        result =
-          ReqLLM.Providers.OpenAI.ResponseDecoder.decode_openai_json(
-            data,
-            model.model || "unknown"
-          )
-
-        result
-      rescue
-        error -> {:error, error}
-      end
-    else
-      {:error, :not_implemented}
-    end
-  end
-
-  def decode_response(data, %Model{provider: :google} = model) when is_map(data) do
-    # Only handle maps that look like Google responses (have candidates or usageMetadata keys)
-    if Map.has_key?(data, "candidates") or Map.has_key?(data, "usageMetadata") do
-      try do
-        result =
-          ReqLLM.Providers.Google.ResponseDecoder.decode_google_json(
-            data,
-            model.model || "unknown"
-          )
-
-        result
-      rescue
-        error -> {:error, error}
-      catch
-        {:decode_error, reason} ->
-          {:error, %ReqLLM.Error.API.Response{reason: reason}}
-      end
-    else
-      {:error, :not_implemented}
-    end
-  end
-
-  def decode_response(_data, _model), do: {:error, :unsupported_provider}
-  def encode_request(_), do: {:error, :not_implemented}
-end
-
-defmodule ReqLLM.Providers.Anthropic.ResponseDecoder do
-  @moduledoc false
-  alias ReqLLM.{Response, Context, Message, StreamChunk}
-
-  # Shared implementation for decoding Anthropic JSON
-  def decode_anthropic_json(data, model) when is_map(data) do
-    # Extract basic response information
+  @spec decode_response(map(), ReqLLM.Model.t()) :: {:ok, ReqLLM.Response.t()} | {:error, term()}
+  def decode_response(data, model) when is_map(data) do
     id = Map.get(data, "id", "unknown")
-    model_name = Map.get(data, "model", model || "unknown")
+    model_name = Map.get(data, "model", model.model || "unknown")
     usage = parse_usage(Map.get(data, "usage"))
+
     finish_reason = parse_finish_reason(Map.get(data, "stop_reason"))
 
-    # Convert Anthropic content to StreamChunks using Context.Codec
-    raw_content = Map.get(data, "content")
-
-    content_chunks =
-      case raw_content do
-        content when is_list(content) ->
-          # Call decode_content_blocks directly since we just need to convert content blocks
-          results = Enum.map(content, &decode_content_block/1)
-
-          # Check for errors in results
-          case Enum.find(results, &match?({:error, _}, &1)) do
-            {:error, reason} ->
-              throw({:decode_error, reason})
-
-            nil ->
-              chunks =
-                results
-                |> List.flatten()
-                |> Enum.reject(&is_nil/1)
-
-              chunks
-          end
-
-        _ ->
-          []
-      end
-
-    # Build assistant message from content chunks
+    content_chunks = decode_content(Map.get(data, "content", []))
     message = build_message_from_chunks(content_chunks)
 
-    # Create a minimal context with just the assistant message
-    # In practice, this would be appended to the original context by the caller
-    context = %Context{
+    context = %ReqLLM.Context{
       messages: if(message, do: [message], else: [])
     }
 
-    response = %Response{
+    response = %ReqLLM.Response{
       id: id,
       model: model_name,
       context: context,
@@ -209,44 +67,115 @@ defmodule ReqLLM.Providers.Anthropic.ResponseDecoder do
     {:ok, response}
   end
 
-  def build_message_from_chunks(chunks) when is_list(chunks) do
-    case chunks do
-      [] ->
-        nil
+  def decode_response(_data, _model) do
+    {:error, :not_implemented}
+  end
+
+  @doc """
+  Decode Anthropic SSE event data into StreamChunks.
+  """
+  @spec decode_sse_event(map(), ReqLLM.Model.t()) :: [ReqLLM.StreamChunk.t()]
+  def decode_sse_event(%{data: data}, _model) when is_map(data) do
+    case data do
+      %{"type" => "content_block_delta", "delta" => delta} ->
+        decode_content_delta(delta)
+
+      %{"type" => "content_block_start", "content_block" => block} ->
+        decode_content_block_start(block)
 
       _ ->
-        # Convert StreamChunks to Message.ContentPart structs
-        content_parts =
-          chunks
-          |> Enum.map(&chunk_to_content_part/1)
-          |> Enum.reject(&is_nil/1)
-
-        if content_parts != [] do
-          message = %Message{
-            role: :assistant,
-            content: content_parts,
-            metadata: %{}
-          }
-
-          message
-        end
+        []
     end
   end
 
-  def chunk_to_content_part(%StreamChunk{type: :content, text: text}) do
+  def decode_sse_event(_, _model), do: []
+
+  # Private helper functions
+
+  defp decode_content([]), do: []
+
+  defp decode_content(content) when is_list(content) do
+    content
+    |> Enum.map(&decode_content_block/1)
+    |> List.flatten()
+    |> Enum.reject(&is_nil/1)
+  end
+
+  defp decode_content(content) when is_binary(content) do
+    [ReqLLM.StreamChunk.text(content)]
+  end
+
+  defp decode_content_block(%{"type" => "text", "text" => text}) do
+    ReqLLM.StreamChunk.text(text)
+  end
+
+  defp decode_content_block(%{"type" => "tool_use", "id" => id, "name" => name, "input" => input}) do
+    ReqLLM.StreamChunk.tool_call(name, input, %{id: id})
+  end
+
+  defp decode_content_block(_), do: nil
+
+  defp decode_content_delta(%{"type" => "text_delta", "text" => text}) when is_binary(text) do
+    [ReqLLM.StreamChunk.text(text)]
+  end
+
+  defp decode_content_delta(%{
+         "type" => "tool_call_delta",
+         "id" => id,
+         "name" => name,
+         "partial_json" => json_fragment
+       }) do
+    # Anthropic sends partial JSON that needs to be accumulated
+    # For now, we'll create a tool call chunk with partial data
+    args =
+      case Jason.decode(json_fragment || "{}") do
+        {:ok, parsed} -> parsed
+        {:error, _} -> %{partial: json_fragment}
+      end
+
+    [ReqLLM.StreamChunk.tool_call(name, args, %{id: id, partial: true})]
+  end
+
+  defp decode_content_delta(_), do: []
+
+  defp decode_content_block_start(%{"type" => "text", "text" => text}) do
+    [ReqLLM.StreamChunk.text(text)]
+  end
+
+  defp decode_content_block_start(%{"type" => "tool_use", "id" => id, "name" => name}) do
+    # Tool call start - send empty arguments that will be filled by deltas
+    [ReqLLM.StreamChunk.tool_call(name, %{}, %{id: id, start: true})]
+  end
+
+  defp decode_content_block_start(_), do: []
+
+  defp build_message_from_chunks([]), do: nil
+
+  defp build_message_from_chunks(chunks) do
+    content_parts =
+      chunks
+      |> Enum.map(&chunk_to_content_part/1)
+      |> Enum.reject(&is_nil/1)
+
+    if content_parts != [] do
+      %ReqLLM.Message{
+        role: :assistant,
+        content: content_parts,
+        metadata: %{}
+      }
+    end
+  end
+
+  defp chunk_to_content_part(%ReqLLM.StreamChunk{type: :content, text: text}) do
     %ReqLLM.Message.ContentPart{type: :text, text: text}
   end
 
-  def chunk_to_content_part(%StreamChunk{type: :thinking, text: text}) do
-    %ReqLLM.Message.ContentPart{type: :reasoning, text: text}
-  end
-
-  def chunk_to_content_part(%StreamChunk{
-        type: :tool_call,
-        name: name,
-        arguments: args,
-        metadata: meta
-      }) do
+  defp chunk_to_content_part(%ReqLLM.StreamChunk{
+         type: :tool_call,
+         name: name,
+         arguments: args,
+         metadata: meta
+       }) do
     %ReqLLM.Message.ContentPart{
       type: :tool_call,
       tool_name: name,
@@ -255,50 +184,22 @@ defmodule ReqLLM.Providers.Anthropic.ResponseDecoder do
     }
   end
 
-  def chunk_to_content_part(_), do: nil
+  defp chunk_to_content_part(_), do: nil
 
-  def parse_usage(%{"input_tokens" => input, "output_tokens" => output} = usage_map) do
-    # Handle both simple and complex Anthropic usage structures
+  defp parse_usage(%{"input_tokens" => input, "output_tokens" => output}) do
     %{
       input_tokens: input,
       output_tokens: output,
-      total_tokens: input + output,
-      # Preserve additional usage metadata from Anthropic
-      cache_creation_input_tokens: Map.get(usage_map, "cache_creation_input_tokens", 0),
-      cache_read_input_tokens: Map.get(usage_map, "cache_read_input_tokens", 0),
-      service_tier: Map.get(usage_map, "service_tier")
+      total_tokens: input + output
     }
   end
 
-  def parse_usage(_), do: %{input_tokens: 0, output_tokens: 0, total_tokens: 0}
+  defp parse_usage(_), do: %{input_tokens: 0, output_tokens: 0, total_tokens: 0}
 
-  def parse_finish_reason("end_turn"), do: :stop
-  def parse_finish_reason("max_tokens"), do: :length
-  def parse_finish_reason("tool_use"), do: :tool_calls
-  def parse_finish_reason("stop_sequence"), do: :stop
-  def parse_finish_reason(reason) when is_binary(reason), do: reason
-  def parse_finish_reason(_), do: nil
-
-  # Helper functions for content decoding (copied from Context)
-  def decode_content_block(%{"type" => "text", "text" => text}) when is_binary(text) do
-    [ReqLLM.StreamChunk.text(text)]
-  end
-
-  def decode_content_block(%{"type" => "text", "text" => nil}) do
-    {:error, "Text content cannot be nil"}
-  end
-
-  def decode_content_block(%{"type" => "text"}) do
-    []
-  end
-
-  def decode_content_block(%{"type" => "tool_use", "id" => id, "name" => name, "input" => input}) do
-    [ReqLLM.StreamChunk.tool_call(name, input, %{id: id})]
-  end
-
-  def decode_content_block(%{"type" => "thinking", "text" => text}) do
-    [ReqLLM.StreamChunk.thinking(text)]
-  end
-
-  def decode_content_block(_unknown), do: []
+  defp parse_finish_reason("stop"), do: :stop
+  defp parse_finish_reason("max_tokens"), do: :length
+  defp parse_finish_reason("tool_use"), do: :tool_calls
+  defp parse_finish_reason("end_turn"), do: :stop
+  defp parse_finish_reason(reason) when is_binary(reason), do: reason
+  defp parse_finish_reason(_), do: nil
 end

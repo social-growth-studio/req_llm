@@ -72,6 +72,7 @@ defmodule ReqLLM.Provider do
     * `model` - The ReqLLM.Model struct or model identifier
     * `data` - Operation-specific data (messages for chat, text for embed, etc.)
     * `opts` - Additional options (stream, temperature, etc.)
+      - For `:object` operations, opts includes `:compiled_schema` with the schema definition
 
   ## Returns
 
@@ -90,6 +91,13 @@ defmodule ReqLLM.Provider do
           stream: opts[:stream] || false
         })
         {:ok, request}
+      end
+
+      # Object generation with schema
+      def prepare_request(:object, model, context, opts) do
+        compiled_schema = Keyword.fetch!(opts, :compiled_schema)
+        # Use compiled_schema.schema for tool definitions
+        prepare_request(:chat, model, context, updated_opts)
       end
 
       # Embedding operation  
@@ -236,29 +244,11 @@ defmodule ReqLLM.Provider do
   @optional_callbacks [extract_usage: 2, default_env_key: 0, translate_options: 3]
 
   @doc """
-  Registry function to get provider module for a provider ID.
-
-  ## Parameters
-
-    * `provider_id` - Atom identifying the provider (e.g., :anthropic)
-
-  ## Returns
-
-    * `{:ok, module()}` - Provider module that implements this behavior
-    * `{:error, term()}` - Provider not found
-
-  """
-  @spec get(atom()) :: {:ok, module()} | {:error, term()}
-  def get(provider_id) do
-    ReqLLM.Provider.Registry.get_provider(provider_id)
-  end
-
-  @doc """
   Registry function with bang syntax (raises on error).
   """
   @spec get!(atom()) :: module()
   def get!(provider_id) do
-    case get(provider_id) do
+    case ReqLLM.Provider.Registry.get_provider(provider_id) do
       {:ok, module} -> module
       {:error, _reason} -> raise ReqLLM.Error.Invalid.Provider.exception(provider: provider_id)
     end

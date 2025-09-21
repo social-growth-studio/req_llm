@@ -11,7 +11,7 @@ defmodule ReqLLM.Generation do
   with proper error handling.
   """
 
-  alias ReqLLM.{Context, Model, Response}
+  alias ReqLLM.{Model, Response}
 
   require Logger
 
@@ -141,6 +141,7 @@ defmodule ReqLLM.Generation do
       #=> %{input_tokens: 10, output_tokens: 8}
 
   """
+
   @spec generate_text(
           String.t() | {atom(), keyword()} | struct(),
           String.t() | list(),
@@ -149,20 +150,21 @@ defmodule ReqLLM.Generation do
   def generate_text(model_spec, messages, opts \\ []) do
     with {:ok, model} <- Model.from(model_spec),
          {:ok, provider_module} <- ReqLLM.provider(model.provider),
-         schema = ReqLLM.Utils.compose_schema(@base_schema, provider_module),
-         {:ok, validated_opts} <- NimbleOptions.validate(opts, schema),
-         {translated_opts, warnings} <-
-           translate_provider_options(provider_module, :chat, model, validated_opts),
-         :ok <- handle_warnings(translated_opts, warnings),
-         context = build_context(messages, translated_opts),
-         {:ok, configured_request} <-
-           provider_module.prepare_request(:chat, model, context, translated_opts),
-         request_with_options =
-           configured_request
-           |> ReqLLM.Utils.merge_req_options(translated_opts)
-           |> ReqLLM.Utils.attach_fixture(model, translated_opts),
-         {:ok, %Req.Response{body: decoded_response}} <- Req.request(request_with_options) do
-      Response.decode_response(decoded_response, model)
+         {:ok, request} <- provider_module.prepare_request(:chat, model, messages, opts),
+         {:ok, %Req.Response{status: status, body: decoded_response}} when status in 200..299 <-
+           Req.request(request) do
+      {:ok, decoded_response}
+    else
+      {:ok, %Req.Response{status: status, body: body}} ->
+        {:error,
+         ReqLLM.Error.API.Request.exception(
+           reason: "HTTP #{status}: Request failed",
+           status: status,
+           response_body: body
+         )}
+
+      {:error, error} ->
+        {:error, error}
     end
   end
 
@@ -223,21 +225,10 @@ defmodule ReqLLM.Generation do
   def stream_text(model_spec, messages, opts \\ []) do
     with {:ok, model} <- Model.from(model_spec),
          {:ok, provider_module} <- ReqLLM.provider(model.provider),
-         schema = ReqLLM.Utils.compose_schema(@base_schema, provider_module),
-         {:ok, validated_opts} <- NimbleOptions.validate(opts, schema),
-         {translated_opts, warnings} <-
-           translate_provider_options(provider_module, :chat, model, validated_opts),
-         :ok <- handle_warnings(translated_opts, warnings),
-         stream_opts = Keyword.put(translated_opts, :stream, true),
-         context = build_context(messages, stream_opts),
-         {:ok, configured_request} <-
-           provider_module.prepare_request(:chat, model, context, stream_opts),
-         request_with_options =
-           configured_request
-           |> ReqLLM.Utils.merge_req_options(stream_opts)
-           |> ReqLLM.Utils.attach_fixture(model, stream_opts),
-         {:ok, %Req.Response{body: decoded_response}} <- Req.request(request_with_options) do
-      Response.decode_response(decoded_response, model)
+         stream_opts = Keyword.put(opts, :stream, true),
+         {:ok, request} <- provider_module.prepare_request(:chat, model, messages, stream_opts),
+         {:ok, %Req.Response{body: response}} <- Req.request(request) do
+      {:ok, response}
     end
   end
 
@@ -269,94 +260,6 @@ defmodule ReqLLM.Generation do
       {:error, error} -> raise error
     end
   end
-
-  # Private helper functions
-
-  defp translate_provider_options(provider_mod, operation, model, opts) do
-    if function_exported?(provider_mod, :translate_options, 3) do
-      provider_mod.translate_options(operation, model, opts)
-    else
-      {opts, []}
-    end
-  end
-
-  defp handle_warnings(opts, warnings) do
-    case opts[:on_unsupported] || :warn do
-      :ignore ->
-        :ok
-
-      :warn ->
-        Enum.each(warnings, &Logger.warning/1)
-        :ok
-
-      :error ->
-        if warnings == [], do: :ok, else: {:error, {:unsupported_options, warnings}}
-    end
-  end
-
-  defp build_context(messages, opts) when is_binary(messages) do
-    context = Context.new([Context.user(messages)])
-    add_system_prompt(context, opts)
-  end
-
-  defp build_context(%Context{} = context, opts) do
-    add_system_prompt(context, opts)
-  end
-
-  defp build_context(messages, opts) when is_list(messages) do
-    # Convert plain message maps to Context if needed
-    message_structs =
-      Enum.map(messages, fn
-        %ReqLLM.Message{} = message ->
-          message
-
-        %{role: role, content: content} = message ->
-          case validate_role(role) do
-            {:ok, role_atom} ->
-              Context.text(
-                role_atom,
-                content,
-                Map.get(message, :metadata, %{})
-              )
-
-            {:error, _} ->
-              raise ArgumentError,
-                    "Invalid role: #{inspect(role)}. Valid roles are: user, system, assistant, tool"
-          end
-
-        other ->
-          other
-      end)
-
-    context = Context.new(message_structs)
-    add_system_prompt(context, opts)
-  end
-
-  defp add_system_prompt(%Context{} = context, opts) do
-    case opts[:system_prompt] do
-      nil ->
-        context
-
-      system_text when is_binary(system_text) ->
-        system_msg = Context.system(system_text)
-        Context.new([system_msg | Context.to_list(context)])
-    end
-  end
-
-  # Validate role and convert to atom safely
-  defp validate_role(role) when role in [:user, :system, :assistant, :tool], do: {:ok, role}
-
-  defp validate_role(role) when is_binary(role) do
-    case String.downcase(role) do
-      role_str when role_str in ~w(user system assistant tool) ->
-        {:ok, String.to_atom(role_str)}
-
-      _ ->
-        {:error, :invalid_role}
-    end
-  end
-
-  defp validate_role(_), do: {:error, :invalid_role}
 
   @doc """
   Generates structured data using an AI model with schema validation.
@@ -401,27 +304,54 @@ defmodule ReqLLM.Generation do
   def generate_object(model_spec, messages, object_schema, opts \\ []) do
     with {:ok, model} <- Model.from(model_spec),
          {:ok, provider_module} <- ReqLLM.provider(model.provider),
-         options_schema = ReqLLM.Utils.compose_schema(@base_schema, provider_module),
-         {:ok, validated_opts} <- NimbleOptions.validate(opts, options_schema),
-         {translated_opts, warnings} <-
-           translate_provider_options(provider_module, :object, model, validated_opts),
-         :ok <- handle_warnings(translated_opts, warnings),
          {:ok, compiled_schema} <- ReqLLM.Schema.compile(object_schema),
-         context = build_context(messages, translated_opts),
-         {:ok, configured_request} <-
-           provider_module.prepare_request(
-             :object,
-             model,
-             context,
-             compiled_schema,
-             translated_opts
-           ),
-         request_with_options =
-           configured_request
-           |> ReqLLM.Utils.merge_req_options(translated_opts)
-           |> ReqLLM.Utils.attach_fixture(model, translated_opts),
-         {:ok, %Req.Response{body: decoded_response}} <- Req.request(request_with_options) do
-      Response.decode_object(decoded_response, model, object_schema)
+         opts_with_schema = Keyword.put(opts, :compiled_schema, compiled_schema),
+         {:ok, request} <-
+           provider_module.prepare_request(:object, model, messages, opts_with_schema),
+         {:ok, %Req.Response{status: status, body: decoded_response}} when status in 200..299 <-
+           Req.request(request) do
+      {:ok, decoded_response}
+    else
+      {:ok, %Req.Response{status: status, body: body}} ->
+        {:error,
+         ReqLLM.Error.API.Request.exception(
+           reason: "HTTP #{status}: Request failed",
+           status: status,
+           response_body: body
+         )}
+
+      {:error, error} ->
+        {:error, error}
+    end
+  end
+
+  @doc """
+  Generates structured data using an AI model, returning only the object content.
+
+  This is a convenience function that extracts just the object from the response.
+  For access to usage metadata and other response data, use `generate_object/4`.
+  Raises on error.
+
+  ## Parameters
+
+  Same as `generate_object/4`.
+
+  ## Examples
+
+      ReqLLM.Generation.generate_object!("anthropic:claude-3-sonnet", "Generate a person", person_schema)
+      #=> %{name: "Alice Smith", age: 30, occupation: "Engineer"}
+
+  """
+  @spec generate_object!(
+          String.t() | {atom(), keyword()} | struct(),
+          String.t() | list(),
+          keyword(),
+          keyword()
+        ) :: map() | no_return()
+  def generate_object!(model_spec, messages, object_schema, opts \\ []) do
+    case generate_object(model_spec, messages, object_schema, opts) do
+      {:ok, response} -> Response.object(response)
+      {:error, error} -> raise error
     end
   end
 
@@ -461,52 +391,12 @@ defmodule ReqLLM.Generation do
   def stream_object(model_spec, messages, object_schema, opts \\ []) do
     with {:ok, model} <- Model.from(model_spec),
          {:ok, provider_module} <- ReqLLM.provider(model.provider),
-         options_schema = ReqLLM.Utils.compose_schema(@base_schema, provider_module),
-         {:ok, validated_opts} <- NimbleOptions.validate(opts, options_schema),
-         {translated_opts, warnings} <-
-           translate_provider_options(provider_module, :object, model, validated_opts),
-         :ok <- handle_warnings(translated_opts, warnings),
          {:ok, compiled_schema} <- ReqLLM.Schema.compile(object_schema),
-         stream_opts = Keyword.put(translated_opts, :stream, true),
-         context = build_context(messages, stream_opts),
-         {:ok, configured_request} <-
-           provider_module.prepare_request(:object, model, context, compiled_schema, stream_opts),
-         request_with_options =
-           configured_request
-           |> ReqLLM.Utils.merge_req_options(stream_opts)
-           |> ReqLLM.Utils.attach_fixture(model, stream_opts),
-         {:ok, %Req.Response{body: decoded_response}} <- Req.request(request_with_options) do
-      Response.decode_object_stream(decoded_response, model, object_schema)
-    end
-  end
-
-  @doc """
-  Generates structured data using an AI model, returning only the object content.
-
-  This is a convenience function that extracts just the object from the response.
-  For access to usage metadata and other response data, use `generate_object/4`.
-  Raises on error.
-
-  ## Parameters
-
-  Same as `generate_object/4`.
-
-  ## Examples
-
-      ReqLLM.Generation.generate_object!("anthropic:claude-3-sonnet", "Generate a person", person_schema)
-      #=> %{name: "Alice Smith", age: 30, occupation: "Engineer"}
-
-  """
-  @spec generate_object!(
-          String.t() | {atom(), keyword()} | struct(),
-          String.t() | list(),
-          keyword(),
-          keyword()
-        ) :: map() | no_return()
-  def generate_object!(model_spec, messages, object_schema, opts \\ []) do
-    case generate_object(model_spec, messages, object_schema, opts) do
-      {:ok, response} -> Response.object(response)
-      {:error, error} -> raise error
+         stream_opts =
+           Keyword.put(opts, :stream, true) |> Keyword.put(:compiled_schema, compiled_schema),
+         {:ok, request} <- provider_module.prepare_request(:object, model, messages, stream_opts),
+         {:ok, %Req.Response{body: response}} <- Req.request(request) do
+      {:ok, response}
     end
   end
 

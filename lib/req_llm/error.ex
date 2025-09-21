@@ -42,6 +42,18 @@ defmodule ReqLLM.Error do
     end
   end
 
+  defmodule Invalid.Capability do
+    @moduledoc "Error for unsupported model capabilities."
+    use Splode.Error, fields: [:message, :missing], class: :invalid
+
+    @spec message(map()) :: String.t()
+    def message(%{message: msg}) when is_binary(msg), do: msg
+
+    def message(%{missing: missing}) do
+      "Unsupported capabilities: #{inspect(missing)}"
+    end
+  end
+
   defmodule API.Request do
     @moduledoc "Error for API request failures, HTTP errors, and network issues."
     use Splode.Error,
@@ -238,6 +250,18 @@ defmodule ReqLLM.Error do
 
     def message(_) do
       "JSON decode error"
+    end
+  end
+
+  defmodule API.Stream do
+    @moduledoc "Error for stream processing failures."
+    use Splode.Error,
+      fields: [:reason, :cause],
+      class: :api
+
+    @spec message(map()) :: String.t()
+    def message(%{reason: reason}) do
+      reason
     end
   end
 

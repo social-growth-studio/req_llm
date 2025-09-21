@@ -1,12 +1,32 @@
-defmodule Mix.Tasks.Req.Llm.StreamText do
-  @shortdoc "Stream text generation from AI models"
+defmodule Mix.Tasks.ReqLlm.StreamText do
+  @shortdoc "Stream text generation from any AI model"
 
   @moduledoc """
-  Mix task for streaming text generation from AI models.
+  Stream text generation from any supported AI model with real-time output.
 
-  Provides real-time streaming text generation with basic metrics.
+  ## Usage
+
+      mix req.llm.stream_text "Your prompt here" --model provider:model-name
+
+  ## Examples
+
+      # Stream from Groq
+      mix req.llm.stream_text "Explain streaming APIs" --model groq:gemma2-9b-it
+
+      # Stream from OpenAI with options
+      mix req.llm.stream_text "Write a story" --model openai:gpt-4o --max-tokens 500 --temperature 0.8
+
+  ## Options
+
+      --model         Model specification (provider:model-name)
+      --system        System prompt/message
+      --max-tokens    Maximum tokens to generate
+      --temperature   Sampling temperature (0.0-2.0)
+      --log-level     Output verbosity: quiet, normal, verbose, debug
   """
   use Mix.Task
+
+  alias Mix.Tasks.ReqLlm.Shared
 
   @preferred_cli_env ["req.llm.stream_text": :dev]
   @spec run([String.t()]) :: :ok | no_return()
@@ -14,165 +34,106 @@ defmodule Mix.Tasks.Req.Llm.StreamText do
   def run(args) do
     Application.ensure_all_started(:req_llm)
 
-    {opts, args_list, _} =
-      OptionParser.parse(args,
-        switches: [
-          model: :string,
-          system: :string,
-          max_tokens: :integer,
-          temperature: :float,
-          verbose: :boolean,
-          metrics: :boolean,
-          quiet: :boolean
-        ]
-      )
+    {opts, args_list, _} = Shared.parse_args(args)
 
-    prompt =
-      case args_list do
-        [p | _] ->
-          p
+    case Shared.validate_prompt(args_list, "stream_text") do
+      {:ok, prompt} ->
+        model_spec = Keyword.get(opts, :model, "groq:gemma2-9b-it")
+        log_level = Shared.parse_log_level(Keyword.get(opts, :log_level))
+        quiet = log_level == :quiet
+        verbose = log_level in [:verbose, :debug]
+        metrics = log_level in [:verbose, :debug]
 
-        [] ->
-          IO.puts("Usage: mix req.llm.stream_text \"Your prompt here\"")
-          System.halt(1)
-      end
-
-    model_spec = Keyword.get(opts, :model, "anthropic:claude-3-haiku-20240307")
-    quiet = Keyword.get(opts, :quiet, false)
-    verbose = Keyword.get(opts, :verbose, false)
-    metrics = Keyword.get(opts, :metrics, false)
-
-    # Check for API key configuration
-    provider = String.split(model_spec, ":") |> List.first()
-
-    jido_key =
-      case provider do
-        "anthropic" -> :anthropic_api_key
-        "openai" -> :openai_api_key
-        "openrouter" -> :openrouter_api_key
-        _ -> nil
-      end
-
-    if jido_key && !JidoKeys.get(jido_key) do
-      IO.puts("⚠️  Warning: API key for #{provider} not found in JidoKeys keyring.")
-      IO.puts("   Please set it with: JidoKeys.put(#{inspect(jido_key)}, \"your-api-key\")")
-      IO.puts("")
-    end
-
-    if !quiet do
-      IO.puts("🚀 Streaming from #{model_spec}")
-      IO.puts("Prompt: #{prompt}")
-      IO.puts("")
-    end
-
-    stream_opts =
-      []
-      |> maybe_add_option(opts, :system_prompt, :system)
-      |> maybe_add_option(opts, :max_tokens)
-      |> maybe_add_option(opts, :temperature)
-      |> Enum.reject(fn {_key, val} -> is_nil(val) end)
-
-    start_time = System.monotonic_time(:millisecond)
-
-    try do
-      stream = ReqLLM.stream_text!(model_spec, prompt, stream_opts)
-
-      if !quiet, do: IO.puts("Response:")
-
-      chunks = Enum.to_list(stream)
-
-      # Print each chunk - handle potential error tuples
-      for {chunk, index} <- Enum.with_index(chunks, 1) do
-        cond do
-          verbose and not quiet ->
-            IO.puts("[#{index}]: #{inspect(chunk)}")
-
-          not quiet ->
-            case chunk do
-              {_status, _error} = error_tuple ->
-                IO.puts("❌ Error in stream: #{inspect(error_tuple)}")
-
-              chunk when is_binary(chunk) ->
-                IO.write(chunk)
-
-              other ->
-                IO.puts("❌ Unexpected chunk type: #{inspect(other)}")
-            end
-
-          true ->
-            :ok
+        if !quiet do
+          IO.puts("Streaming from #{model_spec}")
+          IO.puts("Prompt: #{prompt}")
+          IO.puts("")
         end
-      end
 
-      # Debug output for empty responses
-      if Enum.empty?(chunks) and not quiet do
-        IO.puts("⚠️ No chunks received from stream")
-      end
+        stream_opts = Shared.build_generate_opts(opts)
+        start_time = System.monotonic_time(:millisecond)
 
-      if !quiet, do: IO.puts("")
+        try do
+          ReqLLM.stream_text(model_spec, prompt, stream_opts)
+          |> Shared.handle_common_errors()
+          |> handle_success(quiet, verbose, metrics, start_time, model_spec, prompt)
+        rescue
+          error -> Shared.handle_rescue_error(error)
+        end
 
-      if metrics do
-        show_key_stats(chunks, start_time, model_spec, prompt)
-      end
-
-      if !quiet, do: IO.puts("✅ Completed")
-      :ok
-    rescue
-      error ->
-        IO.puts("❌ Error: #{inspect(error)}")
+      {:error, :no_prompt} ->
         System.halt(1)
     end
   end
 
-  defp maybe_add_option(opts_list, parsed_opts, target_key, source_key \\ nil) do
-    source_key = source_key || target_key
-
-    case Keyword.get(parsed_opts, source_key) do
-      nil -> opts_list
-      value -> Keyword.put(opts_list, target_key, value)
+  defp handle_success({:ok, response}, quiet, verbose, metrics, start_time, model_spec, prompt) do
+    if !quiet do
+      IO.puts("Response:")
+      IO.puts("   Model: #{response.model}")
+      IO.puts("")
     end
-  end
 
-  defp show_key_stats(chunks, start_time, model_spec, prompt) do
-    end_time = System.monotonic_time(:millisecond)
-    response_time = end_time - start_time
+    {full_text, chunk_count} = stream_response(response, quiet, verbose)
 
-    # Filter out non-string chunks and join
-    string_chunks = Enum.filter(chunks, &is_binary/1)
-    full_text = Enum.join(string_chunks, "")
-    output_tokens = estimate_tokens(full_text)
-    input_tokens = estimate_tokens(prompt)
-    estimated_cost = calculate_cost(model_spec, input_tokens + output_tokens)
+    if !quiet, do: IO.puts("\n")
 
-    IO.puts("📊 Stats:")
-    IO.puts("   Response time: #{response_time}ms")
-    IO.puts("   Output tokens: #{output_tokens}")
-    IO.puts("   Estimated input tokens: #{input_tokens}")
+    if metrics do
+      response_with_chunk_count = Map.put(response, :chunk_count, chunk_count)
 
-    if estimated_cost > 0 do
-      IO.puts("   Estimated cost: $#{Float.round(estimated_cost, 6)}")
-    else
-      IO.puts("   Estimated cost: Unknown")
+      Shared.show_stats(
+        full_text,
+        start_time,
+        model_spec,
+        prompt,
+        response_with_chunk_count,
+        :stream
+      )
     end
+
+    if !quiet, do: IO.puts("Streaming completed")
+    :ok
   end
 
-  defp estimate_tokens(text) do
-    max(1, div(String.length(text), 4))
-  end
+  defp stream_response(response, quiet, verbose) do
+    response.stream
+    |> Enum.reduce({[], 0}, fn chunk, {acc_chunks, count} ->
+      count = count + 1
 
-  defp calculate_cost(model_spec, tokens) do
-    cost_per_million =
       cond do
-        String.contains?(model_spec, "claude-3-haiku") -> 0.25
-        String.contains?(model_spec, "claude-3-5-sonnet") -> 3.0
-        String.contains?(model_spec, "claude-3-sonnet") -> 3.0
-        String.contains?(model_spec, "claude-3-opus") -> 15.0
-        String.contains?(model_spec, "gpt-4o-mini") -> 0.6
-        String.contains?(model_spec, "gpt-4o") -> 2.4
-        String.contains?(model_spec, "deepseek") -> 0.28
-        true -> 0.0
-      end
+        verbose ->
+          IO.puts("[#{count}]: #{inspect(chunk)}")
+          collect_text_chunk(chunk, acc_chunks, count)
 
-    tokens / 1_000_000 * cost_per_million
+        not quiet ->
+          case chunk do
+            %ReqLLM.StreamChunk{type: :content, text: text} when is_binary(text) ->
+              IO.binwrite(:stdio, text)
+              :io.put_chars(:standard_io, [])
+              {[text | acc_chunks], count}
+
+            %ReqLLM.StreamChunk{type: :tool_call, name: name} ->
+              IO.binwrite(:stdio, "\n[TOOL CALL: #{name}]")
+              :io.put_chars(:standard_io, [])
+              {acc_chunks, count}
+
+            _ ->
+              {acc_chunks, count}
+          end
+
+        true ->
+          collect_text_chunk(chunk, acc_chunks, count)
+      end
+    end)
+    |> then(fn {chunks, count} ->
+      text = chunks |> Enum.reverse() |> Enum.join("")
+      {text, count}
+    end)
   end
+
+  defp collect_text_chunk(%ReqLLM.StreamChunk{type: :content, text: text}, acc_chunks, count)
+       when is_binary(text) do
+    {[text | acc_chunks], count}
+  end
+
+  defp collect_text_chunk(_, acc_chunks, count), do: {acc_chunks, count}
 end
