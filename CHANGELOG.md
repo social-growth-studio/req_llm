@@ -5,6 +5,44 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- New Mix tasks for local testing and exploration:
+  - generate_text, generate_object (structured output), and stream_object
+  - All tasks support --log-level and --debug-dir for easier debugging; stream_text gains debug logging
+- New providers: Alibaba (China) and Z.AI Coding Plan
+- Google provider:
+  - File content parts support (binary uploads via base64) for improved multimodal inputs
+  - Added Gemini Embedding 001 support
+- Model capability discovery and validation to catch unsupported features early (e.g., streaming, tools, structured output, embeddings)
+- Streaming utilities to capture raw SSE chunks and save streaming fixtures
+- Schema validation utilities for structured outputs with clearer, actionable errors
+
+### Enhanced
+- Major provider refactor to a unified, codec-based architecture
+  - More consistent request/response handling across providers and improved alignment with OpenAI semantics
+- Streaming reliability and performance improvements (better SSE parsing and handling)
+- Centralized model metadata handling for more accurate capabilities and configuration
+- Error handling and logging across the library for clearer diagnostics and easier troubleshooting
+- Embedding flow robustness and coverage
+
+### Fixed
+- More informative errors on invalid/partial provider responses and schema mismatches
+- Stability improvements in streaming and fixture handling across providers
+
+### Changed
+- jido_keys is now a required dependency (installed transitively; no code changes expected for most users)
+- Logging warnings standardized to Logger.warning
+
+### Internal
+- Testing infrastructure overhaul:
+  - New timing-aware LLMFixture system, richer streaming/object/tool-calling fixtures, and broader provider coverage
+  - Fake API key support for safer, more reliable test runs
+
+### Notes
+- No public API-breaking changes are expected; upgrades should be seamless for most users
+
 ## [1.0.0-rc.2] - 2025-01-15
 
 ### Added
