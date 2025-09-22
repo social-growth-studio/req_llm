@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-rc.3] - 2025-01-22
+
 ### Added
 - New Mix tasks for local testing and exploration:
   - generate_text, generate_object (structured output), and stream_object
@@ -119,5 +121,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Quality tooling with Dialyzer, Credo, and formatter
 - LiveFixture testing framework for API mocking
 
+[1.0.0-rc.3]: https://github.com/agentjido/req_llm/releases/tag/v1.0.0-rc.3
 [1.0.0-rc.2]: https://github.com/agentjido/req_llm/releases/tag/v1.0.0-rc.2
 [1.0.0-rc.1]: https://github.com/agentjido/req_llm/releases/tag/v1.0.0-rc.1

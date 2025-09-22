@@ -1,6 +1,6 @@
 # Adding a new provider to **ReqLLM**
 
-_Rev. 2025-02 – ReqLLM 1.0.0-rc.2_
+_Rev. 2025-02 – ReqLLM 1.0.0-rc.3_
 
 ## Developer checklist
 

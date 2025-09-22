@@ -198,7 +198,7 @@ This approach gives you full control over the Req pipeline, allowing you to add 
 
 ## Roadmap & Status
 
-ReqLLM 1.0-rc.1 is a **release candidate**. The core API is stable, but minor breaking changes may occur before the final 1.0.0 release based on community feedback.
+ReqLLM 1.0-rc.3 is a **release candidate**. The core API is stable, but minor breaking changes may occur before the final 1.0.0 release based on community feedback.
 
 **Planned for 1.x:**
 - Additional open-source providers (Ollama, LocalAI)

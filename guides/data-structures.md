@@ -1,6 +1,6 @@
 # Data Structures Guide
 
-ReqLLM 1.0.0-rc.2 core data structures and practical usage patterns. Six primary structures provide unified, provider-agnostic AI interactions.
+ReqLLM 1.0.0-rc.3 core data structures and practical usage patterns. Six primary structures provide unified, provider-agnostic AI interactions.
 
 ## Table of Contents
 
@@ -679,4 +679,4 @@ vision_model = ReqLLM.Model.from!("anthropic:claude-3-5-sonnet")
 final_analysis = text_result.content <> " " <> vision_result.content
 ```
 
-ReqLLM 1.0.0-rc.2 provides type-safe, provider-agnostic data structures for building composable AI workflows. Each structure builds on the others to create a unified foundation for AI application development.
+ReqLLM 1.0.0-rc.3 provides type-safe, provider-agnostic data structures for building composable AI workflows. Each structure builds on the others to create a unified foundation for AI application development.
