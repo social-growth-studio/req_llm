@@ -1,0 +1,82 @@
+# ReqLLM • OpenAI Quickstart (gpt-4o-mini)
+
+Minimal, practical examples for text generation, streaming, and structured outputs using the inexpensive OpenAI gpt-4o-mini model.
+
+Tip: In Livebook, add a secret named OPENAI_API_KEY (preferred), or paste your key in the setup cell below.
+
+## Install
+
+```elixir
+Mix.install([
+  {:req_llm, "~> 1.0.0-rc.2"}
+])
+```
+
+## Configure OpenAI key
+
+```elixir
+# Uses OPENAI_API_KEY from env/secrets if present, otherwise prompts you to paste one.
+model = "openai:gpt-4o-mini"
+
+key = System.get_env("LB_OPENAI_API_KEY") || System.get_env("OPENAI_API_KEY")
+
+if key in [nil, "", "sk-..."] do
+  raise """
+  Missing OpenAI key.
+  - Add a Livebook secret named OPENAI_API_KEY, or
+  - Replace the placeholder in this cell with your real key.
+  """
+else
+  ReqLLM.put_key(:openai_api_key, key)
+  :ok
+end
+```
+
+## 1) Basic text generation
+
+Change the prompt and re-run.
+
+```elixir
+prompt = "In one sentence, explain what Elixir Livebook is."
+
+text = ReqLLM.generate_text!(model, prompt)
+
+text
+```
+
+## 2) Streaming tokens as they arrive
+
+```elixir
+ReqLLM.stream_text!(model, "Write a 3–4 sentence upbeat intro to functional programming.")
+|> Enum.each(&IO.write/1)
+
+IO.puts("") # newline at the end
+```
+
+## 3) Structured data (JSON-like object)
+
+Provide a simple schema; the model returns a validated Elixir map.
+
+```elixir
+schema = [
+  idea: [type: :string, required: true],
+  steps: [type: {:list, :string}, required: true]
+]
+
+object =
+  ReqLLM.generate_object!(
+    model,
+    "Return a very short DIY idea and 3 concise steps as JSON matching the schema.",
+    schema
+  )
+
+object
+```
+
+That's it—three essentials to get you productive:
+
+* `generate_text!/3` for simple output
+* `stream_text!/3` for streaming  
+* `generate_object!/4` for structured results
+
+<!-- livebook:{"offset":1803,"stamp":{"token":"XCP.s8_TN-7BAigP7xW9A9HBmbSHce-x_P10dSp0Z1p5c8b8tbEVjGoS9gwmB6LtfJwnOqMpAwG9Z5aJYlwufuFOwufY9zeFdIuKij3w3suRBhFL_H7aBD_FM6c","version":2}} -->

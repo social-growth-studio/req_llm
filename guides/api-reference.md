@@ -1,6 +1,6 @@
 # API Reference
 
-Complete reference for ReqLLM 1.0.0-rc.1 public API. Provides Vercel AI SDK-inspired functions with consistent signatures across streaming and non-streaming modes.
+Complete reference for ReqLLM 1.0.0-rc.2 public API. Provides Vercel AI SDK-inspired functions with consistent signatures across streaming and non-streaming modes.
 
 ## Text Generation
 
@@ -41,7 +41,7 @@ ctx = ReqLLM.context([
 Generate text returning only the text content.
 
 ```elixir
-@spec generate_text!(model_spec, messages, opts) :: {:ok, String.t()} | {:error, Splode.t()}
+@spec generate_text!(model_spec, messages, opts) :: String.t() | no_return()
 ```
 
 **Examples:**
@@ -74,7 +74,7 @@ ReqLLM.Response.usage(response)
 Stream text generation returning only the stream.
 
 ```elixir
-@spec stream_text!(model_spec, messages, opts) :: {:ok, Stream.t()} | {:error, Splode.t()}
+@spec stream_text!(model_spec, messages, opts) :: Stream.t() | no_return()
 ```
 
 **Examples:**
@@ -109,7 +109,7 @@ schema = [
 Generate structured data returning only the object.
 
 ```elixir
-@spec generate_object!(model_spec, messages, schema, opts) :: {:ok, term()} | {:error, Splode.t()}
+@spec generate_object!(model_spec, messages, schema, opts) :: term() | no_return()
 ```
 
 ### stream_object/4
@@ -125,7 +125,7 @@ Stream structured data generation.
 Stream structured data returning only the stream.
 
 ```elixir
-@spec stream_object!(model_spec, messages, schema, opts) :: {:ok, Stream.t()} | {:error, Splode.t()}
+@spec stream_object!(model_spec, messages, schema, opts) :: Stream.t() | no_return()
 ```
 
 ## Embedding Functions
@@ -196,7 +196,7 @@ ReqLLM accepts flexible model specifications:
 - `:stop` - Stop sequences (string or list)
 
 ### Context and Tools
-- `:system` - System message for the model
+- `:system_prompt` - System message for the model
 - `:context` - Conversation context as ReqLLM.Context
 - `:tools` - List of tool definitions for function calling
 - `:tool_choice` - Tool selection strategy (`:auto`, `:required`, specific tool)
@@ -258,7 +258,7 @@ Create tool definitions for function calling:
 weather_tool = ReqLLM.tool(
   name: "get_weather",
   description: "Get current weather for a location",
-  parameters: [
+  parameter_schema: [
     location: [type: :string, required: true],
     units: [type: :string, default: "metric"]
   ],

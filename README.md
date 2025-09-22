@@ -193,7 +193,7 @@ This approach gives you full control over the Req pipeline, allowing you to add 
 - [Core Concepts](guides/core-concepts.md) – architecture & data model
 - [API Reference](guides/api-reference.md) – functions & types
 - [Data Structures](guides/data-structures.md) – detailed type information
-- [Capability Testing](guides/capability-testing.md) – testing strategies
+- [Coverage Testing](guides/coverage-testing.md) – testing strategies
 - [Adding a Provider](guides/adding_a_provider.md) – extend with new providers
 
 ## Roadmap & Status

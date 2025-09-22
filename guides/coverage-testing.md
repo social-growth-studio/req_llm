@@ -1,13 +1,13 @@
-# Capability Testing Guide
+# Coverage Testing Guide
 
-This guide covers testing and verification workflows for ReqLLM, focusing on capability-driven testing patterns that ensure provider behavior matches advertised features.
+This guide covers testing and verification workflows for ReqLLM, focusing on live API coverage tests with fixture support for local testing without API calls.
 
 ## Overview
 
 ReqLLM's testing system is built around two core principles:
 
-1. **Capability-driven testing** - Tests verify that advertised capabilities actually work
-2. **Fixture-based testing** - Tests can run against live APIs or cached fixtures
+1. **Provider coverage testing** - Tests verify that provider implementations work correctly across different features
+2. **Fixture-based testing** - Tests can run against live APIs or cached fixtures for fast local development
 
 ## Testing Modes
 
@@ -120,13 +120,10 @@ defmodule ReqLLM.Coverage.MyProvider.CustomTest do
   
   @model "my_provider:my-model"
   
-  test "basic text generation" do
-    result = use_fixture(:my_provider, "basic_generation", fn ->
-      ctx = ReqLLM.Context.new([ReqLLM.Context.user("Hello!")])
-      ReqLLM.generate_text(@model, ctx, max_tokens: 50)
-    end)
+  test "basic text generation", fixture: "basic_generation" do
+    ctx = ReqLLM.Context.new([ReqLLM.Context.user("Hello!")])
+    {:ok, resp} = ReqLLM.generate_text(@model, ctx, max_tokens: 50)
     
-    {:ok, resp} = result
     text = ReqLLM.Response.text(resp)
     assert is_binary(text)
     assert text != ""
@@ -167,7 +164,7 @@ describe "tool calling capabilities" do
   @weather_tool %{
     name: "get_weather",
     description: "Get weather for a location",
-    input_schema: %{
+    parameter_schema: %{
       type: "object",
       properties: %{
         location: %{type: "string", description: "City name"}
@@ -176,19 +173,16 @@ describe "tool calling capabilities" do
     }
   }
 
-  test "basic tool calling" do
-    result = use_fixture(:my_provider, "tool_calling_basic", fn ->
-      ctx = ReqLLM.Context.new([
-        ReqLLM.Context.user("What's the weather in Paris?")
-      ])
-      
-      ReqLLM.generate_text(@model, ctx, 
-        tools: [@weather_tool],
-        max_tokens: 200
-      )
-    end)
+  test "basic tool calling", fixture: "tool_calling_basic" do
+    ctx = ReqLLM.Context.new([
+      ReqLLM.Context.user("What's the weather in Paris?")
+    ])
     
-    {:ok, resp} = result
+    {:ok, resp} = ReqLLM.generate_text(@model, ctx, 
+      tools: [@weather_tool],
+      max_tokens: 200
+    )
+    
     assert resp.id != nil
   end
   
@@ -236,18 +230,12 @@ end
 Test streaming with proper chunk handling:
 
 ```elixir
-test "streaming text generation" do
+test "streaming text generation", fixture: "streaming_test" do
   if ReqLLM.Capability.supports?(@model, :streaming) do
-    result = use_fixture(:my_provider, "streaming_test", fn ->
-      ctx = ReqLLM.Context.new([ReqLLM.Context.user("Tell me a story")])
-      
-      {:ok, resp} = ReqLLM.stream_text(@model, ctx, max_tokens: 100)
-      
-      # LiveFixture automatically materializes streams
-      resp
-    end)
+    ctx = ReqLLM.Context.new([ReqLLM.Context.user("Tell me a story")])
     
-    {:ok, resp} = result
+    {:ok, resp} = ReqLLM.stream_text(@model, ctx, max_tokens: 100)
+    
     assert resp.id != nil
     text = ReqLLM.Response.text(resp)
     assert is_binary(text)
@@ -449,11 +437,11 @@ Handle API keys and environment variables properly:
 # Skip tests if API key not available  
 # Keys are automatically loaded from .env via JidoKeys+Dotenvy
 setup do
-  unless ReqLLM.get_key(:anthropic_api_key) do
-    skip("ANTHROPIC_API_KEY not configured in .env or JidoKeys")
+  case ReqLLM.Keys.get(:anthropic_api_key) do
+    {:ok, _key} -> :ok
+    {:error, _reason} -> skip("ANTHROPIC_API_KEY not configured in .env or JidoKeys")
   end
-  :ok
 end
 ```
 
-This capability testing approach ensures that ReqLLM providers work as advertised and helps maintain compatibility as APIs evolve.
+This coverage testing approach ensures that ReqLLM providers work correctly across all supported features and helps maintain compatibility as APIs evolve.

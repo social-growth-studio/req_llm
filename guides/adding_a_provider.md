@@ -1,6 +1,6 @@
 # Adding a new provider to **ReqLLM**
 
-_Rev. 2025-02 – ReqLLM 1.0.0-rc.1_
+_Rev. 2025-02 – ReqLLM 1.0.0-rc.2_
 
 ## Developer checklist
 
@@ -100,7 +100,7 @@ defmodule ReqLLM.Providers.MyOpenAI do
     %ReqLLM.Model{} = model = ReqLLM.Model.from!(model_input)
     if model.provider != provider_id(), do: raise ReqLLM.Error.Invalid.Provider, provider: model.provider
 
-    api_key = ReqLLM.Keys.get!(model, user_opts)
+    {:ok, api_key} = ReqLLM.Keys.get(model.provider, user_opts)
 
     {tools, other_opts} = Keyword.pop(user_opts, :tools, [])
     {provider_opts, core_opts} = Keyword.pop(other_opts, :provider_options, [])
@@ -122,7 +122,7 @@ defmodule ReqLLM.Providers.MyOpenAI do
     )
     |> ReqLLM.Step.Error.attach()
     |> Req.Request.append_request_steps(llm_encode_body: &__MODULE__.encode_body/1)
-    |> ReqLLM.Step.Stream.maybe_attach(opts[:stream])
+    |> ReqLLM.Step.Stream.attach(opts)
     |> Req.Request.append_response_steps(llm_decode_response: &__MODULE__.decode_response/1)
     |> ReqLLM.Step.Usage.attach(model)
   end

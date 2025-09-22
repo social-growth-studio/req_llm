@@ -46,7 +46,7 @@ defmodule ReqLLM.MixProject do
           "guides/api-reference.md",
           "guides/data-structures.md",
           "guides/model-metadata.md",
-          "guides/capability-testing.md",
+          "guides/coverage-testing.md",
           "guides/adding_a_provider.md"
         ],
         groups_for_extras: [

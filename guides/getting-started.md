@@ -5,7 +5,7 @@
 ```elixir
 def deps do
   [
-    {:req_llm, "~> 1.0.0-rc.1"}
+    {:req_llm, "~> 1.0.0-rc.2"}
   ]
 end
 ```
@@ -29,8 +29,9 @@ schema = [
   name: [type: :string, required: true],
   age: [type: :pos_integer, required: true]
 ]
-{:ok, object} = ReqLLM.generate_object("anthropic:claude-3-sonnet", "Generate a person", schema)
-# Returns: %{name: "John Doe", age: 30}
+{:ok, response} = ReqLLM.generate_object("anthropic:claude-3-sonnet", "Generate a person", schema)
+object = ReqLLM.Response.object(response)
+# object => %{name: "John Doe", age: 30}
 ```
 
 ## Full Response with Usage
@@ -90,8 +91,9 @@ ReqLLM.generate_text!("anthropic:claude-3-sonnet", messages)
 ReqLLM.generate_text!(
   "anthropic:claude-3-sonnet",
   "Write code",
-  temperature: 0.1,      # Control randomness (0.0-2.0)
-  max_tokens: 1000       # Limit response length
+  temperature: 0.1,       # Control randomness (0.0-2.0)
+  max_tokens: 1000,       # Limit response length
+  system_prompt: "You are a helpful coding assistant"
 )
 ```
 

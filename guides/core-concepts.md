@@ -101,7 +101,7 @@ Provider Lookup
 Request Creation
     ↓ Req.new/1
 Provider Attachment  
-    ↓ ReqLLM.attach/2
+    ↓ provider.attach/3
 HTTP Request
     ↓ Req.request/1
 Provider Parsing
@@ -112,12 +112,15 @@ Canonical Response
 ### Composable Middleware
 
 ```elixir
+{:ok, model} = ReqLLM.Model.from("anthropic:claude-3-sonnet")
+{:ok, provider} = ReqLLM.provider(:anthropic)
+
 request = Req.new()
 |> Req.Request.append_request_steps(log_request: &log_request/1)
 |> Req.Request.append_response_steps(cache_response: &cache/1)
+|> provider.attach(model, [])
 
-{:ok, configured} = ReqLLM.attach(request, "anthropic:claude-3-sonnet")
-{:ok, response} = Req.request(configured)
+{:ok, response} = Req.request(request)
 ```
 
 ## Format Translation
@@ -159,10 +162,10 @@ ReqLLM.generate_text("anthropic:claude-3-sonnet", "Hello")
 {:ok, provider} = ReqLLM.provider(:anthropic)
 
 # Request creation & attachment
-{:ok, configured} = ReqLLM.attach(Req.new(), model)
+request = Req.new() |> provider.attach(model, [])
 
 # HTTP execution
-{:ok, http_response} = Req.request(configured) 
+{:ok, http_response} = Req.request(request) 
 
 # Response parsing
 {:ok, chunks} = provider.parse_response(http_response, model)
@@ -250,5 +253,5 @@ request = Req.new()
   extract_usage: &ReqLLM.Step.Usage.extract_usage/1
 )
 
-{:ok, configured} = ReqLLM.attach(request, model)
+configured = provider.attach(request, model, [])
 ```
