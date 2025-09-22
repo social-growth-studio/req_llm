@@ -97,7 +97,6 @@ defmodule ReqLLM.Providers.Google do
     end
   end
 
-
   def prepare_request(:embedding, model_spec, text, opts) do
     # Handle dimensions as a provider-specific option if passed at top level
     opts_normalized =
@@ -160,10 +159,10 @@ defmodule ReqLLM.Providers.Google do
 
     # Extract tools separately to avoid validation issues
     {tools, other_opts} = Keyword.pop(user_opts, :tools, [])
-    
+
     # Process options using the Provider.Options module
     {:ok, opts} = ReqLLM.Provider.Options.process(__MODULE__, :chat, model, other_opts)
-    
+
     # Add tools back after validation
     opts = Keyword.put(opts, :tools, tools)
 
@@ -176,7 +175,10 @@ defmodule ReqLLM.Providers.Google do
       end
 
     base_url = Keyword.get(user_opts, :base_url, default_base_url())
-    req_keys = __MODULE__.supported_provider_options() ++ [:context, :operation, :text, :stream, :model, :provider_options, :response_schema]
+
+    req_keys =
+      __MODULE__.supported_provider_options() ++
+        [:context, :operation, :text, :stream, :model, :provider_options, :response_schema]
 
     request
     # Google uses query parameter for API key, not Authorization header

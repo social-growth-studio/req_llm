@@ -227,7 +227,7 @@ defmodule ReqLLM.Provider.Defaults do
     # Default implementation for OpenAI-compatible providers using response_format
     # Anthropic and other providers that need tool calling should override this
     opts_with_tokens = Keyword.put_new(opts, :max_tokens, 4096)
-    
+
     prepare_chat_request(provider_mod, model_spec, prompt, opts_with_tokens)
   end
 

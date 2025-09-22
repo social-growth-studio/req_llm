@@ -317,7 +317,7 @@ defmodule ReqLLM.Response do
 
   @doc """
   Extracts structured object from a Response, handling both tool calling and response_format approaches.
-  
+
   For tool calling responses (Anthropic), extracts from the structured_output tool call.
   For response_format responses (OpenAI-compatible), parses JSON from the message text.
   """

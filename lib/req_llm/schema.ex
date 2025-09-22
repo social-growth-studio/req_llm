@@ -98,14 +98,14 @@ defmodule ReqLLM.Schema do
   def compile(schema) when is_list(schema) do
     # Pre-process schema to handle nested schemas with :properties
     processed_schema = preprocess_nested_schema(schema)
-    
+
     # Create a custom compiled schema that stores both the original and processed versions
     compiled = %{
       schema: schema,
       processed_schema: processed_schema,
       nimble_schema: NimbleOptions.new!(processed_schema)
     }
-    
+
     {:ok, compiled}
   rescue
     e ->
@@ -123,23 +123,26 @@ defmodule ReqLLM.Schema do
        parameter: "Schema must be a keyword list, got: #{inspect(schema)}"
      )}
   end
-  
+
   # Preprocess schema to convert nested :properties into NimbleOptions-compatible format
   defp preprocess_nested_schema(schema) do
     Enum.map(schema, fn {key, opts} ->
-      processed_opts = 
+      processed_opts =
         case opts do
           opts when is_list(opts) ->
             opts
             # Convert custom types to NimbleOptions-compatible types FIRST (before deleting :items)
             |> convert_object_types()
             # Then remove nested schema options that NimbleOptions doesn't understand
-            |> Keyword.delete(:properties)  # For object types
-            |> Keyword.delete(:items)       # For array types
-          _ -> 
+            # For object types
+            |> Keyword.delete(:properties)
+            # For array types
+            |> Keyword.delete(:items)
+
+          _ ->
             opts
         end
-      
+
       {key, processed_opts}
     end)
   end
@@ -147,21 +150,23 @@ defmodule ReqLLM.Schema do
   # Convert custom types to NimbleOptions-compatible types
   defp convert_object_types(opts) do
     case opts[:type] do
-      :object -> 
+      :object ->
         Keyword.put(opts, :type, :map)
-      :array -> 
+
+      :array ->
         # Convert :array with :items to {:list, subtype}
         case opts[:items] do
           [type: item_type] -> Keyword.put(opts, :type, {:list, item_type})
           _ -> Keyword.put(opts, :type, {:list, :any})
         end
-      {:list, :object} -> 
+
+      {:list, :object} ->
         Keyword.put(opts, :type, {:list, :map})
-      _ -> 
+
+      _ ->
         opts
     end
   end
-
 
   @doc """
   Converts a keyword schema to JSON Schema format.
@@ -204,7 +209,7 @@ defmodule ReqLLM.Schema do
   """
   @spec to_json(keyword() | map()) :: map()
   def to_json([]), do: %{"type" => "object", "properties" => %{}}
-  
+
   # Handle new compiled schema format
   def to_json(%{original_schema: schema}) when is_list(schema) do
     to_json(schema)
@@ -235,27 +240,27 @@ defmodule ReqLLM.Schema do
   end
 
   # Private helper functions
-  
+
   # Helper function to add nested properties to an object schema
   defp add_nested_properties(base_schema, properties) when is_list(properties) do
     {nested_properties, required} =
       Enum.reduce(properties, {%{}, []}, fn {key, opts}, {props_acc, req_acc} ->
         property_name = to_string(key)
         json_prop = nimble_type_to_json_schema(opts[:type] || :string, opts)
-        
+
         new_props = Map.put(props_acc, property_name, json_prop)
         new_req = if opts[:required], do: [property_name | req_acc], else: req_acc
-        
+
         {new_props, new_req}
       end)
-    
+
     base_schema
     |> Map.put("properties", nested_properties)
     |> then(fn schema ->
-      if required != [] do
-        Map.put(schema, "required", Enum.reverse(required))
-      else
+      if required == [] do
         schema
+      else
+        Map.put(schema, "required", Enum.reverse(required))
       end
     end)
   end
@@ -302,22 +307,30 @@ defmodule ReqLLM.Schema do
 
         {:list, :map} ->
           base_items = %{"type" => "object"}
-          items_schema = case opts[:properties] do
-            properties when is_list(properties) ->
-              add_nested_properties(base_items, properties)
-            _ ->
-              base_items
-          end
+
+          items_schema =
+            case opts[:properties] do
+              properties when is_list(properties) ->
+                add_nested_properties(base_items, properties)
+
+              _ ->
+                base_items
+            end
+
           %{"type" => "array", "items" => items_schema}
 
         {:list, :object} ->
           base_items = %{"type" => "object"}
-          items_schema = case opts[:properties] do
-            properties when is_list(properties) ->
-              add_nested_properties(base_items, properties)
-            _ ->
-              base_items
-          end
+
+          items_schema =
+            case opts[:properties] do
+              properties when is_list(properties) ->
+                add_nested_properties(base_items, properties)
+
+              _ ->
+                base_items
+            end
+
           %{"type" => "array", "items" => items_schema}
 
         {:list, item_type} ->
@@ -329,6 +342,7 @@ defmodule ReqLLM.Schema do
           case opts[:properties] do
             properties when is_list(properties) ->
               add_nested_properties(base_schema, properties)
+
             _ ->
               base_schema
           end
@@ -339,6 +353,7 @@ defmodule ReqLLM.Schema do
           case opts[:properties] do
             properties when is_list(properties) ->
               add_nested_properties(base_schema, properties)
+
             _ ->
               base_schema
           end
@@ -348,9 +363,11 @@ defmodule ReqLLM.Schema do
 
         :object ->
           base_schema = %{"type" => "object"}
+
           case opts[:properties] do
             properties when is_list(properties) ->
               add_nested_properties(base_schema, properties)
+
             _ ->
               base_schema
           end

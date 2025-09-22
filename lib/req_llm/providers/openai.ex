@@ -71,7 +71,6 @@ defmodule ReqLLM.Providers.OpenAI do
     ReqLLM.Provider.Defaults.prepare_request(__MODULE__, operation, model_spec, input, opts)
   end
 
-
   @doc """
   Translates provider-specific options for different model types.
 

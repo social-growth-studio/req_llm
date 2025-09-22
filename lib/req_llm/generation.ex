@@ -313,7 +313,8 @@ defmodule ReqLLM.Generation do
       # Extract object from response and set the object field
       case Response.extract_object_from_response(decoded_response, object_schema) do
         {:ok, object} -> {:ok, %{decoded_response | object: object}}
-        {:error, _} -> {:ok, decoded_response}  # fallback to original response if extraction fails
+        # fallback to original response if extraction fails
+        {:error, _} -> {:ok, decoded_response}
       end
     else
       {:ok, %Req.Response{status: status, body: body}} ->
