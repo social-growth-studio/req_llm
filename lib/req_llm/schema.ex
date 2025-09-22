@@ -131,10 +131,11 @@ defmodule ReqLLM.Schema do
         case opts do
           opts when is_list(opts) ->
             opts
-            # Remove :properties from NimbleOptions (store separately for JSON conversion)
-            |> Keyword.delete(:properties)
-            # Convert :object type to :map for NimbleOptions compatibility
+            # Convert custom types to NimbleOptions-compatible types FIRST (before deleting :items)
             |> convert_object_types()
+            # Then remove nested schema options that NimbleOptions doesn't understand
+            |> Keyword.delete(:properties)  # For object types
+            |> Keyword.delete(:items)       # For array types
           _ -> 
             opts
         end
@@ -146,9 +147,18 @@ defmodule ReqLLM.Schema do
   # Convert custom types to NimbleOptions-compatible types
   defp convert_object_types(opts) do
     case opts[:type] do
-      :object -> Keyword.put(opts, :type, :map)
-      {:list, :object} -> Keyword.put(opts, :type, {:list, :map})
-      _ -> opts
+      :object -> 
+        Keyword.put(opts, :type, :map)
+      :array -> 
+        # Convert :array with :items to {:list, subtype}
+        case opts[:items] do
+          [type: item_type] -> Keyword.put(opts, :type, {:list, item_type})
+          _ -> Keyword.put(opts, :type, {:list, :any})
+        end
+      {:list, :object} -> 
+        Keyword.put(opts, :type, {:list, :map})
+      _ -> 
+        opts
     end
   end
 
