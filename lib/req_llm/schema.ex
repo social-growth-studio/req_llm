@@ -94,7 +94,7 @@ defmodule ReqLLM.Schema do
       {:error, %ReqLLM.Error.Invalid.Parameter{}}
 
   """
-  @spec compile(keyword() | any()) :: {:ok, NimbleOptions.t()} | {:error, ReqLLM.Error.t()}
+  @spec compile(keyword() | any()) :: {:ok, map()} | {:error, ReqLLM.Error.t()}
   def compile(schema) when is_list(schema) do
     # Pre-process schema to handle nested schemas with :properties
     processed_schema = preprocess_nested_schema(schema)
