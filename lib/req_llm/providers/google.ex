@@ -176,32 +176,15 @@ defmodule ReqLLM.Providers.Google do
 
     base_url = Keyword.get(user_opts, :base_url, default_base_url())
 
-    # Register all keys that might be in the options
-    # This includes both standard generation options and Google-specific ones
-    req_keys =
-      ReqLLM.Provider.Options.all_generation_keys() ++
-        [
-          :context,
-          :operation,
-          :text,
-          :stream,
-          :model,
-          :provider_options,
-          :response_schema,
-          :tools,
-          :compiled_schema,
-          :google_safety_settings,
-          :google_candidate_count,
-          :dimensions
-        ]
+    # Register extra options that might be passed but aren't standard Req options
+    extra_option_keys =
+      [:model, :compiled_schema, :temperature, :max_tokens, :app_referer, :app_title, :fixture] ++
+        __MODULE__.supported_provider_options()
 
     request
     # Google uses query parameter for API key, not Authorization header
-    |> Req.Request.register_options(req_keys)
-    |> Req.Request.merge_options(
-      Keyword.take(opts, req_keys) ++
-        [model: model.model, base_url: base_url, params: [key: api_key]]
-    )
+    |> Req.Request.register_options(extra_option_keys)
+    |> Req.Request.merge_options([model: model.model, base_url: base_url, params: [key: api_key]] ++ user_opts)
     |> ReqLLM.Step.Error.attach()
     |> Req.Request.append_request_steps(llm_encode_body: &__MODULE__.encode_body/1)
     |> ReqLLM.Step.Stream.maybe_attach(opts[:stream])

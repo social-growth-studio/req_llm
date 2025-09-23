@@ -265,6 +265,18 @@ defmodule ReqLLM.Schema do
     end)
   end
 
+  # Helper function to create object schemas with optional properties
+  defp build_object_schema(opts) do
+    base_schema = %{"type" => "object"}
+
+    case opts[:properties] do
+      properties when is_list(properties) ->
+        add_nested_properties(base_schema, properties)
+      _ ->
+        base_schema
+    end
+  end
+
   @spec nimble_type_to_json_schema(atom() | tuple(), keyword()) :: map()
   def nimble_type_to_json_schema(type, opts) do
     base_schema =
@@ -306,71 +318,25 @@ defmodule ReqLLM.Schema do
           %{"type" => "array", "items" => %{"type" => "integer", "minimum" => 1}}
 
         {:list, :map} ->
-          base_items = %{"type" => "object"}
-
-          items_schema =
-            case opts[:properties] do
-              properties when is_list(properties) ->
-                add_nested_properties(base_items, properties)
-
-              _ ->
-                base_items
-            end
-
-          %{"type" => "array", "items" => items_schema}
+          %{"type" => "array", "items" => build_object_schema(opts)}
 
         {:list, :object} ->
-          base_items = %{"type" => "object"}
-
-          items_schema =
-            case opts[:properties] do
-              properties when is_list(properties) ->
-                add_nested_properties(base_items, properties)
-
-              _ ->
-                base_items
-            end
-
-          %{"type" => "array", "items" => items_schema}
+          %{"type" => "array", "items" => build_object_schema(opts)}
 
         {:list, item_type} ->
           %{"type" => "array", "items" => nimble_type_to_json_schema(item_type, [])}
 
         :map ->
-          base_schema = %{"type" => "object"}
-          # Check if this map has nested properties defined
-          case opts[:properties] do
-            properties when is_list(properties) ->
-              add_nested_properties(base_schema, properties)
-
-            _ ->
-              base_schema
-          end
+          build_object_schema(opts)
 
         {:map, _} ->
-          base_schema = %{"type" => "object"}
-          # Check if this map has nested properties defined
-          case opts[:properties] do
-            properties when is_list(properties) ->
-              add_nested_properties(base_schema, properties)
-
-            _ ->
-              base_schema
-          end
+          build_object_schema(opts)
 
         :keyword_list ->
           %{"type" => "object"}
 
         :object ->
-          base_schema = %{"type" => "object"}
-
-          case opts[:properties] do
-            properties when is_list(properties) ->
-              add_nested_properties(base_schema, properties)
-
-            _ ->
-              base_schema
-          end
+          build_object_schema(opts)
 
         :atom ->
           %{"type" => "string"}
