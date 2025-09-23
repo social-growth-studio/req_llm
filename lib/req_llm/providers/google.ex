@@ -97,6 +97,12 @@ defmodule ReqLLM.Providers.Google do
     end
   end
 
+  def prepare_request(:object, model_spec, prompt, opts) do
+    # For Google, object generation uses the same endpoint as chat but with responseSchema
+    # The compiled_schema is already in opts from generate_object
+    prepare_request(:chat, model_spec, prompt, opts)
+  end
+
   def prepare_request(:embedding, model_spec, text, opts) do
     # Handle dimensions as a provider-specific option if passed at top level
     opts_normalized =
@@ -157,28 +163,29 @@ defmodule ReqLLM.Providers.Google do
 
     api_key = ReqLLM.Keys.get!(model, user_opts)
 
-    # Extract tools separately to avoid validation issues
-    {tools, other_opts} = Keyword.pop(user_opts, :tools, [])
-
-    # Process options using the Provider.Options module
-    {:ok, opts} = ReqLLM.Provider.Options.process(__MODULE__, :chat, model, other_opts)
-
-    # Add tools back after validation
-    opts = Keyword.put(opts, :tools, tools)
-
-    # Add response_schema if present for structured output
-    opts =
-      if user_opts[:response_schema] do
-        Keyword.put(opts, :response_schema, user_opts[:response_schema])
-      else
-        opts
-      end
+    # The options have already been processed in prepare_request, so just use them as-is
+    opts = user_opts
 
     base_url = Keyword.get(user_opts, :base_url, default_base_url())
 
+    # Register all keys that might be in the options
+    # This includes both standard generation options and Google-specific ones
     req_keys =
-      __MODULE__.supported_provider_options() ++
-        [:context, :operation, :text, :stream, :model, :provider_options, :response_schema]
+      ReqLLM.Provider.Options.all_generation_keys() ++
+        [
+          :context,
+          :operation,
+          :text,
+          :stream,
+          :model,
+          :provider_options,
+          :response_schema,
+          :tools,
+          :compiled_schema,
+          :google_safety_settings,
+          :google_candidate_count,
+          :dimensions
+        ]
 
     request
     # Google uses query parameter for API key, not Authorization header
@@ -309,7 +316,10 @@ defmodule ReqLLM.Providers.Google do
       |> maybe_put(:maxOutputTokens, request.options[:max_tokens])
       |> maybe_put(:topP, request.options[:top_p])
       |> maybe_put(:topK, request.options[:top_k])
-      |> maybe_put(:candidateCount, request.options[:google_candidate_count] || 1)
+      |> maybe_put(
+        :candidateCount,
+        get_in(request.options, [:provider_options, :google_candidate_count]) || 1
+      )
       |> then(fn config ->
         # Add response schema for structured output if compiled_schema is present
         if request.options[:compiled_schema] do
