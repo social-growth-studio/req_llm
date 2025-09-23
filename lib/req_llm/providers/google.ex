@@ -99,8 +99,16 @@ defmodule ReqLLM.Providers.Google do
 
   def prepare_request(:object, model_spec, prompt, opts) do
     # For Google, object generation uses the same endpoint as chat but with responseSchema
+    # Adjust max_tokens for structured output with Google-specific minimums
+    opts_with_tokens =
+      case Keyword.get(opts, :max_tokens) do
+        nil -> Keyword.put(opts, :max_tokens, 4096)
+        tokens when tokens < 200 -> Keyword.put(opts, :max_tokens, 200)
+        _tokens -> opts
+      end
+
     # The compiled_schema is already in opts from generate_object
-    prepare_request(:chat, model_spec, prompt, opts)
+    prepare_request(:chat, model_spec, prompt, opts_with_tokens)
   end
 
   def prepare_request(:embedding, model_spec, text, opts) do
@@ -318,7 +326,8 @@ defmodule ReqLLM.Providers.Google do
       |> maybe_put(:topK, request.options[:top_k])
       |> maybe_put(
         :candidateCount,
-        get_in(request.options, [:provider_options, :google_candidate_count]) || 1
+        get_in(request.options, [:provider_options, :google_candidate_count]) ||
+          request.options[:google_candidate_count] || 1
       )
       |> then(fn config ->
         # Add response schema for structured output if compiled_schema is present

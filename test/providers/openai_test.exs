@@ -423,7 +423,7 @@ defmodule ReqLLM.Providers.OpenAITest do
       model = "gpt-4o"
 
       mock_req = %Req.Request{
-        options: [context: context, stream: true, model: model],
+        options: %{context: context, stream: true, model: model},
         private: %{real_time_stream: mock_real_time_stream}
       }
 
@@ -675,7 +675,7 @@ defmodule ReqLLM.Providers.OpenAITest do
 
       {:error, error} = OpenAI.prepare_request(:unsupported, model, context, [])
       assert %ReqLLM.Error.Invalid.Parameter{} = error
-      assert error.parameter =~ "operation: :unsupported not supported by OpenAI provider"
+      assert error.parameter =~ "operation: :unsupported not supported by ReqLLM.Providers.OpenAI"
     end
 
     test "attach rejects invalid model provider" do

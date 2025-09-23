@@ -75,6 +75,29 @@ defmodule ReqLLM.Providers.XAI do
   other operations to the default implementation.
   """
 
+  # Override to handle :object with max_completion_tokens adjustment
+  def prepare_request(:object, model_spec, input, opts) do
+    # Adjust max_completion_tokens for structured output with xAI-specific minimums
+    {provider_opts, other_opts} = Keyword.pop(opts, :provider_options, [])
+
+    adjusted_provider_opts =
+      case Keyword.get(provider_opts, :max_completion_tokens) do
+        nil -> Keyword.put(provider_opts, :max_completion_tokens, 4096)
+        tokens when tokens < 200 -> Keyword.put(provider_opts, :max_completion_tokens, 200)
+        _tokens -> provider_opts
+      end
+
+    adjusted_opts = Keyword.put(other_opts, :provider_options, adjusted_provider_opts)
+
+    ReqLLM.Provider.Defaults.prepare_request(
+      __MODULE__,
+      :object,
+      model_spec,
+      input,
+      adjusted_opts
+    )
+  end
+
   # Override to reject unsupported operations
   def prepare_request(:embedding, _model_spec, _input, _opts) do
     supported_operations = [:chat, :object]

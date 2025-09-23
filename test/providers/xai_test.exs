@@ -350,7 +350,7 @@ defmodule ReqLLM.Providers.XAITest do
       mock_stream = ["Hello", " world", "!"]
 
       mock_req = %Req.Request{
-        options: [context: context, stream: true, model: model],
+        options: %{context: context, stream: true, model: model},
         private: %{real_time_stream: mock_stream}
       }
 
