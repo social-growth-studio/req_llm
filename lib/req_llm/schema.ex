@@ -272,6 +272,7 @@ defmodule ReqLLM.Schema do
     case opts[:properties] do
       properties when is_list(properties) ->
         add_nested_properties(base_schema, properties)
+
       _ ->
         base_schema
     end

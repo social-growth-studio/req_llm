@@ -184,7 +184,9 @@ defmodule ReqLLM.Providers.Google do
     request
     # Google uses query parameter for API key, not Authorization header
     |> Req.Request.register_options(extra_option_keys)
-    |> Req.Request.merge_options([model: model.model, base_url: base_url, params: [key: api_key]] ++ user_opts)
+    |> Req.Request.merge_options(
+      [model: model.model, base_url: base_url, params: [key: api_key]] ++ user_opts
+    )
     |> ReqLLM.Step.Error.attach()
     |> Req.Request.append_request_steps(llm_encode_body: &__MODULE__.encode_body/1)
     |> ReqLLM.Step.Stream.maybe_attach(opts[:stream])
