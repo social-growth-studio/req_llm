@@ -80,20 +80,20 @@ defimpl ReqLLM.Context.Codec, for: Map do
   end
 
   # Flatten single text content to a string for cleaner wire format
-  defp maybe_flatten_single_text([%{type: "text", text: text}]), do: text
+  defp maybe_flatten_single_text([%{type: :text, text: text}]), do: text
 
   defp maybe_flatten_single_text(content) do
     # Filter out nil values first
     filtered = Enum.reject(content, &is_nil/1)
 
     case filtered do
-      [%{type: "text", text: text}] -> text
+      [%{type: :text, text: text}] -> text
       _ -> filtered
     end
   end
 
   defp encode_content_part(%ReqLLM.Message.ContentPart{type: :text, text: text}) do
-    %{type: "text", text: text}
+    %{type: :text, text: text}
   end
 
   defp encode_content_part(%ReqLLM.Message.ContentPart{
@@ -110,6 +110,18 @@ defimpl ReqLLM.Context.Codec, for: Map do
         arguments: Jason.encode!(input)
       }
     }
+  end
+
+  defp encode_content_part(%ReqLLM.Message.ContentPart{type: :file, data: data, media_type: media_type, filename: filename}) do
+    %{type: :file, data: data, media_type: media_type, filename: filename}
+  end
+
+  defp encode_content_part(%ReqLLM.Message.ContentPart{type: :image, data: data, media_type: media_type}) do
+    %{type: :image, data: data, media_type: media_type}
+  end
+
+  defp encode_content_part(%ReqLLM.Message.ContentPart{type: :image_url, url: url}) do
+    %{type: :image_url, url: url}
   end
 
   defp encode_content_part(_), do: nil

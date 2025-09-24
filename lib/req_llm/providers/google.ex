@@ -508,7 +508,10 @@ defmodule ReqLLM.Providers.Google do
       parts =
         case message.content do
           content when is_binary(content) -> [%{text: content}]
-          parts when is_list(parts) -> Enum.map(parts, &convert_content_part/1)
+          parts when is_list(parts) ->
+            parts
+            |> Enum.map(&convert_content_part/1)
+            |> Enum.reject(&is_nil/1)
         end
 
       %{role: role, parts: parts}
@@ -558,6 +561,42 @@ defmodule ReqLLM.Providers.Google do
     }
   end
 
-  # TODO: Add support for images, audio, video when multimodal support is added
-  defp convert_content_part(part), do: %{text: to_string(part)}
+  # Handle image content - convert to Google's inline_data format (atom key)
+  defp convert_content_part(%{type: :image, data: data, media_type: media_type})
+       when is_binary(data) do
+    encoded_data = Base.encode64(data)
+
+    %{
+      inline_data: %{
+        mime_type: media_type,
+        data: encoded_data
+      }
+    }
+  end
+
+  # Handle image URLs - convert to Google's inline_data format (atom key)
+  defp convert_content_part(%{type: :image_url, url: url}) do
+    # Extract base64 data from data URL
+    case String.split(url, ",", parts: 2) do
+      [header, data] ->
+        mime_type =
+          case Regex.run(~r/data:([^;]+)/, header) do
+            [_, type] -> type
+            _ -> "image/jpeg"
+          end
+
+        %{
+          inline_data: %{
+            mime_type: mime_type,
+            data: data
+          }
+        }
+
+      _ ->
+        %{text: "[Invalid image URL]"}
+    end
+  end
+
+  # Fallback for unknown content types
+  defp convert_content_part(_part), do: nil
 end
