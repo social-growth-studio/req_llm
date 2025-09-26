@@ -695,13 +695,6 @@ defmodule Mix.Tasks.ReqLlm.Gen do
           IO.puts("   Debug - Output tokens: #{output_tokens} (est: #{output_tokens_est})")
           IO.puts("   Debug - Input tokens: #{input_tokens} (est: #{input_tokens_est})")
 
-        :object ->
-          object_json = Jason.encode!(content)
-          object_size = byte_size(object_json)
-          field_count = count_fields(content)
-          IO.puts("   Debug - Object size: #{object_size} bytes")
-          IO.puts("   Debug - Field count: #{field_count}")
-
         :stream ->
           chunk_count = Map.get(response, :chunk_count, 0)
           IO.puts("   Debug - Chunks received: #{chunk_count}")

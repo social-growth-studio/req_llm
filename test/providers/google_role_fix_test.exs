@@ -15,16 +15,10 @@ defmodule ReqLLM.Providers.GoogleRoleFixTest do
           Context.assistant("2+2 equals 4")
         ])
 
-      model = %ReqLLM.Model{provider: :google, model: "gemini-1.5-flash"}
-
-      # Encode the context (simulating what happens in prepare_request)
-      encoded = ReqLLM.Context.Codec.encode_request(context, model)
-
-      # Create a mock request with the encoded messages
+      # Create a mock request with the context
       request = %Req.Request{
         options: %{
           context: context,
-          messages: encoded[:messages],
           model: "gemini-1.5-flash"
         }
       }
@@ -63,13 +57,9 @@ defmodule ReqLLM.Providers.GoogleRoleFixTest do
           Context.assistant("Hi there!")
         ])
 
-      model = %ReqLLM.Model{provider: :google, model: "gemini-1.5-flash"}
-      encoded = ReqLLM.Context.Codec.encode_request(context, model)
-
       request = %Req.Request{
         options: %{
           context: context,
-          messages: encoded[:messages],
           model: "gemini-1.5-flash"
         }
       }
