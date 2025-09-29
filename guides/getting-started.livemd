@@ -8,7 +8,7 @@ Tip: In Livebook, add a secret named OPENAI_API_KEY (preferred), or paste your k
 
 ```elixir
 Mix.install([
-  {:req_llm, "~> 1.0.0-rc.3"}
+  {:req_llm, "~> 1.0.0"}
 ])
 ```
 

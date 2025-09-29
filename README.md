@@ -290,7 +290,7 @@ See the [Streaming Migration Guide](guides/streaming-migration.md) for complete 
 
 ## Roadmap & Status
 
-ReqLLM 1.0-rc.3 is a **release candidate**. The core API is stable, but minor breaking changes may occur before the final 1.0.0 release based on community feedback.
+ReqLLM is currently in **release candidate** status. The core API is stable, but minor breaking changes may occur before the final 1.0.0 release based on community feedback.
 
 **Planned for 1.x:**
 - Additional open-source providers (Ollama, LocalAI)

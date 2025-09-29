@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-rc.4] - 2025-01-29
+
+### Added
+- Claude 4.5 model support
+- Tool call support for Google Gemini provider
+- Cost calculation to Response.usage()
+- Unified `mix req_llm.gen` command consolidating all AI generation tasks
+
+### Enhanced
+- Major streaming refactor from Req to Finch for production stability
+- Documentation for provider architecture and streaming requests
+
+### Fixed
+- Streaming race condition causing BadMapError
+- max_tokens translation to max_completion_tokens for OpenAI reasoning models
+- Google Gemini role conversion ('assistant' to 'model')
+- req_http_options passing to Req
+- Context.Codec encoding of tool_calls field for OpenAI compatibility
+
+### Removed
+- Context.Codec and Response.Codec protocols (architectural simplification)
+
 ## [1.0.0-rc.3] - 2025-01-22
 
 ### Added
@@ -121,6 +143,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Quality tooling with Dialyzer, Credo, and formatter
 - LiveFixture testing framework for API mocking
 
+[1.0.0-rc.4]: https://github.com/agentjido/req_llm/releases/tag/v1.0.0-rc.4
 [1.0.0-rc.3]: https://github.com/agentjido/req_llm/releases/tag/v1.0.0-rc.3
 [1.0.0-rc.2]: https://github.com/agentjido/req_llm/releases/tag/v1.0.0-rc.2
 [1.0.0-rc.1]: https://github.com/agentjido/req_llm/releases/tag/v1.0.0-rc.1

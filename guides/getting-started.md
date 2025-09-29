@@ -5,7 +5,7 @@
 ```elixir
 def deps do
   [
-    {:req_llm, "~> 1.0.0-rc.3"}
+    {:req_llm, "~> 1.0.0"}
   ]
 end
 ```

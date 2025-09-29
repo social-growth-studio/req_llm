@@ -1,6 +1,6 @@
 # API Reference
 
-Complete reference for ReqLLM 1.0.0-rc.3 public API. Provides Vercel AI SDK-inspired functions with consistent signatures across streaming and non-streaming modes.
+Complete reference for ReqLLM public API. Provides Vercel AI SDK-inspired functions with consistent signatures across streaming and non-streaming modes.
 
 ## Text Generation
 
