@@ -302,6 +302,33 @@
       "tool_call": true
     },
     {
+      "attachment": false,
+      "id": "gpt-5-codex",
+      "knowledge": "2024-09-30",
+      "last_updated": "2025-09-15",
+      "limit": {
+        "context": 128000,
+        "output": 64000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "name": "GPT-5-Codex",
+      "open_weights": false,
+      "provider": "github-copilot",
+      "provider_model_id": "gpt-5-codex",
+      "reasoning": true,
+      "release_date": "2025-09-15",
+      "temperature": false,
+      "tool_call": true
+    },
+    {
       "attachment": true,
       "id": "gpt-5-mini",
       "knowledge": "2024-06",

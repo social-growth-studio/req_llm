@@ -123,6 +123,36 @@
     {
       "attachment": false,
       "cost": {
+        "input": 0.08,
+        "output": 0.29
+      },
+      "id": "Qwen/Qwen3-30B-A3B-Thinking-2507",
+      "knowledge": "2025-04",
+      "last_updated": "2025-07-30",
+      "limit": {
+        "context": 262144,
+        "output": 262144
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "name": "Qwen3 30B A3B Thinking 2507",
+      "open_weights": true,
+      "provider": "chutes",
+      "provider_model_id": "Qwen/Qwen3-30B-A3B-Thinking-2507",
+      "reasoning": true,
+      "release_date": "2025-07-30",
+      "temperature": true,
+      "tool_call": true
+    },
+    {
+      "attachment": false,
+      "cost": {
         "input": 0,
         "output": 0
       },
@@ -176,6 +206,66 @@
       "provider_model_id": "Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8",
       "reasoning": false,
       "release_date": "2025-08-01",
+      "temperature": true,
+      "tool_call": true
+    },
+    {
+      "attachment": false,
+      "cost": {
+        "input": 0.1,
+        "output": 0.8
+      },
+      "id": "Qwen/Qwen3-Next-80B-A3B-Instruct",
+      "knowledge": "2025-04",
+      "last_updated": "2025-09-11",
+      "limit": {
+        "context": 262144,
+        "output": 262144
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "name": "Qwen3 Next 80B A3B Instruct",
+      "open_weights": true,
+      "provider": "chutes",
+      "provider_model_id": "Qwen/Qwen3-Next-80B-A3B-Instruct",
+      "reasoning": false,
+      "release_date": "2025-09-11",
+      "temperature": true,
+      "tool_call": true
+    },
+    {
+      "attachment": false,
+      "cost": {
+        "input": 0.1,
+        "output": 0.8
+      },
+      "id": "Qwen/Qwen3-Next-80B-A3B-Thinking",
+      "knowledge": "2025-04",
+      "last_updated": "2025-09-11",
+      "limit": {
+        "context": 262144,
+        "output": 262144
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "name": "Qwen3 Next 80B A3B Thinking",
+      "open_weights": true,
+      "provider": "chutes",
+      "provider_model_id": "Qwen/Qwen3-Next-80B-A3B-Thinking",
+      "reasoning": true,
+      "release_date": "2025-09-11",
       "temperature": true,
       "tool_call": true
     },
@@ -379,6 +469,65 @@
       "open_weights": false,
       "provider": "chutes",
       "provider_model_id": "deepseek-ai/DeepSeek-V3.1",
+      "reasoning": false,
+      "release_date": "2025-08-21",
+      "temperature": true,
+      "tool_call": true
+    },
+    {
+      "attachment": false,
+      "cost": {
+        "input": 0.25,
+        "output": 1
+      },
+      "id": "deepseek-ai/DeepSeek-V3.1-Terminus",
+      "knowledge": "2025-07",
+      "last_updated": "2025-09-22",
+      "limit": {
+        "context": 131072,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "name": "DeepSeek V3.1 Terminus",
+      "open_weights": true,
+      "provider": "chutes",
+      "provider_model_id": "deepseek-ai/DeepSeek-V3.1-Terminus",
+      "reasoning": true,
+      "release_date": "2025-09-22",
+      "temperature": true,
+      "tool_call": true
+    },
+    {
+      "attachment": false,
+      "cost": {
+        "input": 1,
+        "output": 3
+      },
+      "id": "deepseek-ai/DeepSeek-V3.1-turbo",
+      "last_updated": "2025-08-21",
+      "limit": {
+        "context": 128000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "name": "DeepSeek V3.1 Turbo",
+      "open_weights": false,
+      "provider": "chutes",
+      "provider_model_id": "deepseek-ai/DeepSeek-V3.1-turbo",
       "reasoning": false,
       "release_date": "2025-08-21",
       "temperature": true,
@@ -703,6 +852,36 @@
       "open_weights": true,
       "provider": "chutes",
       "provider_model_id": "zai-org/GLM-4.5-FP8",
+      "reasoning": true,
+      "release_date": "2025-07-28",
+      "temperature": true,
+      "tool_call": true
+    },
+    {
+      "attachment": false,
+      "cost": {
+        "input": 1,
+        "output": 3
+      },
+      "id": "zai-org/GLM-4.5-turbo",
+      "knowledge": "2025-04",
+      "last_updated": "2025-07-28",
+      "limit": {
+        "context": 131072,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "name": "GLM 4.5 Turbo",
+      "open_weights": true,
+      "provider": "chutes",
+      "provider_model_id": "zai-org/GLM-4.5-turbo",
       "reasoning": true,
       "release_date": "2025-07-28",
       "temperature": true,

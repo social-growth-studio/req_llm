@@ -17,6 +17,7 @@ defmodule ReqLLM.Provider.Generated.ValidProviders do
     :cerebras,
     :chutes,
     :cloudflare_workers_ai,
+    :cortecs,
     :deepinfra,
     :deepseek,
     :fastrouter,
@@ -32,6 +33,7 @@ defmodule ReqLLM.Provider.Generated.ValidProviders do
     :inference,
     :llama,
     :lmstudio,
+    :lucidquery,
     :mistral,
     :modelscope,
     :moonshotai,
@@ -54,7 +56,8 @@ defmodule ReqLLM.Provider.Generated.ValidProviders do
     :xai,
     :zai,
     :zai_coding_plan,
-    :zhipuai
+    :zhipuai,
+    :zhipuai_coding_plan
   ]
 
   @spec list() :: [atom()]

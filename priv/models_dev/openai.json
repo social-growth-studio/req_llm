@@ -228,7 +228,7 @@
       },
       "id": "gpt-4o",
       "knowledge": "2023-09",
-      "last_updated": "2024-05-13",
+      "last_updated": "2024-08-06",
       "limit": {
         "context": 128000,
         "output": 16384
@@ -248,6 +248,101 @@
       "provider_model_id": "gpt-4o",
       "reasoning": false,
       "release_date": "2024-05-13",
+      "temperature": true,
+      "tool_call": true
+    },
+    {
+      "attachment": true,
+      "cost": {
+        "input": 5,
+        "output": 15
+      },
+      "id": "gpt-4o-2024-05-13",
+      "knowledge": "2023-09",
+      "last_updated": "2024-05-13",
+      "limit": {
+        "context": 128000,
+        "output": 4096
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "name": "GPT-4o (2024-05-13)",
+      "open_weights": false,
+      "provider": "openai",
+      "provider_model_id": "gpt-4o-2024-05-13",
+      "reasoning": false,
+      "release_date": "2024-05-13",
+      "temperature": true,
+      "tool_call": true
+    },
+    {
+      "attachment": true,
+      "cost": {
+        "cache_read": 1.25,
+        "input": 2.5,
+        "output": 10
+      },
+      "id": "gpt-4o-2024-08-06",
+      "knowledge": "2023-09",
+      "last_updated": "2024-08-06",
+      "limit": {
+        "context": 128000,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "name": "GPT-4o (2024-08-06)",
+      "open_weights": false,
+      "provider": "openai",
+      "provider_model_id": "gpt-4o-2024-08-06",
+      "reasoning": false,
+      "release_date": "2024-08-06",
+      "temperature": true,
+      "tool_call": true
+    },
+    {
+      "attachment": true,
+      "cost": {
+        "cache_read": 1.25,
+        "input": 2.5,
+        "output": 10
+      },
+      "id": "gpt-4o-2024-11-20",
+      "knowledge": "2023-09",
+      "last_updated": "2024-11-20",
+      "limit": {
+        "context": 128000,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "name": "GPT-4o (2024-11-20)",
+      "open_weights": false,
+      "provider": "openai",
+      "provider_model_id": "gpt-4o-2024-11-20",
+      "reasoning": false,
+      "release_date": "2024-11-20",
       "temperature": true,
       "tool_call": true
     },
@@ -345,6 +440,33 @@
       "release_date": "2025-08-07",
       "temperature": true,
       "tool_call": false
+    },
+    {
+      "attachment": false,
+      "id": "gpt-5-codex",
+      "knowledge": "2024-09-30",
+      "last_updated": "2025-09-15",
+      "limit": {
+        "context": 400000,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "name": "GPT-5-Codex",
+      "open_weights": false,
+      "provider": "openai",
+      "provider_model_id": "gpt-5-codex",
+      "reasoning": true,
+      "release_date": "2025-09-15",
+      "temperature": false,
+      "tool_call": true
     },
     {
       "attachment": true,

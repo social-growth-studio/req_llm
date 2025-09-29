@@ -209,36 +209,6 @@
       "release_date": "2025-07-28",
       "temperature": true,
       "tool_call": true
-    },
-    {
-      "attachment": false,
-      "cost": {
-        "input": 0,
-        "output": 0
-      },
-      "id": "moonshotai/Kimi-K2-Instruct",
-      "knowledge": "2024-10",
-      "last_updated": "2025-07-14",
-      "limit": {
-        "context": 128000,
-        "output": 16384
-      },
-      "modalities": {
-        "input": [
-          "text"
-        ],
-        "output": [
-          "text"
-        ]
-      },
-      "name": "Kimi-K2-Instruct",
-      "open_weights": true,
-      "provider": "modelscope",
-      "provider_model_id": "moonshotai/Kimi-K2-Instruct",
-      "reasoning": false,
-      "release_date": "2025-07-14",
-      "temperature": true,
-      "tool_call": true
     }
   ],
   "provider": {
