@@ -19,9 +19,13 @@ response.usage  #=> %{input_tokens: 8, output_tokens: 12, total_cost: 0.0006}
 ### Streaming
 
 ```elixir
-ReqLLM.stream_text!("anthropic:claude-3-sonnet-20240229", "Write a story")
+# New API returns StreamResponse struct
+{:ok, response} = ReqLLM.stream_text("anthropic:claude-3-sonnet-20240229", "Write a story")
+response.stream
 |> Stream.each(&IO.write(&1.text))
 |> Stream.run()
+
+# Note: stream_text! is deprecated, use stream_text/3 instead
 ```
 
 ### Structured Objects
@@ -87,6 +91,8 @@ ReqLLM.generate_text("openai:gpt-4", "Hello", api_key: "sk-...")
 
 ## Low-Level API
 
+### Non-Streaming Requests
+
 Direct Req plugin access for custom HTTP control:
 
 ```elixir
@@ -109,6 +115,34 @@ custom_request =
   |> Req.Request.put_header("x-source", "my-app")
 
 {:ok, response} = Req.request(custom_request)
+```
+
+### Streaming Requests
+
+**IMPORTANT**: Streaming uses Finch, not Req. The `prepare_request/4` and `attach/3` callbacks do NOT work for streaming operations.
+
+For custom streaming, use the provider's `attach_stream/4` callback or use `ReqLLM.Streaming.start_stream/4`:
+
+```elixir
+# High-level streaming API (recommended)
+{:ok, response} = ReqLLM.stream_text("anthropic:claude-3-sonnet-20240229", "Hello")
+response.stream |> Stream.each(&IO.write(&1.text)) |> Stream.run()
+
+# Low-level streaming (for advanced use cases)
+{:ok, model} = ReqLLM.Model.from("anthropic:claude-3-sonnet-20240229")
+{:ok, provider_module} = ReqLLM.provider(model.provider)
+context = ReqLLM.Context.new("Hello!")
+
+{:ok, stream_response} = ReqLLM.Streaming.start_stream(
+  provider_module,
+  model,
+  context,
+  timeout: 60_000
+)
+
+stream_response.stream
+|> Stream.each(&IO.write(&1.text))
+|> Stream.run()
 ```
 
 ## Error Handling

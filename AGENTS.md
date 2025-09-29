@@ -57,14 +57,17 @@ ReqLLM uses structured key/value tags for precise test filtering:
 
 ### Provider Architecture
 - Each provider implements `ReqLLM.Provider` behavior with callbacks:
-  - `prepare_request/4` - Configure operation-specific requests
-  - `attach/3` - Set up authentication and Req pipeline steps
-  - `encode_body/1` - Transform context to provider JSON
-  - `decode_response/1` - Parse API responses
+  - `prepare_request/4` - Configure operation-specific requests (non-streaming only)
+  - `attach/3` - Set up authentication and Req pipeline steps (non-streaming only)
+  - `encode_body/1` - Transform context to provider JSON (non-streaming only)
+  - `decode_response/1` - Parse API responses (non-streaming only)
+  - `attach_stream/4` - Build complete Finch streaming request (streaming only, optional)
+  - `decode_sse_event/2` - Decode provider SSE events to StreamChunk structs (streaming only, optional)
   - `extract_usage/2` - Extract usage/cost data (optional)
   - `translate_options/3` - Provider-specific parameter translation (optional)
 - Providers use `ReqLLM.Provider.DSL` macro for registration and metadata loading
-- Core API uses provider's `attach/3` to compose Req requests with provider-specific steps
+- **Non-streaming**: Core API uses provider's `attach/3` to compose Req requests with provider-specific steps
+- **Streaming**: Uses Finch with provider's `attach_stream/4` to build streaming requests and `decode_sse_event/2` to parse SSE events
 - **Options Translation**: Providers can implement `translate_options/3` to handle model-specific parameter requirements (e.g., OpenAI o1 models require `max_completion_tokens` instead of `max_tokens`)
 
 ### Encoding/Decoding System

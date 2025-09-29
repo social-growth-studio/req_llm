@@ -147,7 +147,7 @@ defmodule Mix.Tasks.ReqLlm.Gen do
   @spec run([String.t()]) :: no_return()
   @impl Mix.Task
   def run(args) do
-    extra_switches = [stream: :boolean, json: :boolean, reasoning_effort: :string]
+    extra_switches = [stream: :boolean, json: :boolean, reasoning_effort: :string, schema: :string]
     {opts, args_list, _} = parse_args(args, extra_switches)
 
     log_level = parse_log_level(Keyword.get(opts, :log_level))
@@ -185,12 +185,13 @@ defmodule Mix.Tasks.ReqLlm.Gen do
 
     show_banner(mode, model_spec, prompt, log_level)
 
+    schema = if match?({:json, _}, mode), do: resolve_schema(opts), else: nil
     opts = build_generate_opts(opts)
     start_time = System.monotonic_time(:millisecond)
 
     call_args =
       case mode do
-        {:json, _} -> [model_spec, prompt, default_object_schema(), opts]
+        {:json, _} -> [model_spec, prompt, schema, opts]
         _ -> [model_spec, prompt, opts]
       end
 
@@ -510,6 +511,9 @@ defmodule Mix.Tasks.ReqLlm.Gen do
     end
   end
 
+  defp maybe_put(list, _k, nil), do: list
+  defp maybe_put(list, k, v), do: Keyword.put(list, k, v)
+
   # Cost calculation using model metadata system
   defp calculate_estimated_cost(model_spec, input_tokens, output_tokens) do
     case ReqLLM.Model.from(model_spec) do
@@ -629,4 +633,164 @@ defmodule Mix.Tasks.ReqLlm.Gen do
     IO.puts("Error: Invalid model specification '#{model_spec}'")
     IO.puts("Details: #{Exception.message(error)}")
   end
+
+  defp resolve_schema(opts) do
+    case Keyword.get(opts, :schema) do
+      nil ->
+        default_object_schema()
+
+      value ->
+        case load_schema(value) do
+          {:ok, schema} ->
+            schema
+
+          {:error, reason} ->
+            IO.puts(
+              "Warning: Failed to load schema (#{inspect(reason)}). Falling back to default schema."
+            )
+
+            default_object_schema()
+        end
+    end
+  end
+
+  defp load_schema(value) when is_binary(value) do
+    trimmed = String.trim(value)
+
+    cond do
+      String.starts_with?(trimmed, "{") or String.starts_with?(trimmed, "[") ->
+        parse_inline_schema(trimmed)
+
+      File.exists?(value) ->
+        load_schema_file(value)
+
+      true ->
+        load_predefined_schema(value)
+    end
+  end
+
+  defp parse_inline_schema(json) do
+    with {:ok, decoded} <- Jason.decode(json) do
+      normalize_schema(decoded)
+    end
+  end
+
+  defp load_schema_file(path) do
+    case Path.extname(path) do
+      ".json" ->
+        case File.read(path) do
+          {:ok, content} ->
+            with {:ok, decoded} <- Jason.decode(content) do
+              normalize_schema(decoded)
+            end
+
+          {:error, reason} ->
+            {:error, {:file_read_error, reason}}
+        end
+
+      _ ->
+        {:error, :unsupported_format}
+    end
+  end
+
+  defp load_predefined_schema(name) do
+    case predefined_schemas()[name] do
+      nil -> {:error, :unknown_schema_name}
+      schema -> {:ok, schema}
+    end
+  end
+
+  defp predefined_schemas do
+    %{
+      "person" => default_object_schema(),
+      "product" => [
+        name: [type: :string, required: true, doc: "Product name"],
+        price: [type: :float, required: true, doc: "Product price in USD"],
+        category: [type: :string, required: true, doc: "Product category"],
+        features: [type: {:list, :string}, doc: "Key features"],
+        in_stock: [type: :boolean, doc: "Whether product is in stock"]
+      ],
+      "address" => [
+        street: [type: :string, required: true, doc: "Street address"],
+        city: [type: :string, required: true, doc: "City"],
+        state: [type: :string, doc: "State or province"],
+        country: [type: :string, required: true, doc: "Country"],
+        postal_code: [type: :string, doc: "Postal or ZIP code"]
+      ]
+    }
+  end
+
+  defp normalize_schema(%{"type" => "object", "properties" => props} = obj)
+       when is_map(props) do
+    required = Map.get(obj, "required", [])
+
+    fields =
+      Enum.map(props, fn {k, v} ->
+        name = String.to_atom(k)
+
+        opts =
+          []
+          |> maybe_put(:type, map_json_type(v))
+          |> maybe_put(:doc, v["description"])
+          |> maybe_put(:required, k in required)
+          |> Enum.reject(fn {_k, val} -> is_nil(val) end)
+
+        {name, opts}
+      end)
+
+    {:ok, fields}
+  end
+
+  defp normalize_schema(map) when is_map(map) do
+    fields =
+      Enum.map(map, fn {k, v} ->
+        name = String.to_atom(k)
+        {name, normalize_field_opts(v)}
+      end)
+
+    {:ok, fields}
+  end
+
+  defp normalize_schema(_), do: {:error, :invalid_schema_format}
+
+  defp normalize_field_opts(%{"type" => _t} = v) do
+    type = map_simple_type(v["type"], v)
+
+    []
+    |> maybe_put(:type, type)
+    |> maybe_put(:required, v["required"])
+    |> maybe_put(:doc, v["doc"] || v["description"])
+    |> Enum.reject(fn {_k, val} -> is_nil(val) end)
+  end
+
+  defp normalize_field_opts(v) when is_map(v), do: []
+
+  defp map_json_type(%{"type" => "array", "items" => %{"type" => inner}}) do
+    {:list, map_atomic_type(inner)}
+  end
+
+  defp map_json_type(%{"type" => t} = v) do
+    map_simple_type(t, v)
+  end
+
+  defp map_simple_type("integer", %{"minimum" => min})
+       when is_number(min) and min >= 1,
+       do: :pos_integer
+
+  defp map_simple_type("integer", _), do: :integer
+  defp map_simple_type("number", _), do: :float
+  defp map_simple_type("string", _), do: :string
+  defp map_simple_type("boolean", _), do: :boolean
+  defp map_simple_type("object", _), do: :map
+  defp map_simple_type("array", _), do: :list
+  defp map_simple_type("list:string", _), do: {:list, :string}
+  defp map_simple_type("list:integer", _), do: {:list, :integer}
+  defp map_simple_type(other, _) when is_binary(other), do: String.to_atom(other)
+
+  defp map_atomic_type("integer"), do: :integer
+  defp map_atomic_type("number"), do: :float
+  defp map_atomic_type("string"), do: :string
+  defp map_atomic_type("boolean"), do: :boolean
+  defp map_atomic_type("object"), do: :map
+  defp map_atomic_type(other) when is_binary(other), do: String.to_atom(other)
 end
