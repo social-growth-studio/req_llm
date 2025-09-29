@@ -147,7 +147,13 @@ defmodule Mix.Tasks.ReqLlm.Gen do
   @spec run([String.t()]) :: no_return()
   @impl Mix.Task
   def run(args) do
-    extra_switches = [stream: :boolean, json: :boolean, reasoning_effort: :string, schema: :string]
+    extra_switches = [
+      stream: :boolean,
+      json: :boolean,
+      reasoning_effort: :string,
+      schema: :string
+    ]
+
     {opts, args_list, _} = parse_args(args, extra_switches)
 
     log_level = parse_log_level(Keyword.get(opts, :log_level))
@@ -185,7 +191,7 @@ defmodule Mix.Tasks.ReqLlm.Gen do
 
     show_banner(mode, model_spec, prompt, log_level)
 
-    schema = if match?({:json, _}, mode), do: resolve_schema(opts), else: nil
+    schema = if match?({:json, _}, mode), do: resolve_schema(opts)
     opts = build_generate_opts(opts)
     start_time = System.monotonic_time(:millisecond)
 
@@ -720,8 +726,7 @@ defmodule Mix.Tasks.ReqLlm.Gen do
     }
   end
 
-  defp normalize_schema(%{"type" => "object", "properties" => props} = obj)
-       when is_map(props) do
+  defp normalize_schema(%{"type" => "object", "properties" => props} = obj) when is_map(props) do
     required = Map.get(obj, "required", [])
 
     fields =
@@ -773,9 +778,8 @@ defmodule Mix.Tasks.ReqLlm.Gen do
     map_simple_type(t, v)
   end
 
-  defp map_simple_type("integer", %{"minimum" => min})
-       when is_number(min) and min >= 1,
-       do: :pos_integer
+  defp map_simple_type("integer", %{"minimum" => min}) when is_number(min) and min >= 1,
+    do: :pos_integer
 
   defp map_simple_type("integer", _), do: :integer
   defp map_simple_type("number", _), do: :float
