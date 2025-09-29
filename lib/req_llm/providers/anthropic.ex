@@ -47,6 +47,15 @@ defmodule ReqLLM.Providers.Anthropic do
       anthropic_metadata: [
         type: :map,
         doc: "Optional metadata to include with the request"
+      ],
+      thinking: [
+        type: :map,
+        doc:
+          "Enable thinking/reasoning for supported models (e.g. %{type: \"enabled\", budget_tokens: 4096})"
+      ],
+      reasoning_effort: [
+        type: :atom,
+        doc: "Reasoning effort level (low, medium, high) - converted to thinking parameter"
       ]
     ]
 
@@ -63,7 +72,7 @@ defmodule ReqLLM.Providers.Anthropic do
   )a
 
   @body_options ~w(
-    temperature top_p stop_sequences
+    temperature top_p stop_sequences thinking
   )a
 
   @unsupported_parameters ~w(
@@ -161,7 +170,6 @@ defmodule ReqLLM.Providers.Anthropic do
     |> Req.Request.merge_options([model: model.model] ++ user_opts)
     |> ReqLLM.Step.Error.attach()
     |> Req.Request.append_request_steps(llm_encode_body: &encode_body/1)
-    |> ReqLLM.Step.Stream.maybe_attach(user_opts[:stream] == true, model)
     |> Req.Request.append_response_steps(llm_decode_response: &decode_response/1)
     |> ReqLLM.Step.Usage.attach(model)
     |> ReqLLM.Step.Fixture.maybe_attach(model, user_opts)
@@ -176,11 +184,18 @@ defmodule ReqLLM.Providers.Anthropic do
     # Use Anthropic-specific context encoding
     body_data = ReqLLM.Providers.Anthropic.Context.encode_request(context, %{model: model_name})
 
+    # Ensure max_tokens is always present (required by Anthropic)
+    max_tokens =
+      case request.options[:max_tokens] do
+        nil -> default_max_tokens(model_name)
+        v -> v
+      end
+
     body =
       body_data
       |> add_basic_options(request.options)
       |> maybe_put(:stream, request.options[:stream])
-      |> maybe_put(:max_tokens, request.options[:max_tokens])
+      |> Map.put(:max_tokens, max_tokens)
       |> maybe_add_tools(request.options)
 
     json_body = Jason.encode!(body)
@@ -209,6 +224,62 @@ defmodule ReqLLM.Providers.Anthropic do
   def extract_usage(_, _), do: {:error, :invalid_body}
 
   @impl ReqLLM.Provider
+  def attach_stream(model, context, opts, _finch_name) do
+    api_key = ReqLLM.Keys.get!(model, opts)
+
+    # Build request body using provider's encode logic
+    body = build_anthropic_streaming_body(model, context, opts)
+
+    # Build the URL with Anthropic's specific endpoint
+    base_url = Keyword.get(opts, :base_url, default_base_url())
+    url = "#{base_url}/v1/messages"
+
+    # Create Finch request with Anthropic's specific headers
+    headers = [
+      {"Content-Type", "application/json"},
+      {"Accept", "text/event-stream"},
+      {"x-api-key", api_key},
+      {"anthropic-version", get_anthropic_version(opts)}
+    ]
+
+    # Add beta headers for features being used
+    beta_features = []
+
+    beta_features =
+      if has_tools?(opts) do
+        [@anthropic_beta_tools | beta_features]
+      else
+        beta_features
+      end
+
+    # TODO: Add thinking beta when we know the correct header format
+    # beta_features = if has_thinking?(opts) do
+    #   ["thinking-2025-01-19" | beta_features]
+    # else
+    #   beta_features
+    # end
+
+    headers =
+      case beta_features do
+        [] ->
+          headers
+
+        features ->
+          beta_header = Enum.join(features, ",")
+          [{"anthropic-beta", beta_header} | headers]
+      end
+
+    finch_request = Finch.build(:post, url, headers, body)
+    {:ok, finch_request}
+  rescue
+    error ->
+      {:error,
+       ReqLLM.Error.API.Request.exception(
+         reason: "Failed to build Anthropic stream request: #{inspect(error)}"
+       )}
+  end
+
+  @impl ReqLLM.Provider
   def decode_sse_event(event, model) do
     ReqLLM.Providers.Anthropic.Response.decode_sse_event(event, model)
   end
@@ -219,6 +290,7 @@ defmodule ReqLLM.Providers.Anthropic do
     translated_opts =
       opts
       |> translate_stop_parameter()
+      |> translate_reasoning_effort()
       |> translate_unsupported_parameters()
 
     {translated_opts, []}
@@ -231,11 +303,30 @@ defmodule ReqLLM.Providers.Anthropic do
   end
 
   defp maybe_add_beta_header(request, user_opts) do
-    # Add beta header if tools are being used
-    if has_tools?(user_opts) do
-      Req.Request.put_header(request, "anthropic-beta", @anthropic_beta_tools)
-    else
-      request
+    beta_features = []
+
+    # Add tools beta if tools are being used
+    beta_features =
+      if has_tools?(user_opts) do
+        [@anthropic_beta_tools | beta_features]
+      else
+        beta_features
+      end
+
+    # TODO: Add thinking beta when we know the correct header format
+    # beta_features = if has_thinking?(user_opts) do
+    #   ["thinking-2025-01-19" | beta_features]
+    # else
+    #   beta_features
+    # end
+
+    case beta_features do
+      [] ->
+        request
+
+      features ->
+        beta_header = Enum.join(features, ",")
+        Req.Request.put_header(request, "anthropic-beta", beta_header)
     end
   end
 
@@ -243,6 +334,16 @@ defmodule ReqLLM.Providers.Anthropic do
     tools = Keyword.get(user_opts, :tools, [])
     is_list(tools) and tools != []
   end
+
+  # defp has_thinking?(user_opts) do
+  #   # Check if thinking parameter is present or reasoning_effort is set
+  #   thinking = Keyword.get(user_opts, :thinking)
+  #   reasoning_effort = Keyword.get(user_opts, :reasoning_effort)
+  #   provider_options = Keyword.get(user_opts, :provider_options, [])
+  #   provider_reasoning_effort = Keyword.get(provider_options, :reasoning_effort)
+
+  #   not is_nil(thinking) or not is_nil(reasoning_effort) or not is_nil(provider_reasoning_effort)
+  # end
 
   defp add_basic_options(body, request_options) do
     body =
@@ -294,6 +395,47 @@ defmodule ReqLLM.Providers.Anthropic do
     }
   end
 
+  defp translate_reasoning_effort(opts) do
+    case Keyword.get(opts, :reasoning_effort) do
+      nil ->
+        opts
+
+      :low ->
+        opts
+        |> Keyword.delete(:reasoning_effort)
+        |> Keyword.put(:thinking, %{type: "enabled", budget_tokens: 1024})
+
+      :medium ->
+        opts
+        |> Keyword.delete(:reasoning_effort)
+        |> Keyword.put(:thinking, %{type: "enabled", budget_tokens: 2048})
+
+      :high ->
+        opts
+        |> Keyword.delete(:reasoning_effort)
+        |> Keyword.put(:thinking, %{type: "enabled", budget_tokens: 4096})
+
+      # Handle string values too (for CLI compatibility)
+      "low" ->
+        opts
+        |> Keyword.delete(:reasoning_effort)
+        |> Keyword.put(:thinking, %{type: "enabled", budget_tokens: 1024})
+
+      "medium" ->
+        opts
+        |> Keyword.delete(:reasoning_effort)
+        |> Keyword.put(:thinking, %{type: "enabled", budget_tokens: 2048})
+
+      "high" ->
+        opts
+        |> Keyword.delete(:reasoning_effort)
+        |> Keyword.put(:thinking, %{type: "enabled", budget_tokens: 4096})
+
+      _ ->
+        opts
+    end
+  end
+
   defp translate_stop_parameter(opts) do
     case Keyword.get(opts, :stop) do
       nil ->
@@ -322,9 +464,20 @@ defmodule ReqLLM.Providers.Anthropic do
   end
 
   defp decode_error_response(req, resp, status) do
+    reason =
+      try do
+        case Jason.decode(resp.body) do
+          {:ok, %{"error" => %{"message" => message}}} -> message
+          {:ok, %{"error" => %{"type" => error_type}}} -> "#{error_type}"
+          _ -> "Anthropic API error"
+        end
+      rescue
+        _ -> "Anthropic API error"
+      end
+
     err =
       ReqLLM.Error.API.Response.exception(
-        reason: "Anthropic API error",
+        reason: reason,
         status: status,
         response_body: resp.body
       )
@@ -424,5 +577,29 @@ defmodule ReqLLM.Providers.Anthropic do
   defp merge_response_with_context(req, response) do
     context = req.options[:context] || %ReqLLM.Context{messages: []}
     ReqLLM.Context.merge_response(context, response)
+  end
+
+  defp default_max_tokens(_model_name), do: 1024
+
+  defp build_anthropic_streaming_body(model, context, opts) do
+    # Create a minimal request struct to reuse the existing encode_body logic
+    temp_request = %Req.Request{
+      method: :post,
+      url: URI.parse("https://example.com/temp"),
+      headers: %{},
+      body: {:json, %{}},
+      options:
+        Map.new(
+          [
+            model: model.model,
+            context: context,
+            stream: true,
+            operation: :chat
+          ] ++ opts
+        )
+    }
+
+    %{body: json_body} = encode_body(temp_request)
+    json_body
   end
 end

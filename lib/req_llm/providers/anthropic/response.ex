@@ -77,11 +77,41 @@ defmodule ReqLLM.Providers.Anthropic.Response do
   @spec decode_sse_event(map(), ReqLLM.Model.t()) :: [ReqLLM.StreamChunk.t()]
   def decode_sse_event(%{data: data}, _model) when is_map(data) do
     case data do
-      %{"type" => "content_block_delta", "delta" => delta} ->
-        decode_content_delta(delta)
+      %{"type" => "content_block_delta", "index" => index, "delta" => delta} ->
+        decode_content_block_delta(delta, index)
 
-      %{"type" => "content_block_start", "content_block" => block} ->
-        decode_content_block_start(block)
+      %{"type" => "content_block_start", "index" => index, "content_block" => block} ->
+        decode_content_block_start(block, index)
+
+      # Terminal events with metadata
+      %{"type" => "message_stop"} ->
+        [ReqLLM.StreamChunk.meta(%{terminal?: true})]
+
+      %{"type" => "message_delta", "delta" => delta} ->
+        finish_reason =
+          case Map.get(delta, "stop_reason") do
+            "end_turn" -> :stop
+            "max_tokens" -> :length
+            "stop_sequence" -> :stop
+            "tool_use" -> :tool_calls
+            _ -> :unknown
+          end
+
+        usage = Map.get(data, "usage", %{})
+
+        chunks = [ReqLLM.StreamChunk.meta(%{finish_reason: finish_reason, terminal?: true})]
+
+        # Add usage chunk if present
+        if usage == %{} do
+          chunks
+        else
+          usage_chunk = ReqLLM.StreamChunk.meta(%{usage: usage})
+          [usage_chunk | chunks]
+        end
+
+      %{"type" => "ping"} ->
+        # Keep-alive ping, no content
+        []
 
       _ ->
         []
@@ -109,45 +139,51 @@ defmodule ReqLLM.Providers.Anthropic.Response do
     ReqLLM.StreamChunk.text(text)
   end
 
+  defp decode_content_block(%{"type" => "thinking", "text" => text}) do
+    ReqLLM.StreamChunk.thinking(text)
+  end
+
   defp decode_content_block(%{"type" => "tool_use", "id" => id, "name" => name, "input" => input}) do
     ReqLLM.StreamChunk.tool_call(name, input, %{id: id})
   end
 
   defp decode_content_block(_), do: nil
 
-  defp decode_content_delta(%{"type" => "text_delta", "text" => text}) when is_binary(text) do
+  defp decode_content_block_delta(%{"type" => "text_delta", "text" => text}, _index)
+       when is_binary(text) do
     [ReqLLM.StreamChunk.text(text)]
   end
 
-  defp decode_content_delta(%{
-         "type" => "tool_call_delta",
-         "id" => id,
-         "name" => name,
-         "partial_json" => json_fragment
-       }) do
-    # Anthropic sends partial JSON that needs to be accumulated
-    # For now, we'll create a tool call chunk with partial data
-    args =
-      case Jason.decode(json_fragment || "{}") do
-        {:ok, parsed} -> parsed
-        {:error, _} -> %{partial: json_fragment}
-      end
-
-    [ReqLLM.StreamChunk.tool_call(name, args, %{id: id, partial: true})]
+  defp decode_content_block_delta(%{"type" => "thinking_delta", "text" => text}, _index)
+       when is_binary(text) do
+    [ReqLLM.StreamChunk.thinking(text)]
   end
 
-  defp decode_content_delta(_), do: []
+  defp decode_content_block_delta(
+         %{"type" => "input_json_delta", "partial_json" => fragment},
+         index
+       )
+       when is_binary(fragment) do
+    # Accumulate JSON fragments; StreamResponse.extract_tool_calls will merge these
+    [ReqLLM.StreamChunk.meta(%{tool_call_args: %{index: index, fragment: fragment}})]
+  end
 
-  defp decode_content_block_start(%{"type" => "text", "text" => text}) do
+  defp decode_content_block_delta(_, _index), do: []
+
+  defp decode_content_block_start(%{"type" => "text", "text" => text}, _index) do
     [ReqLLM.StreamChunk.text(text)]
   end
 
-  defp decode_content_block_start(%{"type" => "tool_use", "id" => id, "name" => name}) do
+  defp decode_content_block_start(%{"type" => "thinking", "text" => text}, _index) do
+    [ReqLLM.StreamChunk.thinking(text)]
+  end
+
+  defp decode_content_block_start(%{"type" => "tool_use", "id" => id, "name" => name}, index) do
     # Tool call start - send empty arguments that will be filled by deltas
-    [ReqLLM.StreamChunk.tool_call(name, %{}, %{id: id, start: true})]
+    [ReqLLM.StreamChunk.tool_call(name, %{}, %{id: id, index: index, start: true})]
   end
 
-  defp decode_content_block_start(_), do: []
+  defp decode_content_block_start(_, _index), do: []
 
   defp build_message_from_chunks([]), do: nil
 
@@ -168,6 +204,10 @@ defmodule ReqLLM.Providers.Anthropic.Response do
 
   defp chunk_to_content_part(%ReqLLM.StreamChunk{type: :content, text: text}) do
     %ReqLLM.Message.ContentPart{type: :text, text: text}
+  end
+
+  defp chunk_to_content_part(%ReqLLM.StreamChunk{type: :thinking, text: text}) do
+    %ReqLLM.Message.ContentPart{type: :thinking, text: text}
   end
 
   defp chunk_to_content_part(%ReqLLM.StreamChunk{
