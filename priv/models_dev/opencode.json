@@ -73,8 +73,7 @@
         "cache_read": 0.3,
         "cache_write": 3.75,
         "input": 3,
-        "output": 15,
-        "reasoning": 15
+        "output": 15
       },
       "id": "claude-sonnet-4",
       "knowledge": "2025-03-31",
@@ -107,8 +106,7 @@
         "cache_read": 0.3,
         "cache_write": 3.75,
         "input": 3,
-        "output": 15,
-        "reasoning": 15
+        "output": 15
       },
       "id": "claude-sonnet-4-5",
       "knowledge": "2025-07-31",
@@ -164,6 +162,39 @@
       "provider_model_id": "code-supernova",
       "reasoning": true,
       "release_date": "2025-09-19",
+      "temperature": true,
+      "tool_call": true
+    },
+    {
+      "attachment": false,
+      "cost": {
+        "cache_read": 0.11,
+        "cache_write": 0,
+        "input": 0.6,
+        "output": 2.2
+      },
+      "experimental": true,
+      "id": "glm-4.6",
+      "knowledge": "2025-04",
+      "last_updated": "2025-09-30",
+      "limit": {
+        "context": 204800,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "name": "GLM-4.6",
+      "open_weights": true,
+      "provider": "opencode",
+      "provider_model_id": "glm-4.6",
+      "reasoning": true,
+      "release_date": "2025-09-30",
       "temperature": true,
       "tool_call": true
     },
@@ -267,6 +298,7 @@
     {
       "attachment": false,
       "cost": {
+        "cache_read": 0.36,
         "input": 0.6,
         "output": 2.5
       },
@@ -361,6 +393,6 @@
     "doc": "AI model provider",
     "env": [],
     "id": "opencode",
-    "name": "opencode zen"
+    "name": "OpenCode Zen"
   }
 }

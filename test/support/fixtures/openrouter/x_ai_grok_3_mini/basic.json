@@ -1,0 +1,115 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjo1MCwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJIZWxsbyB3b3JsZCEiLCJyb2xlIjoidXNlciJ9XSwibW9kZWwiOiJ4LWFpL2dyb2stMy1taW5pIiwibiI6MSwic2VlZCI6NDIsInN0cmVhbSI6ZmFsc2UsInRlbXBlcmF0dXJlIjowLjB9"
+    },
+    "canonical_json": {
+      "max_tokens": 50,
+      "messages": [
+        {
+          "content": "Hello world!",
+          "role": "user"
+        }
+      ],
+      "model": "x-ai/grok-3-mini",
+      "n": 1,
+      "seed": 42,
+      "stream": false,
+      "temperature": 0.0
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "Hello! I'm Grok, an AI created by xAI. It's great to see the classic \"Hello world!\" greeting—feels like we're starting off on the right code. What's on your mind, or how can I help today? 😊",
+            "reasoning": "First, the user said \"Hello world!\" This is a common greeting, often the first program in programming, like in Python or C++. It's not a question or a command; it's just a friendly hello.\n\nAs Grok, I'm an AI built by xAI, and I'm supposed to be helpful, truthful, and witty. My response should align with that.\n\nPossible ways to respond:\n\n1. **Mirror the greeting:** Say something like \"Hello!\" to keep it conversational.\n\n2. **Add some personality:** Since I'm Grok, I could reference my origins or make a fun comment. For example, mention xAI or tie it back to programming.\n\n3. **Be helpful:** Even though it's just a greeting, I could ask if they need assistance or make it engaging.\n\n4. **Keep it truthful:** Ensure whatever I say is accurate. No need to fabricate anything here.\n\nStructure a response:\n\n- Start with a greeting to acknowledge them.\n\n- Add a bit of humor or wit, as per my character.\n\n- End by offering help, to make it interactive.\n\nFor example:\n\n- \"Hello! I'm Grok, created by xAI. How can I assist you today?\"\n\nThat sounds formal. Make it more fun:\n\n- \"Hello world! Wait, that's my line too. I'm Grok from xAI. What's up?\"\n\nReference the programming aspect:\n\n- \"Hello world! As a fellow AI, I appreciate the classic greeting. I'm Grok, here to help with anything you need.\"\n\nEnsure it's not too long. Keep it concise.\n\nFinal response idea:\n\nAcknowledge the greeting, introduce myself briefly, and invite further interaction.",
+            "reasoning_details": [
+              {
+                "format": "unknown",
+                "index": 0,
+                "text": "First, the user said \"Hello world!\" This is a common greeting, often the first program in programming, like in Python or C++. It's not a question or a command; it's just a friendly hello.\n\nAs Grok, I'm an AI built by xAI, and I'm supposed to be helpful, truthful, and witty. My response should align with that.\n\nPossible ways to respond:\n\n1. **Mirror the greeting:** Say something like \"Hello!\" to keep it conversational.\n\n2. **Add some personality:** Since I'm Grok, I could reference my origins or make a fun comment. For example, mention xAI or tie it back to programming.\n\n3. **Be helpful:** Even though it's just a greeting, I could ask if they need assistance or make it engaging.\n\n4. **Keep it truthful:** Ensure whatever I say is accurate. No need to fabricate anything here.\n\nStructure a response:\n\n- Start with a greeting to acknowledge them.\n\n- Add a bit of humor or wit, as per my character.\n\n- End by offering help, to make it interactive.\n\nFor example:\n\n- \"Hello! I'm Grok, created by xAI. How can I assist you today?\"\n\nThat sounds formal. Make it more fun:\n\n- \"Hello world! Wait, that's my line too. I'm Grok from xAI. What's up?\"\n\nReference the programming aspect:\n\n- \"Hello world! As a fellow AI, I appreciate the classic greeting. I'm Grok, here to help with anything you need.\"\n\nEnsure it's not too long. Keep it concise.\n\nFinal response idea:\n\nAcknowledge the greeting, introduce myself briefly, and invite further interaction.",
+                "type": "reasoning.text"
+              }
+            ],
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "length"
+        }
+      ],
+      "created": 1759847120,
+      "id": "gen-1759847120-ip5OHt3L90M6FMXIm62N",
+      "model": "x-ai/grok-3-mini",
+      "object": "chat.completion",
+      "provider": "xAI",
+      "system_fingerprint": "fp_4fae27f477",
+      "usage": {
+        "completion_tokens": 381,
+        "completion_tokens_details": {
+          "reasoning_tokens": 331
+        },
+        "prompt_tokens": 10,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 3
+        },
+        "total_tokens": 391
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ae1138cc89e938-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 14:25:21 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

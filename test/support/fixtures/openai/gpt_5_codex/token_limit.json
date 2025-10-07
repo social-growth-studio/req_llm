@@ -1,0 +1,168 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJpbnB1dCI6W3siY29udGVudCI6W3sidGV4dCI6IldyaXRlIGEgdmVyeSBsb25nIHN0b3J5IGFib3V0IGRyYWdvbnMgYW5kIGFkdmVudHVyZXMiLCJ0eXBlIjoiaW5wdXRfdGV4dCJ9XSwicm9sZSI6InVzZXIifV0sIm1heF9vdXRwdXRfdG9rZW5zIjoxMDAsIm1vZGVsIjoiZ3B0LTUtY29kZXgiLCJzdHJlYW0iOmZhbHNlfQ=="
+    },
+    "canonical_json": {
+      "input": [
+        {
+          "content": [
+            {
+              "text": "Write a very long story about dragons and adventures",
+              "type": "input_text"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "max_output_tokens": 100,
+      "model": "gpt-5-codex",
+      "stream": false
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "created_at": 1759698829,
+      "error": null,
+      "id": "resp_02f746e9da0317350068e2df8dc97481988ea46f5a34290116",
+      "incomplete_details": {
+        "reason": "max_output_tokens"
+      },
+      "instructions": null,
+      "max_output_tokens": 100,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "gpt-5-codex",
+      "object": "response",
+      "output": [
+        {
+          "id": "rs_02f746e9da0317350068e2df8e83448198b8f0a9f3e66f4855",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "### The Chronicle of Emberwind: A Tale of Dragons and Adventures\n\n#### Prologue: The Song of Old Flames\n\nIn the heart of the ancient world of Aelyndor, where mountains whispered to the stars and rivers sang the secrets of ages past, dragons soared beneath silver moons. They were not mere beasts of fire and fury, but the living embodiment of magic,",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_02f746e9da0317350068e2df8ebac481988691d8898ae1c5c9",
+          "role": "assistant",
+          "status": "incomplete",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": {
+        "effort": "medium",
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "status": "incomplete",
+      "store": true,
+      "temperature": 1.0,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 15,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 80,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 95
+      },
+      "user": null
+    },
+    "headers": {
+      "alt-svc": [
+        "h3=\":443\"; ma=86400"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "989fecd38aec22d4-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Sun, 05 Oct 2025 21:13:51 GMT"
+      ],
+      "openai-organization": [
+        "epic-creative-sogybe"
+      ],
+      "openai-processing-ms": [
+        "2104"
+      ],
+      "openai-project": [
+        "proj_j5AhgU4eLMRmsoO9FDg7BRD3"
+      ],
+      "openai-version": [
+        "2020-10-01"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=ABCsZ.B4aTfMGdRijxnN9MkJaugX9yrR9v6HvKEXT7g-1759698831-1.0.1.1-C9GOiVbPB2ztUeJjJYnh_xK0gq3kHhE9gFcyvNQhsoI9nzyIZax5Fvi0.Xjxsu9SMfJpS8Tq0KHKRV0CI3zQ9NQm_GPuomzJ4GFQwZGQzYg; path=/; expires=Sun, 05-Oct-25 21:43:51 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None",
+        "_cfuvid=GRgzZfusyAT2GNamfJ2CiIbDsEBNIj3B686GmMXowZU-1759698831916-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ],
+      "x-envoy-upstream-service-time": [
+        "2107"
+      ],
+      "x-request-id": [
+        "req_7e0c7d7bd92cc7cc44ac83a55f22192b"
+      ]
+    },
+    "status": 200
+  }
+}

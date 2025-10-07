@@ -8,8 +8,6 @@ defmodule ReqLLM.Providers.XAITest do
 
   use ReqLLM.ProviderCase, provider: ReqLLM.Providers.XAI
 
-  import ReqLLM.ProviderTestHelpers
-
   alias ReqLLM.Context
   alias ReqLLM.Providers.XAI
 
@@ -68,7 +66,7 @@ defmodule ReqLLM.Providers.XAITest do
     test "prepare_request creates configured request" do
       model = ReqLLM.Model.from!("xai:grok-3")
       context = context_fixture()
-      opts = [temperature: 0.7, provider_options: [max_completion_tokens: 100]]
+      opts = [temperature: 0.7, max_tokens: 100]
 
       {:ok, request} = XAI.prepare_request(:chat, model, context, opts)
 
@@ -79,7 +77,7 @@ defmodule ReqLLM.Providers.XAITest do
 
     test "attach configures authentication and pipeline" do
       model = ReqLLM.Model.from!("xai:grok-3")
-      opts = [temperature: 0.5, provider_options: [max_completion_tokens: 50]]
+      opts = [temperature: 0.5, max_tokens: 50]
 
       request = Req.new() |> XAI.attach(model, opts)
 
@@ -323,7 +321,7 @@ defmodule ReqLLM.Providers.XAITest do
       text = ReqLLM.Response.text(response)
       assert is_binary(text)
       assert String.length(text) > 0
-      assert response.finish_reason in [:stop, :length, "stop", "length"]
+      assert response.finish_reason in [:stop, :length]
 
       # Verify usage normalization
       assert is_integer(response.usage.input_tokens)
@@ -369,7 +367,14 @@ defmodule ReqLLM.Providers.XAITest do
       assert length(response.context.messages) == 2
 
       # Verify stream structure and processing
-      assert response.usage == %{input_tokens: 0, output_tokens: 0, total_tokens: 0}
+      assert response.usage == %{
+               input_tokens: 0,
+               output_tokens: 0,
+               total_tokens: 0,
+               cached_tokens: 0,
+               reasoning_tokens: 0
+             }
+
       assert response.finish_reason == nil
       assert is_map(response.provider_meta)
       # http_task removed after fix for issue #42 (no duplicate request execution)
@@ -538,8 +543,8 @@ defmodule ReqLLM.Providers.XAITest do
       context = context_fixture()
       {:ok, schema} = ReqLLM.Schema.compile(name: [type: :string, required: true])
 
-      # Test with max_completion_tokens < 200
-      opts = [provider_options: [max_completion_tokens: 50], compiled_schema: schema]
+      # Test with max_tokens < 200
+      opts = [max_tokens: 50, compiled_schema: schema]
       {:ok, request} = XAI.prepare_request(:object, model, context, opts)
 
       # Should be adjusted to 200

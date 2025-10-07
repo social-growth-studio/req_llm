@@ -1,0 +1,151 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoxNjM4LCJtZXNzYWdlcyI6W3siY29udGVudCI6IlRlbGwgbWUgYSBqb2tlIGFib3V0IGNhdHMiLCJyb2xlIjoidXNlciJ9XSwibW9kZWwiOiJtb29uc2hvdGFpL2tpbWktazItaW5zdHJ1Y3QtMDkwNSIsInNlZWQiOjQyLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MC4wLCJ0b29scyI6W3siZnVuY3Rpb24iOnsiZGVzY3JpcHRpb24iOiJHZXQgY3VycmVudCB3ZWF0aGVyIGluZm9ybWF0aW9uIGZvciBhIGxvY2F0aW9uIiwibmFtZSI6ImdldF93ZWF0aGVyIiwicGFyYW1ldGVycyI6eyJwcm9wZXJ0aWVzIjp7ImxvY2F0aW9uIjp7InR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbImxvY2F0aW9uIl0sInR5cGUiOiJvYmplY3QifX0sInR5cGUiOiJmdW5jdGlvbiJ9XX0="
+    },
+    "canonical_json": {
+      "max_tokens": 1638,
+      "messages": [
+        {
+          "content": "Tell me a joke about cats",
+          "role": "user"
+        }
+      ],
+      "model": "moonshotai/kimi-k2-instruct-0905",
+      "seed": 42,
+      "stream": false,
+      "temperature": 0.0,
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather information for a location",
+            "name": "get_weather",
+            "parameters": {
+              "properties": {
+                "location": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "location"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.groq.com/openai/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "Why was the cat sitting on the computer?\n\nBecause it wanted to keep an eye on the mouse!",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1759844695,
+      "id": "chatcmpl-26a9fe8b-4417-463d-b48e-a73bb729562c",
+      "model": "moonshotai/kimi-k2-instruct-0905",
+      "object": "chat.completion",
+      "service_tier": "on_demand",
+      "system_fingerprint": "fp_05df423bab",
+      "usage": {
+        "completion_time": 0.042853867,
+        "completion_tokens": 21,
+        "prompt_time": 0.018432777,
+        "prompt_tokens": 102,
+        "queue_time": 0.07676873,
+        "total_time": 0.061286644,
+        "total_tokens": 123
+      },
+      "usage_breakdown": null,
+      "x_groq": {
+        "id": "req_01k6zenzfxe1btryyrqw28qfwp"
+      }
+    },
+    "headers": {
+      "alt-svc": [
+        "h3=\":443\"; ma=86400"
+      ],
+      "cache-control": [
+        "private, max-age=0, no-store, no-cache, must-revalidate"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98add602ed3ef151-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:44:55 GMT"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=HZCGug8JfliOr_oBFLGL0TUiD51YXU6OJ9AS2wlSCV0-1759844695-1.0.1.1-OY_hglZLOPH9HAuvA0abjg_1t661Nk7ndySY4qHEI5V9ufwQ0fpxfdLacKjx0rt5m7YMeuNe3lEgIK4fy1JH9Qtg0c7l5S0R5f_7gz5pmfg; path=/; expires=Tue, 07-Oct-25 14:14:55 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Origin"
+      ],
+      "via": [
+        "1.1 google"
+      ],
+      "x-groq-region": [
+        "yul"
+      ],
+      "x-ratelimit-limit-requests": [
+        "1000"
+      ],
+      "x-ratelimit-limit-tokens": [
+        "10000"
+      ],
+      "x-ratelimit-remaining-requests": [
+        "998"
+      ],
+      "x-ratelimit-remaining-tokens": [
+        "9752"
+      ],
+      "x-ratelimit-reset-requests": [
+        "2m52.458999999s"
+      ],
+      "x-ratelimit-reset-tokens": [
+        "1.488s"
+      ],
+      "x-request-id": [
+        "req_01k6zenzfxe1btryyrqw28qfwp"
+      ]
+    },
+    "status": 200
+  }
+}

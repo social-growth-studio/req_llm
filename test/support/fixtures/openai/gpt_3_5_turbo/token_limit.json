@@ -1,0 +1,150 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoxMDAsIm1lc3NhZ2VzIjpbeyJjb250ZW50IjoiV3JpdGUgYSB2ZXJ5IGxvbmcgc3RvcnkgYWJvdXQgZHJhZ29ucyBhbmQgYWR2ZW50dXJlcyIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6ImdwdC0zLjUtdHVyYm8iLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MC41fQ=="
+    },
+    "canonical_json": {
+      "max_tokens": 100,
+      "messages": [
+        {
+          "content": "Write a very long story about dragons and adventures",
+          "role": "user"
+        }
+      ],
+      "model": "gpt-3.5-turbo",
+      "stream": false,
+      "temperature": 0.5
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.openai.com/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "annotations": [],
+            "content": "In the mystical land of Aveloria, dragons roamed freely, their majestic wings casting shadows over the rolling hills and deep valleys. The people of Aveloria lived in harmony with these powerful creatures, for they knew that the dragons were protectors of the land, guardians of the ancient forests and keepers of the balance between light and darkness.\n\nOne such dragon was named Drakar, a mighty beast with scales as black as the night sky and eyes that glowed like embers. Dr",
+            "refusal": null,
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1759795762,
+      "id": "chatcmpl-CNpYY7w3pQFo8DmaXOJtdfz4A1i1v",
+      "model": "gpt-3.5-turbo-0125",
+      "object": "chat.completion",
+      "service_tier": "default",
+      "system_fingerprint": null,
+      "usage": {
+        "completion_tokens": 100,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        },
+        "prompt_tokens": 16,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 0
+        },
+        "total_tokens": 116
+      }
+    },
+    "headers": {
+      "access-control-expose-headers": [
+        "X-Request-ID"
+      ],
+      "alt-svc": [
+        "h3=\":443\"; ma=86400"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98a92b5d1ab5f14b-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 00:09:24 GMT"
+      ],
+      "openai-organization": [
+        "epic-creative-sogybe"
+      ],
+      "openai-processing-ms": [
+        "1378"
+      ],
+      "openai-project": [
+        "proj_j5AhgU4eLMRmsoO9FDg7BRD3"
+      ],
+      "openai-version": [
+        "2020-10-01"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=OAXTE5H9CbRZuQgjysb8vppedaONnjyO8D.2VRJ833w-1759795764-1.0.1.1-15kMuZdZ9sdCCRji4w_SJUgzGWvoYkaqSu4nSNFgMyWALwTzjeV6ZhjU81MruASZhQIQi3Ccz45rTkRWEuNrBWdJVsgqj61whunR62E9LvM; path=/; expires=Tue, 07-Oct-25 00:39:24 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None",
+        "_cfuvid=MKl.p93cSSNW_RfqvO1jdV0XD.9wX.lp0FRU7SrExv8-1759795764189-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ],
+      "x-envoy-upstream-service-time": [
+        "1404"
+      ],
+      "x-openai-proxy-wasm": [
+        "v0.1"
+      ],
+      "x-ratelimit-limit-requests": [
+        "10000"
+      ],
+      "x-ratelimit-limit-tokens": [
+        "10000000"
+      ],
+      "x-ratelimit-remaining-requests": [
+        "9999"
+      ],
+      "x-ratelimit-remaining-tokens": [
+        "9999985"
+      ],
+      "x-ratelimit-reset-requests": [
+        "6ms"
+      ],
+      "x-ratelimit-reset-tokens": [
+        "0s"
+      ],
+      "x-request-id": [
+        "req_f3d9d5d865bf47768717c0c935b84a11"
+      ]
+    },
+    "status": 200
+  }
+}

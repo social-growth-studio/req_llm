@@ -43,10 +43,6 @@ defmodule ReqLLM.Providers.XAI do
         type: :integer,
         doc: "Maximum completion tokens (preferred over max_tokens for Grok-4)"
       ],
-      reasoning_effort: [
-        type: {:in, ~w(low medium high)},
-        doc: "Reasoning effort level (grok-3-mini models only)"
-      ],
       search_parameters: [
         type: :map,
         doc: "Live Search configuration with mode, sources, dates, and citations"
@@ -61,7 +57,7 @@ defmodule ReqLLM.Providers.XAI do
       ]
     ]
 
-  # use ReqLLM.Provider.Defaults
+  use ReqLLM.Provider.Defaults
 
   import ReqLLM.Provider.Utils,
     only: [maybe_put: 3, maybe_put_skip: 4, ensure_parsed_body: 1]
@@ -76,48 +72,23 @@ defmodule ReqLLM.Providers.XAI do
   """
   @impl ReqLLM.Provider
   def prepare_request(:object, model_spec, prompt, opts) do
-    compiled_schema = Keyword.fetch!(opts, :compiled_schema)
-
-    structured_output_tool =
-      ReqLLM.Tool.new!(
-        name: "structured_output",
-        description: "Generate structured output matching the provided schema",
-        parameter_schema: compiled_schema.schema,
-        callback: fn _args -> {:ok, "structured output generated"} end
-      )
-
-    opts_with_tool =
-      opts
-      |> Keyword.update(:tools, [structured_output_tool], &[structured_output_tool | &1])
-      |> Keyword.put(:tool_choice, %{type: "function", function: %{name: "structured_output"}})
-
-    # Adjust max_completion_tokens for structured output with xAI-specific handling
-    provider_opts = Keyword.get(opts_with_tool, :provider_options, [])
+    max_tokens = Keyword.get(opts, :max_tokens) || Keyword.get(opts, :max_completion_tokens)
 
     opts_with_tokens =
-      case Keyword.get(provider_opts, :max_completion_tokens) do
+      case max_tokens do
         nil ->
-          Keyword.put(
-            opts_with_tool,
-            :provider_options,
-            Keyword.put(provider_opts, :max_completion_tokens, 4096)
-          )
+          Keyword.put(opts, :max_tokens, 4096)
 
         tokens when tokens < 200 ->
-          Keyword.put(
-            opts_with_tool,
-            :provider_options,
-            Keyword.put(provider_opts, :max_completion_tokens, 200)
-          )
+          Keyword.put(opts, :max_tokens, 200)
 
         _tokens ->
-          opts_with_tool
+          opts
       end
 
-    # Use the default chat preparation with structured output tools
     ReqLLM.Provider.Defaults.prepare_request(
       __MODULE__,
-      :chat,
+      :object,
       model_spec,
       prompt,
       opts_with_tokens
@@ -143,8 +114,12 @@ defmodule ReqLLM.Providers.XAI do
   @impl ReqLLM.Provider
   def extract_usage(body, _model) when is_map(body) do
     case body do
-      %{"usage" => usage} -> {:ok, usage}
-      _ -> {:error, :no_usage_found}
+      %{"usage" => usage} ->
+        normalized_usage = Map.put_new(usage, "cached_tokens", 0)
+        {:ok, normalized_usage}
+
+      _ ->
+        {:error, :no_usage_found}
     end
   end
 
@@ -157,6 +132,21 @@ defmodule ReqLLM.Providers.XAI do
     # Handle stream? -> stream alias for backward compatibility
     {stream_value, opts} = Keyword.pop(opts, :stream?)
     opts = if stream_value, do: Keyword.put(opts, :stream, stream_value), else: opts
+
+    # Translate canonical reasoning_effort from atom to string
+    {reasoning_effort, opts} = Keyword.pop(opts, :reasoning_effort)
+
+    opts =
+      case reasoning_effort do
+        :low -> Keyword.put(opts, :reasoning_effort, "low")
+        :medium -> Keyword.put(opts, :reasoning_effort, "medium")
+        :high -> Keyword.put(opts, :reasoning_effort, "high")
+        :default -> Keyword.put(opts, :reasoning_effort, "default")
+        nil -> opts
+        other -> Keyword.put(opts, :reasoning_effort, other)
+      end
+
+    opts = Keyword.delete(opts, :reasoning_token_budget)
 
     # Handle max_tokens -> max_completion_tokens translation (xAI preference)
     {max_tokens_value, opts} = Keyword.pop(opts, :max_tokens)
@@ -315,7 +305,13 @@ defmodule ReqLLM.Providers.XAI do
       message: nil,
       stream?: true,
       stream: real_time_stream,
-      usage: %{input_tokens: 0, output_tokens: 0, total_tokens: 0},
+      usage: %{
+        input_tokens: 0,
+        output_tokens: 0,
+        total_tokens: 0,
+        cached_tokens: 0,
+        reasoning_tokens: 0
+      },
       finish_reason: nil,
       provider_meta: %{}
     }

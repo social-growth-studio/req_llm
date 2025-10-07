@@ -1,0 +1,152 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoyMDQ4LCJtZXNzYWdlcyI6W3siY29udGVudCI6IlNvbHZlIDEyKjcgYW5kIHNob3cgeW91ciBpbnRlcm5hbCB0aGlua2luZyAoYnJpZWYpLiIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6ImNsYXVkZS0zLTctc29ubmV0LTIwMjUwMjE5Iiwic3RyZWFtIjpmYWxzZSwidGhpbmtpbmciOnsiYnVkZ2V0X3Rva2VucyI6MTAyNCwidHlwZSI6ImVuYWJsZWQifX0="
+    },
+    "canonical_json": {
+      "max_tokens": 2048,
+      "messages": [
+        {
+          "content": "Solve 12*7 and show your internal thinking (brief).",
+          "role": "user"
+        }
+      ],
+      "model": "claude-3-7-sonnet-20250219",
+      "stream": false,
+      "thinking": {
+        "budget_tokens": 1024,
+        "type": "enabled"
+      }
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "anthropic-beta": [
+        "interleaved-thinking-2025-05-14"
+      ],
+      "anthropic-version": [
+        "2023-06-01"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ],
+      "x-api-key": "[REDACTED:x-api-key]"
+    },
+    "method": "post",
+    "url": "https://api.anthropic.com/v1/messages"
+  },
+  "response": {
+    "body": {
+      "content": [
+        {
+          "signature": "ErUBCkYICBgCIkAArz5DhRgUJNFBohqAn9tQeXK74FnwSa3iAeYrJwWA+zU0dyC2Ybto57zPiSw10QnYaX0f/cMDKjQWhkahwYNWEgzcP3Ph7v8PCxFsnQsaDH842wcDZ9SgGziaGSIwHfmTHGR0Sb+Ocw2U1+unemtMEC+4vL4UnLkCc9PpY3fuH7hYdGD8wWqWrZK4p1r+Kh0e58OKhTCWFSYGn4qO4m9ZTRAVatSbdCAys7pwFBgC",
+          "thinking": "To solve 12*7, I'll multiply these numbers.\n\n12 * 7 = (10 + 2) * 7\n        = 10 * 7 + 2 * 7\n        = 70 + 14\n        = 84\n\nSo 12 * 7 = 84.",
+          "type": "thinking"
+        },
+        {
+          "text": "# 12 × 7 = 84\n\n## My thinking:\n1) I can break this down as: 12 × 7 = (10 + 2) × 7\n2) Using the distributive property: = (10 × 7) + (2 × 7)\n3) = 70 + 14\n4) = 84\n\nTherefore, 12 multiplied by 7 equals 84.",
+          "type": "text"
+        }
+      ],
+      "id": "msg_013bEDu7ph8op2ZpYWrTkCnS",
+      "model": "claude-3-7-sonnet-20250219",
+      "role": "assistant",
+      "stop_reason": "end_turn",
+      "stop_sequence": null,
+      "type": "message",
+      "usage": {
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "input_tokens": 50,
+        "output_tokens": 188,
+        "service_tier": "standard"
+      }
+    },
+    "headers": {
+      "anthropic-organization-id": [
+        "a71659e7-a922-4ff7-99de-f3ba615face1"
+      ],
+      "anthropic-ratelimit-input-tokens-limit": [
+        "40000"
+      ],
+      "anthropic-ratelimit-input-tokens-remaining": [
+        "40000"
+      ],
+      "anthropic-ratelimit-input-tokens-reset": [
+        "2025-10-07T13:52:47Z"
+      ],
+      "anthropic-ratelimit-output-tokens-limit": [
+        "16000"
+      ],
+      "anthropic-ratelimit-output-tokens-remaining": [
+        "16000"
+      ],
+      "anthropic-ratelimit-output-tokens-reset": [
+        "2025-10-07T13:52:50Z"
+      ],
+      "anthropic-ratelimit-requests-limit": [
+        "1000"
+      ],
+      "anthropic-ratelimit-requests-remaining": [
+        "999"
+      ],
+      "anthropic-ratelimit-requests-reset": [
+        "2025-10-07T13:52:47Z"
+      ],
+      "anthropic-ratelimit-tokens-limit": [
+        "56000"
+      ],
+      "anthropic-ratelimit-tokens-remaining": [
+        "56000"
+      ],
+      "anthropic-ratelimit-tokens-reset": [
+        "2025-10-07T13:52:47Z"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98ade1884b3272e2-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:52:50 GMT"
+      ],
+      "request-id": [
+        "req_011CTswziGFUsc9hEXVgocwu"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "via": [
+        "1.1 google"
+      ],
+      "x-envoy-upstream-service-time": [
+        "2827"
+      ],
+      "x-robots-tag": [
+        "none"
+      ]
+    },
+    "status": 200
+  }
+}

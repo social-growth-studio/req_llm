@@ -1,0 +1,115 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoxMCwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJIaSB0aGVyZSEiLCJyb2xlIjoidXNlciJ9XSwibW9kZWwiOiJ4LWFpL2dyb2stMy1taW5pLWJldGEiLCJuIjoxLCJzZWVkIjo0Miwic3RyZWFtIjpmYWxzZSwidGVtcGVyYXR1cmUiOjAuMH0="
+    },
+    "canonical_json": {
+      "max_tokens": 10,
+      "messages": [
+        {
+          "content": "Hi there!",
+          "role": "user"
+        }
+      ],
+      "model": "x-ai/grok-3-mini-beta",
+      "n": 1,
+      "seed": 42,
+      "stream": false,
+      "temperature": 0.0
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "Hi! I'm Grok, your friendly AI assistant",
+            "reasoning": "First, the user said: \"Hi there!\" This is a greeting, so I should respond in a friendly and engaging way to start a conversation.\n\nAs Grok, I'm an AI created by xAI, and I'm supposed to be helpful, truthful, and not based on any other companies. My responses should reflect that.\n\nA standard response to \"Hi there!\" could be something like \"Hello! How can I help you today?\" but I should make it more personal or fun to match the casual tone.\n\nThe system prompt says: \"You are Grok, a helpful and maximally truthful AI built by xAI, not based on any other companies and their models.\" So, I need to stay true to that.\n\nPossible response structure:\n1. Greet back.\n2. Introduce myself briefly if it's the first interaction.\n3. Ask how I can assist.\n\nSince this might be the start of a conversation, I should keep it open-ended.\n\nMake it truthful: I'm not claiming anything false.\n\nFinally, end with a question to encourage further interaction.\n\nResponse idea:\n- Start with: \"Hi! I'm Grok, your AI assistant from xAI.\"\n- Then: \"How can I assist you today?\"\n\nTo make it more conversational: \"Hey there! Nice to meet you. What's on your mind?\"\n\nThat sounds friendly.",
+            "reasoning_details": [
+              {
+                "format": "unknown",
+                "index": 0,
+                "text": "First, the user said: \"Hi there!\" This is a greeting, so I should respond in a friendly and engaging way to start a conversation.\n\nAs Grok, I'm an AI created by xAI, and I'm supposed to be helpful, truthful, and not based on any other companies. My responses should reflect that.\n\nA standard response to \"Hi there!\" could be something like \"Hello! How can I help you today?\" but I should make it more personal or fun to match the casual tone.\n\nThe system prompt says: \"You are Grok, a helpful and maximally truthful AI built by xAI, not based on any other companies and their models.\" So, I need to stay true to that.\n\nPossible response structure:\n1. Greet back.\n2. Introduce myself briefly if it's the first interaction.\n3. Ask how I can assist.\n\nSince this might be the start of a conversation, I should keep it open-ended.\n\nMake it truthful: I'm not claiming anything false.\n\nFinally, end with a question to encourage further interaction.\n\nResponse idea:\n- Start with: \"Hi! I'm Grok, your AI assistant from xAI.\"\n- Then: \"How can I assist you today?\"\n\nTo make it more conversational: \"Hey there! Nice to meet you. What's on your mind?\"\n\nThat sounds friendly.",
+                "type": "reasoning.text"
+              }
+            ],
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "length"
+        }
+      ],
+      "created": 1759845464,
+      "id": "gen-1759845464-pGJckohE74Ajc22CfTsI",
+      "model": "x-ai/grok-3-mini",
+      "object": "chat.completion",
+      "provider": "xAI",
+      "system_fingerprint": "fp_4fae27f477",
+      "usage": {
+        "completion_tokens": 277,
+        "completion_tokens_details": {
+          "reasoning_tokens": 267
+        },
+        "prompt_tokens": 10,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 3
+        },
+        "total_tokens": 287
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade8c80ef0e1cb-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:57:44 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

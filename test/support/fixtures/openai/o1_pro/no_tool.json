@@ -1,0 +1,218 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJpbnB1dCI6W3siY29udGVudCI6W3sidGV4dCI6IlRlbGwgbWUgYSBqb2tlIGFib3V0IGNhdHMiLCJ0eXBlIjoiaW5wdXRfdGV4dCJ9XSwicm9sZSI6InVzZXIifV0sIm1heF9vdXRwdXRfdG9rZW5zIjoyMDAwMCwibW9kZWwiOiJvMS1wcm8iLCJzdHJlYW0iOmZhbHNlLCJ0b29scyI6W3siZnVuY3Rpb24iOnsiZGVzY3JpcHRpb24iOiJHZXQgY3VycmVudCB3ZWF0aGVyIGluZm9ybWF0aW9uIGZvciBhIGxvY2F0aW9uIiwibmFtZSI6ImdldF93ZWF0aGVyIiwicGFyYW1ldGVycyI6eyJwcm9wZXJ0aWVzIjp7ImxvY2F0aW9uIjp7InR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbImxvY2F0aW9uIl0sInR5cGUiOiJvYmplY3QifX0sIm5hbWUiOiJnZXRfd2VhdGhlciIsInR5cGUiOiJmdW5jdGlvbiJ9XX0="
+    },
+    "canonical_json": {
+      "input": [
+        {
+          "content": [
+            {
+              "text": "Tell me a joke about cats",
+              "type": "input_text"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "max_output_tokens": 20000,
+      "model": "o1-pro",
+      "stream": false,
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather information for a location",
+            "name": "get_weather",
+            "parameters": {
+              "properties": {
+                "location": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "location"
+              ],
+              "type": "object"
+            }
+          },
+          "name": "get_weather",
+          "type": "function"
+        }
+      ]
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "created_at": 1759856631,
+      "error": null,
+      "id": "resp_0778b58440e4d1880068e547f6dbbc8198a69f9f46e0385a6d",
+      "incomplete_details": null,
+      "instructions": null,
+      "max_output_tokens": 20000,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "o1-pro-2025-03-19",
+      "object": "response",
+      "output": [
+        {
+          "id": "rs_0778b58440e4d1880068e5480b53e4819899de09f5859940ff",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Here's one:\n\nWhy do cats always get their way?  \nBecause they’re so purr-suasive!",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_0778b58440e4d1880068e5480b54d48198a9521bbd5051a97e",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": {
+        "effort": "medium",
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "status": "completed",
+      "store": true,
+      "temperature": 1.0,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tools": [
+        {
+          "description": null,
+          "name": "get_weather",
+          "parameters": {
+            "additionalProperties": false,
+            "properties": {},
+            "required": [],
+            "type": "object"
+          },
+          "strict": true,
+          "type": "function"
+        }
+      ],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 33,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 215,
+        "output_tokens_details": {
+          "reasoning_tokens": 192
+        },
+        "total_tokens": 248
+      },
+      "user": null
+    },
+    "headers": {
+      "alt-svc": [
+        "h3=\":443\"; ma=86400"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98aef96619cbe82d-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 17:04:11 GMT"
+      ],
+      "openai-organization": [
+        "epic-creative-sogybe"
+      ],
+      "openai-processing-ms": [
+        "20765"
+      ],
+      "openai-project": [
+        "proj_j5AhgU4eLMRmsoO9FDg7BRD3"
+      ],
+      "openai-version": [
+        "2020-10-01"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=pzqHXpdDwPQl4pIoQCCkOakrMyi40jDz_WM9012fGns-1759856651-1.0.1.1-MvY8kinp1n8cB4dDgcj.Jmja9fYfwI4vxgK7j3CVEV6N3If1tNQPlpRa_Hx02wISAHzeEd45covWvgyE0HUsTRX.sVoI9BSXEeQx0oqB02U; path=/; expires=Tue, 07-Oct-25 17:34:11 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None",
+        "_cfuvid=Gt_8D7DCPu1RFsYrErc6yrrMvjS.kbrA_M1OXXc_mXA-1759856651669-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ],
+      "x-envoy-upstream-service-time": [
+        "20822"
+      ],
+      "x-ratelimit-limit-requests": [
+        "10000"
+      ],
+      "x-ratelimit-limit-tokens": [
+        "2000000"
+      ],
+      "x-ratelimit-remaining-requests": [
+        "9999"
+      ],
+      "x-ratelimit-remaining-tokens": [
+        "1999680"
+      ],
+      "x-ratelimit-reset-requests": [
+        "0s"
+      ],
+      "x-ratelimit-reset-tokens": [
+        "0s"
+      ],
+      "x-request-id": [
+        "req_ef235352dd84baa944dace25cf296e51"
+      ]
+    },
+    "status": 200
+  }
+}

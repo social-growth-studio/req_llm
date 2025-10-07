@@ -1,0 +1,98 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoxMDAsIm1lc3NhZ2VzIjpbeyJjb250ZW50IjoiV3JpdGUgYSB2ZXJ5IGxvbmcgc3RvcnkgYWJvdXQgZHJhZ29ucyBhbmQgYWR2ZW50dXJlcyIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6ImFudGhyb3BpYy9jbGF1ZGUtMy43LXNvbm5ldCIsIm4iOjEsInN0cmVhbSI6ZmFsc2UsInRlbXBlcmF0dXJlIjowLjV9"
+    },
+    "canonical_json": {
+      "max_tokens": 100,
+      "messages": [
+        {
+          "content": "Write a very long story about dragons and adventures",
+          "role": "user"
+        }
+      ],
+      "model": "anthropic/claude-3.7-sonnet",
+      "n": 1,
+      "stream": false,
+      "temperature": 0.5
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "# The Dragon's Whisper\n\n## Part I: Embers of Destiny\n\nThe morning sun crept over the jagged peaks of the Mistral Mountains, painting the village of Oakhollow in hues of amber and gold. Elian Thorne awoke to the familiar sounds of the blacksmith's hammer and the distant bleating of sheep. At seventeen, he was unremarkable in every way that mattered in a small village—average height,",
+            "reasoning": null,
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "length"
+        }
+      ],
+      "created": 1759845365,
+      "id": "gen-1759845365-4Z92k7lAFx5PE2RT7S4U",
+      "model": "anthropic/claude-3.7-sonnet",
+      "object": "chat.completion",
+      "provider": "Google",
+      "usage": {
+        "completion_tokens": 100,
+        "prompt_tokens": 16,
+        "total_tokens": 116
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade65c690935b5-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:56:06 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

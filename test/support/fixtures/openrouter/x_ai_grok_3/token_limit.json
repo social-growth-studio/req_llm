@@ -1,0 +1,106 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoxMDAsIm1lc3NhZ2VzIjpbeyJjb250ZW50IjoiV3JpdGUgYSB2ZXJ5IGxvbmcgc3RvcnkgYWJvdXQgZHJhZ29ucyBhbmQgYWR2ZW50dXJlcyIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6IngtYWkvZ3Jvay0zIiwibiI6MSwic3RyZWFtIjpmYWxzZSwidGVtcGVyYXR1cmUiOjAuNX0="
+    },
+    "canonical_json": {
+      "max_tokens": 100,
+      "messages": [
+        {
+          "content": "Write a very long story about dragons and adventures",
+          "role": "user"
+        }
+      ],
+      "model": "x-ai/grok-3",
+      "n": 1,
+      "stream": false,
+      "temperature": 0.5
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "**The Chronicles of Aetherflame: The Dragonbound Quest**\n\nIn the ancient realm of Eldoria, where jagged mountains pierced the heavens and vast, untamed forests whispered secrets of old, the legends of dragons were not mere tales—they were living history. Dragons, majestic and fearsome, were the guardians of the world’s balance, embodying the primal forces of nature. Some were benevolent, protectors of life and wisdom, while others were harbingers of chaos, driven by insatiable hunger or ancient",
+            "reasoning": null,
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "length"
+        }
+      ],
+      "created": 1759845440,
+      "id": "gen-1759845440-MlUcnIajO0OyzL1hZZEn",
+      "model": "x-ai/grok-3",
+      "object": "chat.completion",
+      "provider": "xAI",
+      "system_fingerprint": "fp_f02e6df795",
+      "usage": {
+        "completion_tokens": 100,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "prompt_tokens": 15,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 2
+        },
+        "total_tokens": 115
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade8329ed50046-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:57:21 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

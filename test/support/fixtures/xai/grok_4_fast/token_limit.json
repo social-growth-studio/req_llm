@@ -1,0 +1,116 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfY29tcGxldGlvbl90b2tlbnMiOjEwMCwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJXcml0ZSBhIHZlcnkgbG9uZyBzdG9yeSBhYm91dCBkcmFnb25zIGFuZCBhZHZlbnR1cmVzIiwicm9sZSI6InVzZXIifV0sIm1vZGVsIjoiZ3Jvay00LWZhc3QiLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MC41fQ=="
+    },
+    "canonical_json": {
+      "max_completion_tokens": 100,
+      "messages": [
+        {
+          "content": "Write a very long story about dragons and adventures",
+          "role": "user"
+        }
+      ],
+      "model": "grok-4-fast",
+      "stream": false,
+      "temperature": 0.5
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.x.ai/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "message": {
+            "content": "### The Whispering Flames: A Tale of Dragons and Eternal Skies\n\nIn the ancient realm of Elyndor, where mountains pierced the clouds like the spines of slumbering giants, and rivers of molten silver wound through emerald valleys, dragons were not mere legends. They were the guardians of the skies, their scales shimmering like forged jewels under the twin suns. But peace in Elyndor was fragile, woven from the threads of ancient pacts between humans, elves, and the draconic lords",
+            "refusal": null,
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1759844446,
+      "id": "6c174840-a405-db80-dda7-79c531e0849e_us-east-1",
+      "model": "grok-4-fast-reasoning",
+      "object": "chat.completion",
+      "system_fingerprint": "fp_9362061f30",
+      "usage": {
+        "completion_tokens": 100,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 213,
+          "rejected_prediction_tokens": 0
+        },
+        "num_sources_used": 0,
+        "prompt_tokens": 126,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 125,
+          "image_tokens": 0,
+          "text_tokens": 126
+        },
+        "total_tokens": 439
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "access-control-expose-headers": [
+        "*"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98adcfee2fd0e8ea-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:40:49 GMT"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=kUUOrzUP0hYGCC5YERv_CtB6C2EWcmPjyU0VyAYKm1g-1759844449-1.0.1.1-_kw6o59P8IdOjgVc.GW2nONexXUNh9e626l5.VrnkARUGSM76Zkiga95tgNwK5NrF4IZwIY0VQLA02KFqIbp3AM8Uug20CKFlghwYxlx8uk; path=/; expires=Tue, 07-Oct-25 14:10:49 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "origin, access-control-request-method, access-control-request-headers"
+      ],
+      "x-request-id": [
+        "00-01bbe83fe18d71d7c8b58ee22e938fe4-9353112a001de4cf-01"
+      ],
+      "x-zero-data-retention": [
+        "false"
+      ]
+    },
+    "status": 200
+  }
+}

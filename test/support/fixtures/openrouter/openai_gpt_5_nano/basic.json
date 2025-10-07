@@ -1,0 +1,115 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoyMDAwLCJtZXNzYWdlcyI6W3siY29udGVudCI6IkhlbGxvIHdvcmxkISIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6Im9wZW5haS9ncHQtNS1uYW5vIiwibiI6MSwicmVhc29uaW5nX2VmZm9ydCI6ImxvdyIsInNlZWQiOjQyLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MC4wfQ=="
+    },
+    "canonical_json": {
+      "max_tokens": 2000,
+      "messages": [
+        {
+          "content": "Hello world!",
+          "role": "user"
+        }
+      ],
+      "model": "openai/gpt-5-nano",
+      "n": 1,
+      "reasoning_effort": "low",
+      "seed": 42,
+      "stream": false,
+      "temperature": 0.0
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "Hello! Nice to meet you. What would you like to do today? \n- Learn something new\n- Get help with code or debugging\n- Explore a fun fact or puzzle\n- Build a quick project or script\nTell me your goal and any details, and I’ll help.",
+            "reasoning": "**Responding Friendly**\n\nI want to respond in a friendly way, so I’ll consider offering help or saying hello back. Maybe I should ask what the user wants to do—like if they need code, debugging, or fun facts? I want to keep it concise, too. I could mention I can run code or explain things. Alright, I'll say something like: \"Hello! Nice to meet you. What would you like to do today? Coding, learning, ideas, etc.\"",
+            "reasoning_details": [
+              {
+                "format": "openai-responses-v1",
+                "index": 0,
+                "summary": "**Responding Friendly**\n\nI want to respond in a friendly way, so I’ll consider offering help or saying hello back. Maybe I should ask what the user wants to do—like if they need code, debugging, or fun facts? I want to keep it concise, too. I could mention I can run code or explain things. Alright, I'll say something like: \"Hello! Nice to meet you. What would you like to do today? Coding, learning, ideas, etc.\"",
+                "type": "reasoning.summary"
+              },
+              {
+                "data": "gAAAAABo5Rw3jfw65_HNVeqqXjStzatDnnNGJlevWpZcWtAB-Mj7dv-HJb9cTpUGkWZ0BZN-YEvhLLLJJ8UUdIxUUJq4DyAoyMdvQEl7oSiiyDQH6FkoFsRjTfn2RrFI8_5d7GBX35q4uw3Aj6Tordzee01vIK8C8tMFoS4fOjLdjLNXyVA-QXixQPfmQ0dajkKhMOsXI86YdVT_vh2pb20aWQGaX7zWWgKXx6gEVzrmgomWsZ9by4lk2UMIHQB_pGqdvHncA_trPAoEEU0lhyAjb-lIITnzG1grqCwVXOsVRmm8_vhRxww31qTXtPCZ6ftxJu-dKaO1gcOV7WCTlRjTjfC8pl3qx8VgqHtBtWBKYntHRawZCHRsFsss6DM_Q9TSmnS2u5LLFGzSe9yiLo4pheKWeFQt8d6F4Mgnp76Z0d3yvGXAjAJvqQmDXamUIZxweB0Q_rmWowirarlQLHeiwKxl_DEJGdmFeZBwjVOJLrJUwMf5F9Q5RfbAoSLcnRxwZE3ZT22niddY45Iusdsym2WIXsAhPvg70jl3T64L3hnHUEmUPWUjfiLT4p7OM2Cg1RD-XZ7Zge8et-JD7c-_ArWGH3fOX3P9dA-WIeClHgbl05lyPvqSamGzqh2ttrTFvJXtEokRfXTQ3hqOxjg1cFRfT8Kjww_RsZjrZmJTRxs1sh8XjvduSNyG2apnJe_JHzBv7OL79tygIMKWB511jNkVLRaQhxO2sD71F3_eT6zq9LXcddAYruVduyBgq21RYL4XbrmConWW22vQjduuTssXADYv1ACJJlK2IvTm0tEC-DyPVu_i9x8W2bIy9MPmaWHnpK5i4vTPEWZGR2qAuHLdBVRkVfgqeFAGkESmIVXGhoIjYjh2VUWgZB8YMtK4rkwwBeEy0C-vgBNF83p2BhzmvuqZgRdDW9ruTEbEYxJ_2-eppNLRLgnRUbVZ_7dRG4I5Zy46O9uCgu7GcwIVd_xm027ijJBjBn8CFSIKZmD-tgJbJgNkt81vuJO2N4GHf5TokYxOjzrBL3yZwfg5jccQarzcrBf72Noa80XkyuipYxKjhzRa-he1bzrMJutdpodO30-_rtaAwVg4NNDChOZHzXW6d6zpC7cjXEGJy6Aye1JPxcz0pImd4p9NumAluluVrszqhdnQDRISo6HvlCnJOIv-HjQwE8h6R6jzCh0JanD0VUQPIVeo_FoZ0k5BNf4eEPwAvDGF099WIkZLMDIW_DSMatbGO97CCbyLBZgGGS1Rx1dGCijX5b0wSv-PYn8yMpitJ_RteRDuvI2RajkgeFfuMrZAVJnmEGwwBI3DygeuCJTf-lhySsVgJ6wXuGc1Tu6cSC1Gcgkk49yuidwg_q49qNYnqZUPC_XYXNSFjpOX5sI-njoSXgEZq4xN23FmT1yO",
+                "format": "openai-responses-v1",
+                "id": "rs_027e423fdccfcb1d0168e51c31e0788190a4145d1c29449a3f",
+                "index": 0,
+                "type": "reasoning.encrypted"
+              }
+            ],
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "completed"
+        }
+      ],
+      "created": 1759845425,
+      "id": "gen-1759845425-REkRCulY89YFezPLUQOq",
+      "model": "openai/gpt-5-nano",
+      "object": "chat.completion",
+      "provider": "OpenAI",
+      "usage": {
+        "completion_tokens": 128,
+        "prompt_tokens": 9,
+        "total_tokens": 137
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade7d3dcd5eae4-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:57:05 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

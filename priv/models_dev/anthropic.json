@@ -201,39 +201,6 @@
     {
       "attachment": true,
       "cost": {
-        "cache_read": 0.3,
-        "cache_write": 0.3,
-        "input": 3,
-        "output": 15
-      },
-      "id": "claude-3-sonnet-20240229",
-      "knowledge": "2023-08-31",
-      "last_updated": "2024-03-04",
-      "limit": {
-        "context": 200000,
-        "output": 4096
-      },
-      "modalities": {
-        "input": [
-          "text",
-          "image"
-        ],
-        "output": [
-          "text"
-        ]
-      },
-      "name": "Claude Sonnet 3",
-      "open_weights": false,
-      "provider": "anthropic",
-      "provider_model_id": "claude-3-sonnet-20240229",
-      "reasoning": false,
-      "release_date": "2024-03-04",
-      "temperature": true,
-      "tool_call": true
-    },
-    {
-      "attachment": true,
-      "cost": {
         "cache_read": 1.5,
         "cache_write": 18.75,
         "input": 15,
@@ -336,14 +303,13 @@
         "cache_read": 0.3,
         "cache_write": 3.75,
         "input": 3,
-        "output": 15,
-        "reasoning": 15
+        "output": 15
       },
       "id": "claude-sonnet-4-5-20250929",
       "knowledge": "2025-07-31",
       "last_updated": "2025-09-29",
       "limit": {
-        "context": 1000000,
+        "context": 200000,
         "output": 64000
       },
       "modalities": {

@@ -1,0 +1,174 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoyMDAwMCwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJXaGF0J3MgdGhlIHdlYXRoZXIgbGlrZSBpbiBQYXJpcywgRnJhbmNlPyIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6Im9wZW5haS9vNC1taW5pIiwibiI6MSwicmVhc29uaW5nX2VmZm9ydCI6ImxvdyIsInNlZWQiOjQyLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MC4wLCJ0b29scyI6W3siZnVuY3Rpb24iOnsiZGVzY3JpcHRpb24iOiJHZXQgY3VycmVudCB3ZWF0aGVyIGluZm9ybWF0aW9uIGZvciBhIGxvY2F0aW9uIiwibmFtZSI6ImdldF93ZWF0aGVyIiwicGFyYW1ldGVycyI6eyJwcm9wZXJ0aWVzIjp7ImxvY2F0aW9uIjp7InR5cGUiOiJzdHJpbmcifSwidW5pdCI6eyJlbnVtIjpbImNlbHNpdXMiLCJmYWhyZW5oZWl0Il0sInR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbImxvY2F0aW9uIl0sInR5cGUiOiJvYmplY3QifX0sInR5cGUiOiJmdW5jdGlvbiJ9LHsiZnVuY3Rpb24iOnsiZGVzY3JpcHRpb24iOiJUZWxsIGEgZnVubnkgam9rZSIsIm5hbWUiOiJ0ZWxsX2pva2UiLCJwYXJhbWV0ZXJzIjp7InByb3BlcnRpZXMiOnsidG9waWMiOnsiZGVzY3JpcHRpb24iOiJUb3BpYyBmb3IgdGhlIGpva2UiLCJ0eXBlIjoic3RyaW5nIn19LCJ0eXBlIjoib2JqZWN0In19LCJ0eXBlIjoiZnVuY3Rpb24ifSx7ImZ1bmN0aW9uIjp7ImRlc2NyaXB0aW9uIjoiR2V0IHRoZSBjdXJyZW50IHRpbWUiLCJuYW1lIjoiZ2V0X3RpbWUiLCJwYXJhbWV0ZXJzIjp7InByb3BlcnRpZXMiOnt9LCJ0eXBlIjoib2JqZWN0In19LCJ0eXBlIjoiZnVuY3Rpb24ifV19"
+    },
+    "canonical_json": {
+      "max_tokens": 20000,
+      "messages": [
+        {
+          "content": "What's the weather like in Paris, France?",
+          "role": "user"
+        }
+      ],
+      "model": "openai/o4-mini",
+      "n": 1,
+      "reasoning_effort": "low",
+      "seed": 42,
+      "stream": false,
+      "temperature": 0.0,
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather information for a location",
+            "name": "get_weather",
+            "parameters": {
+              "properties": {
+                "location": {
+                  "type": "string"
+                },
+                "unit": {
+                  "enum": [
+                    "celsius",
+                    "fahrenheit"
+                  ],
+                  "type": "string"
+                }
+              },
+              "required": [
+                "location"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "function"
+        },
+        {
+          "function": {
+            "description": "Tell a funny joke",
+            "name": "tell_joke",
+            "parameters": {
+              "properties": {
+                "topic": {
+                  "description": "Topic for the joke",
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "function"
+        },
+        {
+          "function": {
+            "description": "Get the current time",
+            "name": "get_time",
+            "parameters": {
+              "properties": {},
+              "type": "object"
+            }
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "tool_calls",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "",
+            "reasoning": null,
+            "reasoning_details": [
+              {
+                "data": "gAAAAABo5Rw1iQJO_WDWLNqzoTKIEPmTxWpwo0qFm4RAgRD5ZDFO1GANUJ1alM1c02KDIsEQRemAyJ0EvlUCIDRHqed1hZwkM6sxjHrESwOBo9psqboI9z1pF3CPFS0XEwbFERa_Uex4H2WcrbZEM48R3kCNKMjfoRHRivZAzZWrztsOnBLKybSUD8feTvPlQvesZlqgP8ad6lB-UeUHijz10c5X1a_ncg46l6cQcjEtuSkwne0TJQaXDIZxxU-yLMkZz7kcAXsXAZ_g4rOI2ToB1mKtTPwt1vFbbiLeIIyRgbCJl_eqi8EB57guw4dADvwfAegNb3v8zRnxYUqKsGHlXZFqlfkgA1-0xcl0sFrJqeRva1G6Wm_AhcevCLcLt3dxXGJ3iihrWGe5E06uW2EBbxmYT4oUuONmj66rudGWQvW5C9jRSAPHxJdXPBUoQnh67oJYCGGtei-gRecwcXmO0ROJQQUTR796WMRtvl5JIzAtr1NZnjssCt7iwWa71YiVCQq8pxZVOGPiXsD2K446gpiV9l0bSYnJgn-5r_z2X-hmXeXnvYYnO5vXEEHVEa2gaR55cFsGmB9nP-iNknBCP-6MwIZ8h-pqHWl-7-AyJkyEjykDB43a7mcauYwGMygP5URAcX32PruTstiQ7wpRBYeR8ovKumZ7yEXsZNtRjKyV3HcEAC2Z1tu4-r-3ND9_7HIWZ5qghofRIE8bALP45C7H9AuhsmVT8YOKf3wrx9fmKUw0aifOVoeyY9c9nHcAtx14uBzghWcWCIV45c1p2oQ11k87xCrQNHYcaz6xTFYSeLH-OQp62lQNv5JvckLumjNLjDYJzvevpK7ts_5TENJTVMLZCsH3nuxI4IAiSRG8Dv9dWA4bTkt82kFEI1NH7Ns8PXZ7XarD4AInyn67DtEmEPhNpOHbit4gw-rN_ARzDJGUzYg=",
+                "format": "openai-responses-v1",
+                "id": "rs_067c1c6e9e3b39ee0168e51c3566fc8195ad981c9c7dfd8ae1",
+                "index": 0,
+                "type": "reasoning.encrypted"
+              }
+            ],
+            "refusal": null,
+            "role": "assistant",
+            "tool_calls": [
+              {
+                "function": {
+                  "arguments": "{\"location\":\"Paris, France\",\"unit\":\"celsius\"}",
+                  "name": "get_weather"
+                },
+                "id": "call_9jRkXRh6PFloAFWA8j5PKzVR",
+                "index": 0,
+                "type": "function"
+              }
+            ]
+          },
+          "native_finish_reason": "completed"
+        }
+      ],
+      "created": 1759845428,
+      "id": "gen-1759845428-P44DeV0gEBlyAeQ3yX7u",
+      "model": "openai/o4-mini",
+      "object": "chat.completion",
+      "provider": "OpenAI",
+      "usage": {
+        "completion_tokens": 27,
+        "prompt_tokens": 101,
+        "total_tokens": 128
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade7e71b938714-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:57:08 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

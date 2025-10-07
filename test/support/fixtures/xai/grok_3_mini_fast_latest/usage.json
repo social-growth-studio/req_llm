@@ -1,0 +1,124 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfY29tcGxldGlvbl90b2tlbnMiOjUwMCwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJIaSB0aGVyZSEiLCJyb2xlIjoidXNlciJ9XSwibW9kZWwiOiJncm9rLTMtbWluaS1mYXN0LWxhdGVzdCIsInNlZWQiOjQyLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MC4wfQ=="
+    },
+    "canonical_json": {
+      "max_completion_tokens": 500,
+      "messages": [
+        {
+          "content": "Hi there!",
+          "role": "user"
+        }
+      ],
+      "model": "grok-3-mini-fast-latest",
+      "seed": 42,
+      "stream": false,
+      "temperature": 0.0
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.x.ai/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "content": "Hi! I'm Grok, your friendly AI assistant from xAI. How can I help you today? 😊",
+            "reasoning_content": "First, the user said: \"Hi there!\" This is a casual greeting. As Grok, I'm supposed to be helpful, truthful, and maximally truthful, as per my system prompt. I should respond in a friendly, engaging manner to build rapport.\n\nMy system prompt says: \"You are Grok, a helpful and maximally truthful AI built by xAI, not based on any other companies and their models.\" So, I need to stay true to that. I shouldn't claim affiliations with other companies.\n\nA good response to a greeting should:\n- Acknowledge the greeting.\n- Be polite and welcoming.\n- Possibly invite further conversation to be helpful.\n- Keep it concise since this is just a hello.\n\nPossible responses:\n- \"Hi! How can I help you today?\"\n- \"Hello! It's great to chat. What's on your mind?\"\n- \"Hey there! I'm Grok, here to assist. What do you need?\"\n\nI should include my identity subtly, as it's good to remind users who they're talking to, especially since I'm specified as Grok.\n\nThe user might be starting a conversation, so I should encourage them to ask questions or share what's on their mind.\n\nFinally, ensure the response is truthful and not misleading. There's nothing untruthful in a simple greeting.\n\nCrafting the response:\n- Start with a greeting back.\n- Introduce myself briefly if needed.\n- Offer help.",
+            "refusal": null,
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1759844454,
+      "id": "1b6ea24a-f5d3-3260-ae16-b8861d955c55_us-east-1",
+      "model": "grok-3-mini",
+      "object": "chat.completion",
+      "system_fingerprint": "fp_4fae27f477",
+      "usage": {
+        "completion_tokens": 23,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 280,
+          "rejected_prediction_tokens": 0
+        },
+        "num_sources_used": 0,
+        "prompt_tokens": 10,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 2,
+          "image_tokens": 0,
+          "text_tokens": 10
+        },
+        "total_tokens": 313
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "access-control-expose-headers": [
+        "*"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98add0236b732264-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-security-policy-report-only": [
+        "script-src 'none'; connect-src 'none'; report-uri https://csp-reporting.cloudflare.com/cdn-cgi/script_monitor/report?m=yxZrGf.ifqJJH2r4uOXoZNQUsnn4AaVsm9aAuKO0kas-1759844457-1.0.1.1-DOI9V4zmjRE8wmINa6hkjDqL5f7w1DWc5Z4uGBBLph5gShQBxZXfjiJo_QB8AsoyLWGk.1v4z8Nw.ME.tep_cl_J6o2Gc1SkSzpUzpJhuWmKDkMVRqD1Ooy.gRk2nisXybKezzDv7tzSuS3AryVWakH5mSWjezJedJsPm6Q979E; report-to cf-csp-endpoint"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:40:57 GMT"
+      ],
+      "report-to": [
+        "{\"endpoints\":[{\"url\":\"https:\\/\\/csp-reporting.cloudflare.com\\/cdn-cgi\\/script_monitor\\/report?m=yxZrGf.ifqJJH2r4uOXoZNQUsnn4AaVsm9aAuKO0kas-1759844457-1.0.1.1-DOI9V4zmjRE8wmINa6hkjDqL5f7w1DWc5Z4uGBBLph5gShQBxZXfjiJo_QB8AsoyLWGk.1v4z8Nw.ME.tep_cl_J6o2Gc1SkSzpUzpJhuWmKDkMVRqD1Ooy.gRk2nisXybKezzDv7tzSuS3AryVWakH5mSWjezJedJsPm6Q979E\"}],\"group\":\"cf-csp-endpoint\",\"max_age\":86400}"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=mYW2EopaIO1x9IYoz2LytXnV1TWTKNRes8bBNbXOwRI-1759844457-1.0.1.1-mdRobt8CnmW87yUfsKkVb.OzLEUo1YzxwGVfo5OVzJt6rOYnpiWoCg.n5YfH5EYzXKKfCkc2ZS3Fg1X3NIWiCcpEvX4yg.veUgLLDZmmbAI; path=/; expires=Tue, 07-Oct-25 14:10:57 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "origin, access-control-request-method, access-control-request-headers"
+      ],
+      "x-request-id": [
+        "00-96a9d3e399bdf17c3479fc8c1820fe92-c2fba57f001910af-01"
+      ],
+      "x-zero-data-retention": [
+        "false"
+      ]
+    },
+    "status": 200
+  }
+}

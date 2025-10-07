@@ -1,0 +1,160 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJjb250ZW50cyI6W3sicGFydHMiOlt7InRleHQiOiJXaGF0J3MgdGhlIHdlYXRoZXIgbGlrZSBpbiBQYXJpcywgRnJhbmNlPyJ9XSwicm9sZSI6InVzZXIifV0sImdlbmVyYXRpb25Db25maWciOnsiY2FuZGlkYXRlQ291bnQiOjEsIm1heE91dHB1dFRva2VucyI6MTMxMDYsInRlbXBlcmF0dXJlIjowLjB9LCJ0b29scyI6W3siZnVuY3Rpb25EZWNsYXJhdGlvbnMiOlt7ImRlc2NyaXB0aW9uIjoiR2V0IGN1cnJlbnQgd2VhdGhlciBpbmZvcm1hdGlvbiBmb3IgYSBsb2NhdGlvbiIsIm5hbWUiOiJnZXRfd2VhdGhlciIsInBhcmFtZXRlcnMiOnsicHJvcGVydGllcyI6eyJsb2NhdGlvbiI6eyJ0eXBlIjoic3RyaW5nIn0sInVuaXQiOnsiZW51bSI6WyJjZWxzaXVzIiwiZmFocmVuaGVpdCJdLCJ0eXBlIjoic3RyaW5nIn19LCJyZXF1aXJlZCI6WyJsb2NhdGlvbiJdLCJ0eXBlIjoib2JqZWN0In19LHsiZGVzY3JpcHRpb24iOiJUZWxsIGEgZnVubnkgam9rZSIsIm5hbWUiOiJ0ZWxsX2pva2UiLCJwYXJhbWV0ZXJzIjp7InByb3BlcnRpZXMiOnsidG9waWMiOnsiZGVzY3JpcHRpb24iOiJUb3BpYyBmb3IgdGhlIGpva2UiLCJ0eXBlIjoic3RyaW5nIn19LCJ0eXBlIjoib2JqZWN0In19LHsiZGVzY3JpcHRpb24iOiJHZXQgdGhlIGN1cnJlbnQgdGltZSIsIm5hbWUiOiJnZXRfdGltZSIsInBhcmFtZXRlcnMiOnsicHJvcGVydGllcyI6e30sInR5cGUiOiJvYmplY3QifX1dfV19"
+    },
+    "canonical_json": {
+      "contents": [
+        {
+          "parts": [
+            {
+              "text": "What's the weather like in Paris, France?"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "generationConfig": {
+        "candidateCount": 1,
+        "maxOutputTokens": 13106,
+        "temperature": 0.0
+      },
+      "tools": [
+        {
+          "functionDeclarations": [
+            {
+              "description": "Get current weather information for a location",
+              "name": "get_weather",
+              "parameters": {
+                "properties": {
+                  "location": {
+                    "type": "string"
+                  },
+                  "unit": {
+                    "enum": [
+                      "celsius",
+                      "fahrenheit"
+                    ],
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "location"
+                ],
+                "type": "object"
+              }
+            },
+            {
+              "description": "Tell a funny joke",
+              "name": "tell_joke",
+              "parameters": {
+                "properties": {
+                  "topic": {
+                    "description": "Topic for the joke",
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            {
+              "description": "Get the current time",
+              "name": "get_time",
+              "parameters": {
+                "properties": {},
+                "type": "object"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=%5BREDACTED%3Akey%5D"
+  },
+  "response": {
+    "body": {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "functionCall": {
+                  "args": {
+                    "location": "Paris, France"
+                  },
+                  "name": "get_weather"
+                },
+                "thoughtSignature": "CsMIAdHtim9klmcuEH/BPlj9w9zftCHkHrYrbaf/vc6I+Zca+3Vfihfi1YR4JAZ01nPqAOODCwY9D3u2K0ikoLQNcYCEkew++fxVpvqJOoyMJfruOqljDRGXGDatXC0OKdr1MFOMnPbgNwQUH7qUBTX/WUJ/cXyUXuWkcIMzV9d08yK95j+0zaCZBT3Bh+Y2uALRD5qpO0jHJlrAiwD5FSlT/ridzpN4IZDTBBHQkzUtpBf1LwkBdkGHpO2CBIpEPLrFhoH8Zs93L/OtX93aF16JRWynM+0qxZWZn/OkfDWBDA1YlXbsBtdIaEm+/dljLhOWqWb2tazyCAQKjZ89bKjIx1uwFvoqWniTzj241gmpItvCZxw1OGCl4SqyQMeTCc2Dz7uO9xDml0q82vIkr7yCBuzBx6mXvYHuOe/CREOsIUgTG0FtqZs08i1KVOtCPJatE1GH/oJKDGsB3IVznxsgSViQ5BsCjiFN9zDgTBZzV/cySEPwCB4PLjFazo91VRSUMfkw24CTFpJyYPomuNCjK6TnKDwc7NywN3VDxAy5SvChrNVZEjdnrg1VBmut5WySZxhepOePasnAduSzbgwXftag4+1eoZh5hpq2d/xoYORw1nLCE4z9c0rWKfoVHU20CDRYre1R1IesTc/RwCLsfVh4cFACUmgDyGeIK3Hl4Yf3mlowrN2vFVbMpUhMz7tT69TfkhUmEZ3tI96aFvcYn8vwDW9qFkE6a/ZjgXpKUpKv2vTcDIoZEpLauOLPkDQxFLSSJx7qRx9E8cl+mIB7BYzr8f1EWJiUU0ZfIk8c5DqmBtcR7Xpl2H/o5LNnemTJB8EeGQ+/MbjLSwaLPzjYLwrAQW2F6NdfRIMz1DA1Q5zPqTyaRG/00NtlWuPMZa030VF5YBtOvF7ZQyKh1B4F75iWI9bqrPzqxWLRbULJhlUWATvI4iOvD7uS8CQLUIBaomkK79TJ719GlM2bKitK0JmDUVLg5UhEl5wSNdckY35CVUnNZrdrSaFW30vGloUQ91dNJDF0ERukHa5HvCMXXYTmG1Ir5RIq+MwJ+Hf3DLNCHFxIR6Oi1LBf4MRTcQWczyO6RbDe9aRW9MTOPi4HwAl6bPWLWIVWjqq0rAuzuthwz1cThC95wxMUkQt8W9Js+gdpX+IBTypLmrwTfBJm6EbgkrvghEqTBDS7fhO5mRU/bIl2aYCLm6tE9G7myQnTtlkdsHmlK8Hf3UVosVNDmQbb79b6Cp70Drt0yc00sR28aKmxS+4SG4koaA6TVwqQXW6tY5fispXvhRASL1EynMnCoUCiuiGh5HfiPrmhamgZrJPc/I9V97K/FvEjqMISLdhciziKsJ+Yt7GUv0vkvMVP9U2qu0Yj3GkPwzBLoXCFgVA1BH1CjL2uaiiT1te6pkbddUV/lQnlNPcybriV+QynOFYxFVMEDNI2lbk7D9sMB6k="
+              }
+            ],
+            "role": "model"
+          },
+          "finishMessage": "Model generated function call(s).",
+          "finishReason": "STOP",
+          "index": 0
+        }
+      ],
+      "modelVersion": "gemini-2.5-pro",
+      "responseId": "VTDlaPr1LcGL-sAPkJ-aoAg",
+      "usageMetadata": {
+        "candidatesTokenCount": 17,
+        "promptTokenCount": 142,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 142
+          }
+        ],
+        "thoughtsTokenCount": 262,
+        "totalTokenCount": 421
+      }
+    },
+    "headers": {
+      "alt-svc": [
+        "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+      ],
+      "content-type": [
+        "application/json; charset=UTF-8"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 15:23:01 GMT"
+      ],
+      "server": [
+        "scaffolding on HTTPServer2"
+      ],
+      "server-timing": [
+        "gfet4t7; dur=3831"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Origin",
+        "X-Origin",
+        "Referer"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ],
+      "x-frame-options": [
+        "SAMEORIGIN"
+      ],
+      "x-xss-protection": [
+        "0"
+      ]
+    },
+    "status": 200
+  }
+}

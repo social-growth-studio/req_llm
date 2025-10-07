@@ -1,0 +1,184 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJpbnB1dCI6W3siY29udGVudCI6W3sidGV4dCI6IkhpIHRoZXJlISIsInR5cGUiOiJpbnB1dF90ZXh0In1dLCJyb2xlIjoidXNlciJ9XSwibWF4X291dHB1dF90b2tlbnMiOjUwMCwibW9kZWwiOiJncHQtNS1taW5pIiwic3RyZWFtIjpmYWxzZX0="
+    },
+    "canonical_json": {
+      "input": [
+        {
+          "content": [
+            {
+              "text": "Hi there!",
+              "type": "input_text"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "max_output_tokens": 500,
+      "model": "gpt-5-mini",
+      "stream": false
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "created_at": 1759795763,
+      "error": null,
+      "id": "resp_0f508f89b4cf41880068e45a32ebac819a994ade7629fb58ea",
+      "incomplete_details": null,
+      "instructions": null,
+      "max_output_tokens": 500,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "gpt-5-mini-2025-08-07",
+      "object": "response",
+      "output": [
+        {
+          "id": "rs_0f508f89b4cf41880068e45a33726c819ab4e35a00b3a637d1",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Hi! How can I help you today? (I can answer questions, draft or edit text, summarize, help with code, plan something, analyze an image, or anything else you need.)",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_0f508f89b4cf41880068e45a347a58819abcbd664701751aaa",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": {
+        "effort": "medium",
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "status": "completed",
+      "store": true,
+      "temperature": 1.0,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 9,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 109,
+        "output_tokens_details": {
+          "reasoning_tokens": 64
+        },
+        "total_tokens": 118
+      },
+      "user": null
+    },
+    "headers": {
+      "alt-svc": [
+        "h3=\":443\"; ma=86400"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98a92b5dd966ead8-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 00:09:25 GMT"
+      ],
+      "openai-organization": [
+        "epic-creative-sogybe"
+      ],
+      "openai-processing-ms": [
+        "2445"
+      ],
+      "openai-project": [
+        "proj_j5AhgU4eLMRmsoO9FDg7BRD3"
+      ],
+      "openai-version": [
+        "2020-10-01"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=S1Ek5UceWPS2JgDyeHxb8wsIzUKcjJVoNdY70FWaGH0-1759795765-1.0.1.1-CPB59TB_NlVYm493ks2ER.X.3IKVghW.LbpU8Jk9ZWe8Qx0u.4Ln3.9mkTH4iBFhxuWVTtyaxcmgdvg8JElrvoljjDGfg8UH0KlXNHxSSnI; path=/; expires=Tue, 07-Oct-25 00:39:25 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None",
+        "_cfuvid=W.6w4y3TxMKik1O5c3hVTjK8s2XY8UeXdXylzsKxZRI-1759795765399-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ],
+      "x-envoy-upstream-service-time": [
+        "2448"
+      ],
+      "x-ratelimit-limit-requests": [
+        "10000"
+      ],
+      "x-ratelimit-limit-tokens": [
+        "10000000"
+      ],
+      "x-ratelimit-remaining-requests": [
+        "9999"
+      ],
+      "x-ratelimit-remaining-tokens": [
+        "9999774"
+      ],
+      "x-ratelimit-reset-requests": [
+        "6ms"
+      ],
+      "x-ratelimit-reset-tokens": [
+        "1ms"
+      ],
+      "x-request-id": [
+        "req_73c759c31eacfb30912c0c8844f7e07c"
+      ]
+    },
+    "status": 200
+  }
+}

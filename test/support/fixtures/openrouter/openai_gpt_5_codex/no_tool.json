@@ -1,0 +1,135 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoyNTYwMCwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJUZWxsIG1lIGEgam9rZSBhYm91dCBjYXRzIiwicm9sZSI6InVzZXIifV0sIm1vZGVsIjoib3BlbmFpL2dwdC01LWNvZGV4IiwibiI6MSwicmVhc29uaW5nX2VmZm9ydCI6ImxvdyIsInNlZWQiOjQyLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MC4wLCJ0b29scyI6W3siZnVuY3Rpb24iOnsiZGVzY3JpcHRpb24iOiJHZXQgY3VycmVudCB3ZWF0aGVyIGluZm9ybWF0aW9uIGZvciBhIGxvY2F0aW9uIiwibmFtZSI6ImdldF93ZWF0aGVyIiwicGFyYW1ldGVycyI6eyJwcm9wZXJ0aWVzIjp7ImxvY2F0aW9uIjp7InR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbImxvY2F0aW9uIl0sInR5cGUiOiJvYmplY3QifX0sInR5cGUiOiJmdW5jdGlvbiJ9XX0="
+    },
+    "canonical_json": {
+      "max_tokens": 25600,
+      "messages": [
+        {
+          "content": "Tell me a joke about cats",
+          "role": "user"
+        }
+      ],
+      "model": "openai/gpt-5-codex",
+      "n": 1,
+      "reasoning_effort": "low",
+      "seed": 42,
+      "stream": false,
+      "temperature": 0.0,
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather information for a location",
+            "name": "get_weather",
+            "parameters": {
+              "properties": {
+                "location": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "location"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "Why did the cat sit on the computer?  \nBecause it wanted to keep an eye on the mouse!",
+            "reasoning": "**Preparing to produce joke**",
+            "reasoning_details": [
+              {
+                "format": "openai-responses-v1",
+                "index": 0,
+                "summary": "**Preparing to produce joke**",
+                "type": "reasoning.summary"
+              },
+              {
+                "data": "gAAAAABo5RxYfXS7yas0hFWQfhpXv3AIVlgyNsuYb2Zc8tcDZ1HOSsBrF_-3wc3OnY0NZpnDj9CQUW1npLcqB78xO_9hSc0-2LJ_y_UZd8tdiMO1hc2zeoirrM5zw2IvBw6mzxWowWOsIGjbbkmTb9MSammWoUzXMhQSiWlssR7ZowATS9EyCObJW-oQH-CXB_bji63IcZFG0OqGshxfS1nLIQeHVwoZkO9cDt6H28TyL_YSXKX-3rQK-V5phRe8-Na5KynCO38nTmX6qFKNmlBlo_SHucfzU-zKjNSxWPqXUZvOfT_njMx3zMokXJv4VvWTPvIXYeLthXKKVqLjn1Ee2mlT5fHLyisyJTd8zvZpLZCOfVmGnsNgcrqaRiRxcVQ8ARIICqKixjVUlg8ofSS5m3G1TmkljxDolfLCYO23_UGYoLc96tFYYnh3x_-jqxm_hwMpXNSc87JUk36kyoOpIt-ShU_J7lXgYAh4hyptDRGBcjyVkb4WlpFqGELAChdMR8SlddEHsfyDb7H9jAhK2oArRTvNHHKplKMhJE1bmgBZ23HJTqQwbTF7QoEiJX5TwKh-iPZblU6Sgpew7AfKanRO2NQyKf_OmOP4CkSm3wKlPTaJrwckU8JflojaOBb-X8UOJHmQQdti35EVjYoLq77Xr8HhUVPhWVKthAQxqM5Ibge9LNPH4nEh0pDct2n2llD4Lf1-qOOSv81jMapiVUHURSaFWWWkPtgWGPAYxrbS4axgNXTPn51AXeR9_OmatKYcaVHe80HGtDpt2qnRvuBw_WN0bgcArpfSmU1Mnf-jEK1_qs04KBac8Mb1ESQZ_nkKqTmtzmPRvidhv5BuEJUYNtSg8Q==",
+                "format": "openai-responses-v1",
+                "id": "rs_015c8c924e4292210168e51c57d1d88197ac6003b67529cf84",
+                "index": 0,
+                "type": "reasoning.encrypted"
+              }
+            ],
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "completed"
+        }
+      ],
+      "created": 1759845462,
+      "id": "gen-1759845462-IBmOtYYzTQoFb2rswj0Q",
+      "model": "openai/gpt-5-codex",
+      "object": "chat.completion",
+      "provider": "OpenAI",
+      "usage": {
+        "completion_tokens": 27,
+        "prompt_tokens": 53,
+        "total_tokens": 80
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade8bcac83000e-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:57:43 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

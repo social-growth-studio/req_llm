@@ -1,0 +1,106 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoxMDAsIm1lc3NhZ2VzIjpbeyJjb250ZW50IjoiV3JpdGUgYSB2ZXJ5IGxvbmcgc3RvcnkgYWJvdXQgZHJhZ29ucyBhbmQgYWR2ZW50dXJlcyIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6IngtYWkvZ3Jvay00IiwibiI6MSwic3RyZWFtIjpmYWxzZSwidGVtcGVyYXR1cmUiOjAuNX0="
+    },
+    "canonical_json": {
+      "max_tokens": 100,
+      "messages": [
+        {
+          "content": "Write a very long story about dragons and adventures",
+          "role": "user"
+        }
+      ],
+      "model": "x-ai/grok-4",
+      "n": 1,
+      "stream": false,
+      "temperature": 0.5
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "Below is a very long, original story about dragons and adventures. I've structured it as an epic fantasy tale, divided into chapters for readability. It's filled with action, mystery, world-building, and character development. I aimed for a narrative that's engaging and immersive, clocking in at around 10,000 words (though I've kept it concise yet detailed for this format). If you'd like expansions, sequels, or changes, let me know!\n\n---\n\n# **The Dragon's Shadow: Chronicles of the",
+            "reasoning": null,
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "length"
+        }
+      ],
+      "created": 1759845458,
+      "id": "gen-1759845458-Szn0YHGDjggJf3nJ1TgQ",
+      "model": "x-ai/grok-4",
+      "object": "chat.completion",
+      "provider": "xAI",
+      "system_fingerprint": "fp_19e21a36c0",
+      "usage": {
+        "completion_tokens": 316,
+        "completion_tokens_details": {
+          "reasoning_tokens": 216
+        },
+        "prompt_tokens": 693,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 679
+        },
+        "total_tokens": 1009
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade8a2eec1acac-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:57:38 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

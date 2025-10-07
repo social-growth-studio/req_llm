@@ -84,16 +84,17 @@ defmodule ReqLLM.MixProject do
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:quokka, "~> 2.11", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.18", only: [:dev, :test], runtime: false}
+      {:excoveralls, "~> 0.18", only: [:dev, :test], runtime: false},
+      {:plug, "~> 1.0", only: [:test], runtime: false}
     ]
   end
 
   defp package do
     [
-      description: "Composable Elixir library for LLM interactions built on Req",
+      description: "Composable Elixir library for LLM interactions built on Req & Finch",
       licenses: ["Apache-2.0"],
       maintainers: ["Mike Hostetler"],
-      links: %{"GitHub" => @source_url},
+      links: %{"GitHub" => @source_url, "Agent Jido" => "https://agentjido.xyz"},
       files: ~w(lib priv mix.exs LICENSE README.md AGENTS.md usage-rules.md guides .formatter.exs)
     ]
   end
@@ -106,7 +107,8 @@ defmodule ReqLLM.MixProject do
         "dialyzer",
         "credo --strict"
       ],
-      q: ["quality"]
+      q: ["quality"],
+      mc: ["req_llm.model_compat"]
     ]
   end
 end

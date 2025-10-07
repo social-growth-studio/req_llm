@@ -12,8 +12,24 @@ ReqLLM is a composable Elixir library for AI interactions built on Req, providin
 - `mix test test/req_llm_test.exs` - Run specific test file
 - `mix test --only describe:"model/1 top-level API"` - Run specific describe block
 - `LIVE=true mix test` - Run against real APIs and (re)generate fixtures
+- `REQ_LLM_DEBUG=1 mix test` - Run tests with verbose fixture debugging output
 - `mix compile` - Compile the project
 - `mix quality` or `mix q` - Run quality checks (format, compile --warnings-as-errors, dialyzer, credo)
+
+### Coverage Validation
+- `mix mc` or `mix req_llm.model_compat` - Show models with passing fixtures
+- `mix mc "*:*"` - Validate all models (parallel, fixture-based)
+- `mix mc --sample` - Validate sample model subset (config/config.exs)
+- `mix mc anthropic` - Validate all Anthropic models
+- `mix mc "openai:gpt-4o"` - Validate specific model
+- `mix mc "xai:*" --record` - Re-record fixtures for xAI models
+- `mix mc --available` - List all models from registry (priv/models_dev/)
+
+**Coverage System Architecture:**
+- **Model Registry**: `priv/models_dev/*.json` (synced via `mix req_llm.model_sync`)
+- **Fixture State**: `priv/supported_models.json` (auto-generated artifact)
+- **Parallel Execution**: Tests run concurrently for speed
+- **State Tracking**: Skips models with passing fixtures unless `--record` or `--record-all`
 
 #### Test Filtering with Semantic Tags
 ReqLLM uses structured key/value tags for precise test filtering:

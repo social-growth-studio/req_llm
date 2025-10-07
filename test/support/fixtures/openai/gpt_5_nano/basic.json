@@ -1,0 +1,184 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJpbnB1dCI6W3siY29udGVudCI6W3sidGV4dCI6IkhlbGxvIHdvcmxkISIsInR5cGUiOiJpbnB1dF90ZXh0In1dLCJyb2xlIjoidXNlciJ9XSwibWF4X291dHB1dF90b2tlbnMiOjIwMDAsIm1vZGVsIjoiZ3B0LTUtbmFubyIsInN0cmVhbSI6ZmFsc2V9"
+    },
+    "canonical_json": {
+      "input": [
+        {
+          "content": [
+            {
+              "text": "Hello world!",
+              "type": "input_text"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "max_output_tokens": 2000,
+      "model": "gpt-5-nano",
+      "stream": false
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "created_at": 1759853160,
+      "error": null,
+      "id": "resp_07f30e86f3faad320068e53a687d3081999451aaae1b291c1f",
+      "incomplete_details": null,
+      "instructions": null,
+      "max_output_tokens": 2000,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "gpt-5-nano-2025-08-07",
+      "object": "response",
+      "output": [
+        {
+          "id": "rs_07f30e86f3faad320068e53a6e44f08199874f5c26ab0ddf78",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Hello! Nice to meet you. What would you like to do today? If you’re into programming, here are a few “Hello, world!” examples in different languages:\n\n- Python: print(\"Hello, world!\")\n- JavaScript: console.log(\"Hello, world!\");\n- C: printf(\"Hello, world!\\n\");\n- Java: System.out.println(\"Hello, world!\");\n- Ruby: puts 'Hello, world!'\n\nTell me if you want help with something else.",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_07f30e86f3faad320068e53a712bd481999d293099dad94f8b",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": {
+        "effort": "medium",
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "status": "completed",
+      "store": true,
+      "temperature": 1.0,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 9,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 551,
+        "output_tokens_details": {
+          "reasoning_tokens": 448
+        },
+        "total_tokens": 560
+      },
+      "user": null
+    },
+    "headers": {
+      "alt-svc": [
+        "h3=\":443\"; ma=86400"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98aea4ac9bec6199-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 16:06:10 GMT"
+      ],
+      "openai-organization": [
+        "epic-creative-sogybe"
+      ],
+      "openai-processing-ms": [
+        "9611"
+      ],
+      "openai-project": [
+        "proj_j5AhgU4eLMRmsoO9FDg7BRD3"
+      ],
+      "openai-version": [
+        "2020-10-01"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=1YGVgehepFoyiqaB8FRY6x2DK.PuseIB.4S0ICRVWuA-1759853170-1.0.1.1-B4K9xKfa_b8pjM4ZVhiFQgsXxbvOC4VuED_fVd0ywz0vSmW6vK0uQdSXiwCGOf9.FHKYvd1ydV51ZqIUcSw01JHuw.Ksv7MGaGElQHzDQvw; path=/; expires=Tue, 07-Oct-25 16:36:10 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None",
+        "_cfuvid=CiGDCDwg.Q5nIAnh3jn5qNU2xeTajug1EvduOyEzKfE-1759853170128-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ],
+      "x-envoy-upstream-service-time": [
+        "9615"
+      ],
+      "x-ratelimit-limit-requests": [
+        "10000"
+      ],
+      "x-ratelimit-limit-tokens": [
+        "10000000"
+      ],
+      "x-ratelimit-remaining-requests": [
+        "9999"
+      ],
+      "x-ratelimit-remaining-tokens": [
+        "9999774"
+      ],
+      "x-ratelimit-reset-requests": [
+        "6ms"
+      ],
+      "x-ratelimit-reset-tokens": [
+        "1ms"
+      ],
+      "x-request-id": [
+        "req_67b47d7dadaf1c7bbc3efa452a36c02d"
+      ]
+    },
+    "status": 200
+  }
+}

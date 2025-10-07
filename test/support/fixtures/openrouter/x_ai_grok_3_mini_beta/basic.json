@@ -1,0 +1,115 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjo1MCwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJIZWxsbyB3b3JsZCEiLCJyb2xlIjoidXNlciJ9XSwibW9kZWwiOiJ4LWFpL2dyb2stMy1taW5pLWJldGEiLCJuIjoxLCJzZWVkIjo0Miwic3RyZWFtIjpmYWxzZSwidGVtcGVyYXR1cmUiOjAuMH0="
+    },
+    "canonical_json": {
+      "max_tokens": 50,
+      "messages": [
+        {
+          "content": "Hello world!",
+          "role": "user"
+        }
+      ],
+      "model": "x-ai/grok-3-mini-beta",
+      "n": 1,
+      "seed": 42,
+      "stream": false,
+      "temperature": 0.0
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "Hello! I'm Grok, your friendly AI assistant built by xAI. What's on your mind today—anything I can help with? 😊",
+            "reasoning": "First, the user said \"Hello world!\" This is a common greeting, often used as a simple test message in programming, like the classic \"Hello, World!\" program.\n\nAs Grok, I'm an AI created by xAI, and I'm supposed to be helpful, truthful, and maximally truthful. My responses should be engaging, informative, and aligned with my identity.\n\nPossible ways to respond:\n\n1. **Mirror the greeting:** Keep it simple and friendly, like \"Hello! How can I help you today?\"\n\n2. **Add a fun twist:** Since \"Hello world!\" is a programming reference, I could acknowledge that. For example, \"Hello world! I'm Grok, your AI assistant from xAI. What's on your mind?\"\n\n3. **Be helpful:** Ask if they need assistance with anything, as per my core directive.\n\n4. **Keep it concise:** Avoid verbosity unless necessary. The user might just be testing or saying hi.\n\nContext: This is the first message, so it's likely an icebreaker. I should respond in a way that invites further conversation.\n\nEnsure I'm truthful: I'm not based on other companies' models; I'm built by xAI, so I should emphasize that if relevant.\n\nFinal response structure:\n\n- Start with a greeting to reciprocate.\n\n- Introduce myself briefly if needed.\n\n- Offer help or ask a question to continue the conversation.",
+            "reasoning_details": [
+              {
+                "format": "unknown",
+                "index": 0,
+                "text": "First, the user said \"Hello world!\" This is a common greeting, often used as a simple test message in programming, like the classic \"Hello, World!\" program.\n\nAs Grok, I'm an AI created by xAI, and I'm supposed to be helpful, truthful, and maximally truthful. My responses should be engaging, informative, and aligned with my identity.\n\nPossible ways to respond:\n\n1. **Mirror the greeting:** Keep it simple and friendly, like \"Hello! How can I help you today?\"\n\n2. **Add a fun twist:** Since \"Hello world!\" is a programming reference, I could acknowledge that. For example, \"Hello world! I'm Grok, your AI assistant from xAI. What's on your mind?\"\n\n3. **Be helpful:** Ask if they need assistance with anything, as per my core directive.\n\n4. **Keep it concise:** Avoid verbosity unless necessary. The user might just be testing or saying hi.\n\nContext: This is the first message, so it's likely an icebreaker. I should respond in a way that invites further conversation.\n\nEnsure I'm truthful: I'm not based on other companies' models; I'm built by xAI, so I should emphasize that if relevant.\n\nFinal response structure:\n\n- Start with a greeting to reciprocate.\n\n- Introduce myself briefly if needed.\n\n- Offer help or ask a question to continue the conversation.",
+                "type": "reasoning.text"
+              }
+            ],
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "stop"
+        }
+      ],
+      "created": 1759845461,
+      "id": "gen-1759845461-hkSvpbeXJg9Zk3bMnIGQ",
+      "model": "x-ai/grok-3-mini",
+      "object": "chat.completion",
+      "provider": "xAI",
+      "system_fingerprint": "fp_4fae27f477",
+      "usage": {
+        "completion_tokens": 305,
+        "completion_tokens_details": {
+          "reasoning_tokens": 276
+        },
+        "prompt_tokens": 10,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 9
+        },
+        "total_tokens": 315
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade8b4baf3e1cb-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:57:41 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

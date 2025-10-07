@@ -1,0 +1,86 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfY29tcGxldGlvbl90b2tlbnMiOjUwMCwibWF4X3Rva2VucyI6NTAwLCJtZXNzYWdlcyI6W3siY29udGVudCI6IkdlbmVyYXRlIGEgc29mdHdhcmUgZW5naW5lZXIgcHJvZmlsZSIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6Imdyb2stMi12aXNpb24tbGF0ZXN0Iiwic2VlZCI6NDIsInN0cmVhbSI6dHJ1ZSwidGVtcGVyYXR1cmUiOjAuMCwidG9vbF9jaG9pY2UiOnsiZnVuY3Rpb24iOnsibmFtZSI6InN0cnVjdHVyZWRfb3V0cHV0In0sInR5cGUiOiJmdW5jdGlvbiJ9LCJ0b29scyI6W3siZnVuY3Rpb24iOnsiZGVzY3JpcHRpb24iOiJHZW5lcmF0ZSBzdHJ1Y3R1cmVkIG91dHB1dCBtYXRjaGluZyB0aGUgcHJvdmlkZWQgc2NoZW1hIiwibmFtZSI6InN0cnVjdHVyZWRfb3V0cHV0IiwicGFyYW1ldGVycyI6eyJwcm9wZXJ0aWVzIjp7ImFnZSI6eyJkZXNjcmlwdGlvbiI6IlBlcnNvbidzIGFnZSBpbiB5ZWFycyIsIm1pbmltdW0iOjEsInR5cGUiOiJpbnRlZ2VyIn0sIm5hbWUiOnsiZGVzY3JpcHRpb24iOiJQZXJzb24ncyBmdWxsIG5hbWUiLCJ0eXBlIjoic3RyaW5nIn0sIm9jY3VwYXRpb24iOnsiZGVzY3JpcHRpb24iOiJQZXJzb24ncyBqb2Igb3IgcHJvZmVzc2lvbiIsInR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbIm5hbWUiLCJhZ2UiXSwidHlwZSI6Im9iamVjdCJ9fSwidHlwZSI6ImZ1bmN0aW9uIn1dfQ=="
+    },
+    "canonical_json": {
+      "max_completion_tokens": 500,
+      "max_tokens": 500,
+      "messages": [
+        {
+          "content": "Generate a software engineer profile",
+          "role": "user"
+        }
+      ],
+      "model": "grok-2-vision-latest",
+      "seed": 42,
+      "stream": true,
+      "temperature": 0.0,
+      "tool_choice": {
+        "function": {
+          "name": "structured_output"
+        },
+        "type": "function"
+      },
+      "tools": [
+        {
+          "function": {
+            "description": "Generate structured output matching the provided schema",
+            "name": "structured_output",
+            "parameters": {
+              "properties": {
+                "age": {
+                  "description": "Person's age in years",
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "name": {
+                  "description": "Person's full name",
+                  "type": "string"
+                },
+                "occupation": {
+                  "description": "Person's job or profession",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "age"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": {
+      "accept": "text/event-stream",
+      "authorization": "[REDACTED:authorization]",
+      "content-type": "application/json"
+    },
+    "method": "POST",
+    "url": "https://api.x.ai/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "b64": "ZGF0YTogeyJpZCI6IjhiYTY0MWFjLWYyMWMtZGU4Yi01YmZjLWRjNjc0N2Q3N2M1OF91cy1lYXN0LTEiLCJvYmplY3QiOiJjaGF0LmNvbXBsZXRpb24uY2h1bmsiLCJjcmVhdGVkIjoxNzU5ODQ0NDQyLCJtb2RlbCI6Imdyb2stMi12aXNpb24tMTIxMiIsImNob2ljZXMiOlt7ImluZGV4IjowLCJkZWx0YSI6eyJyb2xlIjoiYXNzaXN0YW50IiwidG9vbF9jYWxscyI6W3siaWQiOiJjYWxsXzg1ODI4NTIwIiwiZnVuY3Rpb24iOnsibmFtZSI6InN0cnVjdHVyZWRfb3V0cHV0IiwiYXJndW1lbnRzIjoie1wiYWdlXCI6MzAsXCJuYW1lXCI6XCJKb2huIERvZVwiLFwib2NjdXBhdGlvblwiOlwiU29mdHdhcmUgRW5naW5lZXJcIn0ifSwiaW5kZXgiOjAsInR5cGUiOiJmdW5jdGlvbiJ9XX0sImZpbmlzaF9yZWFzb24iOiJ0b29sX2NhbGxzIn1dLCJzeXN0ZW1fZmluZ2VycHJpbnQiOiJmcF8yMzZkYjQ1YzAzIn0KCmRhdGE6IFtET05FXQoK"
+    },
+    "headers": {
+      "access-control-allow-origin": "*",
+      "access-control-expose-headers": "*",
+      "cache-control": "no-cache",
+      "cf-cache-status": "DYNAMIC",
+      "cf-ray": "98adcfcc99a5a434-ORD",
+      "content-type": "text/event-stream",
+      "date": "Tue, 07 Oct 2025 13:40:41 GMT",
+      "server": "cloudflare",
+      "set-cookie": "__cf_bm=hFwexZ41Npazi7nEyEdjlTBgEC.OXhtacDk62MbrZ4A-1759844441-1.0.1.1-ZUP9.oP4e0ISamLfa._Oavhkhi7dGm2HT3y3AtYpKU0UMQGNMXy6B94hlR1VF15ZBXDgHFxdAiwzidbdb8R14lALdb0tSJ7Y.2FXCAx7Mys; path=/; expires=Tue, 07-Oct-25 14:10:41 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None",
+      "strict-transport-security": "max-age=31536000",
+      "vary": "origin, access-control-request-method, access-control-request-headers",
+      "x-request-id": "00-8fb7992a0814f6a9f460212b8c0a3632-de68636700190fa6-01",
+      "x-zero-data-retention": "false"
+    },
+    "status": 200
+  }
+}

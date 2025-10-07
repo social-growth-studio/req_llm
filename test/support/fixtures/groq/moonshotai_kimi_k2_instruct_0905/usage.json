@@ -1,0 +1,131 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoxMCwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJIaSB0aGVyZSEiLCJyb2xlIjoidXNlciJ9XSwibW9kZWwiOiJtb29uc2hvdGFpL2tpbWktazItaW5zdHJ1Y3QtMDkwNSIsInNlZWQiOjQyLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MC4wfQ=="
+    },
+    "canonical_json": {
+      "max_tokens": 10,
+      "messages": [
+        {
+          "content": "Hi there!",
+          "role": "user"
+        }
+      ],
+      "model": "moonshotai/kimi-k2-instruct-0905",
+      "seed": 42,
+      "stream": false,
+      "temperature": 0.0
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.groq.com/openai/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "Hey there! How can I help you today?",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1759844696,
+      "id": "chatcmpl-bf2fa80f-c006-4817-9f99-882f9c31d020",
+      "model": "moonshotai/kimi-k2-instruct-0905",
+      "object": "chat.completion",
+      "service_tier": "on_demand",
+      "system_fingerprint": "fp_5fe129dff6",
+      "usage": {
+        "completion_time": 0.021805172,
+        "completion_tokens": 10,
+        "prompt_time": 0.00949597,
+        "prompt_tokens": 28,
+        "queue_time": 0.078313091,
+        "total_time": 0.031301142,
+        "total_tokens": 38
+      },
+      "usage_breakdown": null,
+      "x_groq": {
+        "id": "req_01k6zep0f3e4a9ethba0vyd51q"
+      }
+    },
+    "headers": {
+      "alt-svc": [
+        "h3=\":443\"; ma=86400"
+      ],
+      "cache-control": [
+        "private, max-age=0, no-store, no-cache, must-revalidate"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98add6093ee5f151-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:44:56 GMT"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=lHgXVzqbHIfOgODGQ3BRZ_zwhmaqatwUv1EVe9OJnAg-1759844696-1.0.1.1-2lZEPlinzhsHoByfAMvSKrmGhMJ1suZ1DjI_FXyNRvW4rZdSFcBHbZXp9EaXLvl581Gcp4YNu6Pakn7x6Yw57I.lu12EsEivk6R7u79PF5A; path=/; expires=Tue, 07-Oct-25 14:14:56 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Origin"
+      ],
+      "via": [
+        "1.1 google"
+      ],
+      "x-groq-region": [
+        "yul"
+      ],
+      "x-ratelimit-limit-requests": [
+        "1000"
+      ],
+      "x-ratelimit-limit-tokens": [
+        "10000"
+      ],
+      "x-ratelimit-remaining-requests": [
+        "994"
+      ],
+      "x-ratelimit-remaining-tokens": [
+        "9529"
+      ],
+      "x-ratelimit-reset-requests": [
+        "8m38.122999999s"
+      ],
+      "x-ratelimit-reset-tokens": [
+        "2.825s"
+      ],
+      "x-request-id": [
+        "req_01k6zep0f3e4a9ethba0vyd51q"
+      ]
+    },
+    "status": 200
+  }
+}

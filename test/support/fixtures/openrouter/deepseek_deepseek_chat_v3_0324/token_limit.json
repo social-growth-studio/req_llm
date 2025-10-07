@@ -1,0 +1,99 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoxMDAsIm1lc3NhZ2VzIjpbeyJjb250ZW50IjoiV3JpdGUgYSB2ZXJ5IGxvbmcgc3RvcnkgYWJvdXQgZHJhZ29ucyBhbmQgYWR2ZW50dXJlcyIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6ImRlZXBzZWVrL2RlZXBzZWVrLWNoYXQtdjMtMDMyNCIsIm4iOjEsInN0cmVhbSI6ZmFsc2UsInRlbXBlcmF0dXJlIjowLjV9"
+    },
+    "canonical_json": {
+      "max_tokens": 100,
+      "messages": [
+        {
+          "content": "Write a very long story about dragons and adventures",
+          "role": "user"
+        }
+      ],
+      "model": "deepseek/deepseek-chat-v3-0324",
+      "n": 1,
+      "stream": false,
+      "temperature": 0.5
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "**Title: The Last Dragonriders of Eldros**  \n\n### **Prologue: The Forgotten Prophecy**  \nLong ago, in the age of fire and magic, the world of Eldros was ruled by dragons. These majestic beasts soared through the skies, their wings casting shadows over vast kingdoms. The greatest among them, the Elder Wyrms, were beings of immense wisdom and power, bonded to the noble Dragonriders—warriors chosen by fate to ride alongside them",
+            "reasoning": null,
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "length"
+        }
+      ],
+      "created": 1759845359,
+      "id": "gen-1759845359-0m88pnNbSd1214vwgAwr",
+      "model": "deepseek/deepseek-chat-v3-0324",
+      "object": "chat.completion",
+      "provider": "Targon",
+      "usage": {
+        "completion_tokens": 100,
+        "prompt_tokens": 12,
+        "prompt_tokens_details": null,
+        "total_tokens": 112
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade6346d70f84a-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:55:59 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

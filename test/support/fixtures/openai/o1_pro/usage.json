@@ -1,0 +1,184 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJpbnB1dCI6W3siY29udGVudCI6W3sidGV4dCI6IkhpIHRoZXJlISIsInR5cGUiOiJpbnB1dF90ZXh0In1dLCJyb2xlIjoidXNlciJ9XSwibWF4X291dHB1dF90b2tlbnMiOjUwMCwibW9kZWwiOiJvMS1wcm8iLCJzdHJlYW0iOmZhbHNlfQ=="
+    },
+    "canonical_json": {
+      "input": [
+        {
+          "content": [
+            {
+              "text": "Hi there!",
+              "type": "input_text"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "max_output_tokens": 500,
+      "model": "o1-pro",
+      "stream": false
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "created_at": 1759856618,
+      "error": null,
+      "id": "resp_0fdf43954ae43fa80068e547eac134819b8c08e92d6118f46b",
+      "incomplete_details": null,
+      "instructions": null,
+      "max_output_tokens": 500,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "o1-pro-2025-03-19",
+      "object": "response",
+      "output": [
+        {
+          "id": "rs_0fdf43954ae43fa80068e547f63ba0819bb666ee036a81e42f",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Hello! How can I help you today?",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_0fdf43954ae43fa80068e547f63d20819bb8d4b6cef53ad6cf",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": {
+        "effort": "medium",
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "status": "completed",
+      "store": true,
+      "temperature": 1.0,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 9,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 10,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 19
+      },
+      "user": null
+    },
+    "headers": {
+      "alt-svc": [
+        "h3=\":443\"; ma=86400"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98aef91acc94e82d-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 17:03:50 GMT"
+      ],
+      "openai-organization": [
+        "epic-creative-sogybe"
+      ],
+      "openai-processing-ms": [
+        "11896"
+      ],
+      "openai-project": [
+        "proj_j5AhgU4eLMRmsoO9FDg7BRD3"
+      ],
+      "openai-version": [
+        "2020-10-01"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=TPV.QCSouBCdscPDSrTQKo1WaSE087obXJ5tqslcrLE-1759856630-1.0.1.1-eqdsXDnDkZGhFnVfjREF8ogbLuYPzh0xAjauE2d_kQSTKG3eXilemUDCaoS3U9f9H94b.gLFGOEOYzuB6cG59CFrcgDyaW6hUMFmugUKazM; path=/; expires=Tue, 07-Oct-25 17:33:50 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None",
+        "_cfuvid=rCclJSmGZldk7SQJGsbpCDLyg4kL2cjCRJ3k5WEnRSU-1759856630678-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ],
+      "x-envoy-upstream-service-time": [
+        "11901"
+      ],
+      "x-ratelimit-limit-requests": [
+        "10000"
+      ],
+      "x-ratelimit-limit-tokens": [
+        "2000000"
+      ],
+      "x-ratelimit-remaining-requests": [
+        "9999"
+      ],
+      "x-ratelimit-remaining-tokens": [
+        "1999916"
+      ],
+      "x-ratelimit-reset-requests": [
+        "0s"
+      ],
+      "x-ratelimit-reset-tokens": [
+        "0s"
+      ],
+      "x-request-id": [
+        "req_60c1b8589ac1354ef461cacf23a4d6de"
+      ]
+    },
+    "status": 200
+  }
+}

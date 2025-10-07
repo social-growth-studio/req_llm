@@ -1,0 +1,183 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJpbnB1dCI6W3siY29udGVudCI6W3sidGV4dCI6IkhlbGxvIHdvcmxkISIsInR5cGUiOiJpbnB1dF90ZXh0In1dLCJyb2xlIjoidXNlciJ9XSwibWF4X291dHB1dF90b2tlbnMiOjIwMDAsIm1vZGVsIjoibzQtbWluaS1kZWVwLXJlc2VhcmNoIiwic3RyZWFtIjpmYWxzZSwidG9vbHMiOlt7InR5cGUiOiJ3ZWJfc2VhcmNoX3ByZXZpZXcifV19"
+    },
+    "canonical_json": {
+      "input": [
+        {
+          "content": [
+            {
+              "text": "Hello world!",
+              "type": "input_text"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "max_output_tokens": 2000,
+      "model": "o4-mini-deep-research",
+      "stream": false,
+      "tools": [
+        {
+          "type": "web_search_preview"
+        }
+      ]
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "created_at": 1759854992,
+      "error": null,
+      "id": "resp_0576bfea4e8c89b40068e541906a908199a45ccbe11bda4c03",
+      "incomplete_details": {
+        "reason": "max_output_tokens"
+      },
+      "instructions": null,
+      "max_output_tokens": 2000,
+      "max_tool_calls": 225,
+      "metadata": {},
+      "model": "o4-mini-deep-research-2025-06-26",
+      "object": "response",
+      "output": [
+        {
+          "id": "rs_0576bfea4e8c89b40068e54192295c819995b8194e11843ba8",
+          "summary": [],
+          "type": "reasoning"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": {
+        "effort": "medium",
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "status": "incomplete",
+      "store": true,
+      "temperature": 1.0,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tools": [
+        {
+          "search_context_size": "medium",
+          "type": "web_search_preview",
+          "user_location": null
+        }
+      ],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 421,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1984,
+        "output_tokens_details": {
+          "reasoning_tokens": 1984
+        },
+        "total_tokens": 2405
+      },
+      "user": null
+    },
+    "headers": {
+      "alt-svc": [
+        "h3=\":443\"; ma=86400"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98aed16619ec2331-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 16:36:44 GMT"
+      ],
+      "openai-organization": [
+        "epic-creative-sogybe"
+      ],
+      "openai-processing-ms": [
+        "12102"
+      ],
+      "openai-project": [
+        "proj_j5AhgU4eLMRmsoO9FDg7BRD3"
+      ],
+      "openai-version": [
+        "2020-10-01"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=HJmFTUt12M_mrA37ee15Vbfo7CDdWg05qdqab43ICgM-1759855004-1.0.1.1-S5j4MqRGZfDvjPYfrpZon182ygXeXRVyeebeL76FwVwxhpyLBKh78i4pVaiwM2mLgIzB91hYH2Y90PnsvJ6pSUnKfP3FavzTu9jZXfhTa6E; path=/; expires=Tue, 07-Oct-25 17:06:44 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None",
+        "_cfuvid=qYCGXIl8gaPCIwfo6t.vVzM1g2_BmYUp.WEB3pGJJg0-1759855004540-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ],
+      "x-envoy-upstream-service-time": [
+        "12107"
+      ],
+      "x-ratelimit-limit-requests": [
+        "10000"
+      ],
+      "x-ratelimit-limit-tokens": [
+        "10000000"
+      ],
+      "x-ratelimit-remaining-requests": [
+        "9999"
+      ],
+      "x-ratelimit-remaining-tokens": [
+        "9998558"
+      ],
+      "x-ratelimit-reset-requests": [
+        "6ms"
+      ],
+      "x-ratelimit-reset-tokens": [
+        "8ms"
+      ],
+      "x-request-id": [
+        "req_d7e3736a5e5b7684769fe1abb30dea6d"
+      ]
+    },
+    "status": 200
+  }
+}

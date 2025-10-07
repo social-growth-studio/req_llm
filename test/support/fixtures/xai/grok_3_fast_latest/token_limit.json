@@ -1,0 +1,116 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfY29tcGxldGlvbl90b2tlbnMiOjEwMCwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJXcml0ZSBhIHZlcnkgbG9uZyBzdG9yeSBhYm91dCBkcmFnb25zIGFuZCBhZHZlbnR1cmVzIiwicm9sZSI6InVzZXIifV0sIm1vZGVsIjoiZ3Jvay0zLWZhc3QtbGF0ZXN0Iiwic3RyZWFtIjpmYWxzZSwidGVtcGVyYXR1cmUiOjAuNX0="
+    },
+    "canonical_json": {
+      "max_completion_tokens": 100,
+      "messages": [
+        {
+          "content": "Write a very long story about dragons and adventures",
+          "role": "user"
+        }
+      ],
+      "model": "grok-3-fast-latest",
+      "stream": false,
+      "temperature": 0.5
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.x.ai/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "message": {
+            "content": "**The Legend of the Dragonspire Chronicles**\n\nIn the ancient realm of Elderglow, where the skies shimmered with hues of amber and violet, and the mountains pierced the heavens like the jagged teeth of some primordial beast, there lived dragons—majestic, fearsome, and wise beyond mortal comprehension. These creatures were not mere beasts of fire and scale; they were the guardians of the world’s deepest secrets, the keepers of forgotten magic, and the arbiters of balance between light and darkness.",
+            "refusal": null,
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1759844459,
+      "id": "70f33be3-d536-0777-fc00-6dba9788d507_us-east-1",
+      "model": "grok-3",
+      "object": "chat.completion",
+      "system_fingerprint": "fp_f02e6df795",
+      "usage": {
+        "completion_tokens": 100,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        },
+        "num_sources_used": 0,
+        "prompt_tokens": 15,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 2,
+          "image_tokens": 0,
+          "text_tokens": 15
+        },
+        "total_tokens": 115
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "access-control-expose-headers": [
+        "*"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98add03e1cea2b4b-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:41:18 GMT"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=2_UkgydWrQz6SchVhFWlvMoZ_.p8BZc5lkRFEYMA70k-1759844478-1.0.1.1-UZ2WaXcSFXMfQeQhEWyGUYS8fmaxS_uQFi108A81SvPkyATMjTe7EFJIGyk20.cToIfvNZJNseBw6Qu_93Ttq6bMSnGd.Gpc4E1tFUc1glw; path=/; expires=Tue, 07-Oct-25 14:11:18 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "origin, access-control-request-method, access-control-request-headers"
+      ],
+      "x-request-id": [
+        "00-59cb9fc30a483889bca39cedd275e25c-61a319ef00195a09-01"
+      ],
+      "x-zero-data-retention": [
+        "false"
+      ]
+    },
+    "status": 200
+  }
+}

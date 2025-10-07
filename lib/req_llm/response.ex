@@ -50,7 +50,7 @@ defmodule ReqLLM.Response do
 
     # ---------- Metadata ----------
     field(:usage, map() | nil)
-    field(:finish_reason, atom() | String.t() | nil)
+    field(:finish_reason, :stop | :length | :tool_calls | :content_filter | :error | nil)
     # Raw provider extras
     field(:provider_meta, map(), default: %{})
 
@@ -77,6 +77,26 @@ defmodule ReqLLM.Response do
   def text(%__MODULE__{message: %Message{content: content}}) do
     content
     |> Enum.filter(&(&1.type == :text))
+    |> Enum.map_join("", & &1.text)
+  end
+
+  @doc """
+  Extract thinking/reasoning content from the response message.
+
+  Returns the concatenated thinking content if the message contains thinking parts, empty string otherwise.
+
+  ## Examples
+
+      iex> ReqLLM.Response.thinking(response)
+      "The user is asking about the weather..."
+
+  """
+  @spec thinking(t()) :: String.t() | nil
+  def thinking(%__MODULE__{message: nil}), do: nil
+
+  def thinking(%__MODULE__{message: %Message{content: content}}) do
+    content
+    |> Enum.filter(&(&1.type == :thinking))
     |> Enum.map_join("", & &1.text)
   end
 
@@ -124,7 +144,7 @@ defmodule ReqLLM.Response do
       :stop
 
   """
-  @spec finish_reason(t()) :: atom() | String.t() | nil
+  @spec finish_reason(t()) :: :stop | :length | :tool_calls | :content_filter | :error | nil
   def finish_reason(%__MODULE__{finish_reason: reason}), do: reason
 
   @doc """
@@ -157,8 +177,8 @@ defmodule ReqLLM.Response do
 
   def reasoning_tokens(%__MODULE__{usage: usage}) when is_map(usage) do
     # Try various possible keys for reasoning tokens
-    usage[:reasoning_tokens] || usage["reasoning_tokens"] ||
-      get_in(usage, [:completion_tokens_details, :reasoning_tokens]) ||
+    usage[:reasoning_tokens] || usage["reasoning_tokens"] || usage[:reasoning] ||
+      usage["reasoning"] || get_in(usage, [:completion_tokens_details, :reasoning_tokens]) ||
       get_in(usage, ["completion_tokens_details", "reasoning_tokens"]) || 0
   end
 
@@ -385,5 +405,58 @@ defmodule ReqLLM.Response do
   @spec object(t()) :: map() | nil
   def object(%__MODULE__{object: object}) do
     object
+  end
+
+  @doc """
+  Unwraps the object from a structured output response, regardless of mode used.
+
+  Handles extraction from:
+  - json_schema mode: parses from content
+  - tool modes: extracts from tool call arguments
+
+  ## Examples
+
+      {:ok, object} = ReqLLM.Response.unwrap_object(response)
+      #=> {:ok, %{"name" => "John", "age" => 30}}
+
+  """
+  @spec unwrap_object(t()) :: {:ok, map()} | {:error, term()}
+  def unwrap_object(%__MODULE__{object: object}) when not is_nil(object) do
+    {:ok, object}
+  end
+
+  def unwrap_object(%__MODULE__{message: nil}) do
+    {:error, %ReqLLM.Error.API.Response{reason: "No message in response"}}
+  end
+
+  def unwrap_object(%__MODULE__{message: %Message{content: content}}) do
+    text_content =
+      content
+      |> Enum.filter(&(&1.type == :text))
+      |> Enum.map_join("", & &1.text)
+
+    tool_call_content =
+      content
+      |> Enum.find(&(&1.type == :tool_call && &1.tool_name == "structured_output"))
+
+    cond do
+      tool_call_content != nil ->
+        {:ok, tool_call_content.input}
+
+      text_content != "" ->
+        case Jason.decode(text_content) do
+          {:ok, object} when is_map(object) ->
+            {:ok, object}
+
+          {:ok, _other} ->
+            {:error, %ReqLLM.Error.API.Response{reason: "Decoded JSON is not an object"}}
+
+          {:error, _} ->
+            {:error, %ReqLLM.Error.API.Response{reason: "Failed to parse JSON from text content"}}
+        end
+
+      true ->
+        {:error, %ReqLLM.Error.API.Response{reason: "No structured output found in response"}}
+    end
   end
 end

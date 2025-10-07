@@ -1,0 +1,86 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfY29tcGxldGlvbl90b2tlbnMiOjUwMCwibWF4X3Rva2VucyI6NTAwLCJtZXNzYWdlcyI6W3siY29udGVudCI6IkdlbmVyYXRlIGEgc29mdHdhcmUgZW5naW5lZXIgcHJvZmlsZSIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6Imdyb2stMy1mYXN0LWxhdGVzdCIsInNlZWQiOjQyLCJzdHJlYW0iOnRydWUsInRlbXBlcmF0dXJlIjowLjAsInRvb2xfY2hvaWNlIjp7ImZ1bmN0aW9uIjp7Im5hbWUiOiJzdHJ1Y3R1cmVkX291dHB1dCJ9LCJ0eXBlIjoiZnVuY3Rpb24ifSwidG9vbHMiOlt7ImZ1bmN0aW9uIjp7ImRlc2NyaXB0aW9uIjoiR2VuZXJhdGUgc3RydWN0dXJlZCBvdXRwdXQgbWF0Y2hpbmcgdGhlIHByb3ZpZGVkIHNjaGVtYSIsIm5hbWUiOiJzdHJ1Y3R1cmVkX291dHB1dCIsInBhcmFtZXRlcnMiOnsicHJvcGVydGllcyI6eyJhZ2UiOnsiZGVzY3JpcHRpb24iOiJQZXJzb24ncyBhZ2UgaW4geWVhcnMiLCJtaW5pbXVtIjoxLCJ0eXBlIjoiaW50ZWdlciJ9LCJuYW1lIjp7ImRlc2NyaXB0aW9uIjoiUGVyc29uJ3MgZnVsbCBuYW1lIiwidHlwZSI6InN0cmluZyJ9LCJvY2N1cGF0aW9uIjp7ImRlc2NyaXB0aW9uIjoiUGVyc29uJ3Mgam9iIG9yIHByb2Zlc3Npb24iLCJ0eXBlIjoic3RyaW5nIn19LCJyZXF1aXJlZCI6WyJuYW1lIiwiYWdlIl0sInR5cGUiOiJvYmplY3QifX0sInR5cGUiOiJmdW5jdGlvbiJ9XX0="
+    },
+    "canonical_json": {
+      "max_completion_tokens": 500,
+      "max_tokens": 500,
+      "messages": [
+        {
+          "content": "Generate a software engineer profile",
+          "role": "user"
+        }
+      ],
+      "model": "grok-3-fast-latest",
+      "seed": 42,
+      "stream": true,
+      "temperature": 0.0,
+      "tool_choice": {
+        "function": {
+          "name": "structured_output"
+        },
+        "type": "function"
+      },
+      "tools": [
+        {
+          "function": {
+            "description": "Generate structured output matching the provided schema",
+            "name": "structured_output",
+            "parameters": {
+              "properties": {
+                "age": {
+                  "description": "Person's age in years",
+                  "minimum": 1,
+                  "type": "integer"
+                },
+                "name": {
+                  "description": "Person's full name",
+                  "type": "string"
+                },
+                "occupation": {
+                  "description": "Person's job or profession",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "name",
+                "age"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": {
+      "accept": "text/event-stream",
+      "authorization": "[REDACTED:authorization]",
+      "content-type": "application/json"
+    },
+    "method": "POST",
+    "url": "https://api.x.ai/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "b64": "ZGF0YTogeyJpZCI6IjIxZmE2OGIwLWE2YzktNGVlZS03MjkxLWQ3Y2EwMDljZDAyZF91cy1lYXN0LTEiLCJvYmplY3QiOiJjaGF0LmNvbXBsZXRpb24uY2h1bmsiLCJjcmVhdGVkIjoxNzU5ODQ0NDU5LCJtb2RlbCI6Imdyb2stMyIsImNob2ljZXMiOlt7ImluZGV4IjowLCJkZWx0YSI6eyJyb2xlIjoiYXNzaXN0YW50IiwidG9vbF9jYWxscyI6W3siaWQiOiJjYWxsXzU5MTg0NjUyIiwiZnVuY3Rpb24iOnsibmFtZSI6InN0cnVjdHVyZWRfb3V0cHV0IiwiYXJndW1lbnRzIjoie1wiYWdlXCI6MzAsXCJuYW1lXCI6XCJKb2huIERvZVwiLFwib2NjdXBhdGlvblwiOlwiU29mdHdhcmUgRW5naW5lZXJcIn0ifSwiaW5kZXgiOjAsInR5cGUiOiJmdW5jdGlvbiJ9XX19XSwic3lzdGVtX2ZpbmdlcnByaW50IjoiZnBfZjAyZTZkZjc5NSJ9CgpkYXRhOiB7ImlkIjoiMjFmYTY4YjAtYTZjOS00ZWVlLTcyOTEtZDdjYTAwOWNkMDJkX3VzLWVhc3QtMSIsIm9iamVjdCI6ImNoYXQuY29tcGxldGlvbi5jaHVuayIsImNyZWF0ZWQiOjE3NTk4NDQ0NTksIm1vZGVsIjoiZ3Jvay0zIiwiY2hvaWNlcyI6W3siaW5kZXgiOjAsImRlbHRhIjp7fSwiZmluaXNoX3JlYXNvbiI6InRvb2xfY2FsbHMifV0sInN5c3RlbV9maW5nZXJwcmludCI6ImZwX2YwMmU2ZGY3OTUifQoKZGF0YTogW0RPTkVdCgo="
+    },
+    "headers": {
+      "access-control-allow-origin": "*",
+      "access-control-expose-headers": "*",
+      "cache-control": "no-cache",
+      "cf-cache-status": "DYNAMIC",
+      "cf-ray": "98add0331e39f849-ORD",
+      "content-type": "text/event-stream",
+      "date": "Tue, 07 Oct 2025 13:40:57 GMT",
+      "server": "cloudflare",
+      "set-cookie": "__cf_bm=_c9_yGvFThpLddB0TfE56nf8zTCN7gaUncJ0bHniz0I-1759844457-1.0.1.1-XSt6ZRaTdiPcbrozNcuH2aDAUVQv_0bChzEqHEHCwbGihhp1QM5r2HD4TjSX7o_JKWISDuWbHb7VGJx8qYWPV3_wOVaJzMLo7fURHLZUdYQ; path=/; expires=Tue, 07-Oct-25 14:10:57 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None",
+      "strict-transport-security": "max-age=31536000",
+      "vary": "origin, access-control-request-method, access-control-request-headers",
+      "x-request-id": "00-0b3b6909fb312e5d61125953eb959b62-61e7ecfa00198e93-01",
+      "x-zero-data-retention": "false"
+    },
+    "status": 200
+  }
+}

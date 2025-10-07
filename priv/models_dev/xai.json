@@ -468,7 +468,7 @@
       "open_weights": false,
       "provider": "xai",
       "provider_model_id": "grok-4",
-      "reasoning": true,
+      "reasoning": false,
       "release_date": "2025-07-09",
       "temperature": true,
       "tool_call": true
@@ -500,7 +500,7 @@
       "open_weights": false,
       "provider": "xai",
       "provider_model_id": "grok-4-fast",
-      "reasoning": true,
+      "reasoning": false,
       "release_date": "2025-09-19",
       "temperature": true,
       "tool_call": true
@@ -562,39 +562,8 @@
       "open_weights": false,
       "provider": "xai",
       "provider_model_id": "grok-4-fast-reasoning",
-      "reasoning": true,
-      "release_date": "2025-09-21",
-      "temperature": true,
-      "tool_call": true
-    },
-    {
-      "attachment": false,
-      "cost": {
-        "cache_read": 5,
-        "input": 5,
-        "output": 15
-      },
-      "id": "grok-beta",
-      "knowledge": "2024-08",
-      "last_updated": "2024-11-01",
-      "limit": {
-        "context": 131072,
-        "output": 4096
-      },
-      "modalities": {
-        "input": [
-          "text"
-        ],
-        "output": [
-          "text"
-        ]
-      },
-      "name": "Grok Beta",
-      "open_weights": false,
-      "provider": "xai",
-      "provider_model_id": "grok-beta",
       "reasoning": false,
-      "release_date": "2024-11-01",
+      "release_date": "2025-09-21",
       "temperature": true,
       "tool_call": true
     },
@@ -624,40 +593,8 @@
       "open_weights": false,
       "provider": "xai",
       "provider_model_id": "grok-code-fast-1",
-      "reasoning": true,
-      "release_date": "2025-08-28",
-      "temperature": true,
-      "tool_call": true
-    },
-    {
-      "attachment": true,
-      "cost": {
-        "cache_read": 5,
-        "input": 5,
-        "output": 15
-      },
-      "id": "grok-vision-beta",
-      "knowledge": "2024-08",
-      "last_updated": "2024-11-01",
-      "limit": {
-        "context": 8192,
-        "output": 4096
-      },
-      "modalities": {
-        "input": [
-          "text",
-          "image"
-        ],
-        "output": [
-          "text"
-        ]
-      },
-      "name": "Grok Vision Beta",
-      "open_weights": false,
-      "provider": "xai",
-      "provider_model_id": "grok-vision-beta",
       "reasoning": false,
-      "release_date": "2024-11-01",
+      "release_date": "2025-08-28",
       "temperature": true,
       "tool_call": true
     }

@@ -1,0 +1,116 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfY29tcGxldGlvbl90b2tlbnMiOjEwMCwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJXcml0ZSBhIHZlcnkgbG9uZyBzdG9yeSBhYm91dCBkcmFnb25zIGFuZCBhZHZlbnR1cmVzIiwicm9sZSI6InVzZXIifV0sIm1vZGVsIjoiZ3Jvay00LWZhc3Qtbm9uLXJlYXNvbmluZyIsInN0cmVhbSI6ZmFsc2UsInRlbXBlcmF0dXJlIjowLjV9"
+    },
+    "canonical_json": {
+      "max_completion_tokens": 100,
+      "messages": [
+        {
+          "content": "Write a very long story about dragons and adventures",
+          "role": "user"
+        }
+      ],
+      "model": "grok-4-fast-non-reasoning",
+      "stream": false,
+      "temperature": 0.5
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.x.ai/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "message": {
+            "content": "### The Emberheart Chronicles: Wings of Destiny\n\nIn the ancient realm of Eldoria, where jagged mountains pierced the clouds and vast forests whispered secrets to the wind, dragons were not mere legends but the guardians of the world's hidden wonders. The skies were their domain, painted with the iridescent scales of these majestic beasts—crimson reds that burned like sunsets, emerald greens that shimmered like hidden gems, and obsidian blacks that blended with the night. But peace in Eldoria was",
+            "refusal": null,
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1759844441,
+      "id": "4c7d6026-5ff9-954e-24ca-dc8bbaf58871_us-east-1",
+      "model": "grok-4-fast-non-reasoning",
+      "object": "chat.completion",
+      "system_fingerprint": "fp_e7507192a3",
+      "usage": {
+        "completion_tokens": 100,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        },
+        "num_sources_used": 0,
+        "prompt_tokens": 138,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 122,
+          "image_tokens": 0,
+          "text_tokens": 138
+        },
+        "total_tokens": 238
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "access-control-expose-headers": [
+        "*"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98adcfcc49eb803a-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:40:41 GMT"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=0J5sx.qqYA9Bw9NEzldEQgDQUQLF4mopaP3jZTlhfNI-1759844441-1.0.1.1-UPdstpafoAFmHf.BTX11jbs0m.1jlemSrTkN_ZGfBu_qaJPw_i6R7IZ7WAqH_wvTWleDSM1evlRmITQIbyEdT3qLaj2Qg6mCBcZVh4lUJ08; path=/; expires=Tue, 07-Oct-25 14:10:41 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "origin, access-control-request-method, access-control-request-headers"
+      ],
+      "x-request-id": [
+        "00-2f0a977d121690f021901460f4c31ac5-943db6de001d9a30-01"
+      ],
+      "x-zero-data-retention": [
+        "false"
+      ]
+    },
+    "status": 200
+  }
+}

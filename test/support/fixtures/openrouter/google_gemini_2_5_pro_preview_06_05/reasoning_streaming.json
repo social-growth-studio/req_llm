@@ -1,0 +1,141 @@
+{
+  "captured_at": "2025-10-07T13:57:21.656033Z",
+  "chunks": [
+    {
+      "b64": "OiBPUEVOUk9VVEVSIFBST0NFU1NJTkcKCg==",
+      "decoded": ": OPENROUTER PROCESSING\n\n"
+    },
+    {
+      "b64": "OiBPUEVOUk9VVEVSIFBST0NFU1NJTkcKCjogT1BFTlJPVVRFUiBQUk9DRVNTSU5HCgo6IE9QRU5ST1VURVIgUFJPQ0VTU0lORwoK",
+      "decoded": ": OPENROUTER PROCESSING\n\n: OPENROUTER PROCESSING\n\n: OPENROUTER PROCESSING\n\n"
+    },
+    {
+      "b64": "OiBPUEVOUk9VVEVSIFBST0NFU1NJTkcKCmRhdGE6IHsiaWQiOiJnZW4tMTc1OTg0NTQzNC14Z3lsZE5vb3BMN3BMWkhYdVA4ZiIsInByb3ZpZGVyIjoiR29vZ2xlIiwibW9kZWwiOiJnb29nbGUvZ2VtaW5pLTIuNS1wcm8iLCJvYmplY3QiOiJjaGF0LmNvbXBsZXRpb24uY2h1bmsiLCJjcmVhdGVkIjoxNzU5ODQ1NDM0LCJjaG9pY2VzIjpbeyJpbmRleCI6MCwiZGVsdGEiOnsicm9sZSI6ImFzc2lzdGFudCIsImNvbnRlbnQiOiIiLCJyZWFzb25pbmciOiIqKkFzc2Vzc2luZyBVc2VyIE5lZWRzKipcblxuSSd2ZSBkZXRlcm1pbmVkIHRoZSB1c2VyJ3MgY29yZSByZXF1ZXN0OiB0aGV5J3JlIHNlZWtpbmcgdGhlIHByb2R1Y3Qgb2YgMTUgYW5kIDMuIEkgYW0gbm93IGJyZWFraW5nIGRvd24gdGhlIHByb2JsZW0gaW50byBpdHMgZnVuZGFtZW50YWwgY29tcG9uZW50cywgcmVjb2duaXppbmcgaXQgYXMgYSBzaW1wbGUgbXVsdGlwbGljYXRpb24gZXhlcmNpc2UuXG5cblxuIiwicmVhc29uaW5nX2RldGFpbHMiOlt7InR5cGUiOiJyZWFzb25pbmcudGV4dCIsInRleHQiOiIqKkFzc2Vzc2luZyBVc2VyIE5lZWRzKipcblxuSSd2ZSBkZXRlcm1pbmVkIHRoZSB1c2VyJ3MgY29yZSByZXF1ZXN0OiB0aGV5J3JlIHNlZWtpbmcgdGhlIHByb2R1Y3Qgb2YgMTUgYW5kIDMuIEkgYW0gbm93IGJyZWFraW5nIGRvd24gdGhlIHByb2JsZW0gaW50byBpdHMgZnVuZGFtZW50YWwgY29tcG9uZW50cywgcmVjb2duaXppbmcgaXQgYXMgYSBzaW1wbGUgbXVsdGlwbGljYXRpb24gZXhlcmNpc2UuXG5cblxuIiwiZm9ybWF0IjoidW5rbm93biIsImluZGV4IjowfV19LCJmaW5pc2hfcmVhc29uIjpudWxsLCJuYXRpdmVfZmluaXNoX3JlYXNvbiI6bnVsbCwibG9ncHJvYnMiOm51bGx9XX0KCg==",
+      "decoded": ": OPENROUTER PROCESSING\n\ndata: {\"id\":\"gen-1759845434-xgyldNoopL7pLZHXuP8f\",\"provider\":\"Google\",\"model\":\"google/gemini-2.5-pro\",\"object\":\"chat.completion.chunk\",\"created\":1759845434,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\",\"reasoning\":\"**Assessing User Needs**\\n\\nI've determined the user's core request: they're seeking the product of 15 and 3. I am now breaking down the problem into its fundamental components, recognizing it as a simple multiplication exercise.\\n\\n\\n\",\"reasoning_details\":[{\"type\":\"reasoning.text\",\"text\":\"**Assessing User Needs**\\n\\nI've determined the user's core request: they're seeking the product of 15 and 3. I am now breaking down the problem into its fundamental components, recognizing it as a simple multiplication exercise.\\n\\n\\n\",\"format\":\"unknown\",\"index\":0}]},\"finish_reason\":null,\"native_finish_reason\":null,\"logprobs\":null}]}\n\n"
+    },
+    {
+      "b64": "OiBPUEVOUk9VVEVSIFBST0NFU1NJTkcKCg==",
+      "decoded": ": OPENROUTER PROCESSING\n\n"
+    },
+    {
+      "b64": "OiBPUEVOUk9VVEVSIFBST0NFU1NJTkcKCg==",
+      "decoded": ": OPENROUTER PROCESSING\n\n"
+    },
+    {
+      "b64": "OiBPUEVOUk9VVEVSIFBST0NFU1NJTkcKCg==",
+      "decoded": ": OPENROUTER PROCESSING\n\n"
+    },
+    {
+      "b64": "OiBPUEVOUk9VVEVSIFBST0NFU1NJTkcKCg==",
+      "decoded": ": OPENROUTER PROCESSING\n\n"
+    },
+    {
+      "b64": "OiBPUEVOUk9VVEVSIFBST0NFU1NJTkcKCg==",
+      "decoded": ": OPENROUTER PROCESSING\n\n"
+    },
+    {
+      "b64": "OiBPUEVOUk9VVEVSIFBST0NFU1NJTkcKCg==",
+      "decoded": ": OPENROUTER PROCESSING\n\n"
+    },
+    {
+      "b64": "OiBPUEVOUk9VVEVSIFBST0NFU1NJTkcKCg==",
+      "decoded": ": OPENROUTER PROCESSING\n\n"
+    },
+    {
+      "b64": "OiBPUEVOUk9VVEVSIFBST0NFU1NJTkcKCg==",
+      "decoded": ": OPENROUTER PROCESSING\n\n"
+    },
+    {
+      "b64": "ZGF0YTogeyJpZCI6Imdlbi0xNzU5ODQ1NDM0LXhneWxkTm9vcEw3cExaSFh1UDhmIiwicHJvdmlkZXIiOiJHb29nbGUiLCJtb2RlbCI6Imdvb2dsZS9nZW1pbmktMi41LXBybyIsIm9iamVjdCI6ImNoYXQuY29tcGxldGlvbi5jaHVuayIsImNyZWF0ZWQiOjE3NTk4NDU0MzQsImNob2ljZXMiOlt7ImluZGV4IjowLCJkZWx0YSI6eyJyb2xlIjoiYXNzaXN0YW50IiwiY29udGVudCI6IiIsInJlYXNvbmluZyI6IioqRGV2aXNpbmcgYSBTb2x1dGlvbioqXG5cbkkndmUgZm9ybXVsYXRlZCBzZXZlcmFsIHBsYW5zIHRvIGFkZHJlc3MgdGhlIHVzZXIncyBxdWVzdGlvbi4gVGhlIGRpcmVjdCBtdWx0aXBsaWNhdGlvbiBhbGdvcml0aG0gc2VlbXMgZWZmaWNpZW50LCB5aWVsZGluZyA0NS4gQWx0ZXJuYXRpdmVseSwgSSBleHBsb3JlZCB0aGUgZGlzdHJpYnV0aXZlIHByb3BlcnR5LCBicmVha2luZyBkb3duIDE1IHRvIHNpbXBsaWZ5IHRoZSBjYWxjdWxhdGlvbiBtZW50YWxseS4gQm90aCBtZXRob2RzIGNvbmZpcm0gdGhlIGFuc3dlciBhcyA0NS5cblxuXG4iLCJyZWFzb25pbmdfZGV0YWlscyI6W3sidHlwZSI6InJlYXNvbmluZy50ZXh0IiwidGV4dCI6IioqRGV2aXNpbmcgYSBTb2x1dGlvbioqXG5cbkkndmUgZm9ybXVsYXRlZCBzZXZlcmFsIHBsYW5zIHRvIGFkZHJlc3MgdGhlIHVzZXIncyBxdWVzdGlvbi4gVGhlIGRpcmVjdCBtdWx0aXBsaWNhdGlvbiBhbGdvcml0aG0gc2VlbXMgZWZmaWNpZW50LCB5aWVsZGluZyA0NS4gQWx0ZXJuYXRpdmVseSwgSSBleHBsb3JlZCB0aGUgZGlzdHJpYnV0aXZlIHByb3BlcnR5LCBicmVha2luZyBkb3duIDE1IHRvIHNpbXBsaWZ5IHRoZSBjYWxjdWxhdGlvbiBtZW50YWxseS4gQm90aCBtZXRob2RzIGNvbmZpcm0gdGhlIGFuc3dlciBhcyA0NS5cblxuXG4iLCJmb3JtYXQiOiJ1bmtub3duIiwiaW5kZXgiOjB9XX0sImZpbmlzaF9yZWFzb24iOm51bGwsIm5hdGl2ZV9maW5pc2hfcmVhc29uIjpudWxsLCJsb2dwcm9icyI6bnVsbH1dfQoK",
+      "decoded": "data: {\"id\":\"gen-1759845434-xgyldNoopL7pLZHXuP8f\",\"provider\":\"Google\",\"model\":\"google/gemini-2.5-pro\",\"object\":\"chat.completion.chunk\",\"created\":1759845434,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\",\"reasoning\":\"**Devising a Solution**\\n\\nI've formulated several plans to address the user's question. The direct multiplication algorithm seems efficient, yielding 45. Alternatively, I explored the distributive property, breaking down 15 to simplify the calculation mentally. Both methods confirm the answer as 45.\\n\\n\\n\",\"reasoning_details\":[{\"type\":\"reasoning.text\",\"text\":\"**Devising a Solution**\\n\\nI've formulated several plans to address the user's question. The direct multiplication algorithm seems efficient, yielding 45. Alternatively, I explored the distributive property, breaking down 15 to simplify the calculation mentally. Both methods confirm the answer as 45.\\n\\n\\n\",\"format\":\"unknown\",\"index\":0}]},\"finish_reason\":null,\"native_finish_reason\":null,\"logprobs\":null}]}\n\n"
+    },
+    {
+      "b64": "ZGF0YTogeyJpZCI6Imdlbi0xNzU5ODQ1NDM0LXhneWxkTm9vcEw3cExaSFh1UDhmIiwicHJvdmlkZXIiOiJHb29nbGUiLCJtb2RlbCI6Imdvb2dsZS9nZW1pbmktMi41LXBybyIsIm9iamVjdCI6ImNoYXQuY29tcGxldGlvbi5jaHVuayIsImNyZWF0ZWQiOjE3NTk4NDU0MzQsImNob2ljZXMiOlt7ImluZGV4IjowLCJkZWx0YSI6eyJyb2xlIjoiYXNzaXN0YW50IiwiY29udGVudCI6IkhlcmUgaXMgbXkgdGhpbmtpbmcgcHJvY2VzcyB0byBzb2x2ZSAxNSAqIDM6XG5cbjEuICAqKkRlY29tcG9zaXRpb24gTWV0aG9kIChNZW50YWwgTWF0aCk6KiogVGhpcyBpcyBvZnRlbiB0aGUgcXVpY2tlc3Qgd2F5IGZvciBhIHByb2JsZW0gbGlrZSB0aGlzLlxuICAgICogICBJJ2xsIGJyZWFrIHRoZSBudW1iZXIgMTUgaW50byBpdHMgcGFydHM6IDEwIGFuZCA1LlxuICAgICoiLCJyZWFzb25pbmciOm51bGwsInJlYXNvbmluZ19kZXRhaWxzIjpbXX0sImZpbmlzaF9yZWFzb24iOm51bGwsIm5hdGl2ZV9maW5pc2hfcmVhc29uIjpudWxsLCJsb2dwcm9icyI6bnVsbH1dfQoK",
+      "decoded": "data: {\"id\":\"gen-1759845434-xgyldNoopL7pLZHXuP8f\",\"provider\":\"Google\",\"model\":\"google/gemini-2.5-pro\",\"object\":\"chat.completion.chunk\",\"created\":1759845434,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"Here is my thinking process to solve 15 * 3:\\n\\n1.  **Decomposition Method (Mental Math):** This is often the quickest way for a problem like this.\\n    *   I'll break the number 15 into its parts: 10 and 5.\\n    *\",\"reasoning\":null,\"reasoning_details\":[]},\"finish_reason\":null,\"native_finish_reason\":null,\"logprobs\":null}]}\n\n"
+    },
+    {
+      "b64": "ZGF0YTogeyJpZCI6Imdlbi0xNzU5ODQ1NDM0LXhneWxkTm9vcEw3cExaSFh1UDhmIiwicHJvdmlkZXIiOiJHb29nbGUiLCJtb2RlbCI6Imdvb2dsZS9nZW1pbmktMi41LXBybyIsIm9iamVjdCI6ImNoYXQuY29tcGxldGlvbi5jaHVuayIsImNyZWF0ZWQiOjE3NTk4NDU0MzQsImNob2ljZXMiOlt7ImluZGV4IjowLCJkZWx0YSI6eyJyb2xlIjoiYXNzaXN0YW50IiwiY29udGVudCI6IiAgIEZpcnN0LCBJJ2xsIG11bHRpcGx5IDEwIGJ5IDMsIHdoaWNoIGlzIDMwLlxuICAgICogICBOZXh0LCBJJ2xsIG11bHRpcGx5IDUgYnkgMywgd2hpY2ggaXMgMTUuXG4gICAgKiAgIEZpbmFsbHksIEknbGwgYWRkIHRob3NlIHR3byByZXN1bHRzIHRvZ2V0aGVyOiAzMCArIDE1ID0iLCJyZWFzb25pbmciOm51bGwsInJlYXNvbmluZ19kZXRhaWxzIjpbXX0sImZpbmlzaF9yZWFzb24iOm51bGwsIm5hdGl2ZV9maW5pc2hfcmVhc29uIjpudWxsLCJsb2dwcm9icyI6bnVsbH1dfQoK",
+      "decoded": "data: {\"id\":\"gen-1759845434-xgyldNoopL7pLZHXuP8f\",\"provider\":\"Google\",\"model\":\"google/gemini-2.5-pro\",\"object\":\"chat.completion.chunk\",\"created\":1759845434,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"   First, I'll multiply 10 by 3, which is 30.\\n    *   Next, I'll multiply 5 by 3, which is 15.\\n    *   Finally, I'll add those two results together: 30 + 15 =\",\"reasoning\":null,\"reasoning_details\":[]},\"finish_reason\":null,\"native_finish_reason\":null,\"logprobs\":null}]}\n\n"
+    },
+    {
+      "b64": "OiBPUEVOUk9VVEVSIFBST0NFU1NJTkcKCg==",
+      "decoded": ": OPENROUTER PROCESSING\n\n"
+    },
+    {
+      "b64": "ZGF0YTogeyJpZCI6Imdlbi0xNzU5ODQ1NDM0LXhneWxkTm9vcEw3cExaSFh1UDhmIiwicHJvdmlkZXIiOiJHb29nbGUiLCJtb2RlbCI6Imdvb2dsZS9nZW1pbmktMi41LXBybyIsIm9iamVjdCI6ImNoYXQuY29tcGxldGlvbi5jaHVuayIsImNyZWF0ZWQiOjE3NTk4NDU0MzQsImNob2ljZXMiOlt7ImluZGV4IjowLCJkZWx0YSI6eyJyb2xlIjoiYXNzaXN0YW50IiwiY29udGVudCI6IiA0NS5cblxuMi4gICoqUmVwZWF0ZWQgQWRkaXRpb24gTWV0aG9kOioqXG4gICAgKiAgIDE1ICogMyBpcyB0aGUgc2FtZSBhcyBhZGRpbmcgMTUgdGhyZWUgdGltZXMuXG4gICAgKiAgIDE1ICsgMTUgPSAzMC5cbiAgICAqICAgMzAgKyAxNSA9IDQ1LlxuXG4zLiIsInJlYXNvbmluZyI6bnVsbCwicmVhc29uaW5nX2RldGFpbHMiOltdfSwiZmluaXNoX3JlYXNvbiI6bnVsbCwibmF0aXZlX2ZpbmlzaF9yZWFzb24iOm51bGwsImxvZ3Byb2JzIjpudWxsfV19Cgo=",
+      "decoded": "data: {\"id\":\"gen-1759845434-xgyldNoopL7pLZHXuP8f\",\"provider\":\"Google\",\"model\":\"google/gemini-2.5-pro\",\"object\":\"chat.completion.chunk\",\"created\":1759845434,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\" 45.\\n\\n2.  **Repeated Addition Method:**\\n    *   15 * 3 is the same as adding 15 three times.\\n    *   15 + 15 = 30.\\n    *   30 + 15 = 45.\\n\\n3.\",\"reasoning\":null,\"reasoning_details\":[]},\"finish_reason\":null,\"native_finish_reason\":null,\"logprobs\":null}]}\n\n"
+    },
+    {
+      "b64": "OiBPUEVOUk9VVEVSIFBST0NFU1NJTkcKCg==",
+      "decoded": ": OPENROUTER PROCESSING\n\n"
+    },
+    {
+      "b64": "ZGF0YTogeyJpZCI6Imdlbi0xNzU5ODQ1NDM0LXhneWxkTm9vcEw3cExaSFh1UDhmIiwicHJvdmlkZXIiOiJHb29nbGUiLCJtb2RlbCI6Imdvb2dsZS9nZW1pbmktMi41LXBybyIsIm9iamVjdCI6ImNoYXQuY29tcGxldGlvbi5jaHVuayIsImNyZWF0ZWQiOjE3NTk4NDU0MzQsImNob2ljZXMiOlt7ImluZGV4IjowLCJkZWx0YSI6eyJyb2xlIjoiYXNzaXN0YW50IiwiY29udGVudCI6IiAgKipTdGFuZGFyZCBNdWx0aXBsaWNhdGlvbiBBbGdvcml0aG06KipcbiAgICAqICAgU2V0IHVwIHRoZSBwcm9ibGVtIHZlcnRpY2FsbHk6XG4gICAgICAgIGBgYFxuICAgICAgICAgIDE1XG4gICAgICAgIHggIDNcbiAgICAgICAgLS0tLVxuICAgICAgICBgYGBcbiAgICAqICAgTXVsdGlwbHkgdGhlIG9uZXMgZGlnaXQ6IDMgKiA1ID0gMTUuIFdyaXRlIGRvd24gdGhlIDUgYW5kIGNhcnJ5IG92ZXIgdGhlIDEuIiwicmVhc29uaW5nIjpudWxsLCJyZWFzb25pbmdfZGV0YWlscyI6W119LCJmaW5pc2hfcmVhc29uIjpudWxsLCJuYXRpdmVfZmluaXNoX3JlYXNvbiI6bnVsbCwibG9ncHJvYnMiOm51bGx9XX0KCg==",
+      "decoded": "data: {\"id\":\"gen-1759845434-xgyldNoopL7pLZHXuP8f\",\"provider\":\"Google\",\"model\":\"google/gemini-2.5-pro\",\"object\":\"chat.completion.chunk\",\"created\":1759845434,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"  **Standard Multiplication Algorithm:**\\n    *   Set up the problem vertically:\\n        ```\\n          15\\n        x  3\\n        ----\\n        ```\\n    *   Multiply the ones digit: 3 * 5 = 15. Write down the 5 and carry over the 1.\",\"reasoning\":null,\"reasoning_details\":[]},\"finish_reason\":null,\"native_finish_reason\":null,\"logprobs\":null}]}\n\n"
+    },
+    {
+      "b64": "OiBPUEVOUk9VVEVSIFBST0NFU1NJTkcKCg==",
+      "decoded": ": OPENROUTER PROCESSING\n\n"
+    },
+    {
+      "b64": "ZGF0YTogeyJpZCI6Imdlbi0xNzU5ODQ1NDM0LXhneWxkTm9vcEw3cExaSFh1UDhmIiwicHJvdmlkZXIiOiJHb29nbGUiLCJtb2RlbCI6Imdvb2dsZS9nZW1pbmktMi41LXBybyIsIm9iamVjdCI6ImNoYXQuY29tcGxldGlvbi5jaHVuayIsImNyZWF0ZWQiOjE3NTk4NDU0MzQsImNob2ljZXMiOlt7ImluZGV4IjowLCJkZWx0YSI6eyJyb2xlIjoiYXNzaXN0YW50IiwiY29udGVudCI6IlxuICAgICogICBNdWx0aXBseSB0aGUgdGVucyBkaWdpdDogMyAqIDEgPSAzLiBBZGQgdGhlIGNhcnJpZWQtb3ZlciAxLCB3aGljaCBtYWtlcyBpdCA0LlxuICAgICogICBUaGUgcmVzdWx0IGlzIDQ1LlxuXG5BbGwgdGhyZWUgbWV0aG9kcyBjb25maXJtIHRoZSBzYW1lIGFuc3dlci5cblxuKipBbnN3ZXI6KiogMTUgKiAzID0gNCIsInJlYXNvbmluZyI6bnVsbCwicmVhc29uaW5nX2RldGFpbHMiOltdfSwiZmluaXNoX3JlYXNvbiI6bnVsbCwibmF0aXZlX2ZpbmlzaF9yZWFzb24iOm51bGwsImxvZ3Byb2JzIjpudWxsfV19Cgo=",
+      "decoded": "data: {\"id\":\"gen-1759845434-xgyldNoopL7pLZHXuP8f\",\"provider\":\"Google\",\"model\":\"google/gemini-2.5-pro\",\"object\":\"chat.completion.chunk\",\"created\":1759845434,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\\n    *   Multiply the tens digit: 3 * 1 = 3. Add the carried-over 1, which makes it 4.\\n    *   The result is 45.\\n\\nAll three methods confirm the same answer.\\n\\n**Answer:** 15 * 3 = 4\",\"reasoning\":null,\"reasoning_details\":[]},\"finish_reason\":null,\"native_finish_reason\":null,\"logprobs\":null}]}\n\n"
+    },
+    {
+      "b64": "ZGF0YTogeyJpZCI6Imdlbi0xNzU5ODQ1NDM0LXhneWxkTm9vcEw3cExaSFh1UDhmIiwicHJvdmlkZXIiOiJHb29nbGUiLCJtb2RlbCI6Imdvb2dsZS9nZW1pbmktMi41LXBybyIsIm9iamVjdCI6ImNoYXQuY29tcGxldGlvbi5jaHVuayIsImNyZWF0ZWQiOjE3NTk4NDU0MzQsImNob2ljZXMiOlt7ImluZGV4IjowLCJkZWx0YSI6eyJyb2xlIjoiYXNzaXN0YW50IiwiY29udGVudCI6IjUuIiwicmVhc29uaW5nIjpudWxsLCJyZWFzb25pbmdfZGV0YWlscyI6W119LCJmaW5pc2hfcmVhc29uIjoic3RvcCIsIm5hdGl2ZV9maW5pc2hfcmVhc29uIjoiU1RPUCIsImxvZ3Byb2JzIjpudWxsfV19Cgo=",
+      "decoded": "data: {\"id\":\"gen-1759845434-xgyldNoopL7pLZHXuP8f\",\"provider\":\"Google\",\"model\":\"google/gemini-2.5-pro\",\"object\":\"chat.completion.chunk\",\"created\":1759845434,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"5.\",\"reasoning\":null,\"reasoning_details\":[]},\"finish_reason\":\"stop\",\"native_finish_reason\":\"STOP\",\"logprobs\":null}]}\n\n"
+    },
+    {
+      "b64": "ZGF0YTogeyJpZCI6Imdlbi0xNzU5ODQ1NDM0LXhneWxkTm9vcEw3cExaSFh1UDhmIiwicHJvdmlkZXIiOiJHb29nbGUiLCJtb2RlbCI6Imdvb2dsZS9nZW1pbmktMi41LXBybyIsIm9iamVjdCI6ImNoYXQuY29tcGxldGlvbi5jaHVuayIsImNyZWF0ZWQiOjE3NTk4NDU0MzQsImNob2ljZXMiOlt7ImluZGV4IjowLCJkZWx0YSI6eyJyb2xlIjoiYXNzaXN0YW50IiwiY29udGVudCI6IiJ9LCJmaW5pc2hfcmVhc29uIjpudWxsLCJuYXRpdmVfZmluaXNoX3JlYXNvbiI6bnVsbCwibG9ncHJvYnMiOm51bGx9XSwidXNhZ2UiOnsicHJvbXB0X3Rva2VucyI6MzEsImNvbXBsZXRpb25fdG9rZW5zIjo2OTAsInRvdGFsX3Rva2VucyI6NzIxLCJjb3N0IjowLjAwNjkzODc1LCJpc19ieW9rIjpmYWxzZSwicHJvbXB0X3Rva2Vuc19kZXRhaWxzIjp7ImNhY2hlZF90b2tlbnMiOjAsImF1ZGlvX3Rva2VucyI6MH0sImNvc3RfZGV0YWlscyI6eyJ1cHN0cmVhbV9pbmZlcmVuY2VfY29zdCI6bnVsbCwidXBzdHJlYW1faW5mZXJlbmNlX3Byb21wdF9jb3N0IjowLjAwMDAzODc1LCJ1cHN0cmVhbV9pbmZlcmVuY2VfY29tcGxldGlvbnNfY29zdCI6MC4wMDY5fSwiY29tcGxldGlvbl90b2tlbnNfZGV0YWlscyI6eyJyZWFzb25pbmdfdG9rZW5zIjozNjIsImltYWdlX3Rva2VucyI6MH19fQoKZGF0YTogW0RPTkVdCgo=",
+      "decoded": "data: {\"id\":\"gen-1759845434-xgyldNoopL7pLZHXuP8f\",\"provider\":\"Google\",\"model\":\"google/gemini-2.5-pro\",\"object\":\"chat.completion.chunk\",\"created\":1759845434,\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null,\"native_finish_reason\":null,\"logprobs\":null}],\"usage\":{\"prompt_tokens\":31,\"completion_tokens\":690,\"total_tokens\":721,\"cost\":0.00693875,\"is_byok\":false,\"prompt_tokens_details\":{\"cached_tokens\":0,\"audio_tokens\":0},\"cost_details\":{\"upstream_inference_cost\":null,\"upstream_inference_prompt_cost\":0.00003875,\"upstream_inference_completions_cost\":0.0069},\"completion_tokens_details\":{\"reasoning_tokens\":362,\"image_tokens\":0}}}\n\ndata: [DONE]\n\n"
+    }
+  ],
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoyMDQ4LCJtZXNzYWdlcyI6W3siY29udGVudCI6IllvdSBhcmUgYSBjYXJlZnVsLCBzdGVwLWJ5LXN0ZXAgcmVhc29uZXIuIiwicm9sZSI6InN5c3RlbSJ9LHsiY29udGVudCI6IkJyaWVmbHkgdGhpbmsgdGhyb3VnaCB5b3VyIGFwcHJvYWNoLCB0aGVuIGFuc3dlcjogV2hhdCBpcyAxNSozPyIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6Imdvb2dsZS9nZW1pbmktMi41LXByby1wcmV2aWV3LTA2LTA1IiwicmVhc29uaW5nX2VmZm9ydCI6ImxvdyIsInN0cmVhbSI6dHJ1ZSwic3RyZWFtX29wdGlvbnMiOnsiaW5jbHVkZV91c2FnZSI6dHJ1ZX0sInRlbXBlcmF0dXJlIjoxLjAsInRvcF9wIjowLjh9"
+    },
+    "canonical_json": {
+      "max_tokens": 2048,
+      "messages": [
+        {
+          "content": "You are a careful, step-by-step reasoner.",
+          "role": "system"
+        },
+        {
+          "content": "Briefly think through your approach, then answer: What is 15*3?",
+          "role": "user"
+        }
+      ],
+      "model": "google/gemini-2.5-pro-preview-06-05",
+      "reasoning_effort": "low",
+      "stream": true,
+      "stream_options": {
+        "include_usage": true
+      },
+      "temperature": 1.0,
+      "top_p": 0.8
+    },
+    "headers": {
+      "accept": "text/event-stream",
+      "authorization": "[REDACTED:authorization]",
+      "content-type": "application/json"
+    },
+    "method": "POST",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": null,
+    "headers": {
+      "access-control-allow-origin": "*",
+      "cache-control": "no-cache",
+      "cf-ray": "98ade80c6f7290b3-ORD",
+      "content-type": "text/event-stream",
+      "date": "Tue, 07 Oct 2025 13:57:16 GMT",
+      "permissions-policy": "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")",
+      "referrer-policy": "no-referrer, strict-origin-when-cross-origin",
+      "server": "cloudflare",
+      "x-content-type-options": "nosniff"
+    },
+    "status": 200
+  }
+}

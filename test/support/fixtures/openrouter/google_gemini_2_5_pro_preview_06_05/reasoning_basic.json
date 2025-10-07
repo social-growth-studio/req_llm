@@ -1,0 +1,115 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoyMDQ4LCJtZXNzYWdlcyI6W3siY29udGVudCI6IlNvbHZlIDEyKjcgYW5kIHNob3cgeW91ciBpbnRlcm5hbCB0aGlua2luZyAoYnJpZWYpLiIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6Imdvb2dsZS9nZW1pbmktMi41LXByby1wcmV2aWV3LTA2LTA1IiwibiI6MSwicmVhc29uaW5nX2VmZm9ydCI6ImxvdyIsInNlZWQiOjQyLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MS4wfQ=="
+    },
+    "canonical_json": {
+      "max_tokens": 2048,
+      "messages": [
+        {
+          "content": "Solve 12*7 and show your internal thinking (brief).",
+          "role": "user"
+        }
+      ],
+      "model": "google/gemini-2.5-pro-preview-06-05",
+      "n": 1,
+      "reasoning_effort": "low",
+      "seed": 42,
+      "stream": false,
+      "temperature": 1.0
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "**Answer:** 84\n\n**Internal Thinking:**\n\n1.  Break 12 into 10 and 2. It's easier to multiply those numbers by 7.\n2.  Multiply the parts: 10 * 7 = 70.\n3.  Multiply the other part: 2 * 7 = 14.\n4.  Add the results together: 70 + 14 = 84.",
+            "reasoning": "**Processing the Prompt's Demands**\n\nI've started by breaking down the user's request, identifying the core calculation and the need for a concise explanation. I'm focusing on the critical elements: performing 12 * 7 and showing the thought process clearly, but without extra details.\n\n\n**Evaluating Multiplication Approaches**\n\nI'm now considering the \"internal thinking\" methods. While direct recall yields the answer quickly, it doesn't illustrate the process as requested. Decomposing 12 into (10 + 2) and using the distributive property seems like the most transparent and pedagogically sound approach to demonstrate my reasoning, as it allows the user to see the calculation steps.\n\n\n",
+            "reasoning_details": [
+              {
+                "format": "unknown",
+                "index": 0,
+                "text": "**Processing the Prompt's Demands**\n\nI've started by breaking down the user's request, identifying the core calculation and the need for a concise explanation. I'm focusing on the critical elements: performing 12 * 7 and showing the thought process clearly, but without extra details.\n\n\n**Evaluating Multiplication Approaches**\n\nI'm now considering the \"internal thinking\" methods. While direct recall yields the answer quickly, it doesn't illustrate the process as requested. Decomposing 12 into (10 + 2) and using the distributive property seems like the most transparent and pedagogically sound approach to demonstrate my reasoning, as it allows the user to see the calculation steps.\n\n\n",
+                "type": "reasoning.text"
+              }
+            ],
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "STOP"
+        }
+      ],
+      "created": 1759845429,
+      "id": "gen-1759845429-FwpkMLaP75WdxP1pS7DI",
+      "model": "google/gemini-2.5-pro",
+      "object": "chat.completion",
+      "provider": "Google",
+      "usage": {
+        "completion_tokens": 298,
+        "completion_tokens_details": {
+          "image_tokens": 0,
+          "reasoning_tokens": 200
+        },
+        "prompt_tokens": 14,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "total_tokens": 312
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade7ee5852f5ff-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:57:12 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoxMDAsIm1lc3NhZ2VzIjpbeyJjb250ZW50IjoiV3JpdGUgYSB2ZXJ5IGxvbmcgc3RvcnkgYWJvdXQgZHJhZ29ucyBhbmQgYWR2ZW50dXJlcyIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6IngtYWkvZ3Jvay0zLW1pbmkiLCJuIjoxLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MC41fQ=="
+    },
+    "canonical_json": {
+      "max_tokens": 100,
+      "messages": [
+        {
+          "content": "Write a very long story about dragons and adventures",
+          "role": "user"
+        }
+      ],
+      "model": "x-ai/grok-3-mini",
+      "n": 1,
+      "stream": false,
+      "temperature": 0.5
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "Below is a very long, original story about dragons and adventures. I've crafted it to be engaging, with detailed descriptions, character development, and a mix of action, mystery, and fantasy elements. The story is divided into chapters for readability, and it's designed to feel epic and immersive. Enjoy!\n\n---\n\n# **The Dragon's Whisper: A Tale of Fire and Fate**\n\n## **Chapter 1: The Shadow of the Skies**\n\nIn the ancient kingdom of Eldoria, where emerald forests kissed the",
+            "reasoning": "First, the user asked for a \"very long story about dragons and adventures.\" So, I need to create an original story that's lengthy. Since this is a text-based response, I'll aim for a substantial length, maybe 1000-2000 words, but I have to balance it with being engaging.\n\nKey elements: Dragons and adventures. The story should feature dragons as central characters or antagonists, and include adventurous elements like quests, battles, explorations, and character development.\n\nStructure a story properly:\n\n1. **Introduction**: Set the scene, introduce main characters, and establish the world. Maybe a fantasy world with dragons.\n\n2. **Rising Action**: Build tension with adventures, conflicts, and encounters.\n\n3. **Climax**: The peak of the adventure, like a big battle with a dragon or a major challenge.\n\n4. **Falling Action**: Resolve the conflicts and wrap up subplots.\n\n5. **Conclusion**: End the story satisfyingly.\n\nMake it engaging: Use descriptive language, dialogue, suspense, and varied pacing. Include multiple characters for depth.\n\nBrainstorm plot ideas:\n\n- Protagonist: A young adventurer or a dragon rider.\n\n- Antagonist: A powerful dragon or a group of them causing havoc.\n\n- Adventure: Quest to find a lost artifact, save a kingdom from dragon attacks, or discover a new land.\n\nTheme: Perhaps about friendship between humans and dragons, or the struggle for power.\n\nOutline a basic plot:\n\n- **Beginning**: In a kingdom threatened by wild dragons, a young hero named Elara discovers she has a special bond with dragons.\n\n- **Middle**: Elara embarks on a journey to find the Dragon's Heart, an ancient relic that can control dragons. She faces various adventures: crossing dangerous forests, battling bandits, solving puzzles in ruins.\n\n- **Encounters**: She meets allies, like a wise old wizard or a fellow adventurer. They encounter different dragons: friendly ones, hostile ones.\n\n- **Climax**: Confrontation with the main dragon villain who guards the relic.\n\n- **End**: Elara succeeds, brings peace, and perhaps forms a alliance between humans and dragons.\n\nTo make it very long, add subplots, detailed descriptions, and multiple chapters or scenes.\n\nEnsure it's original: Don't copy from existing stories like \"How to Train Your Dragon\" or \"The Hobbit,\" but draw inspiration.\n\nLanguage: Use vivid, imaginative language. Vary sentence lengths for rhythm.\n\nFinally, since this is an AI response, keep it appropriate, fun, and error-free.",
+            "reasoning_details": [
+              {
+                "format": "unknown",
+                "index": 0,
+                "text": "First, the user asked for a \"very long story about dragons and adventures.\" So, I need to create an original story that's lengthy. Since this is a text-based response, I'll aim for a substantial length, maybe 1000-2000 words, but I have to balance it with being engaging.\n\nKey elements: Dragons and adventures. The story should feature dragons as central characters or antagonists, and include adventurous elements like quests, battles, explorations, and character development.\n\nStructure a story properly:\n\n1. **Introduction**: Set the scene, introduce main characters, and establish the world. Maybe a fantasy world with dragons.\n\n2. **Rising Action**: Build tension with adventures, conflicts, and encounters.\n\n3. **Climax**: The peak of the adventure, like a big battle with a dragon or a major challenge.\n\n4. **Falling Action**: Resolve the conflicts and wrap up subplots.\n\n5. **Conclusion**: End the story satisfyingly.\n\nMake it engaging: Use descriptive language, dialogue, suspense, and varied pacing. Include multiple characters for depth.\n\nBrainstorm plot ideas:\n\n- Protagonist: A young adventurer or a dragon rider.\n\n- Antagonist: A powerful dragon or a group of them causing havoc.\n\n- Adventure: Quest to find a lost artifact, save a kingdom from dragon attacks, or discover a new land.\n\nTheme: Perhaps about friendship between humans and dragons, or the struggle for power.\n\nOutline a basic plot:\n\n- **Beginning**: In a kingdom threatened by wild dragons, a young hero named Elara discovers she has a special bond with dragons.\n\n- **Middle**: Elara embarks on a journey to find the Dragon's Heart, an ancient relic that can control dragons. She faces various adventures: crossing dangerous forests, battling bandits, solving puzzles in ruins.\n\n- **Encounters**: She meets allies, like a wise old wizard or a fellow adventurer. They encounter different dragons: friendly ones, hostile ones.\n\n- **Climax**: Confrontation with the main dragon villain who guards the relic.\n\n- **End**: Elara succeeds, brings peace, and perhaps forms a alliance between humans and dragons.\n\nTo make it very long, add subplots, detailed descriptions, and multiple chapters or scenes.\n\nEnsure it's original: Don't copy from existing stories like \"How to Train Your Dragon\" or \"The Hobbit,\" but draw inspiration.\n\nLanguage: Use vivid, imaginative language. Vary sentence lengths for rhythm.\n\nFinally, since this is an AI response, keep it appropriate, fun, and error-free.",
+                "type": "reasoning.text"
+              }
+            ],
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "length"
+        }
+      ],
+      "created": 1759846686,
+      "id": "gen-1759846686-QE1TCoPFLjm26WJkGblj",
+      "model": "x-ai/grok-3-mini",
+      "object": "chat.completion",
+      "provider": "xAI",
+      "system_fingerprint": "fp_4fae27f477",
+      "usage": {
+        "completion_tokens": 606,
+        "completion_tokens_details": {
+          "reasoning_tokens": 506
+        },
+        "prompt_tokens": 16,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 4
+        },
+        "total_tokens": 622
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ae069b2e640013-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 14:18:06 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

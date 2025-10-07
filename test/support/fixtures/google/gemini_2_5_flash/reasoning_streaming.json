@@ -1,0 +1,64 @@
+{
+  "captured_at": "2025-10-07T15:23:12.295542Z",
+  "chunks": [
+    {
+      "b64": "W3sKICAiY2FuZGlkYXRlcyI6IFsKICAgIHsKICAgICAgImNvbnRlbnQiOiB7CiAgICAgICAgInBhcnRzIjogWwogICAgICAgICAgewogICAgICAgICAgICAidGV4dCI6ICJUbyBmaW5kIDE1KjMsIEkgd2lsbCBtdWx0aXBseSAxNSBieSAzLlxuXG4xNSAqIDMgPSA0NSIKICAgICAgICAgIH0KICAgICAgICBdLAogICAgICAgICJyb2xlIjogIm1vZGVsIgogICAgICB9LAogICAgICAiZmluaXNoUmVhc29uIjogIlNUT1AiLAogICAgICAiaW5kZXgiOiAwCiAgICB9CiAgXSwKICAidXNhZ2VNZXRhZGF0YSI6IHsKICAgICJwcm9tcHRUb2tlbkNvdW50IjogMzIsCiAgICAiY2FuZGlkYXRlc1Rva2VuQ291bnQiOiAyOCwKICAgICJ0b3RhbFRva2VuQ291bnQiOiAxNzQsCiAgICAicHJvbXB0VG9rZW5zRGV0YWlscyI6IFsKICAgICAgewogICAgICAgICJtb2RhbGl0eSI6ICJURVhUIiwKICAgICAgICAidG9rZW5Db3VudCI6IDMyCiAgICAgIH0KICAgIF0sCiAgICAidGhvdWdodHNUb2tlbkNvdW50IjogMTE0CiAgfSwKICAibW9kZWxWZXJzaW9uIjogImdlbWluaS0yLjUtZmxhc2giLAogICJyZXNwb25zZUlkIjogIlh6RGxhUGFmRFBXX2pNY1AwWm0tMkFjIgp9Cg==",
+      "decoded": "[{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\": \"To find 15*3, I will multiply 15 by 3.\\n\\n15 * 3 = 45\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n      \"finishReason\": \"STOP\",\n      \"index\": 0\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 32,\n    \"candidatesTokenCount\": 28,\n    \"totalTokenCount\": 174,\n    \"promptTokensDetails\": [\n      {\n        \"modality\": \"TEXT\",\n        \"tokenCount\": 32\n      }\n    ],\n    \"thoughtsTokenCount\": 114\n  },\n  \"modelVersion\": \"gemini-2.5-flash\",\n  \"responseId\": \"XzDlaPafDPW_jMcP0Zm-2Ac\"\n}\n"
+    },
+    {
+      "b64": "XQ==",
+      "decoded": "]"
+    }
+  ],
+  "request": {
+    "body": {
+      "b64": "eyJjb250ZW50cyI6W3sicGFydHMiOlt7InRleHQiOiJCcmllZmx5IHRoaW5rIHRocm91Z2ggeW91ciBhcHByb2FjaCwgdGhlbiBhbnN3ZXI6IFdoYXQgaXMgMTUqMz8ifV0sInJvbGUiOiJ1c2VyIn1dLCJnZW5lcmF0aW9uQ29uZmlnIjp7ImNhbmRpZGF0ZUNvdW50IjoxLCJtYXhPdXRwdXRUb2tlbnMiOjIwNDgsInRlbXBlcmF0dXJlIjoxLjAsInRvcFAiOjAuOH0sInN5c3RlbUluc3RydWN0aW9uIjp7InBhcnRzIjpbeyJ0ZXh0IjoiWW91IGFyZSBhIGNhcmVmdWwsIHN0ZXAtYnktc3RlcCByZWFzb25lci4ifV19fQ=="
+    },
+    "canonical_json": {
+      "contents": [
+        {
+          "parts": [
+            {
+              "text": "Briefly think through your approach, then answer: What is 15*3?"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "generationConfig": {
+        "candidateCount": 1,
+        "maxOutputTokens": 2048,
+        "temperature": 1.0,
+        "topP": 0.8
+      },
+      "systemInstruction": {
+        "parts": [
+          {
+            "text": "You are a careful, step-by-step reasoner."
+          }
+        ]
+      }
+    },
+    "headers": {
+      "content-type": "application/json"
+    },
+    "method": "POST",
+    "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent"
+  },
+  "response": {
+    "body": null,
+    "headers": {
+      "accept-ranges": "none",
+      "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+      "content-type": "application/json; charset=UTF-8",
+      "date": "Tue, 07 Oct 2025 15:23:12 GMT",
+      "server": "scaffolding on HTTPServer2",
+      "server-timing": "gfet4t7; dur=1443",
+      "vary": "Origin,Accept-Encoding",
+      "x-content-type-options": "nosniff",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "0"
+    },
+    "status": 200
+  }
+}

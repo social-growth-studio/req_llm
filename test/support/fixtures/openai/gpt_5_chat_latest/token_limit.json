@@ -1,0 +1,181 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJpbnB1dCI6W3siY29udGVudCI6W3sidGV4dCI6IldyaXRlIGEgdmVyeSBsb25nIHN0b3J5IGFib3V0IGRyYWdvbnMgYW5kIGFkdmVudHVyZXMiLCJ0eXBlIjoiaW5wdXRfdGV4dCJ9XSwicm9sZSI6InVzZXIifV0sIm1heF9vdXRwdXRfdG9rZW5zIjoxMDAsIm1vZGVsIjoiZ3B0LTUtY2hhdC1sYXRlc3QiLCJzdHJlYW0iOmZhbHNlfQ=="
+    },
+    "canonical_json": {
+      "input": [
+        {
+          "content": [
+            {
+              "text": "Write a very long story about dragons and adventures",
+              "type": "input_text"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "max_output_tokens": 100,
+      "model": "gpt-5-chat-latest",
+      "stream": false
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "created_at": 1759853130,
+      "error": null,
+      "id": "resp_0f1a789fc8c462f30068e53a49d04c81908c3d6563da47caa8",
+      "incomplete_details": {
+        "reason": "max_output_tokens"
+      },
+      "instructions": null,
+      "max_output_tokens": 100,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "gpt-5-chat-latest",
+      "object": "response",
+      "output": [
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Sure! Here’s a long, original fantasy story about dragons and adventure:  \n\n---\n\n### **The Emberflight Saga**\n\n#### **Part I: Ashes and Whispers**\n\nIn the northern reaches of Arathen, where the mountains rose like the backs of ancient beasts and snow fell even in midsummer, a boy named Cael lived in the village of Dornvale. He was a blacksmith’s apprentice, the kind who burned his hands more often than he forged anything worth keeping. But Ca",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_0f1a789fc8c462f30068e53a4aecdc8190908b43ad82b7dc36",
+          "role": "assistant",
+          "status": "incomplete",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": {
+        "effort": null,
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "status": "incomplete",
+      "store": true,
+      "temperature": 1.0,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 16,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 100,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 116
+      },
+      "user": null
+    },
+    "headers": {
+      "alt-svc": [
+        "h3=\":443\"; ma=86400"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98aea3ebb9b3e168-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 16:05:33 GMT"
+      ],
+      "openai-organization": [
+        "epic-creative-sogybe"
+      ],
+      "openai-processing-ms": [
+        "3329"
+      ],
+      "openai-project": [
+        "proj_j5AhgU4eLMRmsoO9FDg7BRD3"
+      ],
+      "openai-version": [
+        "2020-10-01"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=5BFvAJUwMJFqNKbPbUen4VUoWc6eE7aJrpWT.EPnDBI-1759853133-1.0.1.1-a_RNlQTcmlFSBUjh9fNGMH6y6nOYfj8GDV1FTrUxWJqIF5lzoXuWxcfvgoqbN6lzaBB41kuxr_slviU1mAzsX8d.7pNeG1nsssDUItCkGOc; path=/; expires=Tue, 07-Oct-25 16:35:33 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None",
+        "_cfuvid=Wb0Xuk.r.FUetU9CxoOXJiVffqIfSJtPBmIkNXuy9Lw-1759853133062-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ],
+      "x-envoy-upstream-service-time": [
+        "3341"
+      ],
+      "x-ratelimit-limit-requests": [
+        "10000"
+      ],
+      "x-ratelimit-limit-tokens": [
+        "2000000"
+      ],
+      "x-ratelimit-remaining-requests": [
+        "9999"
+      ],
+      "x-ratelimit-remaining-tokens": [
+        "1999950"
+      ],
+      "x-ratelimit-reset-requests": [
+        "6ms"
+      ],
+      "x-ratelimit-reset-tokens": [
+        "1ms"
+      ],
+      "x-request-id": [
+        "req_6617f05aa7df911a07a83afa9845efd7"
+      ]
+    },
+    "status": 200
+  }
+}

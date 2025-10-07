@@ -1,0 +1,79 @@
+{
+  "captured_at": "2025-10-07T15:23:24.140108Z",
+  "chunks": [
+    {
+      "b64": "W3sKICAiY2FuZGlkYXRlcyI6IFsKICAgIHsKICAgICAgImNvbnRlbnQiOiB7CiAgICAgICAgInBhcnRzIjogWwogICAgICAgICAgewogICAgICAgICAgICAidGV4dCI6ICJ7XCJuYW1lXCI6XCJBbGljZSBTbWl0aFwiLFwiYWdlXCI6MzAsXCJvY2N1cGF0aW9uXCI6XCJTb2Z0d2FyZSBFbmdpbmVlclwifSIKICAgICAgICAgIH0KICAgICAgICBdLAogICAgICAgICJyb2xlIjogIm1vZGVsIgogICAgICB9LAogICAgICAiZmluaXNoUmVhc29uIjogIlNUT1AiLAogICAgICAiaW5kZXgiOiAwCiAgICB9CiAgXSwKICAidXNhZ2VNZXRhZGF0YSI6IHsKICAgICJwcm9tcHRUb2tlbkNvdW50IjogNiwKICAgICJjYW5kaWRhdGVzVG9rZW5Db3VudCI6IDE2LAogICAgInRvdGFsVG9rZW5Db3VudCI6IDE1NCwKICAgICJwcm9tcHRUb2tlbnNEZXRhaWxzIjogWwogICAgICB7CiAgICAgICAgIm1vZGFsaXR5IjogIlRFWFQiLAogICAgICAgICJ0b2tlbkNvdW50IjogNgogICAgICB9CiAgICBdLAogICAgInRob3VnaHRzVG9rZW5Db3VudCI6IDEzMgogIH0sCiAgIm1vZGVsVmVyc2lvbiI6ICJtb2RlbHMvZ2VtaW5pLTIuNS1mbGFzaC1wcmV2aWV3LTA1LTIwIiwKICAicmVzcG9uc2VJZCI6ICJhekRsYUpqaENwS1BqTWNQNzVhb2lBayIKfQo=",
+      "decoded": "[{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\": \"{\\\"name\\\":\\\"Alice Smith\\\",\\\"age\\\":30,\\\"occupation\\\":\\\"Software Engineer\\\"}\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n      \"finishReason\": \"STOP\",\n      \"index\": 0\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 6,\n    \"candidatesTokenCount\": 16,\n    \"totalTokenCount\": 154,\n    \"promptTokensDetails\": [\n      {\n        \"modality\": \"TEXT\",\n        \"tokenCount\": 6\n      }\n    ],\n    \"thoughtsTokenCount\": 132\n  },\n  \"modelVersion\": \"models/gemini-2.5-flash-preview-05-20\",\n  \"responseId\": \"azDlaJjhCpKPjMcP75aoiAk\"\n}\n"
+    },
+    {
+      "b64": "XQ==",
+      "decoded": "]"
+    }
+  ],
+  "request": {
+    "body": {
+      "b64": "eyJjb250ZW50cyI6W3sicGFydHMiOlt7InRleHQiOiJHZW5lcmF0ZSBhIHNvZnR3YXJlIGVuZ2luZWVyIHByb2ZpbGUifV0sInJvbGUiOiJ1c2VyIn1dLCJnZW5lcmF0aW9uQ29uZmlnIjp7ImNhbmRpZGF0ZUNvdW50IjoxLCJtYXhPdXRwdXRUb2tlbnMiOjUwMCwicmVzcG9uc2VKc29uU2NoZW1hIjp7InByb3BlcnRpZXMiOnsiYWdlIjp7ImRlc2NyaXB0aW9uIjoiUGVyc29uJ3MgYWdlIGluIHllYXJzIiwibWluaW11bSI6MSwidHlwZSI6ImludGVnZXIifSwibmFtZSI6eyJkZXNjcmlwdGlvbiI6IlBlcnNvbidzIGZ1bGwgbmFtZSIsInR5cGUiOiJzdHJpbmcifSwib2NjdXBhdGlvbiI6eyJkZXNjcmlwdGlvbiI6IlBlcnNvbidzIGpvYiBvciBwcm9mZXNzaW9uIiwidHlwZSI6InN0cmluZyJ9fSwicmVxdWlyZWQiOlsibmFtZSIsImFnZSJdLCJ0eXBlIjoib2JqZWN0In0sInJlc3BvbnNlTWltZVR5cGUiOiJhcHBsaWNhdGlvbi9qc29uIiwidGVtcGVyYXR1cmUiOjAuMH19"
+    },
+    "canonical_json": {
+      "contents": [
+        {
+          "parts": [
+            {
+              "text": "Generate a software engineer profile"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "generationConfig": {
+        "candidateCount": 1,
+        "maxOutputTokens": 500,
+        "responseJsonSchema": {
+          "properties": {
+            "age": {
+              "description": "Person's age in years",
+              "minimum": 1,
+              "type": "integer"
+            },
+            "name": {
+              "description": "Person's full name",
+              "type": "string"
+            },
+            "occupation": {
+              "description": "Person's job or profession",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "age"
+          ],
+          "type": "object"
+        },
+        "responseMimeType": "application/json",
+        "temperature": 0.0
+      }
+    },
+    "headers": {
+      "content-type": "application/json"
+    },
+    "method": "POST",
+    "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:streamGenerateContent"
+  },
+  "response": {
+    "body": null,
+    "headers": {
+      "accept-ranges": "none",
+      "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+      "content-type": "application/json; charset=UTF-8",
+      "date": "Tue, 07 Oct 2025 15:23:24 GMT",
+      "server": "scaffolding on HTTPServer2",
+      "server-timing": "gfet4t7; dur=1609",
+      "vary": "Origin,Accept-Encoding",
+      "x-content-type-options": "nosniff",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "0"
+    },
+    "status": 200
+  }
+}

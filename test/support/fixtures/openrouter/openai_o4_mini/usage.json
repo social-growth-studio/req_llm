@@ -1,0 +1,108 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjo1MDAsIm1lc3NhZ2VzIjpbeyJjb250ZW50IjoiSGkgdGhlcmUhIiwicm9sZSI6InVzZXIifV0sIm1vZGVsIjoib3BlbmFpL280LW1pbmkiLCJuIjoxLCJzZWVkIjo0Miwic3RyZWFtIjpmYWxzZSwidGVtcGVyYXR1cmUiOjAuMH0="
+    },
+    "canonical_json": {
+      "max_tokens": 500,
+      "messages": [
+        {
+          "content": "Hi there!",
+          "role": "user"
+        }
+      ],
+      "model": "openai/o4-mini",
+      "n": 1,
+      "seed": 42,
+      "stream": false,
+      "temperature": 0.0
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "Hello! How can I assist you today?",
+            "reasoning": null,
+            "reasoning_details": [
+              {
+                "data": "gAAAAABo5RxigUFjhzJv849_xJI0cQAqedqgV60tmrQJnE3NF5mrm_6E1-HlvRNUSKFifaF4LQqM_vbcCnjvM3jycicaU9vh6w8d3bc7hk4bfpY5ONCvSSpAiyZzfrIl8fcuFQ6jjPMVfrZqXsj-Dil8Qj7mqlGUWtc-p9GpsiH5g7A0LUph807n2728ktrcEXkMG9ukwR8xYqBdI8uHRQwsJe4kyh3vsTcj0GEIGbT0HuWbH1Rj4Zhs2TwtuG32-APQN6CC5jGmp4AI_SBB-Zm4SyqGMMjQnw5_JmLMtOhFXSnjh1vFpqXRueBPegIAU2tMCQcY0hg8mrhEdWT-PyRzXyhGgSxmv2JcVbUus1qVGAWZWyHZ-zwnwXhwQ8V2YAYAHIKOlhtQgSbpNSKm_MkqXIPSdTDi96IQX3G74sI9M05Z-YoRjsH4ouCiJ_Jm3hryDB0zTiQ_sm3GEFqk83AaIOqUtq-FiR_oV2wzbQbizcRu-YKCjIegHvC6QANAwmF1LFiGt8YCn0Waof7YkAv-n5tYnuryN12QZMX4MlO_eD2l4t1P1YnD-7QsbjMMg9BetFOZTGrUICOSyYlyaH-sg3F3pPBjEUUHMqDxnkdjHwpIiSi4jA91PLqvhQNq2sfG9w4fgyoeJ1jlM_59g_IKytDKydT_Wht1-hkRWsR9pC33Pp0SKvzjJit6nEwlDcuu4WvddT22aBEhsU1jfwmEVwg1TVceuHBuEc5p0XyYQ_Z8PWokBgKRZJRUMSCN1y56tEQHmaDxi46n6XpQSA-BzPpfvbF0nEesQb1DxLtl5pL3wbjow6LpWhWIchGGnK2NBd_PPX_PUou1LmNoJN-ZPTnCZilEKCA8lzdGKpfAbD_KhbGJwGIV2H0UIA1P_YC5zYTCILA2sAWtwxNMyYEvYYASMRQsp7o4WLP-2DJzDmWDgYQrDlg2LC38xAJrsy3FKGcLY35R23javpie9wCUWTeZnntRDruTDeiWnK5wHdJS8pJIlJUocCvM7fvNlcorTMuqRcA70iDsHqsuBmXj3rSdEHVfZfSbHDagTL_T8bxGmgiQan03mQgxGfkMQ1sTCfvL3jwkUA8pAQ_DjuDbwetNQ4EggGoPDJ8vHq2CCZuxeGRrIa30y967yOdQ48cAfhNVFLByixl2kDOvxD_hLRB0dr9XwBwY1fYrKioez8QUWEUz_t11pJMhw2VtTEuvS2egg3vqYrgv86wQfOCY9BPQhPXdgJKsJd3bSuRacGns0lS6MocniWkfDn3Z7VZXtaDGBizBeqdgJ12ZuxEOssIW5sSidnvZ17JRjuBpMy4zNVvbP1E=",
+                "format": "openai-responses-v1",
+                "id": "rs_0a95d3918fcd06240168e51c5f9920819399756427ecd396ef",
+                "index": 0,
+                "type": "reasoning.encrypted"
+              }
+            ],
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "completed"
+        }
+      ],
+      "created": 1759845470,
+      "id": "gen-1759845470-KQi9c16KadjCJHByf46h",
+      "model": "openai/o4-mini",
+      "object": "chat.completion",
+      "provider": "OpenAI",
+      "usage": {
+        "completion_tokens": 79,
+        "prompt_tokens": 9,
+        "total_tokens": 88
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade8ed29b78714-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:57:51 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

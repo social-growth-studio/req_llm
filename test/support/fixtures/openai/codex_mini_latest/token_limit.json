@@ -1,0 +1,168 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJpbnB1dCI6W3siY29udGVudCI6W3sidGV4dCI6IldyaXRlIGEgdmVyeSBsb25nIHN0b3J5IGFib3V0IGRyYWdvbnMgYW5kIGFkdmVudHVyZXMiLCJ0eXBlIjoiaW5wdXRfdGV4dCJ9XSwicm9sZSI6InVzZXIifV0sIm1heF9vdXRwdXRfdG9rZW5zIjozMDAwLCJtb2RlbCI6ImNvZGV4LW1pbmktbGF0ZXN0Iiwic3RyZWFtIjpmYWxzZX0="
+    },
+    "canonical_json": {
+      "input": [
+        {
+          "content": [
+            {
+              "text": "Write a very long story about dragons and adventures",
+              "type": "input_text"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "max_output_tokens": 3000,
+      "model": "codex-mini-latest",
+      "stream": false
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "created_at": 1759795766,
+      "error": null,
+      "id": "resp_0fd3e9da50103b3b0068e45a36269c819885cc7f69834d2ade",
+      "incomplete_details": {
+        "reason": "max_output_tokens"
+      },
+      "instructions": null,
+      "max_output_tokens": 3000,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "codex-mini-latest",
+      "object": "response",
+      "output": [
+        {
+          "id": "rs_0fd3e9da50103b3b0068e45a367ed08198a76060bda74a8ace",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Beneath the twin moons of Ashalora, where violet dawns brush the clouds and emerald evenings shimmer in dew, lay a realm of ancient mountains, whispering forests, and crystalline waters. It was here that dragons—majestic, terrifying, and wondrous—roamed the skies. And within this land of splendor and danger, our tale of adventure begins.\n\n---\n\n## Chapter I: The Call of Emberpeak\n\nIn the humble village of Brighthaven, nestled at the edge of the Bramblewood, lived a young shepherd named Kaelin. Each dawn, he led his flock across dewy hills, and each dusk, he returned them safely home—well, almost safely. For the Bramblewood whispered of strange lights dancing between twisted boughs and eerie echoes drifting on the wind, as though the forest itself spoke in dreams.\n\nOne morn, as Kaelin guided his sheep along the Silverbrook, a sudden tremor shook the ground. His heart hammered. A roar—fierce and alive—shattered the dawn’s serenity. From the distant Emberpeak Mountains spiraled a plume of scarlet smoke.\n\n“By the firelight,” Kaelin murmured, breath freezing in his chest. Tales spoke of Emberpeak as the cradle of dragons, long dormant. Yet here was proof: a dragon, newly awakened.\n\nCompelled by a mixture of fear and wonder, Kaelin left his flock in safe grazing and set off toward the mountains. He carried but a leather satchel with bread, cheese, and a sun-forged dagger—a keystone of his late father’s legacy.\n\n---\n\n## Chapter II: The Dragon’s Awakening\n\nClimbing higher each day, Kaelin encountered traces of the beast: giant claw marks gouged from stone; singed pine trees reduced to charcoal; streams boiling from unseen heat. On the third night, he camped beneath a crag, staring into the stars when a soft rumble echoed through the valley.\n\nFrom the obsidian peak emerged a dragon of molten gold and silver. Its scales gleamed like twin suns, its eyes pools of molten amber. The wyrm stretched leathery wings that spanned the horizon, releasing a tremor that rattled Kaelin’s bones. For a heartbeat, predator and mortal locked gazes—fear and curiosity each reflected in the other.\n\nKaelin’s heart thundered, yet he did not flee. He bowed low, raising a hand in silent greeting. The dragon snorted, and from its nostrils curled smoke scented like brimstone and jasmine. It hesitated, then lowered its massive head.\n\n“Kai…lin,” rasped a voice not born of lungs but of ancient magic.\n\nKaelin’s breath caught. The dragon had spoken his name.\n\n“I… I am but a shepherd,” he stammered. “Why do you call me?”\n\nA rumble like distant thunder vibrated through the air. “You bear the Firebrand’s blood. Child of the Ember Line. The wyrm’s awakening summons you—there is a darkness in the east that seeks to enslave dragon and man alike.”\n\nKaelin’s world spun. Firebrand? Ember Line? He had heard legends: that a secret bloodline could command dragons. But such lore was as distant as the stars. Yet the dragon’s gaze left no room for denial.\n\n“I… I do not know how,” he whispered.\n\n“You will learn,” the dragon replied. “Rise, Kaelin Emberlain, and come with me.”\n\nWith a mighty sweep of wings, the dragon took flight. Kaelin watched, heart aflame with equal parts dread and destiny, and then dared to climb onto the dragon’s neck. As they ascended into the rose-tinted dawn, the world shrank below—fields, rivers, forests, all bathed in radiant light. Thus began his transformation from shepherd to dragon rider.\n\n---\n\n## Chapter III: Council of the Five Clans\n\nThe dragon bore Kaelin northward to the fabled city of Dragothar, perched atop floating isles of stone. Bridges of braided silver connected each isle, and crystalline spires caught the suns’ rays in dazzling prisms. Here dwelled the Council of the Five Clans—the ancient alliance of dragonkind and humankind: the Flameborne, the Skyshapers, the Tidecallers, the Earthguard, and the Stormwardens.\n\nWithin the Hall of Scales, dragons and clan ambassadors gathered. Kaelin dismounted, trembling as he faced beings equal parts awe-inspiring and terrifying—dragons of every hue, and warriors clad in dragonhide armor etched with runes older than legend.\n\nAt the dais sat Lady Meradith of the Flameborne, her copper hair alight like coals, eyes as fierce as ember-fire. “Kaelin Emberlain,” she intoned, “you stand at the fulcrum of fate. The Dreadwrath approaches—a primordial shadow that devours dragon souls and corrupts land itself. Its rise was foretold in prophecy: ‘When ember’s heir awakens flame, the shadow wakes to claim the same.’”\n\nA hush fell. Kaelin swallowed. “What must I do?”\n\nLady Meradith leaned forward. “You must seek the Shards of Fyrnax—the four elemental crystals concealed at the world’s four corners. Only by uniting them can one forge the Dragon’s Heart—a gem of pure draconic essence capable of dispelling the Dreadwrath’s shadow.”\n\nFrom the back of the hall rose an ancient dragon, scales like aged bronze. It spoke from atop a twisted column. “Beware, young rider. The path is perilous. Wolves stalk the night; vipers coil in ancient temples; the sea’s depths conceal horrors beyond imagining. Only the pure at heart and strong of will may endure. Yet time wanes. The Dreadwrath spreads its corruption; soon, even the northern lights will flicker and die.”\n\nKaelin clenched his fist. He thought of the lonely fields of Brighthaven, the quiet moments with his flock. He would not let darkness consume all he loved. “I will find the Shards,” he vowed. “And I will forge the Dragon’s Heart.”\n\nThere was silence, then resounding cheer—dragon roars and human shouts entwined like thunder and lightning. Thus, the quest began.\n\n---\n\n## Chapter IV: The Shard of Earth—Karagrom Peak\n\nHis first trial lay in the rugged Plateau of Whispers, crowned by Karagrom Peak. There, earthen golems stirred from their aeons-long slumber to guard the Shard of Earth. Kaelin and his dragon—whom he named Solareth—landed at the mountain’s base. The earth trembled as they ascended narrow paths of shale and magma.\n\nWhen they reached the cavern’s maw, three titanic golems barred the entrance, their seismic footsteps cracking the stone floor. One golem’s voice boomed, “Intruder! None may claim the Shard unless worthy of earth’s unyielding resolve.”\n\nRecalling a childhood tale of his mother’s lullabies—how she coaxed wild moss to bloom—Kaelin sheathed his dagger and spoke softly, echoing those melodies. The air stilled. Moss sprouted at his feet; vines curled around the golems’ limbs. The stone guardians paused, then bowed.\n\n“Your heart honors the earth,” they rumbled, stepping aside. Within the cavern’s heart lay a pedestal of bedrock, atop which glowed a crystal the color of emerald dawn. Kaelin lifted the Shard of Earth, and the cavern sang—a deep, resonant hymn that echoed across the plateau.\n\n---\n\n## Chapter V: The Shard of Water—Tidecall Archipelago\n\nNext, Kaelin and Solareth headed east, to the Tidecall Archipelago—a cluster of isles perpetually lashed by storms. Here the Shard of Water waited beneath the swirling depths in a sunken temple, preserved by magic. The Tidecallers, stewards of sea and wave, joined their quest. Among them was Captain Selene, a fierce mariner with sea-blue hair and eyes like storm-whipped surf.\n\nTogether they dove into the roiling sea. Leviathans of shadowy hue circled, their eyes glinting like abyssal pearls. As Serene currents threatened to drag them into the abyss, Kaelin remembered the lullaby of rain his father used to hum. He cleared his mind, let the rhythm of the waves guide him. Solareth breathed a gentle jet of flame that warmed the water and lit their way.\n\nIn the heart of the sunken temple lay a chamber of coral and shell. And there, floating above an altar of mother-of-pearl, hovered the Shard of Water: a prism of liquid sapphire. Kaelin reached out—and as his fingers brushed its surface, a surge of saline magic engulfed him, filling his veins with the pulse of the tides.\n\n---\n\n## Chapter VI: The Shard of Air—Cloudspire Summit\n\nFrom storm-lashed seas they traveled to the lofty heights of the Cloudspire Summit, where islands drifted on wind-currents high above the world. There, the Shard of Air was kept in the Aerie of Whispers, guarded by the Skyshapers—winged folk who soared on great eaglehawks.\n\nThe air thinned as Kaelin climbed. Each step demanded more breath, more will. Solareth billowed wings to shield them from spiral gusts. As they neared the summit, a tempest arose: lightning cracked the sky, and wind howled like restless spirits.\n\nA figure in sky-blue robes descended on a glimmering hawk. “Only those who can bend their spirit to the wind may claim the Shard,” she intoned—this was Aerwynn, the Skyshaper Matron.\n\nKaelin stood against the gale, closed his eyes, and called upon the rhythmic wind-chimes of his childhood home, recalling how the breeze would dance among them. His heart stilled, and the storm stilled with it. The winds softened, forming a calm vortex that lifted him and Solareth to the very summit.\n\nThere, balanced on a column of cloudstone, hovered the Shard of Air—a crystal of iridescent opal, shifting and luminous. Kaelin grasped it, and a rush of wind-whispers filled his mind, granting him the freedom of the skies.\n\n---\n\n## Chapter VII: The Shard of Fire—The Ember Wastes\n\nOnly one remained: the Shard of Fire, hidden within the heart of the Ember Wastes—a realm of perpetual flame. Rivers of lava carved through obsidian fields, and furious firestorms raged without cease. Mortals and dragons feared to tread there, for it was rumored that the Wastes themselves were alive, seeking to consume all warmth and light.\n\nUndeterred, Kaelin pressed on. His companions gathered at the Wastes’ edge: Lady Meradith with her flame-born sword, Captain Selene with her wave-forged trident, and Aerwynn with her gale-steeled bow. They marched into the fiery realm, guided by Solareth’s innate affinity with flame.\n\nDeep within a cavern of living magma, they found a throne of basalt and ember, upon which the Shard of Fire glowed like a captive sun. But surrounding it coiled a dragon of obsidian scales and lava-veins—the Ember Sovereign, last guardian incarnate. Its roar was the crackle of flaming rock; its claws could sunder mountains.\n\nA fierce battle ensued: Lady Meradith imploded jets of fire to distract the Sovereign, Aerwynn shot arrows that carved howling whirls of wind, and Selene summoned geysers of scorching steam. Kaelin leapt onto Solareth’s neck, dagger in hand. As the fiery dragon reared to strike, Kaelin called upon the lullaby of candlelight his grandmother sang to him, a tune of gentle warmth. The Sovereign’s flames faltered for a heartbeat—enough for Kaelin to plunge his dagger into the crown of lava atop its head.\n\nThe beast shuddered, then bowed its massive bulk. From its molten heart it relinquished the Shard of Fire—a ruby inferno that throbbed with pure flame.\n\n---\n\n## Chapter VIII: Forging the Dragon’s Heart\n\nClutching the four Shards—Earth, Water, Air, and Fire—Kaelin and his allies returned to Dragothar. The Council of the Five Clans gathered once more in the Hall of Scales. The Shards glowed with elemental light, but around their edges flickered tendrils of shadow—evidence that the Dreadwrath’s corruption sought to taint them.\n\nLady Meradith stood at the forging anvil of legend, an ancient apparatus of dragonsteel and skyglass. “The Shards must be united in the chamber beneath Emberpeak,” she said. “Only there may the Dragon’s Heart be kindled in primal flame.”\n\nAnd so, atop Solareth’s back, they soared to the mountain’s summit once more. In a hidden vault of obsidian, encircled by runic pillars, they placed each shard in its rightful niche. Kaelin stepped back as the ground rattled and the Shards began to hum, their inner lights weaving together in rippling arcs of pure energy.\n\nA shaft of molten gold pierced the vault’s ceiling, alighting upon the nexus. With a roar that echoed through land and sky, the Shards fused into a single crystalline orb—brilliant, pulsating, alive. The Dragon’s Heart.\n\nKaelin lifted it up. Its light cast away all shadows, the very darkness fleeing into distant corners. But as the brilliance swelled, the stone vault trembled—signaling the Dreadwrath’s final assault.\n\n---\n\n## Chapter IX: The Dreadwrath’s Eclipse\n\nAbove the vault, the skies churned. A cyclone of",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_0fd3e9da50103b3b0068e45a373cc48198bb84cf6757ccb42b",
+          "role": "assistant",
+          "status": "incomplete",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": {
+        "effort": "medium",
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "status": "incomplete",
+      "store": true,
+      "temperature": 1.0,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 15,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 2995,
+        "output_tokens_details": {
+          "reasoning_tokens": 128
+        },
+        "total_tokens": 3010
+      },
+      "user": null
+    },
+    "headers": {
+      "alt-svc": [
+        "h3=\":443\"; ma=86400"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98a92b71cb0321af-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 00:09:43 GMT"
+      ],
+      "openai-organization": [
+        "epic-creative-sogybe"
+      ],
+      "openai-processing-ms": [
+        "17430"
+      ],
+      "openai-project": [
+        "proj_j5AhgU4eLMRmsoO9FDg7BRD3"
+      ],
+      "openai-version": [
+        "2020-10-01"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=zOfRdSMyEXe3L94HG3OKDulnMP7dC5Cuqtw.Di6SFj8-1759795783-1.0.1.1-bx.NXaI8XlKC4Rarfw8wKI15LI00qVtjZ.IZ641M80ZW_D7unar_CdHtMJ7edmzlPjV4uYJUxYIei86JK0pOaoih_kknIzD2GN4Zz45TW3k; path=/; expires=Tue, 07-Oct-25 00:39:43 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None",
+        "_cfuvid=NBiOihFH6uB48TVMTho6Nndk.gCmyK5r6axhmWvfpao-1759795783591-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ],
+      "x-envoy-upstream-service-time": [
+        "17466"
+      ],
+      "x-request-id": [
+        "req_c1a8412d3f69783100ddf6f1fa7922e7"
+      ]
+    },
+    "status": 200
+  }
+}

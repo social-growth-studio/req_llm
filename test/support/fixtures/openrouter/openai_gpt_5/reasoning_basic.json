@@ -1,0 +1,109 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoyMDQ4LCJtZXNzYWdlcyI6W3siY29udGVudCI6IlNvbHZlIDEyKjcgYW5kIHNob3cgeW91ciBpbnRlcm5hbCB0aGlua2luZyAoYnJpZWYpLiIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6Im9wZW5haS9ncHQtNSIsIm4iOjEsInJlYXNvbmluZ19lZmZvcnQiOiJsb3ciLCJzZWVkIjo0Miwic3RyZWFtIjpmYWxzZSwidGVtcGVyYXR1cmUiOjEuMH0="
+    },
+    "canonical_json": {
+      "max_tokens": 2048,
+      "messages": [
+        {
+          "content": "Solve 12*7 and show your internal thinking (brief).",
+          "role": "user"
+        }
+      ],
+      "model": "openai/gpt-5",
+      "n": 1,
+      "reasoning_effort": "low",
+      "seed": 42,
+      "stream": false,
+      "temperature": 1.0
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "I can’t share my internal chain-of-thought, but here’s the result and a concise explanation.\n\n12 × 7 = 84\nQuick check: 7×10 + 7×2 = 70 + 14 = 84.",
+            "reasoning": null,
+            "reasoning_details": [
+              {
+                "data": "gAAAAABo5RwaIMa-uR8wKWwGjuSunC2dkI4NsIAjQke-TxliSU9HU943vQhYYaTxjIUfXV5_JKJPPVDrWdaUj0QUs_wYRfdTllp6bxig9Zt8VnX1wBLM2pcKnMo6r8WtcfSkV6Q9cyXbZ1Hwgs58hWJ03nn-28luIA4_Hj-i6FSR--p-SHaiX0ZLjmle5Rp_t2gXGyxNvTk5vQnfexwTMf6qFqeN0jaCiCNsIPzG4RVlhHJ2XdteWD8g4l8eandV1xF-lmYQnlBCaIRJ_F4crO1w1V7-OMQ-em2H28NFWOWJcjQ3WFDrv9L41pKKAb3rv7yTzo-bJdaVHO0gIBjY7whVtkwV_MFdKwgMPvCVVKih9eef4wZzabEmSWT75ZOfpoOgqgkgTe9RgaPOaCDLtkV6J-TibvbvzB_eCfqCJQ8o7vIU7ZZ56G0xzUFqxDt3q48icOecUiKl9zx02y138ZjNni48YkqYKSX5nblhPHgz5-t6WG4Ij1BZmvEtRWEPHnJtb4dZmPnIBwzLRIvQwbbqOG36mhrHghVmJHicqVPg2eYjoLSj6m0f-NCoFFZUQzOm3Gfke7zmZknfx2xMzXhrPfIWpBTR6ZE1SWREdvjWe8c24ntX1u2jZZip8m7jebIR6FStjNdA2L9jGDLZVLWPhg7tHXOZqKfGxRi_pyHNdEqGP20gFxO_RrJKUVj7tJY2YUlke7yV1nAgZ-dfG2TrUfsUEZBh-ZhTtYUuj3HP2tI7JrKDotK9gdjcf54aPrS6rnYQX_xi5D_iJsmoQZbfZMSmYnh5RQX7TjmqoeeQlG6Pgh8YYWv5jEL2m3dK-lPINnl1Gt8tYRROv7RgEqXcaMo6pf8pOrUY5zlg4hnkzjbN7AEvTFS7PGccQPbRfy8LQdnvypt9fVSwkZQj3mTdz_9yqlUUP-Stwbtw1NhrLotMr7VTpS4OMnu4fEM1Uwb0s7z_nDH1a2kwadbsb2TUlUBNrYD_TTpXSk8BkTg2RmMZ0jP3H-_bJA1feskB8Xv2vXlKrsXG31eXYbOIRCkG74LG_VQpm4UTl5z49MtbGNxJ2IfCgHD29_Rt4fMHkUf09LuSvv_54_KaUZc6Q353G_uwWRRZ65FrEf_rbuwyjOzAGEd-9Tk--A3237E6d_khUAO2MGfWPkX5iK9_ZZu2Xy3wvc8txc5HyBJmbQlnxHQQttmo70JNM1hC3Dpb3Gq8btihs_z60Coxwfc2nQvWx8aicxArrlw-OEW5zdalxEH9R5pWIhdzIluPjeD57lTzLUCKtwTVZYKAqooW1modOPU7zIgpdrIFn3fsmB9Njj_E8wkSnyvF4suZUuD8h5W49s4sWHSS2pJQU9MLdtqCdLTBvDS8uB3goorsO2Gl5Y88uynbUYbnkcBpZoYK1U5RqY1XJrt6Kb_maQoVPTJaOt2XI8CLBUWVQHAXR0hzML_DZfQWSO6WxS_EOgWq9fklRyUIJ3A-DXMZvrPIb3t3LBjudOCcLXqbSaoE-1HnDPlVCHZiy3mxM6l9tx5eUXX5snNszwZwEjsOApthzxwly66JBcXsPFymeBXJqyhmjnaHoJfHZjJPsiOeR8Mkt4HGcmg5-pX5rQP7eSfhbRtN6kcjeu87ehQ1CPhyIPWJbDcPe3H_7me_GopzSSkKQR4VG1xUwqVv5IceF7avDx64WAybm_Bep3dSegSjN5bfik5uFgh564qiWnx0333Sbrk2cpmU7xuwAA_iIndeu6Ct7wYKFGcp7ky8LuC7S8bSIYHDKjbN57B5ye-DgD2VMpRC2wmOFK5GoCSWWrYDl5vV-mtG5JjhQc4htWQjXpa1bZnJPxfm1mjlnKUVE0le7_nR23i4JQTHqTbb6dJd7g5ml2PgiltxcFZa4GKqh1n5--WI63ANF55-JFNaapnGjNgoC3uOlDuCZmAdqLHdSELKgevujTm60MG1UeTxBiFLPj75CbWhABYSmh6lNK-LLJhABjTs_EffEkYWZoQwpRISX0ZRKj9H3OOJxpsc0zvGsG5up_9N8BsFW74R8bKs3RSQ6vVVCaDOP3he-VHpFIYjR3iQRzlLpllnQx6QPyPP_QmuiSlFDBe28LKOjVTdV4fgyWG5oDc1X6028P1mt0vMAjcCPrqlGXtI22i5x6vG8MMpobc2J7Y=",
+                "format": "openai-responses-v1",
+                "id": "rs_079bffbc0c2a349a0168e51c13d074819397121241d0b695c0",
+                "index": 0,
+                "type": "reasoning.encrypted"
+              }
+            ],
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "completed"
+        }
+      ],
+      "created": 1759845394,
+      "id": "gen-1759845394-dQWzmpv6LCLWPEqn9ALE",
+      "model": "openai/gpt-5",
+      "object": "chat.completion",
+      "provider": "OpenAI",
+      "usage": {
+        "completion_tokens": 249,
+        "prompt_tokens": 19,
+        "total_tokens": 268
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade7152cdd19b0-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:56:35 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

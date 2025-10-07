@@ -1,0 +1,114 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjo1MDAsIm1lc3NhZ2VzIjpbeyJjb250ZW50IjoiSGkgdGhlcmUhIiwicm9sZSI6InVzZXIifV0sIm1vZGVsIjoiZ29vZ2xlL2dlbWluaS0yLjUtcHJvLXByZXZpZXctMDYtMDUiLCJuIjoxLCJzZWVkIjo0Miwic3RyZWFtIjpmYWxzZSwidGVtcGVyYXR1cmUiOjAuMH0="
+    },
+    "canonical_json": {
+      "max_tokens": 500,
+      "messages": [
+        {
+          "content": "Hi there!",
+          "role": "user"
+        }
+      ],
+      "model": "google/gemini-2.5-pro-preview-06-05",
+      "n": 1,
+      "seed": 42,
+      "stream": false,
+      "temperature": 0.0
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "Hello there! How can I help you today?",
+            "reasoning": "**Assessing User Input**\n\nI've pinpointed the user's \"Hi there!\" as the opening salvo. My analysis reveals it's a friendly, non-committal greeting—a social nicety designed to kickstart a dialogue. I'm now considering what's implied in this simple phrase.\n\n\n**Crafting Initial Responses**\n\nI'm now evaluating different response options. I've weighed the pros and cons of simple greetings versus more engaging openers. I lean towards a combination of welcome and immediate offer of assistance to establish helpfulness and encourage user input. I'm trying to select the optimal approach to provide a great user experience, and am almost ready to go!\n\n\n**Choosing the Best Reply**\n\nI'm now comparing the various response approaches. I'm leaning toward offering immediate assistance, and I've selected a few strong options. My focus is now refining the wording to balance approachability with clarity. I want to be helpful and ensure my role is clearly understood.\n\n\n",
+            "reasoning_details": [
+              {
+                "format": "unknown",
+                "index": 0,
+                "text": "**Assessing User Input**\n\nI've pinpointed the user's \"Hi there!\" as the opening salvo. My analysis reveals it's a friendly, non-committal greeting—a social nicety designed to kickstart a dialogue. I'm now considering what's implied in this simple phrase.\n\n\n**Crafting Initial Responses**\n\nI'm now evaluating different response options. I've weighed the pros and cons of simple greetings versus more engaging openers. I lean towards a combination of welcome and immediate offer of assistance to establish helpfulness and encourage user input. I'm trying to select the optimal approach to provide a great user experience, and am almost ready to go!\n\n\n**Choosing the Best Reply**\n\nI'm now comparing the various response approaches. I'm leaning toward offering immediate assistance, and I've selected a few strong options. My focus is now refining the wording to balance approachability with clarity. I want to be helpful and ensure my role is clearly understood.\n\n\n",
+                "type": "reasoning.text"
+              }
+            ],
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "STOP"
+        }
+      ],
+      "created": 1759845416,
+      "id": "gen-1759845416-EmkOEQ1k0TwdWjVt0EP4",
+      "model": "google/gemini-2.5-pro",
+      "object": "chat.completion",
+      "provider": "Google",
+      "usage": {
+        "completion_tokens": 489,
+        "completion_tokens_details": {
+          "image_tokens": 0,
+          "reasoning_tokens": 479
+        },
+        "prompt_tokens": 3,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "total_tokens": 492
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade79b2815f5ff-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:56:58 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

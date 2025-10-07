@@ -39,6 +39,10 @@ defmodule ReqLLM.Providers.Google do
         default: 1,
         doc: "Number of response candidates to generate"
       ],
+      google_thinking_budget: [
+        type: :non_neg_integer,
+        doc: "Thinking token budget for Gemini 2.5 models (0 disables thinking, omit for dynamic)"
+      ],
       dimensions: [
         type: :pos_integer,
         doc:
@@ -77,13 +81,20 @@ defmodule ReqLLM.Providers.Google do
       # Add alt=sse parameter for streaming requests
       base_params = if processed_opts[:stream], do: [alt: "sse"], else: []
 
+      timeout =
+        Keyword.get(
+          processed_opts,
+          :receive_timeout,
+          Application.get_env(:req_llm, :receive_timeout, 30_000)
+        )
+
       request =
         Req.new(
           [
             url: "/models/#{model.model}#{endpoint}",
             method: :post,
             params: base_params,
-            receive_timeout: Keyword.get(processed_opts, :receive_timeout, 30_000)
+            receive_timeout: timeout
           ] ++ http_opts
         )
         |> Req.Request.register_options(req_keys)
@@ -101,35 +112,84 @@ defmodule ReqLLM.Providers.Google do
   end
 
   def prepare_request(:object, model_spec, prompt, opts) do
-    compiled_schema = Keyword.fetch!(opts, :compiled_schema)
+    if Keyword.has_key?(opts, :tools) and Keyword.get(opts, :tools) != [] do
+      {:error,
+       ReqLLM.Error.Invalid.Parameter.exception(
+         parameter:
+           "tools are not supported with :object operation on Google (JSON mode and tool calling are mutually exclusive on Gemini 2.5)"
+       )}
+    else
+      with {:ok, model} <- ReqLLM.Model.from(model_spec),
+           {:ok, context} <- ReqLLM.Context.normalize(prompt, opts) do
+        opts_with_tokens =
+          case Keyword.get(opts, :max_tokens) do
+            nil -> Keyword.put(opts, :max_tokens, 4096)
+            tokens when tokens < 200 -> Keyword.put(opts, :max_tokens, 200)
+            _tokens -> opts
+          end
 
-    structured_output_tool =
-      ReqLLM.Tool.new!(
-        name: "structured_output",
-        description: "Generate structured output matching the provided schema",
-        parameter_schema: compiled_schema.schema,
-        callback: fn _args -> {:ok, "structured output generated"} end
-      )
+        opts_with_context =
+          opts_with_tokens
+          |> Keyword.put(:context, context)
+          |> Keyword.put(:operation, :object)
 
-    # Adjust max_tokens for structured output with Google-specific minimums
-    opts_with_tokens =
-      case Keyword.get(opts, :max_tokens) do
-        nil -> Keyword.put(opts, :max_tokens, 4096)
-        tokens when tokens < 200 -> Keyword.put(opts, :max_tokens, 200)
-        _tokens -> opts
+        case ReqLLM.Provider.Options.process(__MODULE__, :object, model, opts_with_context) do
+          {:ok, processed_opts} ->
+            http_opts = Keyword.get(processed_opts, :req_http_options, [])
+
+            endpoint =
+              if processed_opts[:stream], do: ":streamGenerateContent", else: ":generateContent"
+
+            req_keys =
+              __MODULE__.supported_provider_options() ++
+                [
+                  :context,
+                  :operation,
+                  :compiled_schema,
+                  :text,
+                  :stream,
+                  :model,
+                  :provider_options
+                ]
+
+            base_params = if processed_opts[:stream], do: [alt: "sse"], else: []
+
+            timeout =
+              Keyword.get(
+                processed_opts,
+                :receive_timeout,
+                Application.get_env(:req_llm, :receive_timeout, 30_000)
+              )
+
+            request =
+              Req.new(
+                [
+                  url: "/models/#{model.model}#{endpoint}",
+                  method: :post,
+                  params: base_params,
+                  receive_timeout: timeout
+                ] ++ http_opts
+              )
+              |> Req.Request.register_options(req_keys)
+              |> Req.Request.merge_options(
+                Keyword.take(processed_opts, req_keys) ++
+                  [
+                    model: model.model,
+                    base_url: Keyword.get(processed_opts, :base_url, default_base_url())
+                  ]
+              )
+              |> attach(model, processed_opts)
+
+            {:ok, request}
+
+          {:error, reason} ->
+            {:error, reason}
+        end
       end
-
-    opts_with_tool =
-      opts_with_tokens
-      |> Keyword.update(:tools, [structured_output_tool], &[structured_output_tool | &1])
-      |> Keyword.put(:tool_choice, %{type: "function", function: %{name: "structured_output"}})
-      |> Keyword.put(:operation, :object)
-
-    prepare_request(:chat, model_spec, prompt, opts_with_tool)
+    end
   end
 
   def prepare_request(:embedding, model_spec, text, opts) do
-    # Handle dimensions as a provider-specific option if passed at top level
     opts_normalized =
       case Keyword.pop(opts, :dimensions) do
         {nil, rest} ->
@@ -147,16 +207,28 @@ defmodule ReqLLM.Providers.Google do
            ReqLLM.Provider.Options.process(__MODULE__, :embedding, model, opts_with_text) do
       http_opts = Keyword.get(processed_opts, :req_http_options, [])
 
+      endpoint =
+        if is_list(text),
+          do: ":batchEmbedContents",
+          else: ":embedContent"
+
       req_keys =
         __MODULE__.supported_provider_options() ++
           [:context, :operation, :text, :stream, :model, :provider_options]
 
+      timeout =
+        Keyword.get(
+          processed_opts,
+          :receive_timeout,
+          Application.get_env(:req_llm, :receive_timeout, 30_000)
+        )
+
       request =
         Req.new(
           [
-            url: "/models/#{model.model}:embedContent",
+            url: "/models/#{model.model}#{endpoint}",
             method: :post,
-            receive_timeout: Keyword.get(processed_opts, :receive_timeout, 30_000)
+            receive_timeout: timeout
           ] ++ http_opts
         )
         |> Req.Request.register_options(req_keys)
@@ -207,9 +279,9 @@ defmodule ReqLLM.Providers.Google do
   @impl ReqLLM.Provider
   def extract_usage(body, _model) when is_map(body) do
     case body do
-      %{"usageMetadata" => usage} ->
-        usage_with_cached = add_cached_tokens(usage)
-        {:ok, usage_with_cached}
+      %{"usageMetadata" => usage_metadata} ->
+        usage = normalize_google_usage(usage_metadata)
+        {:ok, usage}
 
       _ ->
         {:error, :no_usage_found}
@@ -218,19 +290,88 @@ defmodule ReqLLM.Providers.Google do
 
   def extract_usage(_, _), do: {:error, :invalid_body}
 
-  defp add_cached_tokens(usage) do
-    cached_tokens = get_in(usage, ["promptFeedback", "cachedContentTokenCount"]) || 0
+  defp normalize_google_usage(usage_metadata) do
+    input = Map.get(usage_metadata, "promptTokenCount", 0)
+    output = Map.get(usage_metadata, "candidatesTokenCount", 0)
+    total = Map.get(usage_metadata, "totalTokenCount", 0)
+    cached = Map.get(usage_metadata, "cachedContentTokenCount", 0)
+    reasoning = Map.get(usage_metadata, "thoughtsTokenCount", 0)
 
-    if cached_tokens > 0 do
-      Map.put(usage, "cached_input", cached_tokens)
-    else
-      usage
-    end
+    %{
+      input_tokens: input,
+      output_tokens: output,
+      total_tokens: total,
+      cached_tokens: cached,
+      reasoning_tokens: reasoning
+    }
   end
+
+  def pre_validate_options(_operation, model, opts) do
+    {provider_opts, rest} = Keyword.pop(opts, :provider_options, [])
+
+    {effort, provider_opts} = Keyword.pop(provider_opts, :reasoning_effort)
+
+    provider_opts =
+      case effort do
+        nil ->
+          provider_opts
+
+        effort_value ->
+          budget = translate_reasoning_effort_to_budget(effort_value, model)
+
+          case Keyword.fetch(provider_opts, :google_thinking_budget) do
+            {:ok, existing} when is_integer(existing) and existing > 0 ->
+              provider_opts
+
+            {:ok, 0} ->
+              Keyword.put(provider_opts, :google_thinking_budget, budget)
+
+            :error ->
+              Keyword.put(provider_opts, :google_thinking_budget, budget)
+          end
+      end
+
+    {Keyword.put(rest, :provider_options, provider_opts), []}
+  end
+
+  defp translate_reasoning_effort_to_budget(:low, _model), do: 4096
+  defp translate_reasoning_effort_to_budget(:medium, _model), do: 8192
+  defp translate_reasoning_effort_to_budget(:high, _model), do: 16384
+
+  defp translate_reasoning_effort_to_budget("low", model),
+    do: translate_reasoning_effort_to_budget(:low, model)
+
+  defp translate_reasoning_effort_to_budget("medium", model),
+    do: translate_reasoning_effort_to_budget(:medium, model)
+
+  defp translate_reasoning_effort_to_budget("high", model),
+    do: translate_reasoning_effort_to_budget(:high, model)
+
+  defp translate_reasoning_effort_to_budget(budget, _model) when is_integer(budget), do: budget
+  defp translate_reasoning_effort_to_budget(_unknown, _model), do: 8192
 
   @impl ReqLLM.Provider
   def translate_options(_operation, _model, opts) do
-    # Handle stream? -> stream alias for backward compatibility
+    {reasoning_budget, opts} = Keyword.pop(opts, :reasoning_token_budget)
+    {reasoning_effort, opts} = Keyword.pop(opts, :reasoning_effort)
+
+    opts =
+      cond do
+        reasoning_budget ->
+          provider_opts = Keyword.get(opts, :provider_options, [])
+          provider_opts = Keyword.put(provider_opts, :google_thinking_budget, reasoning_budget)
+          Keyword.put(opts, :provider_options, provider_opts)
+
+        reasoning_effort ->
+          budget = translate_reasoning_effort_to_budget(reasoning_effort, nil)
+          provider_opts = Keyword.get(opts, :provider_options, [])
+          provider_opts = Keyword.put(provider_opts, :google_thinking_budget, budget)
+          Keyword.put(opts, :provider_options, provider_opts)
+
+        true ->
+          opts
+      end
+
     case Keyword.pop(opts, :stream?) do
       {nil, rest} ->
         {rest, []}
@@ -247,6 +388,9 @@ defmodule ReqLLM.Providers.Google do
       case request.options[:operation] do
         :embedding ->
           encode_embedding_body(request)
+
+        :object ->
+          encode_object_body(request)
 
         _ ->
           encode_chat_body(request)
@@ -281,9 +425,12 @@ defmodule ReqLLM.Providers.Google do
     tools_data =
       case request.options[:tools] do
         tools when is_list(tools) and tools != [] ->
+          tool_config = build_google_tool_config(request.options[:tool_choice])
+
           %{
             tools: [%{functionDeclarations: Enum.map(tools, &ReqLLM.Tool.to_schema(&1, :google))}]
           }
+          |> maybe_put(:toolConfig, tool_config)
 
         _ ->
           %{}
@@ -297,6 +444,7 @@ defmodule ReqLLM.Providers.Google do
       |> maybe_put(:topP, request.options[:top_p])
       |> maybe_put(:topK, request.options[:top_k])
       |> maybe_put(:candidateCount, request.options[:google_candidate_count] || 1)
+      |> maybe_add_thinking_config(request.options[:google_thinking_budget])
 
     %{}
     |> maybe_put(:systemInstruction, system_instruction)
@@ -307,14 +455,165 @@ defmodule ReqLLM.Providers.Google do
   end
 
   defp encode_embedding_body(request) do
-    %{
-      model: "models/#{request.options[:model]}",
-      content: %{
-        parts: [%{text: request.options[:text]}]
-      }
-    }
-    |> maybe_put(:outputDimensionality, request.options[:dimensions])
+    text = request.options[:text]
+
+    case text do
+      texts when is_list(texts) ->
+        requests =
+          Enum.map(texts, fn t ->
+            %{
+              model: "models/#{request.options[:model]}",
+              content: %{parts: [%{text: t}]}
+            }
+            |> maybe_put(:outputDimensionality, request.options[:dimensions])
+          end)
+
+        %{requests: requests}
+
+      single_text when is_binary(single_text) ->
+        %{
+          model: "models/#{request.options[:model]}",
+          content: %{parts: [%{text: single_text}]}
+        }
+        |> maybe_put(:outputDimensionality, request.options[:dimensions])
+    end
   end
+
+  defp encode_object_body(request) do
+    {system_instruction, contents} =
+      case request.options[:context] do
+        %ReqLLM.Context{} = ctx ->
+          model_name = request.options[:model]
+          encoded = ReqLLM.Provider.Defaults.encode_context_to_openai_format(ctx, model_name)
+          messages = encoded[:messages] || encoded["messages"] || []
+          split_messages_for_gemini(messages)
+
+        _ ->
+          split_messages_for_gemini(request.options[:messages] || [])
+      end
+
+    compiled_schema =
+      case request.options do
+        opts when is_map(opts) -> Map.fetch!(opts, :compiled_schema)
+        opts when is_list(opts) -> Keyword.fetch!(opts, :compiled_schema)
+      end
+
+    model_name = request.options[:model]
+
+    generation_config =
+      %{
+        responseMimeType: "application/json",
+        candidateCount: 1
+      }
+      |> maybe_put(:temperature, request.options[:temperature])
+      |> maybe_put(:maxOutputTokens, request.options[:max_tokens])
+      |> maybe_put(:topP, request.options[:top_p])
+      |> maybe_put(:topK, request.options[:top_k])
+      |> maybe_add_thinking_config(request.options[:google_thinking_budget])
+      |> put_schema_for_model(model_name, compiled_schema)
+
+    %{}
+    |> maybe_put(:systemInstruction, system_instruction)
+    |> Map.put(:contents, contents)
+    |> maybe_put(:generationConfig, generation_config)
+    |> maybe_put(:safetySettings, request.options[:google_safety_settings])
+  end
+
+  defp gemini_2_5?(model_name) when is_binary(model_name) do
+    String.starts_with?(model_name, "gemini-2.5-") or model_name == "gemini-2.5"
+  end
+
+  defp gemini_2_5?(_), do: false
+
+  defp put_schema_for_model(generation_config, model_name, compiled_schema) do
+    json_schema = ReqLLM.Schema.to_json(compiled_schema.schema)
+
+    if gemini_2_5?(model_name) and is_json_schema?(json_schema) do
+      Map.put(generation_config, :responseJsonSchema, json_schema)
+    else
+      google_schema = convert_to_google_schema(json_schema)
+      Map.put(generation_config, :responseSchema, google_schema)
+    end
+  end
+
+  defp is_json_schema?(%{"type" => type}) when is_binary(type) do
+    type in ["object", "array", "string", "number", "integer", "boolean", "null"]
+  end
+
+  defp is_json_schema?(_), do: false
+
+  defp convert_to_google_schema(schema) when is_map(schema) do
+    schema
+    |> Map.new(fn {key, value} ->
+      case key do
+        "type" -> {"type", to_google_type(value)}
+        "properties" -> {"properties", convert_properties_to_google(value)}
+        "items" when is_map(value) -> {"items", convert_to_google_schema(value)}
+        "items" when is_list(value) -> raise_unsupported_schema("tuple arrays not supported")
+        other -> {other, value}
+      end
+    end)
+    |> maybe_add_property_ordering()
+  end
+
+  defp convert_to_google_schema(value), do: value
+
+  defp to_google_type("object"), do: "OBJECT"
+  defp to_google_type("array"), do: "ARRAY"
+  defp to_google_type("string"), do: "STRING"
+  defp to_google_type("integer"), do: "INTEGER"
+  defp to_google_type("number"), do: "NUMBER"
+  defp to_google_type("boolean"), do: "BOOLEAN"
+  defp to_google_type("null"), do: "NULL"
+  defp to_google_type(type), do: type
+
+  defp convert_properties_to_google(properties) when is_map(properties) do
+    Map.new(properties, fn {key, value} ->
+      {key, convert_to_google_schema(value)}
+    end)
+  end
+
+  defp maybe_add_property_ordering(schema) when is_map(schema) do
+    case Map.get(schema, "properties") do
+      properties when is_map(properties) and map_size(properties) > 0 ->
+        if Map.has_key?(schema, "propertyOrdering") do
+          schema
+        else
+          ordering = Map.keys(properties)
+          Map.put(schema, "propertyOrdering", ordering)
+        end
+
+      _ ->
+        schema
+    end
+  end
+
+  defp raise_unsupported_schema(message) do
+    raise ReqLLM.Error.Invalid.Parameter, parameter: "schema: #{message}"
+  end
+
+  defp normalize_embedding_response(%{"embedding" => %{"values" => values}})
+       when is_list(values) do
+    %{"data" => [%{"index" => 0, "embedding" => values}]}
+  end
+
+  defp normalize_embedding_response(%{"embeddings" => embeddings}) when is_list(embeddings) do
+    data =
+      embeddings
+      |> Enum.with_index()
+      |> Enum.map(fn
+        {%{"values" => values}, idx} ->
+          %{"index" => idx, "embedding" => values}
+
+        {other, idx} ->
+          vals = get_in(other, ["embedding", "values"]) || other["values"] || []
+          %{"index" => idx, "embedding" => vals}
+      end)
+
+    %{"data" => data}
+  end
+
+  defp normalize_embedding_response(other), do: other
 
   @impl ReqLLM.Provider
   def decode_response({req, resp}) do
@@ -325,28 +624,43 @@ defmodule ReqLLM.Providers.Google do
 
         case operation do
           :embedding ->
-            # Handle embedding response - return raw parsed data
             body = ensure_parsed_body(resp.body)
-            {req, %{resp | body: body}}
+            normalized = normalize_embedding_response(body)
+            {req, %{resp | body: normalized}}
 
-          _ when is_streaming ->
-            # Handle streaming response using defaults
-            ReqLLM.Provider.Defaults.default_decode_response({req, resp})
-
-          _ ->
-            # Handle chat completion response (non-streaming only)
+          :object when not is_streaming ->
             model_name = req.options[:model]
             model = %ReqLLM.Model{provider: :google, model: model_name}
 
             body = ensure_parsed_body(resp.body)
 
-            # Convert Google format to OpenAI format, then decode
+            openai_format = convert_google_json_mode_to_openai_format(body)
+
+            {:ok, response} =
+              ReqLLM.Provider.Defaults.decode_response_body_openai_format(openai_format, model)
+
+            merged_response =
+              ReqLLM.Context.merge_response(
+                req.options[:context] || %ReqLLM.Context{messages: []},
+                response
+              )
+
+            {req, %{resp | body: merged_response}}
+
+          _ when is_streaming ->
+            ReqLLM.Provider.Defaults.default_decode_response({req, resp})
+
+          _ ->
+            model_name = req.options[:model]
+            model = %ReqLLM.Model{provider: :google, model: model_name}
+
+            body = ensure_parsed_body(resp.body)
+
             openai_format = convert_google_to_openai_format(body)
 
             {:ok, response} =
               ReqLLM.Provider.Defaults.decode_response_body_openai_format(openai_format, model)
 
-            # Merge original context with the assistant response
             merged_response =
               ReqLLM.Context.merge_response(
                 req.options[:context] || %ReqLLM.Context{messages: []},
@@ -368,22 +682,65 @@ defmodule ReqLLM.Providers.Google do
     end
   end
 
-  # Helper to convert Google response to OpenAI format
+  # Helper to build Google toolConfig from OpenAI-style tool_choice
+  defp build_google_tool_config(nil), do: nil
+
+  defp build_google_tool_config(%{type: "function", function: %{name: name}}) do
+    %{
+      functionCallingConfig: %{
+        mode: "ANY",
+        allowedFunctionNames: [name]
+      }
+    }
+  end
+
+  defp build_google_tool_config(:required), do: build_google_tool_config("required")
+  defp build_google_tool_config(:auto), do: build_google_tool_config("auto")
+  defp build_google_tool_config(:none), do: build_google_tool_config("none")
+
+  defp build_google_tool_config("required") do
+    %{functionCallingConfig: %{mode: "ANY"}}
+  end
+
+  defp build_google_tool_config("auto"), do: %{functionCallingConfig: %{mode: "AUTO"}}
+  defp build_google_tool_config("none"), do: %{functionCallingConfig: %{mode: "NONE"}}
+  defp build_google_tool_config(_), do: nil
+
+  # Helper to add thinking configuration if specified
+  defp maybe_add_thinking_config(config, nil), do: config
+
+  defp maybe_add_thinking_config(config, budget) when is_integer(budget) and budget > 0 do
+    Map.put(config, :thinkingConfig, %{thinkingBudget: budget, includeThoughts: true})
+  end
+
+  defp maybe_add_thinking_config(config, 0) do
+    config
+  end
+
   defp convert_google_to_openai_format(%{"candidates" => candidates} = body) do
     choice =
       case List.first(candidates) do
         %{"content" => %{"parts" => parts}} = candidate ->
-          message_content =
-            parts
-            |> Enum.filter(&Map.has_key?(&1, "text"))
-            |> Enum.map_join("", &Map.get(&1, "text"))
-
+          {content_parts, has_thinking?} = convert_google_parts_to_content(parts)
           tool_calls = extract_tool_calls(parts)
 
-          message = %{
-            "role" => "assistant",
-            "content" => message_content
-          }
+          message =
+            if has_thinking? or tool_calls != [] do
+              %{
+                "role" => "assistant",
+                "content" => content_parts
+              }
+            else
+              text_content =
+                content_parts
+                |> Enum.filter(&(&1["type"] == "text"))
+                |> Enum.map_join("", & &1["text"])
+
+              %{
+                "role" => "assistant",
+                "content" => text_content
+              }
+            end
 
           message =
             case tool_calls do
@@ -394,6 +751,12 @@ defmodule ReqLLM.Providers.Google do
           %{
             "message" => message,
             "finish_reason" => normalize_google_finish_reason(candidate["finishReason"])
+          }
+
+        %{"content" => content, "finishReason" => finish_reason} when is_map(content) ->
+          %{
+            "message" => %{"role" => "assistant", "content" => ""},
+            "finish_reason" => normalize_google_finish_reason(finish_reason)
           }
 
         _ ->
@@ -411,6 +774,66 @@ defmodule ReqLLM.Providers.Google do
   end
 
   defp convert_google_to_openai_format(body), do: body
+
+  defp convert_google_json_mode_to_openai_format(%{"candidates" => candidates} = body) do
+    choice =
+      case List.first(candidates) do
+        %{"content" => %{"parts" => parts}} = candidate ->
+          json_text =
+            parts
+            |> Enum.filter(&Map.has_key?(&1, "text"))
+            |> Enum.map_join("", & &1["text"])
+
+          parsed_json =
+            case Jason.decode(json_text) do
+              {:ok, json} -> json
+              {:error, _} -> %{}
+            end
+
+          %{
+            "message" => %{
+              "role" => "assistant",
+              "content" => [
+                %{
+                  "type" => "object",
+                  "object" => parsed_json
+                }
+              ]
+            },
+            "finish_reason" => normalize_google_finish_reason(candidate["finishReason"])
+          }
+
+        _ ->
+          %{
+            "message" => %{"role" => "assistant", "content" => ""},
+            "finish_reason" => "stop"
+          }
+      end
+
+    %{
+      "id" => body["id"] || "google-#{System.unique_integer([:positive])}",
+      "choices" => [choice],
+      "usage" => convert_google_usage(body["usageMetadata"])
+    }
+  end
+
+  defp convert_google_json_mode_to_openai_format(body), do: body
+
+  defp convert_google_parts_to_content(parts) do
+    content_parts =
+      parts
+      |> Enum.filter(&Map.has_key?(&1, "text"))
+      |> Enum.map(fn part ->
+        if Map.get(part, "thought", false) do
+          %{"type" => "thinking", "thinking" => part["text"]}
+        else
+          %{"type" => "text", "text" => part["text"]}
+        end
+      end)
+
+    has_thinking? = Enum.any?(content_parts, &(&1["type"] == "thinking"))
+    {content_parts, has_thinking?}
+  end
 
   defp extract_tool_calls(parts) do
     for %{"functionCall" => %{} = call} <- parts do
@@ -436,18 +859,27 @@ defmodule ReqLLM.Providers.Google do
   defp normalize_google_finish_reason("MAX_TOKENS"), do: "length"
   defp normalize_google_finish_reason("SAFETY"), do: "content_filter"
   defp normalize_google_finish_reason("RECITATION"), do: "content_filter"
-  defp normalize_google_finish_reason(_), do: "stop"
+  defp normalize_google_finish_reason("OTHER"), do: "error"
+  defp normalize_google_finish_reason(_), do: "error"
 
-  defp convert_google_usage(%{
-         "promptTokenCount" => prompt,
-         "candidatesTokenCount" => completion,
-         "totalTokenCount" => total
-       }) do
-    %{
+  defp convert_google_usage(%{"promptTokenCount" => prompt, "totalTokenCount" => total} = usage) do
+    thoughts = usage["thoughtsTokenCount"] || 0
+
+    completion =
+      usage["candidatesTokenCount"] ||
+        max(0, total - prompt - thoughts)
+
+    base = %{
       "prompt_tokens" => prompt,
       "completion_tokens" => completion,
       "total_tokens" => total
     }
+
+    if thoughts > 0 do
+      Map.put(base, "completion_tokens_details", %{"reasoning_tokens" => thoughts})
+    else
+      base
+    end
   end
 
   defp convert_google_usage(_),
@@ -455,23 +887,28 @@ defmodule ReqLLM.Providers.Google do
 
   @impl ReqLLM.Provider
   def attach_stream(model, context, opts, _finch_name) do
-    api_key = ReqLLM.Keys.get!(model, opts)
+    req_only_keys = [:params, :model, :base_url, :finch_name, :fixture]
+    {req_opts, user_opts} = Keyword.split(opts, req_only_keys)
 
-    # Build request body using provider's encode logic
-    body = build_google_streaming_body(model, context, opts)
+    operation = Keyword.get(user_opts, :operation, :chat)
+    opts_to_process = Keyword.merge(user_opts, context: context, stream: true)
 
-    # Build the complete URL with Google's specific endpoint and auth
-    url =
-      "#{default_base_url()}/models/#{model.model}:streamGenerateContent?alt=sse&key=#{api_key}"
+    with {:ok, processed_opts} <-
+           ReqLLM.Provider.Options.process(__MODULE__, operation, model, opts_to_process) do
+      api_key = ReqLLM.Keys.get!(model, opts)
+      base_url = Keyword.get(req_opts, :base_url, default_base_url())
 
-    # Create Finch request without Authorization header (Google uses API key in query)
-    headers = [
-      {"Content-Type", "application/json"},
-      {"Accept", "text/event-stream"}
-    ]
+      body = build_google_streaming_body(model, context, processed_opts)
 
-    finch_request = Finch.build(:post, url, headers, body)
-    {:ok, finch_request}
+      url = "#{base_url}/models/#{model.model}:streamGenerateContent?key=#{api_key}"
+
+      headers = [
+        {"Content-Type", "application/json"}
+      ]
+
+      finch_request = Finch.build(:post, url, headers, body)
+      {:ok, finch_request}
+    end
   rescue
     error ->
       {:error,
@@ -481,7 +918,8 @@ defmodule ReqLLM.Providers.Google do
   end
 
   defp build_google_streaming_body(model, context, opts) do
-    # Create a minimal request struct to reuse the existing encode_body logic
+    operation = Keyword.get(opts, :operation, :chat)
+
     temp_request = %Req.Request{
       method: :post,
       url: URI.parse("https://example.com/temp"),
@@ -493,19 +931,22 @@ defmodule ReqLLM.Providers.Google do
             model: model.model,
             context: context,
             stream: true,
-            operation: :chat
+            operation: operation
           ] ++ Keyword.delete(opts, :finch_name)
         )
     }
 
-    # Use the provider's encode_body to build the JSON
     encoded_request = encode_body(temp_request)
     encoded_request.body
   end
 
   @impl ReqLLM.Provider
   def decode_sse_event(event, model) do
-    decode_google_sse_event(event, model)
+    case event do
+      %{data: data} when is_map(data) -> decode_google_event(data, model)
+      data when is_map(data) -> decode_google_event(data, model)
+      _ -> []
+    end
   end
 
   # Split messages into system instruction and contents for Google Gemini
@@ -626,20 +1067,22 @@ defmodule ReqLLM.Providers.Google do
     }
   end
 
-  # TODO: Add support for images, audio, video when multimodal support is added
   defp convert_content_part(part), do: %{text: to_string(part)}
 
-  # Google-specific SSE event decoding
-  defp decode_google_sse_event(%{data: data}, model) when is_map(data) do
+  # Decode Google streaming events.
+  # 
+  # Google's :streamGenerateContent endpoint returns JSON array format (not SSE) for 2.5 models.
+  # This function handles both formats:
+  # - SSE format: %{data: {...}}
+  # - JSON array element: raw map from parsed JSON array
+  defp decode_google_event(data, model) when is_map(data) do
     case data do
       %{
         "candidates" => [%{"content" => %{"parts" => parts}, "finishReason" => finish_reason} | _],
         "usageMetadata" => usage
       }
       when finish_reason != nil ->
-        # Final chunk with usage metadata
-        text_parts = extract_text_from_parts(parts)
-        chunks = if text_parts == "", do: [], else: [ReqLLM.StreamChunk.text(text_parts)]
+        chunks = extract_chunks_from_parts(parts)
 
         usage_chunk =
           ReqLLM.StreamChunk.meta(%{
@@ -655,9 +1098,7 @@ defmodule ReqLLM.Providers.Google do
         "candidates" => [%{"content" => %{"parts" => parts}, "finishReason" => finish_reason} | _]
       }
       when finish_reason != nil ->
-        # Final chunk without usage metadata
-        text_parts = extract_text_from_parts(parts)
-        chunks = if text_parts == "", do: [], else: [ReqLLM.StreamChunk.text(text_parts)]
+        chunks = extract_chunks_from_parts(parts)
 
         meta_chunk =
           ReqLLM.StreamChunk.meta(%{
@@ -668,9 +1109,7 @@ defmodule ReqLLM.Providers.Google do
         chunks ++ [meta_chunk]
 
       %{"candidates" => [%{"content" => %{"parts" => parts}} | _], "usageMetadata" => usage} ->
-        # Chunk with content and usage metadata
-        text_parts = extract_text_from_parts(parts)
-        chunks = if text_parts == "", do: [], else: [ReqLLM.StreamChunk.text(text_parts)]
+        chunks = extract_chunks_from_parts(parts)
 
         usage_chunk =
           ReqLLM.StreamChunk.meta(%{
@@ -681,12 +1120,9 @@ defmodule ReqLLM.Providers.Google do
         chunks ++ [usage_chunk]
 
       %{"candidates" => [%{"content" => %{"parts" => parts}} | _]} ->
-        # Regular content chunk
-        text_parts = extract_text_from_parts(parts)
-        if text_parts == "", do: [], else: [ReqLLM.StreamChunk.text(text_parts)]
+        extract_chunks_from_parts(parts)
 
       %{"usageMetadata" => usage} ->
-        # Usage-only chunk
         [
           ReqLLM.StreamChunk.meta(%{
             usage: convert_google_usage_for_streaming(usage),
@@ -700,36 +1136,46 @@ defmodule ReqLLM.Providers.Google do
     end
   end
 
-  defp decode_google_sse_event(_, _model), do: []
-
-  defp extract_text_from_parts(parts) do
+  defp extract_chunks_from_parts(parts) do
     parts
-    |> Enum.filter(&Map.has_key?(&1, "text"))
-    |> Enum.map_join("", &Map.get(&1, "text"))
+    |> Enum.flat_map(fn part ->
+      cond do
+        Map.has_key?(part, "text") ->
+          text = Map.get(part, "text")
+
+          if text == "" do
+            []
+          else
+            if Map.get(part, "thought", false) do
+              [ReqLLM.StreamChunk.thinking(text)]
+            else
+              [ReqLLM.StreamChunk.text(text)]
+            end
+          end
+
+        Map.has_key?(part, "functionCall") ->
+          call = part["functionCall"]
+          name = call["name"]
+          args = call["args"] || %{}
+          call_id = Map.get(call, "id", "call_#{System.unique_integer([:positive])}")
+          [ReqLLM.StreamChunk.tool_call(name, args, %{id: call_id})]
+
+        true ->
+          []
+      end
+    end)
   end
 
-  defp convert_google_usage_for_streaming(%{
-         "promptTokenCount" => prompt,
-         "candidatesTokenCount" => completion,
-         "totalTokenCount" => total
-       }) do
-    %{
-      "prompt_tokens" => prompt,
-      "completion_tokens" => completion,
-      "total_tokens" => total
+  defp convert_google_usage_for_streaming(nil),
+    do: %{
+      input_tokens: 0,
+      output_tokens: 0,
+      total_tokens: 0,
+      cached_tokens: 0,
+      reasoning_tokens: 0
     }
-  end
 
-  defp convert_google_usage_for_streaming(usage) do
-    # Handle legacy format or missing fields
-    prompt = Map.get(usage, "promptTokenCount", 0)
-    completion = Map.get(usage, "candidatesTokenCount", 0)
-    total = Map.get(usage, "totalTokenCount", prompt + completion)
-
-    %{
-      "prompt_tokens" => prompt,
-      "completion_tokens" => completion,
-      "total_tokens" => total
-    }
+  defp convert_google_usage_for_streaming(usage_metadata) do
+    normalize_google_usage(usage_metadata)
   end
 end

@@ -1,0 +1,115 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjo1MCwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJIZWxsbyB3b3JsZCEiLCJyb2xlIjoidXNlciJ9XSwibW9kZWwiOiJ4LWFpL2dyb2stY29kZS1mYXN0LTEiLCJuIjoxLCJzZWVkIjo0Miwic3RyZWFtIjpmYWxzZSwidGVtcGVyYXR1cmUiOjAuMH0="
+    },
+    "canonical_json": {
+      "max_tokens": 50,
+      "messages": [
+        {
+          "content": "Hello world!",
+          "role": "user"
+        }
+      ],
+      "model": "x-ai/grok-code-fast-1",
+      "n": 1,
+      "seed": 42,
+      "stream": false,
+      "temperature": 0.0
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "Hello, world! Nice to meet you. If you're testing code or just saying hi, I'm Grok, ready to assist with anything from cosmic queries to coding conundrums. What's on your mind? 🚀",
+            "reasoning": "First, the user said \"Hello world!\" This is a simple greeting, often used in programming as the first program output.\n\n\n## Greeting the User  \n- The user started with \"Hello world!\"—a classic greeting often used as the first output in programming.",
+            "reasoning_details": [
+              {
+                "format": "unknown",
+                "index": 0,
+                "text": "First, the user said \"Hello world!\" This is a simple greeting, often used in programming as the first program output.\n\n\n## Greeting the User  \n- The user started with \"Hello world!\"—a classic greeting often used as the first output in programming.",
+                "type": "reasoning.text"
+              }
+            ],
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "stop"
+        }
+      ],
+      "created": 1759845467,
+      "id": "gen-1759845467-3v8ZnQ5Bg36J5eupnwS2",
+      "model": "x-ai/grok-code-fast-1",
+      "object": "chat.completion",
+      "provider": "xAI",
+      "system_fingerprint": "fp_10f00c862d",
+      "usage": {
+        "completion_tokens": 183,
+        "completion_tokens_details": {
+          "reasoning_tokens": 140
+        },
+        "prompt_tokens": 207,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 192
+        },
+        "total_tokens": 390
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade8de7abf60ac-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:57:49 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

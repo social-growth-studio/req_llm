@@ -1,0 +1,104 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJjb250ZW50cyI6W3sicGFydHMiOlt7InRleHQiOiJXcml0ZSBhIHZlcnkgbG9uZyBzdG9yeSBhYm91dCBkcmFnb25zIGFuZCBhZHZlbnR1cmVzIn1dLCJyb2xlIjoidXNlciJ9XSwiZ2VuZXJhdGlvbkNvbmZpZyI6eyJjYW5kaWRhdGVDb3VudCI6MSwibWF4T3V0cHV0VG9rZW5zIjozMDAwLCJ0ZW1wZXJhdHVyZSI6MC41fX0="
+    },
+    "canonical_json": {
+      "contents": [
+        {
+          "parts": [
+            {
+              "text": "Write a very long story about dragons and adventures"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "generationConfig": {
+        "candidateCount": 1,
+        "maxOutputTokens": 3000,
+        "temperature": 0.5
+      }
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=%5BREDACTED%3Akey%5D"
+  },
+  "response": {
+    "body": {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "The wind howled a mournful dirge through the jagged peaks of the Dragon's Tooth Mountains, a sound as ancient and untamed as the land itself. Below, in the shadowed valleys, lay Eldoria, a realm scarred by forgotten wars and whispered legends, where the line between myth and reality was often blurred by the mists of time. And in the heart of those mists, the greatest legends of all stirred: dragons.\n\n**Part I: The Whispers of Ash and Shadow**\n\nElara lived a quiet life in the Whispering Woods, a sprawling emerald sea that clung to the foothills. She was a solitary soul, orphaned young, her only companions the rustling leaves and the ancient trees that seemed to hum with secrets. Her days were spent foraging, hunting small game, and sketching the intricate patterns of nature in a worn leather-bound journal. She knew the woods like the back of her hand, but even she felt the subtle shift in its ancient rhythm. The air grew heavier, the shadows deeper, and a faint, acrid scent, like burnt ash and ozone, sometimes drifted on the breeze.\n\nOne twilight, while tracking a deer, Elara stumbled upon a sight that would forever shatter her peaceful existence. A patch of ancient trees, gnarled and powerful, lay twisted and blackened, as if struck by an invisible lightning bolt. The ground was scorched, and a faint, sickly green glow pulsed beneath the charred earth. Fear, cold and sharp, pierced her heart. This was no natural blight.\n\nDays later, the whispers began. Villagers from the nearest hamlet, Oakhaven, spoke of strange beasts, shadow-wrought and silent, that stalked the night, snatching livestock and leaving behind only the scent of ash. They spoke of a growing dread, a chill that seeped into their bones even on the warmest days. Elara listened, her hand instinctively going to the small, smooth river stone she always carried – a gift from her mother, she’d been told, though she remembered little of the woman.\n\nThe true horror arrived with the full moon. A guttural roar, unlike any beast Elara had ever heard, tore through the night. It wasn't the majestic, thunderous cry of the ancient dragons of legend, but a raw, pained shriek, laced with something dark and corrupted. From her hidden perch in a towering oak, Elara watched as a creature of nightmare descended upon Oakhaven. It was unmistakably a dragon, but twisted, its scales dull and cracked, its eyes glowing with malevolent green light, its wings tattered and leaking wisps of shadow. It moved with a jerky, unnatural grace, spewing not fire, but a corrosive, black ichor that dissolved stone and flesh alike.\n\nThe villagers scattered, their screams echoing through the valley. Elara, frozen in terror, watched the monstrous dragon tear through the hamlet, its shadow-breath consuming everything it touched. Just as despair threatened to overwhelm her, a flash of brilliant crimson light erupted from the sky.\n\nA second dragon, magnificent and fierce, descended like a meteor. Its scales shimmered like polished rubies, its wings beat with the force of a hurricane, and its roar was a clarion call of defiance. This was a true dragon, a creature of fire and majesty. It engaged the corrupted beast in a brutal aerial ballet, each strike a thunderclap, each roar a challenge. The air crackled with elemental energy.\n\nThe battle raged, a symphony of destruction. The red dragon fought with a desperate ferocity, but the shadow-beast seemed tireless, its corrupted power seeping into the very air. Elara, hidden and helpless, felt a strange pull, a primal connection to the magnificent red dragon. Its struggle resonated deep within her.\n\nSuddenly, with a piercing shriek, the shadow-dragon struck a devastating blow. The red dragon faltered, a wing tearing, and plummeted towards the earth, crashing into the forest not far from Elara's hiding spot. The shadow-beast, its victory assured, let out a triumphant shriek and vanished into the night, leaving Oakhaven in ruins and the forest smoldering.\n\nElara, her heart pounding, knew she couldn't leave the injured dragon. Driven by an instinct she didn't understand, she raced through the burning undergrowth. She found it, a colossal creature, its scales dulled by ash, its breath coming in ragged gasps. Its good eye, a molten gold, fixed on her. There was pain there, but also a flicker of ancient wisdom, and something else… recognition.\n\n\"You… you are here,\" a voice echoed in her mind, not spoken aloud, but a resonant thought, deep and clear. \"The prophecy… it begins.\"\n\nElara stared, speechless. The dragon was speaking to her, not with words, but with thoughts.\n\n\"My name is Ignis,\" the dragon's thought continued, weaker now. \"I am a Flame-Heart, a guardian of the ancient ways. The Shadow Blight returns. Malakor, the Great Betrayer, stirs from his slumber. You… you are the one chosen to stand against him. The last Dragon Rider.\"\n\nElara, a simple forest girl, could only gape. A dragon rider? Her?\n\nIgnis, sensing her disbelief, nudged her gently with his massive snout. \"Do not doubt, small one. Your spirit burns bright. We are linked, you and I, by a bond forged in ages past. Touch me.\"\n\nHesitantly, Elara reached out, her fingers trembling as they brushed against a warm, rough scale. As her skin met his, a jolt of pure energy surged through her, a warmth that spread from her fingertips to every cell of her being. Images flooded her mind: ancient battles, soaring through sunlit skies, the roar of a thousand dragons, the chilling darkness of Malakor. She saw herself, a tiny figure, riding Ignis's back, a beacon of light against an encroaching shadow.\n\nWhen the vision faded, Elara knew. Her quiet life was over. The world needed her, and a dragon, broken and magnificent, needed her too.\n\n**Part II: The Dragon's Path**\n\nThe first weeks were a blur of pain, fear, and revelation. Elara, guided by Ignis's telepathic whispers, tended"
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "MAX_TOKENS",
+          "index": 0
+        }
+      ],
+      "modelVersion": "models/gemini-2.5-flash-preview-05-20",
+      "responseId": "ZTDlaIK_J8iljMcPidbPoQg",
+      "usageMetadata": {
+        "candidatesTokenCount": 1329,
+        "promptTokenCount": 10,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 10
+          }
+        ],
+        "thoughtsTokenCount": 1669,
+        "totalTokenCount": 3008
+      }
+    },
+    "headers": {
+      "alt-svc": [
+        "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+      ],
+      "content-type": [
+        "application/json; charset=UTF-8"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 15:23:17 GMT"
+      ],
+      "server": [
+        "scaffolding on HTTPServer2"
+      ],
+      "server-timing": [
+        "gfet4t7; dur=25186"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Origin",
+        "X-Origin",
+        "Referer"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ],
+      "x-frame-options": [
+        "SAMEORIGIN"
+      ],
+      "x-xss-protection": [
+        "0"
+      ]
+    },
+    "status": 200
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfY29tcGxldGlvbl90b2tlbnMiOjEwMCwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJXcml0ZSBhIHZlcnkgbG9uZyBzdG9yeSBhYm91dCBkcmFnb25zIGFuZCBhZHZlbnR1cmVzIiwicm9sZSI6InVzZXIifV0sIm1vZGVsIjoiZ3Jvay00LWZhc3QtcmVhc29uaW5nIiwic3RyZWFtIjpmYWxzZSwidGVtcGVyYXR1cmUiOjAuNX0="
+    },
+    "canonical_json": {
+      "max_completion_tokens": 100,
+      "messages": [
+        {
+          "content": "Write a very long story about dragons and adventures",
+          "role": "user"
+        }
+      ],
+      "model": "grok-4-fast-reasoning",
+      "stream": false,
+      "temperature": 0.5
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.x.ai/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "message": {
+            "content": "Below is a very long original story about dragons and adventures, woven with fantasy, heroism, and a touch of wonder. I hope you enjoy this epic tale—settle in with some tea (or dragonfire brew) and let the journey unfold.\n\n---\n\n**The Emberheart Chronicles: Wings of Destiny**\n\nIn the shadowed valleys of Eldoria, where mist clung to the ancient pines like forgotten secrets, the village of Thornridge huddled against the relentless wind. It was a place of hardy folk—farm",
+            "refusal": null,
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1759844442,
+      "id": "64710d06-7740-7212-dfe7-5b5ef9f697fc_us-east-1",
+      "model": "grok-4-fast-reasoning",
+      "object": "chat.completion",
+      "system_fingerprint": "fp_9362061f30",
+      "usage": {
+        "completion_tokens": 100,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 275,
+          "rejected_prediction_tokens": 0
+        },
+        "num_sources_used": 0,
+        "prompt_tokens": 126,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 112,
+          "image_tokens": 0,
+          "text_tokens": 126
+        },
+        "total_tokens": 501
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "access-control-expose-headers": [
+        "*"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98adcfd74d71e26d-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:40:46 GMT"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=xZXdYyzWbURE.sW4ONGj3pKdaPl6d59llEt5UHFMkjQ-1759844446-1.0.1.1-GSFtetiTYxMm0fz9gTS6cfbkLnEG3wEIgWOTB6MwdAyjW6lmlCdKSzTXVl6sP8KaS8GVu1i7CksMtYytb336TAPoE3nSvT1o4XV6ArEAiA8; path=/; expires=Tue, 07-Oct-25 14:10:46 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "origin, access-control-request-method, access-control-request-headers"
+      ],
+      "x-request-id": [
+        "00-f2250aba420b13168604038d5adb796c-3d490dbd001d4b9e-01"
+      ],
+      "x-zero-data-retention": [
+        "false"
+      ]
+    },
+    "status": 200
+  }
+}

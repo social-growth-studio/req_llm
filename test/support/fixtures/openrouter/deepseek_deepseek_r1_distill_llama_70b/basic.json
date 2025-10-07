@@ -1,0 +1,100 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoyMDAwLCJtZXNzYWdlcyI6W3siY29udGVudCI6IkhlbGxvIHdvcmxkISIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6ImRlZXBzZWVrL2RlZXBzZWVrLXIxLWRpc3RpbGwtbGxhbWEtNzBiIiwibiI6MSwicmVhc29uaW5nX2VmZm9ydCI6ImxvdyIsInNlZWQiOjQyLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MC4wfQ=="
+    },
+    "canonical_json": {
+      "max_tokens": 2000,
+      "messages": [
+        {
+          "content": "Hello world!",
+          "role": "user"
+        }
+      ],
+      "model": "deepseek/deepseek-r1-distill-llama-70b",
+      "n": 1,
+      "reasoning_effort": "low",
+      "seed": 42,
+      "stream": false,
+      "temperature": 0.0
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "Hello! How can I assist you today?",
+            "reasoning": "Okay, so I just saw someone write \"Hello world!\" and the response was \"Hello! How can I assist you today?\" I'm trying to figure out what's going on here. It seems like they're using some kind of chatbot or AI assistant. Maybe they're testing it out or just starting to learn how to use it. \n\nI wonder why they chose \"Hello world!\" specifically. I remember that's a common first program people write when they're learning to code. It's simple and just outputs that phrase. So maybe they're drawing a parallel between that and starting a conversation with an AI. That's kind of clever.\n\nNow, if I were to respond, I should probably keep it friendly and open-ended to encourage further interaction. Maybe ask how I can help them today. That way, they feel invited to continue the conversation. I should make sure my response is clear and welcoming, without any complicated language. Just a simple greeting and an offer to assist.\n\nI also need to consider the tone. It should be warm and approachable, not too formal. Using an exclamation mark after \"Hello\" adds a bit of enthusiasm, which is nice. I don't want to overwhelm them with too many options, so keeping it straightforward is best. \n\nMaybe I should also think about possible follow-up questions they might have. If they're new to this, they might ask about features or how to get started. Being prepared for that could make the interaction smoother. But for now, the main goal is to respond politely and invite them to continue.\n\nI should also check if there are any guidelines or specific responses I should follow. Since I'm just starting, I might not know all the details, but keeping it natural and helpful is probably the way to go. Avoiding any jargon or technical terms unless necessary will make the conversation more accessible.\n\nIn summary, my response should be a warm greeting, an offer to help, and an invitation to continue the conversation. Keeping it simple and friendly is key here. I think that's a solid approach to engage the user effectively.\n",
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "stop"
+        }
+      ],
+      "created": 1759845365,
+      "id": "gen-1759845365-wuFarIoXhatQQBHecl9e",
+      "model": "deepseek/deepseek-r1-distill-llama-70b",
+      "object": "chat.completion",
+      "provider": "Chutes",
+      "usage": {
+        "completion_tokens": 434,
+        "prompt_tokens": 9,
+        "total_tokens": 443
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade65c9a36a2a1-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:56:06 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

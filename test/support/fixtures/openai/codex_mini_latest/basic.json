@@ -1,0 +1,166 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJpbnB1dCI6W3siY29udGVudCI6W3sidGV4dCI6IkhlbGxvIHdvcmxkISIsInR5cGUiOiJpbnB1dF90ZXh0In1dLCJyb2xlIjoidXNlciJ9XSwibWF4X291dHB1dF90b2tlbnMiOjIwMDAsIm1vZGVsIjoiY29kZXgtbWluaS1sYXRlc3QiLCJzdHJlYW0iOmZhbHNlfQ=="
+    },
+    "canonical_json": {
+      "input": [
+        {
+          "content": [
+            {
+              "text": "Hello world!",
+              "type": "input_text"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "max_output_tokens": 2000,
+      "model": "codex-mini-latest",
+      "stream": false
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "created_at": 1759795783,
+      "error": null,
+      "id": "resp_0aae2e15063f3b720068e45a47bf948199918484fe9a131ab9",
+      "incomplete_details": null,
+      "instructions": null,
+      "max_output_tokens": 2000,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "codex-mini-latest",
+      "object": "response",
+      "output": [
+        {
+          "id": "rs_0aae2e15063f3b720068e45a4869bc8199a0266898b219d389",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "Hello there! How can I assist you today?",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_0aae2e15063f3b720068e45a48c26c8199966f38180fa9bfd0",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": {
+        "effort": "medium",
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "status": "completed",
+      "store": true,
+      "temperature": 1.0,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 9,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 16,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 25
+      },
+      "user": null
+    },
+    "headers": {
+      "alt-svc": [
+        "h3=\":443\"; ma=86400"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98a92bdffa9121af-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 00:09:45 GMT"
+      ],
+      "openai-organization": [
+        "epic-creative-sogybe"
+      ],
+      "openai-processing-ms": [
+        "1449"
+      ],
+      "openai-project": [
+        "proj_j5AhgU4eLMRmsoO9FDg7BRD3"
+      ],
+      "openai-version": [
+        "2020-10-01"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=B9KfQc1D2ZNSqVAdy1h8MYKpX8jvB8ORZUcOGmXl62U-1759795785-1.0.1.1-DC6BWFIxVwXk4AuRjhPdgVRPXN0XHmkquYIeRw.C34Sywlak7FVzAUPSGqlvna4UqD96LkOe0FQeegiRxXjJWqdDjKeRe7nHtuHYjR28JIk; path=/; expires=Tue, 07-Oct-25 00:39:45 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None",
+        "_cfuvid=B_BvX_lgps6DlMHv5z27gcnEeHy6grddYjtq5Rvt0sk-1759795785218-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ],
+      "x-envoy-upstream-service-time": [
+        "1456"
+      ],
+      "x-request-id": [
+        "req_267c80e14d9bca086bede9ef600d1872"
+      ]
+    },
+    "status": 200
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "captured_at": "2025-10-07T15:24:18.960028Z",
+  "chunks": [
+    {
+      "b64": "W3sKICAiY2FuZGlkYXRlcyI6IFsKICAgIHsKICAgICAgImNvbnRlbnQiOiB7CiAgICAgICAgInBhcnRzIjogWwogICAgICAgICAgewogICAgICAgICAgICAidGV4dCI6ICIqKkFwcHJvYWNoOioqXG5cbjEuICBSZWNvZ25pemUgdGhlIG9wZXJhdGlvbiBpcyBtdWx0aXBsaWNhdGlvbi5cbjIuICBCcmVhayBkb3duIHRoZSBudW1iZXIgMSIKICAgICAgICAgIH0KICAgICAgICBdLAogICAgICAgICJyb2xlIjogIm1vZGVsIgogICAgICB9LAogICAgICAiaW5kZXgiOiAwCiAgICB9CiAgXSwKICAidXNhZ2VNZXRhZGF0YSI6IHsKICAgICJwcm9tcHRUb2tlbkNvdW50IjogMzIsCiAgICAiY2FuZGlkYXRlc1Rva2VuQ291bnQiOiAyNCwKICAgICJ0b3RhbFRva2VuQ291bnQiOiA3NTEsCiAgICAicHJvbXB0VG9rZW5zRGV0YWlscyI6IFsKICAgICAgewogICAgICAgICJtb2RhbGl0eSI6ICJURVhUIiwKICAgICAgICAidG9rZW5Db3VudCI6IDMyCiAgICAgIH0KICAgIF0sCiAgICAidGhvdWdodHNUb2tlbkNvdW50IjogNjk1CiAgfSwKICAibW9kZWxWZXJzaW9uIjogImdlbWluaS0yLjUtcHJvIiwKICAicmVzcG9uc2VJZCI6ICJuRERsYUxpRUY2elVqTWNQczVIRTRBayIKfQo=",
+      "decoded": "[{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\": \"**Approach:**\\n\\n1.  Recognize the operation is multiplication.\\n2.  Break down the number 1\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n      \"index\": 0\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 32,\n    \"candidatesTokenCount\": 24,\n    \"totalTokenCount\": 751,\n    \"promptTokensDetails\": [\n      {\n        \"modality\": \"TEXT\",\n        \"tokenCount\": 32\n      }\n    ],\n    \"thoughtsTokenCount\": 695\n  },\n  \"modelVersion\": \"gemini-2.5-pro\",\n  \"responseId\": \"nDDlaLiEF6zUjMcPs5HE4Ak\"\n}\n"
+    },
+    {
+      "b64": "LA0KewogICJjYW5kaWRhdGVzIjogWwogICAgewogICAgICAiY29udGVudCI6IHsKICAgICAgICAicGFydHMiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0ZXh0IjogIjUgaW50byBtb3JlIG1hbmFnZWFibGUgcGFydHMsIGxpa2UgMTAgYW5kIDUuXG4zLiAgTXVsdGlwbHkgZWFjaCBwYXJ0IGJ5IDMuIgogICAgICAgICAgfQogICAgICAgIF0sCiAgICAgICAgInJvbGUiOiAibW9kZWwiCiAgICAgIH0sCiAgICAgICJpbmRleCI6IDAKICAgIH0KICBdLAogICJ1c2FnZU1ldGFkYXRhIjogewogICAgInByb21wdFRva2VuQ291bnQiOiAzMiwKICAgICJjYW5kaWRhdGVzVG9rZW5Db3VudCI6IDQ5LAogICAgInRvdGFsVG9rZW5Db3VudCI6IDc3NiwKICAgICJwcm9tcHRUb2tlbnNEZXRhaWxzIjogWwogICAgICB7CiAgICAgICAgIm1vZGFsaXR5IjogIlRFWFQiLAogICAgICAgICJ0b2tlbkNvdW50IjogMzIKICAgICAgfQogICAgXSwKICAgICJ0aG91Z2h0c1Rva2VuQ291bnQiOiA2OTUKICB9LAogICJtb2RlbFZlcnNpb24iOiAiZ2VtaW5pLTIuNS1wcm8iLAogICJyZXNwb25zZUlkIjogIm5ERGxhTGlFRjZ6VWpNY1BzNUhFNEFrIgp9Cg==",
+      "decoded": ",\r\n{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\": \"5 into more manageable parts, like 10 and 5.\\n3.  Multiply each part by 3.\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n      \"index\": 0\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 32,\n    \"candidatesTokenCount\": 49,\n    \"totalTokenCount\": 776,\n    \"promptTokensDetails\": [\n      {\n        \"modality\": \"TEXT\",\n        \"tokenCount\": 32\n      }\n    ],\n    \"thoughtsTokenCount\": 695\n  },\n  \"modelVersion\": \"gemini-2.5-pro\",\n  \"responseId\": \"nDDlaLiEF6zUjMcPs5HE4Ak\"\n}\n"
+    },
+    {
+      "b64": "LA0KewogICJjYW5kaWRhdGVzIjogWwogICAgewogICAgICAiY29udGVudCI6IHsKICAgICAgICAicGFydHMiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0ZXh0IjogIlxuNC4gIEFkZCB0aGUgcmVzdWx0cyB0b2dldGhlci5cblxuKipDYWxjdWxhdGlvbjoqKlxuXG4qICAgMTAgKiAzID0gMzBcbiIKICAgICAgICAgIH0KICAgICAgICBdLAogICAgICAgICJyb2xlIjogIm1vZGVsIgogICAgICB9LAogICAgICAiaW5kZXgiOiAwCiAgICB9CiAgXSwKICAidXNhZ2VNZXRhZGF0YSI6IHsKICAgICJwcm9tcHRUb2tlbkNvdW50IjogMzIsCiAgICAiY2FuZGlkYXRlc1Rva2VuQ291bnQiOiA3MywKICAgICJ0b3RhbFRva2VuQ291bnQiOiA4MDAsCiAgICAicHJvbXB0VG9rZW5zRGV0YWlscyI6IFsKICAgICAgewogICAgICAgICJtb2RhbGl0eSI6ICJURVhUIiwKICAgICAgICAidG9rZW5Db3VudCI6IDMyCiAgICAgIH0KICAgIF0sCiAgICAidGhvdWdodHNUb2tlbkNvdW50IjogNjk1CiAgfSwKICAibW9kZWxWZXJzaW9uIjogImdlbWluaS0yLjUtcHJvIiwKICAicmVzcG9uc2VJZCI6ICJuRERsYUxpRUY2elVqTWNQczVIRTRBayIKfQo=",
+      "decoded": ",\r\n{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\": \"\\n4.  Add the results together.\\n\\n**Calculation:**\\n\\n*   10 * 3 = 30\\n\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n      \"index\": 0\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 32,\n    \"candidatesTokenCount\": 73,\n    \"totalTokenCount\": 800,\n    \"promptTokensDetails\": [\n      {\n        \"modality\": \"TEXT\",\n        \"tokenCount\": 32\n      }\n    ],\n    \"thoughtsTokenCount\": 695\n  },\n  \"modelVersion\": \"gemini-2.5-pro\",\n  \"responseId\": \"nDDlaLiEF6zUjMcPs5HE4Ak\"\n}\n"
+    },
+    {
+      "b64": "LA0KewogICJjYW5kaWRhdGVzIjogWwogICAgewogICAgICAiY29udGVudCI6IHsKICAgICAgICAicGFydHMiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0ZXh0IjogIiogICA1ICogMyA9IDE1XG4qICAgMzAgKyAxNSA9IDQ1XG5cbiIKICAgICAgICAgIH0KICAgICAgICBdLAogICAgICAgICJyb2xlIjogIm1vZGVsIgogICAgICB9LAogICAgICAiaW5kZXgiOiAwCiAgICB9CiAgXSwKICAidXNhZ2VNZXRhZGF0YSI6IHsKICAgICJwcm9tcHRUb2tlbkNvdW50IjogMzIsCiAgICAiY2FuZGlkYXRlc1Rva2VuQ291bnQiOiA5NiwKICAgICJ0b3RhbFRva2VuQ291bnQiOiA4MjMsCiAgICAicHJvbXB0VG9rZW5zRGV0YWlscyI6IFsKICAgICAgewogICAgICAgICJtb2RhbGl0eSI6ICJURVhUIiwKICAgICAgICAidG9rZW5Db3VudCI6IDMyCiAgICAgIH0KICAgIF0sCiAgICAidGhvdWdodHNUb2tlbkNvdW50IjogNjk1CiAgfSwKICAibW9kZWxWZXJzaW9uIjogImdlbWluaS0yLjUtcHJvIiwKICAicmVzcG9uc2VJZCI6ICJuRERsYUxpRUY2elVqTWNQczVIRTRBayIKfQo=",
+      "decoded": ",\r\n{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\": \"*   5 * 3 = 15\\n*   30 + 15 = 45\\n\\n\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n      \"index\": 0\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 32,\n    \"candidatesTokenCount\": 96,\n    \"totalTokenCount\": 823,\n    \"promptTokensDetails\": [\n      {\n        \"modality\": \"TEXT\",\n        \"tokenCount\": 32\n      }\n    ],\n    \"thoughtsTokenCount\": 695\n  },\n  \"modelVersion\": \"gemini-2.5-pro\",\n  \"responseId\": \"nDDlaLiEF6zUjMcPs5HE4Ak\"\n}\n"
+    },
+    {
+      "b64": "LA0KewogICJjYW5kaWRhdGVzIjogWwogICAgewogICAgICAiY29udGVudCI6IHsKICAgICAgICAicGFydHMiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0ZXh0IjogIioqQW5zd2VyOioqXG5cbjE1ICogMyA9IDQ1IgogICAgICAgICAgfQogICAgICAgIF0sCiAgICAgICAgInJvbGUiOiAibW9kZWwiCiAgICAgIH0sCiAgICAgICJmaW5pc2hSZWFzb24iOiAiU1RPUCIsCiAgICAgICJpbmRleCI6IDAKICAgIH0KICBdLAogICJ1c2FnZU1ldGFkYXRhIjogewogICAgInByb21wdFRva2VuQ291bnQiOiAzMiwKICAgICJjYW5kaWRhdGVzVG9rZW5Db3VudCI6IDEwOSwKICAgICJ0b3RhbFRva2VuQ291bnQiOiA4MzYsCiAgICAicHJvbXB0VG9rZW5zRGV0YWlscyI6IFsKICAgICAgewogICAgICAgICJtb2RhbGl0eSI6ICJURVhUIiwKICAgICAgICAidG9rZW5Db3VudCI6IDMyCiAgICAgIH0KICAgIF0sCiAgICAidGhvdWdodHNUb2tlbkNvdW50IjogNjk1CiAgfSwKICAibW9kZWxWZXJzaW9uIjogImdlbWluaS0yLjUtcHJvIiwKICAicmVzcG9uc2VJZCI6ICJuRERsYUxpRUY2elVqTWNQczVIRTRBayIKfQo=",
+      "decoded": ",\r\n{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\": \"**Answer:**\\n\\n15 * 3 = 45\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n      \"finishReason\": \"STOP\",\n      \"index\": 0\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 32,\n    \"candidatesTokenCount\": 109,\n    \"totalTokenCount\": 836,\n    \"promptTokensDetails\": [\n      {\n        \"modality\": \"TEXT\",\n        \"tokenCount\": 32\n      }\n    ],\n    \"thoughtsTokenCount\": 695\n  },\n  \"modelVersion\": \"gemini-2.5-pro\",\n  \"responseId\": \"nDDlaLiEF6zUjMcPs5HE4Ak\"\n}\n"
+    },
+    {
+      "b64": "XQ==",
+      "decoded": "]"
+    }
+  ],
+  "request": {
+    "body": {
+      "b64": "eyJjb250ZW50cyI6W3sicGFydHMiOlt7InRleHQiOiJCcmllZmx5IHRoaW5rIHRocm91Z2ggeW91ciBhcHByb2FjaCwgdGhlbiBhbnN3ZXI6IFdoYXQgaXMgMTUqMz8ifV0sInJvbGUiOiJ1c2VyIn1dLCJnZW5lcmF0aW9uQ29uZmlnIjp7ImNhbmRpZGF0ZUNvdW50IjoxLCJtYXhPdXRwdXRUb2tlbnMiOjIwNDgsInRlbXBlcmF0dXJlIjoxLjAsInRvcFAiOjAuOH0sInN5c3RlbUluc3RydWN0aW9uIjp7InBhcnRzIjpbeyJ0ZXh0IjoiWW91IGFyZSBhIGNhcmVmdWwsIHN0ZXAtYnktc3RlcCByZWFzb25lci4ifV19fQ=="
+    },
+    "canonical_json": {
+      "contents": [
+        {
+          "parts": [
+            {
+              "text": "Briefly think through your approach, then answer: What is 15*3?"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "generationConfig": {
+        "candidateCount": 1,
+        "maxOutputTokens": 2048,
+        "temperature": 1.0,
+        "topP": 0.8
+      },
+      "systemInstruction": {
+        "parts": [
+          {
+            "text": "You are a careful, step-by-step reasoner."
+          }
+        ]
+      }
+    },
+    "headers": {
+      "content-type": "application/json"
+    },
+    "method": "POST",
+    "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:streamGenerateContent"
+  },
+  "response": {
+    "body": null,
+    "headers": {
+      "accept-ranges": "none",
+      "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+      "content-type": "application/json; charset=UTF-8",
+      "date": "Tue, 07 Oct 2025 15:24:18 GMT",
+      "server": "scaffolding on HTTPServer2",
+      "server-timing": "gfet4t7; dur=7346",
+      "vary": "Origin,Accept-Encoding",
+      "x-content-type-options": "nosniff",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "0"
+    },
+    "status": 200
+  }
+}

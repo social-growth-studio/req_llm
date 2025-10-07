@@ -1,0 +1,114 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjo1MDAsIm1lc3NhZ2VzIjpbeyJjb250ZW50IjoiSGkgdGhlcmUhIiwicm9sZSI6InVzZXIifV0sIm1vZGVsIjoib3BlbmFpL2dwdC01LWNvZGV4IiwibiI6MSwic2VlZCI6NDIsInN0cmVhbSI6ZmFsc2UsInRlbXBlcmF0dXJlIjowLjB9"
+    },
+    "canonical_json": {
+      "max_tokens": 500,
+      "messages": [
+        {
+          "content": "Hi there!",
+          "role": "user"
+        }
+      ],
+      "model": "openai/gpt-5-codex",
+      "n": 1,
+      "seed": 42,
+      "stream": false,
+      "temperature": 0.0
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "Hello! How can I help you today?",
+            "reasoning": "**Preparing greeting response**",
+            "reasoning_details": [
+              {
+                "format": "openai-responses-v1",
+                "index": 0,
+                "summary": "**Preparing greeting response**",
+                "type": "reasoning.summary"
+              },
+              {
+                "data": "gAAAAABo5RwRRK-jiGrmD-WueUVqmGe4dShcGhbn22r72Krmm1niPCAmzgS5ApEa1yRoo5IZFgzvjFjL9QcXHPL8Wf6MF-79PbiS2m_H9dCkXsRYmjpKttjqjlLrR_NvmZhYxVmenWT2gg_p_R2uzQHqxlZJItDXJj2z5HqxYnDpJgCKFibdsbj5bBfA9h5igSN0k1AhYm5ZPknCfEGR-UFXxyvftecnjlsEpZEDi2zjG6WlRTLUeo4frRNArqTKhdTrYlQ0_yADswFquIX8a798VjJKf-O7fZXpj5ymDAWLlPhuwYvVg9yFShLO3FgkwLqtyXCEBbX2mRjPGy1vcx3fLpSqhxCL9vJP3vxNZzTcq6eT3Qr4cyqPfSvrIz1VcanmMk9M3Hgs22L38aeuf3eBcSIndwaYMLUxVINt9l7wdvs__806Im116ykCqN9lc1159HBj3FHzeHfyaRJFyIEnnWnw1iTUZSjcTROtwJQyR0X5_ExN8xUaTED3GzJGy8Y9WFSoA-NWzh60gPb3_sm5SYHvwBfu_Z6kUaqKlNv1jg2fR9eONRrMTxd0Uej4qPuQsS6arEPz-J-EyhCO4YJHld9wc2i_VWxULdAWwM2S6Gh9wKcFP4U4anevokxnsmJKxD-rLlIYhKa-wobPoCXlVEU-oMNUuTitlp-VPXGJWaLwaaSbsm2ov2b37Sh2GRgVK2VcDvMMoxOV5FBr-ttCCXx1Jb5ar_LEfUbTWHB-lmZMUtT86G9MhK9NtNDh5vTXWV9d_KdI5P9UxBGvGeq7mcsx7niZa-v9W29W0E2jGZ7_2Iw2MpfDfajPt81cAqQ6E2VnGFOYiRuV3JNX0Jr2hbPzgeN_mK7FmcyvAMXnS5jfnVS9tzxN3mJVLm1nu17USTiOaoys_E-v0bXlJ3Hn_DBJfhClWz4twdz5NnuIPaf_nm-NRlipB9I7WodxpeGeZvBw20CO07DO3FuUiRuZVvB21A9cSA==",
+                "format": "openai-responses-v1",
+                "id": "rs_0627d7dd8aa46d6e0168e51c0f36d88190b9be124ed557b311",
+                "index": 0,
+                "type": "reasoning.encrypted"
+              }
+            ],
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "completed"
+        }
+      ],
+      "created": 1759845390,
+      "id": "gen-1759845390-cNTNqflhwZH1Ia1VOv9B",
+      "model": "openai/gpt-5-codex",
+      "object": "chat.completion",
+      "provider": "OpenAI",
+      "usage": {
+        "completion_tokens": 15,
+        "prompt_tokens": 9,
+        "total_tokens": 24
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade6f7db08000e-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:56:30 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJpbnB1dCI6W3siY29udGVudCI6W3sidGV4dCI6IldyaXRlIGEgdmVyeSBsb25nIHN0b3J5IGFib3V0IGRyYWdvbnMgYW5kIGFkdmVudHVyZXMiLCJ0eXBlIjoiaW5wdXRfdGV4dCJ9XSwicm9sZSI6InVzZXIifV0sIm1heF9vdXRwdXRfdG9rZW5zIjoxMDAsIm1vZGVsIjoiZ3B0LTQuMSIsInN0cmVhbSI6ZmFsc2V9"
+    },
+    "canonical_json": {
+      "input": [
+        {
+          "content": [
+            {
+              "text": "Write a very long story about dragons and adventures",
+              "type": "input_text"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "max_output_tokens": 100,
+      "model": "gpt-4.1",
+      "stream": false
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "created_at": 1759853363,
+      "error": null,
+      "id": "resp_03677871d64ca61f0068e53b33b88481939923e69cd091d365",
+      "incomplete_details": {
+        "reason": "max_output_tokens"
+      },
+      "instructions": null,
+      "max_output_tokens": 100,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "gpt-4.1-2025-04-14",
+      "object": "response",
+      "output": [
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "### The Seven Drakes and the Heart of the World\n\n#### Chapter 1: The Scorched Valley\n\nThere once was a land called Eldandor, where mountains loomed like giants on the horizon, and forests whispered secrets older than memory. At the edge of the Scorched Valley, where nothing grew and the sky was forever veiled with soot, a humble village eked out its existence. The villagers told tales of dragons: magnificent, terrifying beasts whose wings shattered clouds and whose",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_03677871d64ca61f0068e53b345228819397a1e8cee5fca8b9",
+          "role": "assistant",
+          "status": "incomplete",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": {
+        "effort": null,
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "status": "incomplete",
+      "store": true,
+      "temperature": 1.0,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 16,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 100,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 116
+      },
+      "user": null
+    },
+    "headers": {
+      "alt-svc": [
+        "h3=\":443\"; ma=86400"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98aea9a2edc72246-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 16:09:27 GMT"
+      ],
+      "openai-organization": [
+        "epic-creative-sogybe"
+      ],
+      "openai-processing-ms": [
+        "3911"
+      ],
+      "openai-project": [
+        "proj_j5AhgU4eLMRmsoO9FDg7BRD3"
+      ],
+      "openai-version": [
+        "2020-10-01"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=7zyg9t09We4DidH6zNFUaIlI90nQdlGzMXXxrFUB8xA-1759853367-1.0.1.1-ObDoTDPP9pMDQvy462zJ53gSt00TF7K8kJHH7PNBcft4MOocGeMfieTqvPs4zstXRPP9UFd4sO3PqtixpAjuUEKSw6IwDIwn6sGKh2N_naY; path=/; expires=Tue, 07-Oct-25 16:39:27 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None",
+        "_cfuvid=phxVHJIGVoT9onc4xjiLZ9BXgtF6icKs18zdSahxqqg-1759853367668-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ],
+      "x-envoy-upstream-service-time": [
+        "3913"
+      ],
+      "x-ratelimit-limit-requests": [
+        "10000"
+      ],
+      "x-ratelimit-limit-tokens": [
+        "2000000"
+      ],
+      "x-ratelimit-remaining-requests": [
+        "9999"
+      ],
+      "x-ratelimit-remaining-tokens": [
+        "1999965"
+      ],
+      "x-ratelimit-reset-requests": [
+        "6ms"
+      ],
+      "x-ratelimit-reset-tokens": [
+        "1ms"
+      ],
+      "x-request-id": [
+        "req_fe112e076b633c2cbc5ecd9cf85e9b6c"
+      ]
+    },
+    "status": 200
+  }
+}

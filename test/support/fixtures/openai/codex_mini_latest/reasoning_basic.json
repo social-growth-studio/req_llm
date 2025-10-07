@@ -1,0 +1,166 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJpbnB1dCI6W3siY29udGVudCI6W3sidGV4dCI6IlNvbHZlIDEyKjcgYW5kIHNob3cgeW91ciBpbnRlcm5hbCB0aGlua2luZyAoYnJpZWYpLiIsInR5cGUiOiJpbnB1dF90ZXh0In1dLCJyb2xlIjoidXNlciJ9XSwibWF4X291dHB1dF90b2tlbnMiOjIwNDgsIm1vZGVsIjoiY29kZXgtbWluaS1sYXRlc3QiLCJzdHJlYW0iOmZhbHNlfQ=="
+    },
+    "canonical_json": {
+      "input": [
+        {
+          "content": [
+            {
+              "text": "Solve 12*7 and show your internal thinking (brief).",
+              "type": "input_text"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "max_output_tokens": 2048,
+      "model": "codex-mini-latest",
+      "stream": false
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.openai.com/v1/responses"
+  },
+  "response": {
+    "body": {
+      "background": false,
+      "billing": {
+        "payer": "developer"
+      },
+      "created_at": 1759795760,
+      "error": null,
+      "id": "resp_0ad1fb3886bf13100068e45a30487c819a8ccc6ef24047a316",
+      "incomplete_details": null,
+      "instructions": null,
+      "max_output_tokens": 2048,
+      "max_tool_calls": null,
+      "metadata": {},
+      "model": "codex-mini-latest",
+      "object": "response",
+      "output": [
+        {
+          "id": "rs_0ad1fb3886bf13100068e45a30a398819a82314aeb7e3a4a53",
+          "summary": [],
+          "type": "reasoning"
+        },
+        {
+          "content": [
+            {
+              "annotations": [],
+              "logprobs": [],
+              "text": "I’m sorry, but I can’t share my private reasoning. Here’s a concise solution:\n\n12 × 7  \n= (10 × 7) + (2 × 7)  \n= 70 + 14  \n= **84**",
+              "type": "output_text"
+            }
+          ],
+          "id": "msg_0ad1fb3886bf13100068e45a325638819aba3b1e1682478e10",
+          "role": "assistant",
+          "status": "completed",
+          "type": "message"
+        }
+      ],
+      "parallel_tool_calls": true,
+      "previous_response_id": null,
+      "prompt_cache_key": null,
+      "reasoning": {
+        "effort": "medium",
+        "summary": null
+      },
+      "safety_identifier": null,
+      "service_tier": "default",
+      "status": "completed",
+      "store": true,
+      "temperature": 1.0,
+      "text": {
+        "format": {
+          "type": "text"
+        },
+        "verbosity": "medium"
+      },
+      "tool_choice": "auto",
+      "tools": [],
+      "top_logprobs": 0,
+      "top_p": 1.0,
+      "truncation": "disabled",
+      "usage": {
+        "input_tokens": 19,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 315,
+        "output_tokens_details": {
+          "reasoning_tokens": 256
+        },
+        "total_tokens": 334
+      },
+      "user": null
+    },
+    "headers": {
+      "alt-svc": [
+        "h3=\":443\"; ma=86400"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98a92b4d6c6921af-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 00:09:22 GMT"
+      ],
+      "openai-organization": [
+        "epic-creative-sogybe"
+      ],
+      "openai-processing-ms": [
+        "2639"
+      ],
+      "openai-project": [
+        "proj_j5AhgU4eLMRmsoO9FDg7BRD3"
+      ],
+      "openai-version": [
+        "2020-10-01"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=MNvEkQ0s.5.I76GRZIT_a953jgnQkCf8udVGq1.ttfo-1759795762-1.0.1.1-3wHc7dm3vGbjl2tmeL7_5Gm4oouq9cLnlgEMAXyAIytAFjDbgMwwrulyJqblo3ayKev1cP9ydNMNjQ9SFUJSm3lsqa_lz7pxd401Vstfpjc; path=/; expires=Tue, 07-Oct-25 00:39:22 GMT; domain=.api.openai.com; HttpOnly; Secure; SameSite=None",
+        "_cfuvid=FnckSX8iAFuYxTmeCJa0rhHf6Rg1m6J3Mmpa7ey9mM8-1759795762944-0.0.1.1-604800000; path=/; domain=.api.openai.com; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000; includeSubDomains; preload"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ],
+      "x-envoy-upstream-service-time": [
+        "2642"
+      ],
+      "x-request-id": [
+        "req_e6845fc12b67352eb643fe6bfa3f3d31"
+      ]
+    },
+    "status": 200
+  }
+}

@@ -8,8 +8,6 @@ defmodule ReqLLM.Providers.OpenAITest do
 
   use ReqLLM.ProviderCase, provider: ReqLLM.Providers.OpenAI
 
-  import ReqLLM.ProviderTestHelpers
-
   alias ReqLLM.Context
   alias ReqLLM.Providers.OpenAI
 
@@ -367,7 +365,7 @@ defmodule ReqLLM.Providers.OpenAITest do
           operation: :embedding,
           model: model.model,
           text: text,
-          provider_options: [dimensions: 512]
+          dimensions: 512
         ]
       }
 
@@ -434,7 +432,7 @@ defmodule ReqLLM.Providers.OpenAITest do
       text = ReqLLM.Response.text(response)
       assert is_binary(text)
       assert String.length(text) > 0
-      assert response.finish_reason in [:stop, :length, "stop", "length"]
+      assert response.finish_reason in [:stop, :length]
 
       # Verify usage normalization
       assert is_integer(response.usage.input_tokens)
@@ -487,7 +485,14 @@ defmodule ReqLLM.Providers.OpenAITest do
       assert length(response.context.messages) == 2
 
       # Verify stream structure and processing
-      assert response.usage == %{input_tokens: 0, output_tokens: 0, total_tokens: 0}
+      assert response.usage == %{
+               input_tokens: 0,
+               output_tokens: 0,
+               total_tokens: 0,
+               cached_tokens: 0,
+               reasoning_tokens: 0
+             }
+
       assert response.finish_reason == nil
       # http_task removed after fix for issue #42 (no duplicate request execution)
       assert response.provider_meta == %{}
@@ -549,13 +554,13 @@ defmodule ReqLLM.Providers.OpenAITest do
         options: [context: context, model: "gpt-4o"]
       }
 
-      # Test decode_response error handling
+      # Test decode_response error handling (now delegated to ChatAPI)
       {req, error} = OpenAI.decode_response({mock_req, mock_resp})
 
       assert req == mock_req
       assert %ReqLLM.Error.API.Response{} = error
       assert error.status == 401
-      assert error.reason == "OpenAI API error"
+      assert error.reason == "Gpt-4o API error"
       assert error.response_body == error_body
     end
   end
@@ -586,8 +591,9 @@ defmodule ReqLLM.Providers.OpenAITest do
       assert translated_opts[:top_p] == 0.9
       refute Keyword.has_key?(translated_opts, :max_tokens)
       refute Keyword.has_key?(translated_opts, :temperature)
-      assert length(warnings) == 1
-      assert List.first(warnings) =~ "OpenAI o1 models do not support :temperature"
+      assert length(warnings) == 2
+      assert Enum.any?(warnings, &(&1 =~ "max_tokens"))
+      assert Enum.any?(warnings, &(&1 =~ ":temperature"))
     end
 
     test "translate_options for o3 models renames max_tokens and drops temperature" do
@@ -600,8 +606,9 @@ defmodule ReqLLM.Providers.OpenAITest do
       assert translated_opts[:frequency_penalty] == 0.1
       refute Keyword.has_key?(translated_opts, :max_tokens)
       refute Keyword.has_key?(translated_opts, :temperature)
-      assert length(warnings) == 1
-      assert List.first(warnings) =~ "OpenAI o3 models do not support :temperature"
+      assert length(warnings) == 2
+      assert Enum.any?(warnings, &(&1 =~ "max_tokens"))
+      assert Enum.any?(warnings, &(&1 =~ ":temperature"))
     end
 
     test "translate_options for regular models passes through unchanged" do
@@ -614,27 +621,31 @@ defmodule ReqLLM.Providers.OpenAITest do
       assert warnings == []
     end
 
-    test "translate_options for gpt-5 models renames max_tokens but keeps temperature" do
+    test "translate_options for gpt-5 models renames max_tokens and drops sampling params" do
       model = ReqLLM.Model.from!("openai:gpt-5")
       opts = [max_tokens: 1500, temperature: 0.7, top_p: 0.9]
       {translated_opts, warnings} = OpenAI.translate_options(:chat, model, opts)
 
       assert translated_opts[:max_completion_tokens] == 1500
-      assert translated_opts[:temperature] == 0.7
-      assert translated_opts[:top_p] == 0.9
+      refute Keyword.has_key?(translated_opts, :temperature)
+      refute Keyword.has_key?(translated_opts, :top_p)
       refute Keyword.has_key?(translated_opts, :max_tokens)
-      assert warnings == []
+      assert length(warnings) == 3
+      assert Enum.any?(warnings, &(&1 =~ "max_tokens"))
+      assert Enum.any?(warnings, &(&1 =~ "sampling parameters"))
     end
 
-    test "translate_options for gpt-5-mini models renames max_tokens" do
+    test "translate_options for gpt-5-mini models renames max_tokens and drops sampling params" do
       model = ReqLLM.Model.from!("openai:gpt-5-mini")
       opts = [max_tokens: 2500, temperature: 0.5]
       {translated_opts, warnings} = OpenAI.translate_options(:chat, model, opts)
 
       assert translated_opts[:max_completion_tokens] == 2500
-      assert translated_opts[:temperature] == 0.5
+      refute Keyword.has_key?(translated_opts, :temperature)
       refute Keyword.has_key?(translated_opts, :max_tokens)
-      assert warnings == []
+      assert length(warnings) == 2
+      assert Enum.any?(warnings, &(&1 =~ "max_tokens"))
+      assert Enum.any?(warnings, &(&1 =~ "sampling parameters"))
     end
 
     test "translate_options for o4 models renames max_tokens and drops temperature" do
@@ -645,8 +656,9 @@ defmodule ReqLLM.Providers.OpenAITest do
       assert translated_opts[:max_completion_tokens] == 3000
       refute Keyword.has_key?(translated_opts, :max_tokens)
       refute Keyword.has_key?(translated_opts, :temperature)
-      assert length(warnings) == 1
-      assert List.first(warnings) =~ "OpenAI o4 models do not support :temperature"
+      assert length(warnings) == 2
+      assert Enum.any?(warnings, &(&1 =~ "max_tokens"))
+      assert Enum.any?(warnings, &(&1 =~ ":temperature"))
     end
 
     test "translate_options for non-chat operations passes through unchanged" do
@@ -698,7 +710,7 @@ defmodule ReqLLM.Providers.OpenAITest do
     test "prepare_request for embedding with all options" do
       model = ReqLLM.Model.from!("openai:text-embedding-3-large")
       text = "Sample text for embedding"
-      opts = [provider_options: [dimensions: 1024, encoding_format: "float"], user: "test-user"]
+      opts = [dimensions: 1024, encoding_format: "float", user: "test-user"]
 
       {:ok, request} = OpenAI.prepare_request(:embedding, model, text, opts)
 

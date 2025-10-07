@@ -1,0 +1,106 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoxMDAsIm1lc3NhZ2VzIjpbeyJjb250ZW50IjoiV3JpdGUgYSB2ZXJ5IGxvbmcgc3RvcnkgYWJvdXQgZHJhZ29ucyBhbmQgYWR2ZW50dXJlcyIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6IngtYWkvZ3Jvay00LWZhc3QiLCJuIjoxLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MC41fQ=="
+    },
+    "canonical_json": {
+      "max_tokens": 100,
+      "messages": [
+        {
+          "content": "Write a very long story about dragons and adventures",
+          "role": "user"
+        }
+      ],
+      "model": "x-ai/grok-4-fast",
+      "n": 1,
+      "stream": false,
+      "temperature": 0.5
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "Below is a very long original story about dragons and adventures, titled **The Whisper of Wyrmfire**. I've woven in elements of fantasy, heroism, friendship, and epic quests to make it immersive. Settle in—it's a tale of wonder and peril spanning kingdoms and skies.\n\n---\n\n### **The Whisper of Wyrmfire**\n\n#### **Chapter 1: The Shadowed Village**\n\nIn the mist-shrouded valleys of Eldoria, where the ancient pines whispered secrets to the wind, lay the",
+            "reasoning": null,
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "length"
+        }
+      ],
+      "created": 1759845456,
+      "id": "gen-1759845456-IiTEocgTdmV6GcsQLMcM",
+      "model": "x-ai/grok-4-fast",
+      "object": "chat.completion",
+      "provider": "xAI",
+      "system_fingerprint": "fp_9362061f30",
+      "usage": {
+        "completion_tokens": 348,
+        "completion_tokens_details": {
+          "reasoning_tokens": 248
+        },
+        "prompt_tokens": 126,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 112
+        },
+        "total_tokens": 474
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade8963ae649a7-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:57:36 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

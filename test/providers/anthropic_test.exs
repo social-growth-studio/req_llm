@@ -8,8 +8,6 @@ defmodule ReqLLM.Providers.AnthropicTest do
 
   use ReqLLM.ProviderCase, provider: ReqLLM.Providers.Anthropic
 
-  import ReqLLM.ProviderTestHelpers
-
   alias ReqLLM.Providers.Anthropic
 
   describe "provider contract" do
@@ -202,7 +200,7 @@ defmodule ReqLLM.Providers.AnthropicTest do
       text = ReqLLM.Response.text(response)
       assert is_binary(text)
       assert String.length(text) > 0
-      assert response.finish_reason in [:stop, :length, "stop", "max_tokens"]
+      assert response.finish_reason in [:stop, :length]
 
       # Verify usage normalization
       assert is_integer(response.usage.input_tokens)

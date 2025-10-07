@@ -1,0 +1,79 @@
+{
+  "captured_at": "2025-10-07T15:24:25.019442Z",
+  "chunks": [
+    {
+      "b64": "W3sKICAiY2FuZGlkYXRlcyI6IFsKICAgIHsKICAgICAgImNvbnRlbnQiOiB7CiAgICAgICAgInBhcnRzIjogWwogICAgICAgICAgewogICAgICAgICAgICAidGV4dCI6ICJ7XG4gIFwibmFtZVwiOiBcIkphbmUgRG9lXCIsXG4iCiAgICAgICAgICB9CiAgICAgICAgXSwKICAgICAgICAicm9sZSI6ICJtb2RlbCIKICAgICAgfSwKICAgICAgImZpbmlzaFJlYXNvbiI6ICJNQVhfVE9LRU5TIiwKICAgICAgImluZGV4IjogMAogICAgfQogIF0sCiAgInVzYWdlTWV0YWRhdGEiOiB7CiAgICAicHJvbXB0VG9rZW5Db3VudCI6IDYsCiAgICAiY2FuZGlkYXRlc1Rva2VuQ291bnQiOiAxMCwKICAgICJ0b3RhbFRva2VuQ291bnQiOiA0OTIsCiAgICAicHJvbXB0VG9rZW5zRGV0YWlscyI6IFsKICAgICAgewogICAgICAgICJtb2RhbGl0eSI6ICJURVhUIiwKICAgICAgICAidG9rZW5Db3VudCI6IDYKICAgICAgfQogICAgXSwKICAgICJ0aG91Z2h0c1Rva2VuQ291bnQiOiA0NzYKICB9LAogICJtb2RlbFZlcnNpb24iOiAiZ2VtaW5pLTIuNS1wcm8iLAogICJyZXNwb25zZUlkIjogInBERGxhSkx5SC1TT2pNY1A0N2EtZ1FrIgp9Cg==",
+      "decoded": "[{\n  \"candidates\": [\n    {\n      \"content\": {\n        \"parts\": [\n          {\n            \"text\": \"{\\n  \\\"name\\\": \\\"Jane Doe\\\",\\n\"\n          }\n        ],\n        \"role\": \"model\"\n      },\n      \"finishReason\": \"MAX_TOKENS\",\n      \"index\": 0\n    }\n  ],\n  \"usageMetadata\": {\n    \"promptTokenCount\": 6,\n    \"candidatesTokenCount\": 10,\n    \"totalTokenCount\": 492,\n    \"promptTokensDetails\": [\n      {\n        \"modality\": \"TEXT\",\n        \"tokenCount\": 6\n      }\n    ],\n    \"thoughtsTokenCount\": 476\n  },\n  \"modelVersion\": \"gemini-2.5-pro\",\n  \"responseId\": \"pDDlaJLyH-SOjMcP47a-gQk\"\n}\n"
+    },
+    {
+      "b64": "XQ==",
+      "decoded": "]"
+    }
+  ],
+  "request": {
+    "body": {
+      "b64": "eyJjb250ZW50cyI6W3sicGFydHMiOlt7InRleHQiOiJHZW5lcmF0ZSBhIHNvZnR3YXJlIGVuZ2luZWVyIHByb2ZpbGUifV0sInJvbGUiOiJ1c2VyIn1dLCJnZW5lcmF0aW9uQ29uZmlnIjp7ImNhbmRpZGF0ZUNvdW50IjoxLCJtYXhPdXRwdXRUb2tlbnMiOjUwMCwicmVzcG9uc2VKc29uU2NoZW1hIjp7InByb3BlcnRpZXMiOnsiYWdlIjp7ImRlc2NyaXB0aW9uIjoiUGVyc29uJ3MgYWdlIGluIHllYXJzIiwibWluaW11bSI6MSwidHlwZSI6ImludGVnZXIifSwibmFtZSI6eyJkZXNjcmlwdGlvbiI6IlBlcnNvbidzIGZ1bGwgbmFtZSIsInR5cGUiOiJzdHJpbmcifSwib2NjdXBhdGlvbiI6eyJkZXNjcmlwdGlvbiI6IlBlcnNvbidzIGpvYiBvciBwcm9mZXNzaW9uIiwidHlwZSI6InN0cmluZyJ9fSwicmVxdWlyZWQiOlsibmFtZSIsImFnZSJdLCJ0eXBlIjoib2JqZWN0In0sInJlc3BvbnNlTWltZVR5cGUiOiJhcHBsaWNhdGlvbi9qc29uIiwidGVtcGVyYXR1cmUiOjAuMH19"
+    },
+    "canonical_json": {
+      "contents": [
+        {
+          "parts": [
+            {
+              "text": "Generate a software engineer profile"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "generationConfig": {
+        "candidateCount": 1,
+        "maxOutputTokens": 500,
+        "responseJsonSchema": {
+          "properties": {
+            "age": {
+              "description": "Person's age in years",
+              "minimum": 1,
+              "type": "integer"
+            },
+            "name": {
+              "description": "Person's full name",
+              "type": "string"
+            },
+            "occupation": {
+              "description": "Person's job or profession",
+              "type": "string"
+            }
+          },
+          "required": [
+            "name",
+            "age"
+          ],
+          "type": "object"
+        },
+        "responseMimeType": "application/json",
+        "temperature": 0.0
+      }
+    },
+    "headers": {
+      "content-type": "application/json"
+    },
+    "method": "POST",
+    "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:streamGenerateContent"
+  },
+  "response": {
+    "body": null,
+    "headers": {
+      "accept-ranges": "none",
+      "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+      "content-type": "application/json; charset=UTF-8",
+      "date": "Tue, 07 Oct 2025 15:24:24 GMT",
+      "server": "scaffolding on HTTPServer2",
+      "server-timing": "gfet4t7; dur=5825",
+      "vary": "Origin,Accept-Encoding",
+      "x-content-type-options": "nosniff",
+      "x-frame-options": "SAMEORIGIN",
+      "x-xss-protection": "0"
+    },
+    "status": 200
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfY29tcGxldGlvbl90b2tlbnMiOjgxOSwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJUZWxsIG1lIGEgam9rZSBhYm91dCBjYXRzIiwicm9sZSI6InVzZXIifV0sIm1vZGVsIjoiZ3Jvay0zLWxhdGVzdCIsInNlZWQiOjQyLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MC4wLCJ0b29scyI6W3siZnVuY3Rpb24iOnsiZGVzY3JpcHRpb24iOiJHZXQgY3VycmVudCB3ZWF0aGVyIGluZm9ybWF0aW9uIGZvciBhIGxvY2F0aW9uIiwibmFtZSI6ImdldF93ZWF0aGVyIiwicGFyYW1ldGVycyI6eyJwcm9wZXJ0aWVzIjp7ImxvY2F0aW9uIjp7InR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbImxvY2F0aW9uIl0sInR5cGUiOiJvYmplY3QifX0sInR5cGUiOiJmdW5jdGlvbiJ9XX0="
+    },
+    "canonical_json": {
+      "max_completion_tokens": 819,
+      "messages": [
+        {
+          "content": "Tell me a joke about cats",
+          "role": "user"
+        }
+      ],
+      "model": "grok-3-latest",
+      "seed": 42,
+      "stream": false,
+      "temperature": 0.0,
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather information for a location",
+            "name": "get_weather",
+            "parameters": {
+              "properties": {
+                "location": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "location"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.x.ai/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "message": {
+            "content": "Why don't cats play poker in the jungle?\n\nBecause there are too many cheetahs!",
+            "refusal": null,
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1759844459,
+      "id": "f53bf75d-3234-94f3-a61d-df52ca82aef3_us-east-1",
+      "model": "grok-3",
+      "object": "chat.completion",
+      "system_fingerprint": "fp_f02e6df795",
+      "usage": {
+        "completion_tokens": 18,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        },
+        "num_sources_used": 0,
+        "prompt_tokens": 254,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 3,
+          "image_tokens": 0,
+          "text_tokens": 254
+        },
+        "total_tokens": 272
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "access-control-expose-headers": [
+        "*"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98add03d1fd522eb-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-security-policy-report-only": [
+        "script-src 'none'; connect-src 'none'; report-uri https://csp-reporting.cloudflare.com/cdn-cgi/script_monitor/report?m=aRb_f4m7yFAUUX6rR820gIaNrSuPMJgCqDb9yPmT5Y0-1759844459-1.0.1.1-IC0hnDSVhgvWqJvu2O84XDpPhhrsI4ylpXfZSoEotSooep9kAmsbscFaxj3y6RSxVvxG0l7PR579QAA4N5aVKk1jGpSq4AqdytMMu.az1Wp9gW1WkADRK4E2E7KKst2e1qkNkF4UvcocDzNV0PQG.bd2lMcuS4g3hbFhaU8BjdM; report-to cf-csp-endpoint"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:40:59 GMT"
+      ],
+      "report-to": [
+        "{\"endpoints\":[{\"url\":\"https:\\/\\/csp-reporting.cloudflare.com\\/cdn-cgi\\/script_monitor\\/report?m=aRb_f4m7yFAUUX6rR820gIaNrSuPMJgCqDb9yPmT5Y0-1759844459-1.0.1.1-IC0hnDSVhgvWqJvu2O84XDpPhhrsI4ylpXfZSoEotSooep9kAmsbscFaxj3y6RSxVvxG0l7PR579QAA4N5aVKk1jGpSq4AqdytMMu.az1Wp9gW1WkADRK4E2E7KKst2e1qkNkF4UvcocDzNV0PQG.bd2lMcuS4g3hbFhaU8BjdM\"}],\"group\":\"cf-csp-endpoint\",\"max_age\":86400}"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=H4HyxNTG3zDIoGcJF8.ckbvKi0CXs4a.BTX8moeKEG8-1759844459-1.0.1.1-pjd_ecXpDt2eiKgPVkTa9YGZO9txP7HQHNF8O2mJRINa9n0eSXdjhmBW_JeVncAoZ3dvyMHED6dPw3z1SEZ.4OVl_1fvizqVGYRueRP4Dps; path=/; expires=Tue, 07-Oct-25 14:10:59 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "origin, access-control-request-method, access-control-request-headers"
+      ],
+      "x-request-id": [
+        "00-a5be7e3423d394661c80249027fb59bb-fe9fbc140018bc67-01"
+      ],
+      "x-zero-data-retention": [
+        "false"
+      ]
+    },
+    "status": 200
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfY29tcGxldGlvbl90b2tlbnMiOjEwMCwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJXcml0ZSBhIHZlcnkgbG9uZyBzdG9yeSBhYm91dCBkcmFnb25zIGFuZCBhZHZlbnR1cmVzIiwicm9sZSI6InVzZXIifV0sIm1vZGVsIjoiZ3Jvay0yIiwic3RyZWFtIjpmYWxzZSwidGVtcGVyYXR1cmUiOjAuNX0="
+    },
+    "canonical_json": {
+      "max_completion_tokens": 100,
+      "messages": [
+        {
+          "content": "Write a very long story about dragons and adventures",
+          "role": "user"
+        }
+      ],
+      "model": "grok-2",
+      "stream": false,
+      "temperature": 0.5
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.x.ai/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "message": {
+            "content": "In the ancient realm of Eldoria, where the skies were painted with the hues of twilight and the mountains whispered legends of old, there lived a young adventurer named Kael. Kael was known throughout the land for his bravery and his insatiable thirst for adventure. His heart yearned to uncover the mysteries that lay hidden within the vast, uncharted territories of Eldoria.\n\nOne fateful evening, as the sun dipped below the horizon, casting a golden glow over the village of Thornwood, Kael received",
+            "refusal": null,
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1759844442,
+      "id": "cc777d3e-db36-6946-1212-73d2abb205e5_us-east-1",
+      "model": "grok-2-1212",
+      "object": "chat.completion",
+      "system_fingerprint": "fp_fced99f24f",
+      "usage": {
+        "completion_tokens": 100,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 0,
+          "rejected_prediction_tokens": 0
+        },
+        "num_sources_used": 0,
+        "prompt_tokens": 15,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 0,
+          "image_tokens": 0,
+          "text_tokens": 15
+        },
+        "total_tokens": 115
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "access-control-expose-headers": [
+        "*"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98adcfd2aa7ae82e-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:40:43 GMT"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=AB4keC8lfJdV2COKRjZFyLGeGYLYHqhtJJoOQOw1wvo-1759844443-1.0.1.1-DLYJp.H9ISs99_L8sb.ZbGKXpWEi9GWcodVBPC_4GKxQm.3e.E_WLP2QIRFubDWWbMtP_xMr_kuDFWy0diLMntoZRGWuhSCL22FuB3eFHs4; path=/; expires=Tue, 07-Oct-25 14:10:43 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "origin, access-control-request-method, access-control-request-headers"
+      ],
+      "x-request-id": [
+        "00-820a1e3a0d701d4961acbaa011c66ba2-e1c7257e0018fee7-01"
+      ],
+      "x-zero-data-retention": [
+        "false"
+      ]
+    },
+    "status": 200
+  }
+}

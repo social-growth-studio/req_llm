@@ -1,0 +1,115 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoyMDAwLCJtZXNzYWdlcyI6W3siY29udGVudCI6IkhlbGxvIHdvcmxkISIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6Imdvb2dsZS9nZW1pbmktMi41LXByby1wcmV2aWV3LTA2LTA1IiwibiI6MSwicmVhc29uaW5nX2VmZm9ydCI6ImxvdyIsInNlZWQiOjQyLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MC4wfQ=="
+    },
+    "canonical_json": {
+      "max_tokens": 2000,
+      "messages": [
+        {
+          "content": "Hello world!",
+          "role": "user"
+        }
+      ],
+      "model": "google/gemini-2.5-pro-preview-06-05",
+      "n": 1,
+      "reasoning_effort": "low",
+      "seed": 42,
+      "stream": false,
+      "temperature": 0.0
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "Hello there! That's the traditional greeting for a new program, and in a way, for every new conversation.\n\nHow can I help you today?",
+            "reasoning": "**Decoding the Greeting**\n\nI've processed the user's \"Hello world!\" and immediately recognized its significance in programming. Further analysis reveals its nature as a simple greeting, suggesting a universally understandable message. The structure's straightforward nature is also quite notable.\n\n\n**Responding with Precision**\n\nI've reviewed the possible responses, prioritizing helpfulness and friendliness. The brainstorming yielded several options, ranging from simple to more engaging. The \"Hello back at you! That's a classic...\" approach seems promising for establishing a connection. I'm leaning towards the code-themed response for its cleverness, while ensuring it's also useful.\n\n\n",
+            "reasoning_details": [
+              {
+                "format": "unknown",
+                "index": 0,
+                "text": "**Decoding the Greeting**\n\nI've processed the user's \"Hello world!\" and immediately recognized its significance in programming. Further analysis reveals its nature as a simple greeting, suggesting a universally understandable message. The structure's straightforward nature is also quite notable.\n\n\n**Responding with Precision**\n\nI've reviewed the possible responses, prioritizing helpfulness and friendliness. The brainstorming yielded several options, ranging from simple to more engaging. The \"Hello back at you! That's a classic...\" approach seems promising for establishing a connection. I'm leaning towards the code-themed response for its cleverness, while ensuring it's also useful.\n\n\n",
+                "type": "reasoning.text"
+              }
+            ],
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "STOP"
+        }
+      ],
+      "created": 1759845423,
+      "id": "gen-1759845423-L0PFFCdUzvz3CYGH8WCX",
+      "model": "google/gemini-2.5-pro",
+      "object": "chat.completion",
+      "provider": "Google",
+      "usage": {
+        "completion_tokens": 353,
+        "completion_tokens_details": {
+          "image_tokens": 0,
+          "reasoning_tokens": 321
+        },
+        "prompt_tokens": 3,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "total_tokens": 356
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade7c5cc22f5ff-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:57:06 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

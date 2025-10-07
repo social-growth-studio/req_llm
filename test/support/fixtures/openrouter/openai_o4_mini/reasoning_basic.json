@@ -1,0 +1,109 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoyMDQ4LCJtZXNzYWdlcyI6W3siY29udGVudCI6IlNvbHZlIDEyKjcgYW5kIHNob3cgeW91ciBpbnRlcm5hbCB0aGlua2luZyAoYnJpZWYpLiIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6Im9wZW5haS9vNC1taW5pIiwibiI6MSwicmVhc29uaW5nX2VmZm9ydCI6ImxvdyIsInNlZWQiOjQyLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MS4wfQ=="
+    },
+    "canonical_json": {
+      "max_tokens": 2048,
+      "messages": [
+        {
+          "content": "Solve 12*7 and show your internal thinking (brief).",
+          "role": "user"
+        }
+      ],
+      "model": "openai/o4-mini",
+      "n": 1,
+      "reasoning_effort": "low",
+      "seed": 42,
+      "stream": false,
+      "temperature": 1.0
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "12 multiplied by 7 equals 84. \n\nBrief reasoning:  \n• 10×7 = 70  \n• 2×7 = 14  \n• Sum: 70 + 14 = 84",
+            "reasoning": null,
+            "reasoning_details": [
+              {
+                "data": "gAAAAABo5RxUhmtzDXllKXOmd2T9B7Criwmzjq48975-hMx4d7BQIOH9bJhujj0yXJ53KPRRVbAXq6cfRAgrmHsqquS-z96zIfckc8A82rl4Urlj8_akk9s24DvX67b9ag213Y5ZRsVKJBebxpjMx4kzoKGhPd1ivJNnD7P2sRC43q3V0v4uK-IcoBwk3pWGuIj7s9wA3Bw4gn0FFs5stvqxbSq3Ps7dPWx4wwCufBF44Ced3X3K-gFW-5bQR4cqYKiZEIb5GQLJpe619lGi-rsd-MYAqPXeNaRCB-Xg0afbmsWLb2BcC6UoA6jqJK8DebmSk8pVmYrRKq6KAmitQjh_M3bE5PTjIwG0lOQAmv-fC3kG89iU4Y5tVMsrtls8hE387Ew5W8d9S3ZfjFnThh2cU3WJxyz8pPA6I7WC1ZN-fPYfPQR4zHZi8Oz1eMlLChNqp9PoOeZVTjK3UO91nJ_Jc0hEbfDZQ2ADLe-6NH23RIT--IU_SihvkL1KzZv7aE1fu3pqzFUXsvxmzls2WWJ0Db5i4JWqkNJIwLKRzzf1ItipCo7oFN6JASVMcl2gQ-3Bbsvm6jr8O7KqjnbLnhi6ZFRR9mPpPFMAVZAwQakRMN0we88RG6OZFuEnhjIB12NOh-F2ZibVUWzebeV8mU997GKWjfSy_EAn4yn_WnJ_xKUYuoIgHUoEZnJx2853FOfg5n8Hr7lLdv_yklU--7ReElNcIOGu7YdWrzWlqw-3b6C9rRWjwsDMuG43m8yIT-lsOrE74iENMuGx3BF1imxfkFK3IszGVEktfGGDnL9JZd_jkbYtBTaSX98m-7aD72wZiv9e1ZgAxA1EqIJmFgbPB2vgM9dHiq5xf6rdlxLYQB3MUnf2d-sSuW0Qh7iLogG8nqMsFAAlJI_LmOuZdMKljZTZYCfzQfY0YqCYHs_cnCjMHudMIoEzWVvvF3PszrHKIpF3Brv481VQP65DjHbvnuRak8eqQNS6-j8yDAgZAj7st6xLjKrBC8SFLWlao3L5sLI8zd2i1C39ozclpuUMHo-UuVkNcO_cTQkShXCuFp2Wk3obiFEeQ6-by7nDrEb5QGR472N3Zh-9jiuhY3Dj7fPc_4dsjg==",
+                "format": "openai-responses-v1",
+                "id": "rs_0e945bbbd5f7c1300168e51c5380c0819097e8bdc081220c80",
+                "index": 0,
+                "type": "reasoning.encrypted"
+              }
+            ],
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "completed"
+        }
+      ],
+      "created": 1759845458,
+      "id": "gen-1759845458-MiVnvrau6nJwWySulsod",
+      "model": "openai/o4-mini",
+      "object": "chat.completion",
+      "provider": "OpenAI",
+      "usage": {
+        "completion_tokens": 49,
+        "prompt_tokens": 19,
+        "total_tokens": 68
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade8a3fc4b8714-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:57:39 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

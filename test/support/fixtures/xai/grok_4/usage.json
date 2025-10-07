@@ -1,0 +1,117 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfY29tcGxldGlvbl90b2tlbnMiOjEwLCJtZXNzYWdlcyI6W3siY29udGVudCI6IkhpIHRoZXJlISIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6Imdyb2stNCIsInNlZWQiOjQyLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MC4wfQ=="
+    },
+    "canonical_json": {
+      "max_completion_tokens": 10,
+      "messages": [
+        {
+          "content": "Hi there!",
+          "role": "user"
+        }
+      ],
+      "model": "grok-4",
+      "seed": 42,
+      "stream": false,
+      "temperature": 0.0
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.x.ai/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "message": {
+            "content": "Hi! How can I help you today? ",
+            "refusal": null,
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1759844535,
+      "id": "29b25cd9-dea8-4364-3fad-f0350152f85e_us-east-1",
+      "model": "grok-4-0709",
+      "object": "chat.completion",
+      "system_fingerprint": "fp_19e21a36c0",
+      "usage": {
+        "completion_tokens": 10,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 125,
+          "rejected_prediction_tokens": 0
+        },
+        "num_sources_used": 0,
+        "prompt_tokens": 687,
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 686,
+          "image_tokens": 0,
+          "text_tokens": 687
+        },
+        "total_tokens": 822
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "access-control-expose-headers": [
+        "*"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98add21a1a112b4b-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:42:19 GMT"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=GIdT03k.Mm.Hs8S2knWU0XSovPXGkZ3sW81IYzzSxPs-1759844539-1.0.1.1-KaP_vgmgOO0lNkceRN48t8Mol_KLhYwK_t9xepl2ZnFSA96s8vwS7UwBI1KLS9QpDVZcbs0ecHOdCPQ.Pq3T7WY0K5IKf2rbPfNLd6ci6Eo; path=/; expires=Tue, 07-Oct-25 14:12:19 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
+      ],
+      "strict-transport-security": [
+        "max-age=31536000"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "origin, access-control-request-method, access-control-request-headers"
+      ],
+      "x-request-id": [
+        "00-7d9c5fa7bbf9adfc1595cdeec78ad185-433104a8001d8170-01"
+      ],
+      "x-zero-data-retention": [
+        "false"
+      ]
+    },
+    "status": 200
+  }
+}

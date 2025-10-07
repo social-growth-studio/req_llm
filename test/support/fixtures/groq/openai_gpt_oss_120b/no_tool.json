@@ -1,0 +1,153 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjo2NTUyLCJtZXNzYWdlcyI6W3siY29udGVudCI6IlRlbGwgbWUgYSBqb2tlIGFib3V0IGNhdHMiLCJyb2xlIjoidXNlciJ9XSwibW9kZWwiOiJvcGVuYWkvZ3B0LW9zcy0xMjBiIiwicmVhc29uaW5nX2VmZm9ydCI6ImxvdyIsInNlZWQiOjQyLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MC4wLCJ0b29scyI6W3siZnVuY3Rpb24iOnsiZGVzY3JpcHRpb24iOiJHZXQgY3VycmVudCB3ZWF0aGVyIGluZm9ybWF0aW9uIGZvciBhIGxvY2F0aW9uIiwibmFtZSI6ImdldF93ZWF0aGVyIiwicGFyYW1ldGVycyI6eyJwcm9wZXJ0aWVzIjp7ImxvY2F0aW9uIjp7InR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbImxvY2F0aW9uIl0sInR5cGUiOiJvYmplY3QifX0sInR5cGUiOiJmdW5jdGlvbiJ9XX0="
+    },
+    "canonical_json": {
+      "max_tokens": 6552,
+      "messages": [
+        {
+          "content": "Tell me a joke about cats",
+          "role": "user"
+        }
+      ],
+      "model": "openai/gpt-oss-120b",
+      "reasoning_effort": "low",
+      "seed": 42,
+      "stream": false,
+      "temperature": 0.0,
+      "tools": [
+        {
+          "function": {
+            "description": "Get current weather information for a location",
+            "name": "get_weather",
+            "parameters": {
+              "properties": {
+                "location": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "location"
+              ],
+              "type": "object"
+            }
+          },
+          "type": "function"
+        }
+      ]
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://api.groq.com/openai/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "Why did the cat sit on the computer?  \n\nBecause it wanted to keep an eye on the mouse! 🐱💻",
+            "reasoning": "Need to respond with a joke.",
+            "role": "assistant"
+          }
+        }
+      ],
+      "created": 1759844706,
+      "id": "chatcmpl-6e1968b1-8bc1-4b3f-ac4e-578701339e67",
+      "model": "openai/gpt-oss-120b",
+      "object": "chat.completion",
+      "service_tier": "on_demand",
+      "system_fingerprint": "fp_ed9190d8b7",
+      "usage": {
+        "completion_time": 0.090004226,
+        "completion_tokens": 43,
+        "prompt_time": 0.009655429,
+        "prompt_tokens": 127,
+        "queue_time": 0.449814723,
+        "total_time": 0.099659655,
+        "total_tokens": 170
+      },
+      "usage_breakdown": null,
+      "x_groq": {
+        "id": "req_01k6zep9tke61a5e4w29vk45fz"
+      }
+    },
+    "headers": {
+      "alt-svc": [
+        "h3=\":443\"; ma=86400"
+      ],
+      "cache-control": [
+        "private, max-age=0, no-store, no-cache, must-revalidate"
+      ],
+      "cf-cache-status": [
+        "DYNAMIC"
+      ],
+      "cf-ray": [
+        "98add6451b6ef161-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:45:06 GMT"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "set-cookie": [
+        "__cf_bm=yFxuWTikNb3INN7xLuv4yzRIKXCz1dcU.1AEYyFWWL0-1759844706-1.0.1.1-raPuRWdi1u_tQhk6x236nI2jrgqvfpThEwITRRBYLVeVSwI4cV6WL_Q1_zoUaP3E0Qfq_lpQ2qJaQSuZtaHYaGHAlnvjbzqBRHkkxmKACpA; path=/; expires=Tue, 07-Oct-25 14:15:06 GMT; domain=.groq.com; HttpOnly; Secure; SameSite=None"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Origin"
+      ],
+      "via": [
+        "1.1 google"
+      ],
+      "x-groq-region": [
+        "yul"
+      ],
+      "x-ratelimit-limit-requests": [
+        "1000"
+      ],
+      "x-ratelimit-limit-tokens": [
+        "8000"
+      ],
+      "x-ratelimit-remaining-requests": [
+        "993"
+      ],
+      "x-ratelimit-remaining-tokens": [
+        "4674"
+      ],
+      "x-ratelimit-reset-requests": [
+        "10m4.454999999s"
+      ],
+      "x-ratelimit-reset-tokens": [
+        "24.944s"
+      ],
+      "x-request-id": [
+        "req_01k6zep9tke61a5e4w29vk45fz"
+      ]
+    },
+    "status": 200
+  }
+}

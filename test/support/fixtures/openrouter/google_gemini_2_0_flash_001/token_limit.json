@@ -1,0 +1,105 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoxMDAsIm1lc3NhZ2VzIjpbeyJjb250ZW50IjoiV3JpdGUgYSB2ZXJ5IGxvbmcgc3RvcnkgYWJvdXQgZHJhZ29ucyBhbmQgYWR2ZW50dXJlcyIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6Imdvb2dsZS9nZW1pbmktMi4wLWZsYXNoLTAwMSIsIm4iOjEsInN0cmVhbSI6ZmFsc2UsInRlbXBlcmF0dXJlIjowLjV9"
+    },
+    "canonical_json": {
+      "max_tokens": 100,
+      "messages": [
+        {
+          "content": "Write a very long story about dragons and adventures",
+          "role": "user"
+        }
+      ],
+      "model": "google/gemini-2.0-flash-001",
+      "n": 1,
+      "stream": false,
+      "temperature": 0.5
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "length",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "The wind, a biting whip of ice and snow, howled across the Spine of the World, a mountain range that clawed at the heavens like a petrified titan. Elara, a wisp of a girl with eyes the color of glacial ice and hair like spun moonlight, huddled deeper into the meager shelter of a snow-laden pine. She was a scavenger, a child of the mountains, and survival was etched into her bones. But tonight, survival felt impossibly distant.\n\nFor",
+            "reasoning": null,
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "MAX_TOKENS"
+        }
+      ],
+      "created": 1759845358,
+      "id": "gen-1759845358-brjZFArkRchw7ewTJQpc",
+      "model": "google/gemini-2.0-flash-001",
+      "object": "chat.completion",
+      "provider": "Google AI Studio",
+      "usage": {
+        "completion_tokens": 99,
+        "completion_tokens_details": {
+          "image_tokens": 0,
+          "reasoning_tokens": 0
+        },
+        "prompt_tokens": 9,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "total_tokens": 108
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade63559a8f4e8-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:55:59 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

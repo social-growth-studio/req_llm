@@ -1,0 +1,109 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJjb250ZW50cyI6W3sicGFydHMiOlt7InRleHQiOiJXcml0ZSBhIHZlcnkgbG9uZyBzdG9yeSBhYm91dCBkcmFnb25zIGFuZCBhZHZlbnR1cmVzIn1dLCJyb2xlIjoidXNlciJ9XSwiZ2VuZXJhdGlvbkNvbmZpZyI6eyJjYW5kaWRhdGVDb3VudCI6MSwibWF4T3V0cHV0VG9rZW5zIjoxMDAsInRlbXBlcmF0dXJlIjowLjV9fQ=="
+    },
+    "canonical_json": {
+      "contents": [
+        {
+          "parts": [
+            {
+              "text": "Write a very long story about dragons and adventures"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "generationConfig": {
+        "candidateCount": 1,
+        "maxOutputTokens": 100,
+        "temperature": 0.5
+      }
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=%5BREDACTED%3Akey%5D"
+  },
+  "response": {
+    "body": {
+      "candidates": [
+        {
+          "avgLogprobs": -0.522070566813151,
+          "content": {
+            "parts": [
+              {
+                "text": "The wind, a frigid sculptor, carved the peaks of the Dragon's Tooth Mountains into jagged monuments of ice and stone. In the heart of this unforgiving landscape, nestled within a caldera that breathed plumes of geothermal steam, lived Ignis. Not just any dragon, mind you, but a Sunscale, his scales shimmering with the fiery hues of a dying sunset. Ignis was ancient, his eyes, twin pools of molten gold, having witnessed the rise and fall of empires, the shifting"
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "MAX_TOKENS"
+        }
+      ],
+      "modelVersion": "gemini-2.0-flash-lite",
+      "responseId": "tm3laLqnEbep_uMP-LbCuAQ",
+      "usageMetadata": {
+        "candidatesTokenCount": 99,
+        "candidatesTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 99
+          }
+        ],
+        "promptTokenCount": 9,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 9
+          }
+        ],
+        "totalTokenCount": 108
+      }
+    },
+    "headers": {
+      "alt-svc": [
+        "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+      ],
+      "content-type": [
+        "application/json; charset=UTF-8"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 19:44:55 GMT"
+      ],
+      "server": [
+        "scaffolding on HTTPServer2"
+      ],
+      "server-timing": [
+        "gfet4t7; dur=1205"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Origin",
+        "X-Origin",
+        "Referer"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ],
+      "x-frame-options": [
+        "SAMEORIGIN"
+      ],
+      "x-xss-protection": [
+        "0"
+      ]
+    },
+    "status": 200
+  }
+}

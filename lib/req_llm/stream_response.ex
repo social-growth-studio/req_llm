@@ -380,13 +380,16 @@ defmodule ReqLLM.StreamResponse do
     # Build message from stream chunks
     message = build_message_from_chunks(stream_chunks)
 
+    # Extract object from tool calls if present (for structured output)
+    object = extract_object_from_message(message)
+
     # Create Response struct
     response = %Response{
       id: generate_response_id(),
       model: stream_response.model.model,
       context: stream_response.context,
       message: message,
-      object: nil,
+      object: object,
       stream?: false,
       stream: nil,
       usage: Map.get(metadata, :usage),
@@ -410,25 +413,53 @@ defmodule ReqLLM.StreamResponse do
       |> Enum.filter(&(&1.type == :content))
       |> Enum.map_join("", & &1.text)
 
-    # Build tool calls from tool_call chunks
+    # Collect all thinking/reasoning content
+    thinking_content =
+      chunks
+      |> Enum.filter(&(&1.type == :thinking))
+      |> Enum.map_join("", & &1.text)
+
+    # Accumulate JSON fragments from meta chunks
+    json_fragments_by_index =
+      chunks
+      |> Enum.filter(&(&1.type == :meta))
+      |> Enum.filter(&match?(%{metadata: %{tool_call_args: %{index: _, fragment: _}}}, &1))
+      |> Enum.group_by(fn chunk -> chunk.metadata.tool_call_args.index end)
+      |> Map.new(fn {index, meta_chunks} ->
+        json =
+          meta_chunks
+          |> Enum.map_join("", & &1.metadata.tool_call_args.fragment)
+
+        {index, json}
+      end)
+
+    # Build tool calls from tool_call chunks, merging accumulated JSON
     tool_calls =
       chunks
       |> Enum.filter(&(&1.type == :tool_call))
       |> Enum.map(fn chunk ->
+        index = Map.get(chunk.metadata, :index)
+        json_string = Map.get(json_fragments_by_index, index, "")
+
+        arguments =
+          if json_string == "" do
+            chunk.arguments
+          else
+            case Jason.decode(json_string) do
+              {:ok, decoded} -> decoded
+              {:error, _} -> chunk.arguments
+            end
+          end
+
         %{
           name: chunk.name,
-          arguments: chunk.arguments,
-          id: Map.get(chunk.metadata, :tool_call_id)
+          arguments: arguments,
+          id: Map.get(chunk.metadata, :id) || Map.get(chunk.metadata, :tool_call_id)
         }
       end)
 
-    # Create content parts
-    content_parts =
-      if text_content == "" do
-        []
-      else
-        [%{type: :text, text: text_content}]
-      end
+    # Create content parts - if text is valid JSON and no tool calls, create object part
+    content_parts = build_content_parts(text_content, thinking_content, tool_calls)
 
     %ReqLLM.Message{
       role: :assistant,
@@ -436,6 +467,61 @@ defmodule ReqLLM.StreamResponse do
       tool_calls: if(tool_calls != [], do: tool_calls),
       metadata: %{}
     }
+  end
+
+  defp build_content_parts(text_content, thinking_content, tool_calls) do
+    parts =
+      if tool_calls == [] and text_content != "" and looks_like_json?(text_content) do
+        case Jason.decode(text_content) do
+          {:ok, parsed_json} when is_map(parsed_json) ->
+            [%{type: :object, object: parsed_json}]
+
+          _ ->
+            []
+            |> maybe_add_text_part(text_content)
+            |> maybe_add_thinking_part(thinking_content)
+        end
+      else
+        []
+        |> maybe_add_text_part(text_content)
+        |> maybe_add_thinking_part(thinking_content)
+      end
+
+    parts
+  end
+
+  defp looks_like_json?(text) do
+    trimmed = String.trim(text)
+    String.starts_with?(trimmed, "{") and String.ends_with?(trimmed, "}")
+  end
+
+  defp maybe_add_text_part(parts, ""), do: parts
+  defp maybe_add_text_part(parts, text), do: parts ++ [%{type: :text, text: text}]
+
+  defp maybe_add_thinking_part(parts, ""), do: parts
+  defp maybe_add_thinking_part(parts, thinking), do: parts ++ [%{type: :thinking, text: thinking}]
+
+  # Extract object from message (for structured output)
+  defp extract_object_from_message(%ReqLLM.Message{content: content, tool_calls: tool_calls}) do
+    with nil <- extract_from_tool_calls(tool_calls) do
+      extract_from_content(content)
+    end
+  end
+
+  defp extract_from_tool_calls(tool_calls) when is_list(tool_calls) do
+    case Enum.find(tool_calls, fn tc -> tc.name == "structured_output" end) do
+      %{arguments: args} when is_map(args) -> args
+      _ -> nil
+    end
+  end
+
+  defp extract_from_tool_calls(_), do: nil
+
+  defp extract_from_content(content) do
+    case Enum.find(content, fn part -> is_map(part) and part[:type] == :object end) do
+      %{object: obj} when is_map(obj) -> obj
+      _ -> nil
+    end
   end
 
   # Generate a unique response ID

@@ -1,0 +1,126 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJjb250ZW50cyI6W3sicGFydHMiOlt7InRleHQiOiJUZWxsIG1lIGEgam9rZSBhYm91dCBjYXRzIn1dLCJyb2xlIjoidXNlciJ9XSwiZ2VuZXJhdGlvbkNvbmZpZyI6eyJjYW5kaWRhdGVDb3VudCI6MSwibWF4T3V0cHV0VG9rZW5zIjoxMzEwNiwidGVtcGVyYXR1cmUiOjAuMH0sInRvb2xzIjpbeyJmdW5jdGlvbkRlY2xhcmF0aW9ucyI6W3siZGVzY3JpcHRpb24iOiJHZXQgY3VycmVudCB3ZWF0aGVyIGluZm9ybWF0aW9uIGZvciBhIGxvY2F0aW9uIiwibmFtZSI6ImdldF93ZWF0aGVyIiwicGFyYW1ldGVycyI6eyJwcm9wZXJ0aWVzIjp7ImxvY2F0aW9uIjp7InR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbImxvY2F0aW9uIl0sInR5cGUiOiJvYmplY3QifX1dfV19"
+    },
+    "canonical_json": {
+      "contents": [
+        {
+          "parts": [
+            {
+              "text": "Tell me a joke about cats"
+            }
+          ],
+          "role": "user"
+        }
+      ],
+      "generationConfig": {
+        "candidateCount": 1,
+        "maxOutputTokens": 13106,
+        "temperature": 0.0
+      },
+      "tools": [
+        {
+          "functionDeclarations": [
+            {
+              "description": "Get current weather information for a location",
+              "name": "get_weather",
+              "parameters": {
+                "properties": {
+                  "location": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "location"
+                ],
+                "type": "object"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=%5BREDACTED%3Akey%5D"
+  },
+  "response": {
+    "body": {
+      "candidates": [
+        {
+          "content": {
+            "parts": [
+              {
+                "text": "Why did the cat get a detention?\n\nIt was caught littering",
+                "thoughtSignature": "CrkEAdHtim8359PopRJKOgGYzj3Pk/egceIk+5MYVJ/racmU4EGodPazg63cEijIOZt/+atE/tet6tVghRO2fMzGJOIFI2mYsnKDOAMkibroU2AmREkyeTpHON3v5c1rUfz8YqXqLSXNQf9rA1NPI4ZmJEFJcWDGVw9YPJH8TD3wTJue1hH3f5BB5NPqFK5VG4/xesykYOF1eL8Md+iPzXZMnCAXU456tcG8PnX6BwLrXSbMcLv73vf2xhSOdWGLPhyJoeAi7qMZIt0+cnwQCAmHDICYsBN4ft0oiyOpzUw5fh2iFNauvDf+5YsLozzprza2vxX4u4QbDeSuUGNYyllDRhRrPtsvdPJEGcrt/Yonhau5Unoh3HSxLh+GrnAPEMod0qPn8orkdqyRbe0XemR7tlDVYKOcOO44lSKl2W70hIqda6KZgL/rl4PuDns8qUtu0UJQpYojrMucJM4IdG6UQiiVooOgyXEK8Z3D6ecNWGfFK4qDgmht8s3Wbx4JaP5uDCafZJI8dracAQMziDVxTBpPqc+pu7Ci1k0d+9JXfFQOyAOzJ7EWrzdaLt7PpvXuBNS20LEivYJCX9MduOZ78iagppfipvahZBoITe8g90AdpAVwCZ3IWeYiKrlMjYz1p+UYaPPS3hY4zKlV0VHciMcn0KGev9h4AJwPeMhYSIvaoUGtVNnW/u3eie+CAJlpNPLAiGBNJ7y+mhBROWsp94eKsnh1y09BZxmj91MLN5nDx2lxzwhM9SI="
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        }
+      ],
+      "modelVersion": "gemini-2.5-pro",
+      "responseId": "XTDlaOKeOsHQjMcPruHv4Ac",
+      "usageMetadata": {
+        "candidatesTokenCount": 14,
+        "promptTokenCount": 46,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 46
+          }
+        ],
+        "thoughtsTokenCount": 126,
+        "totalTokenCount": 186
+      }
+    },
+    "headers": {
+      "alt-svc": [
+        "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+      ],
+      "content-type": [
+        "application/json; charset=UTF-8"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 15:23:09 GMT"
+      ],
+      "server": [
+        "scaffolding on HTTPServer2"
+      ],
+      "server-timing": [
+        "gfet4t7; dur=2404"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Origin",
+        "X-Origin",
+        "Referer"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ],
+      "x-frame-options": [
+        "SAMEORIGIN"
+      ],
+      "x-xss-protection": [
+        "0"
+      ]
+    },
+    "status": 200
+  }
+}

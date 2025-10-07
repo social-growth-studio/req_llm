@@ -1,0 +1,115 @@
+{
+  "request": {
+    "body": {
+      "b64": "eyJtYXhfdG9rZW5zIjoyMDAwLCJtZXNzYWdlcyI6W3siY29udGVudCI6IkhlbGxvIHdvcmxkISIsInJvbGUiOiJ1c2VyIn1dLCJtb2RlbCI6Im9wZW5haS9ncHQtNS1taW5pIiwibiI6MSwicmVhc29uaW5nX2VmZm9ydCI6ImxvdyIsInNlZWQiOjQyLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MC4wfQ=="
+    },
+    "canonical_json": {
+      "max_tokens": 2000,
+      "messages": [
+        {
+          "content": "Hello world!",
+          "role": "user"
+        }
+      ],
+      "model": "openai/gpt-5-mini",
+      "n": 1,
+      "reasoning_effort": "low",
+      "seed": 42,
+      "stream": false,
+      "temperature": 0.0
+    },
+    "headers": {
+      "accept-encoding": [
+        "gzip"
+      ],
+      "authorization": "[REDACTED:authorization]",
+      "content-type": [
+        "application/json"
+      ],
+      "user-agent": [
+        "req/0.5.15"
+      ]
+    },
+    "method": "post",
+    "url": "https://openrouter.ai/api/v1/chat/completions"
+  },
+  "response": {
+    "body": {
+      "choices": [
+        {
+          "finish_reason": "stop",
+          "index": 0,
+          "logprobs": null,
+          "message": {
+            "content": "Hello! 👋 How can I help you today — chat, code, answer questions, or something else?",
+            "reasoning": "I'm noticing that the user is greeting me with \"Hello world!\" so it seems like they want to start a friendly conversation. I think it would be nice to match their enthusiasm and respond warmly. I want to keep it brief but also let them know I'm here to help. Offering options like coding help or just a general chat seems like a good move. Let’s make it engaging and approachable!",
+            "reasoning_details": [
+              {
+                "format": "openai-responses-v1",
+                "index": 0,
+                "summary": "I'm noticing that the user is greeting me with \"Hello world!\" so it seems like they want to start a friendly conversation. I think it would be nice to match their enthusiasm and respond warmly. I want to keep it brief but also let them know I'm here to help. Offering options like coding help or just a general chat seems like a good move. Let’s make it engaging and approachable!",
+                "type": "reasoning.summary"
+              },
+              {
+                "data": "gAAAAABo5RxjaAvyG4vBOdSeqsm3fWs0Q1XCMoajHriioK4Jur0zoMWiFy5Jb0-JPZmEddkdVNx6SDoSV8xTFOHswI7QkBx2tBkSCSdVfjihjAhhwRRXy9FHKAM13dSxXxR9codN5IKdvG_IDhsmI8ObZY_CF5Oad9_Wmsxb2rSHDHBPwxwD-uTQjS_jA5K0ihaA11pUtS-HaAqRXGNd2Vjyp-J-kIWByhG04oDJaRRs-W3Ld3gL4ptAFv27u-4d4MwsShOyjA51yfjiLbIBFtTgFfblLLNixSml_BVWI4fNzkjehfd9gwKFafd0wNQOyh3KPmQRmWIl2kIaafIdhia-FGniCqSrmapcJJbP8u45lrF9PW379wxw8IPNFtncV77IJmCdGfI76Ccy9lsoXyU6LSVnsuQdIG82GfrdkEsEqV2auhNfQwcTU5AivssMh6EFkfxrfdKseB4ia_l4ZsrR-3eg8tUNuxgY_VpMxdh6D8KYv6IIxMGKTmSvTTLcxopH6Uaa9CASqSC-W2AH_0Dlu5S7P2bq9f8prO-LXw246LFUiP24GHnWQ7gqMvMMW6pKF-6wUDn52gbbHF2O92xw0B22kbClm7O_J9WINhFudnTP-JgVUnqO9iJDaqRhv8zr2Rz6IxGmGI7KTG0vjoANU3xBlAlOeHVoJZ6CqUXdR-x_MFedzt7fVEDoI3uZ19p1YSTbO0MlmYl8__ZB-Rs8L6iPkNpNz4Q2DupdA_ROE4X9mDAKOdVnZXs7IUVznbOWURwngCuTrMz4ZtZYa-kT8znM5VHtQolGs3FRNUHQAkFxr7SgwN66r-1eg_XCBWj3fKtCvLYS-7dSxJ75BwAOYIS1QyAiV6mEuMs1O0EfvyC-24pjQwuFhONlTF4B8i5vIcYPMNeM6KV-7GsJJ-Kq9ckVz4od_NtUuemTF3wXNYIUik392nEQ3opuJWxlkkKDw7jmlff_DN7N-Zkk06yV8Tx43pIq2xzeZCLpF8yZoTS958gUCrxrzgzxiJHYg9M_3tini-okV_4qwm00T-lemjhVFilOjJx82xrC9DMgSIe3NldcItqqj2rHocev53ZEZYycWYry",
+                "format": "openai-responses-v1",
+                "id": "rs_0203699336dded2d0168e51c60356081949645f7873473f464",
+                "index": 0,
+                "type": "reasoning.encrypted"
+              }
+            ],
+            "refusal": null,
+            "role": "assistant"
+          },
+          "native_finish_reason": "completed"
+        }
+      ],
+      "created": 1759845471,
+      "id": "gen-1759845471-TFY3ciEpUSih3Ge7TkXz",
+      "model": "openai/gpt-5-mini",
+      "object": "chat.completion",
+      "provider": "OpenAI",
+      "usage": {
+        "completion_tokens": 28,
+        "prompt_tokens": 9,
+        "total_tokens": 37
+      }
+    },
+    "headers": {
+      "access-control-allow-origin": [
+        "*"
+      ],
+      "cf-ray": [
+        "98ade8f43f0f4848-ORD"
+      ],
+      "connection": [
+        "keep-alive"
+      ],
+      "content-type": [
+        "application/json"
+      ],
+      "date": [
+        "Tue, 07 Oct 2025 13:57:51 GMT"
+      ],
+      "permissions-policy": [
+        "payment=(self \"https://checkout.stripe.com\" \"https://connect-js.stripe.com\" \"https://js.stripe.com\" \"https://*.js.stripe.com\" \"https://hooks.stripe.com\")"
+      ],
+      "referrer-policy": [
+        "no-referrer, strict-origin-when-cross-origin"
+      ],
+      "server": [
+        "cloudflare"
+      ],
+      "transfer-encoding": [
+        "chunked"
+      ],
+      "vary": [
+        "Accept-Encoding"
+      ],
+      "x-content-type-options": [
+        "nosniff"
+      ]
+    },
+    "status": 200
+  }
+}

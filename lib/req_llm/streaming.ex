@@ -112,7 +112,15 @@ defmodule ReqLLM.Streaming do
          :ok <- StreamServer.attach_http_task(server_pid, http_task_pid),
          :ok <- set_fixture_context_if_needed(server_pid, http_context, canonical_json) do
       # Create lazy stream using Stream.resource
-      stream = create_lazy_stream(server_pid)
+      default_timeout =
+        Application.get_env(
+          :req_llm,
+          :stream_receive_timeout,
+          Application.get_env(:req_llm, :receive_timeout, 30_000)
+        )
+
+      receive_timeout = Keyword.get(opts, :receive_timeout, default_timeout)
+      stream = create_lazy_stream(server_pid, receive_timeout)
 
       # Start metadata collection task
       metadata_task = start_metadata_task(server_pid)
@@ -142,11 +150,10 @@ defmodule ReqLLM.Streaming do
     server_opts = [
       provider_mod: provider_mod,
       model: model,
-      fixture_path: Keyword.get(opts, :fixture_path),
+      fixture_path: maybe_capture_fixture(model, opts),
       high_watermark: Keyword.get(opts, :high_watermark, 500)
     ]
 
-    # Add GenServer options if provided
     genserver_opts = Keyword.take(opts, [:name, :timeout, :debug, :spawn_opt, :hibernate_after])
     all_opts = Keyword.merge(server_opts, genserver_opts)
 
@@ -183,22 +190,35 @@ defmodule ReqLLM.Streaming do
 
   # Set fixture context if fixture capture is enabled
   defp set_fixture_context_if_needed(server_pid, http_context, canonical_json) do
-    # Only set fixture context if this is a LIVE test run (fixture capture enabled)
-    if System.get_env("LIVE") in ~w(1 true TRUE) do
+    if fixture_mode() == :record do
       StreamServer.set_fixture_context(server_pid, http_context, canonical_json)
     else
       :ok
     end
   end
 
+  defp fixture_mode do
+    case Code.ensure_loaded(ReqLLM.Test.Fixtures) do
+      {:module, mod} -> apply(mod, :mode, [])
+      {:error, _} -> :replay
+    end
+  end
+
+  defp maybe_capture_fixture(model, opts) do
+    case Code.ensure_loaded(ReqLLM.Test.Fixtures) do
+      {:module, mod} -> apply(mod, :capture_path, [model, opts])
+      {:error, _} -> nil
+    end
+  end
+
   # Create lazy stream using Stream.resource that calls StreamServer.next/2
-  defp create_lazy_stream(server_pid) do
+  defp create_lazy_stream(server_pid, timeout) do
     Stream.resource(
       # start_fn: return the server pid
       fn -> server_pid end,
       # next_fn: get next chunk from server
       fn server ->
-        case StreamServer.next(server, 30_000) do
+        case StreamServer.next(server, timeout) do
           {:ok, chunk} ->
             {[chunk], server}
 
@@ -218,7 +238,9 @@ defmodule ReqLLM.Streaming do
   # Start metadata collection task that awaits completion
   defp start_metadata_task(server_pid) do
     Task.async(fn ->
-      case StreamServer.await_metadata(server_pid, 60_000) do
+      metadata_timeout = Application.get_env(:req_llm, :metadata_timeout, 60_000)
+
+      case StreamServer.await_metadata(server_pid, metadata_timeout) do
         {:ok, metadata} ->
           metadata
 
