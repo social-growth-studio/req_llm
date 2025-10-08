@@ -7,7 +7,7 @@ defmodule ReqLLM.Providers.Anthropic.Context do
   ## Key Differences from OpenAI
 
   - Uses content blocks instead of simple strings
-  - System messages are included in the messages array 
+  - System messages are included in the messages array
   - Tool calls are represented as content blocks with type "tool"
   - Different parameter names (stop_sequences vs stop)
 
@@ -43,7 +43,6 @@ defmodule ReqLLM.Providers.Anthropic.Context do
   end
 
   defp extract_model_name(%{model: model_name}), do: model_name
-  defp extract_model_name(%ReqLLM.Model{model: model_name}), do: model_name
   defp extract_model_name(model) when is_binary(model), do: model
   defp extract_model_name(_), do: "unknown"
 
