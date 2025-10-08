@@ -7,6 +7,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-rc.5] - 2025-02-07
+
+### Added
+- New Cerebras provider implementation with OpenAI-compatible Chat Completions API
+- Context.from_json/1 for JSON deserialization enabling round-trip serialization
+- Schema `:in` type support for enums, ranges, and MapSets with JSON Schema generation
+- Embed and embed_many functions supporting single and multiple text inputs
+- New reasoning controls: `reasoning_effort`, `thinking_visibility`, and `reasoning_token_budget`
+- Usage tracking for cached_tokens and reasoning_tokens across all providers
+- Model compatibility validation task (`mix mc`) with fixture-based testing
+- URL sanitization in transcripts to redact sensitive parameters (api_key, token)
+- Comprehensive example scripts for embeddings and multimodal analysis
+
+### Enhanced
+- Major coverage test refresh with extensive fixture updates across all providers
+- Unified generation options schema delegating to ReqLLM.Provider.Options
+- Provider response handling with better error messages and compatibility
+- Google Gemini streaming reliability and thinking budget support for 2.5 models
+- OpenAI provider with structured output response_format option and legacy tool call decoding
+- Groq provider with improved streaming and state management
+- Model synchronization and compatibility testing infrastructure
+- Documentation with expanded getting-started.livemd guide and fixes.md
+
+### Fixed
+- Legacy parameter normalization (stop_sequences, thinking, reasoning)
+- Google provider usage calculation handling missing candidatesTokenCount
+- OpenAI response handling for structured output and reasoning models
+- Groq encoding and streaming response handling
+- Timeout issues in model compatibility testing
+- String splitting for model names using parts: 2 for consistent pattern extraction
+
+### Changed
+- Deprecated parameters removed from provider implementations for cleaner code
+- Model compatibility task output format streamlined
+- Supported models state management with last recorded timestamps
+- Sample models configuration replacing test model references
+
+### Infrastructure
+- Added Plug dependency for testing
+- Dev tooling with tidewave for project_eval in dev scenarios
+- Enhanced .gitignore to track script files
+- Model prefix matching in compatibility task for improved filtering
+
 ## [1.0.0-rc.4] - 2025-01-29
 
 ### Added
@@ -143,6 +186,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Quality tooling with Dialyzer, Credo, and formatter
 - LiveFixture testing framework for API mocking
 
+[1.0.0-rc.5]: https://github.com/agentjido/req_llm/releases/tag/v1.0.0-rc.5
 [1.0.0-rc.4]: https://github.com/agentjido/req_llm/releases/tag/v1.0.0-rc.4
 [1.0.0-rc.3]: https://github.com/agentjido/req_llm/releases/tag/v1.0.0-rc.3
 [1.0.0-rc.2]: https://github.com/agentjido/req_llm/releases/tag/v1.0.0-rc.2
