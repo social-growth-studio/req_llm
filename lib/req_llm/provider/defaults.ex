@@ -594,6 +594,23 @@ defmodule ReqLLM.Provider.Defaults do
     }
   end
 
+  defp encode_openai_content_part(%ReqLLM.Message.ContentPart{
+         type: :file,
+         data: data,
+         media_type: media_type
+       })
+       when is_binary(data) do
+    # Encode file as image_url data URI (OpenAI format supports various media types this way)
+    base64 = Base.encode64(data)
+
+    %{
+      type: "image_url",
+      image_url: %{
+        url: "data:#{media_type};base64,#{base64}"
+      }
+    }
+  end
+
   defp encode_openai_content_part(_), do: nil
 
   @doc """

@@ -1049,12 +1049,56 @@ defmodule ReqLLM.Providers.Google do
     end)
   end
 
-  defp convert_content_part(%{type: :text, content: text}), do: %{text: text}
-  defp convert_content_part(%{"type" => "text", "text" => text}), do: %{text: text}
-  defp convert_content_part(%{text: text}), do: %{text: text}
-  defp convert_content_part(%{"text" => text}), do: %{text: text}
-  defp convert_content_part(text) when is_binary(text), do: %{text: text}
+  # Handle OpenAI-format image_url with atom keys (from encoded file/image content)
+  defp convert_content_part(%{type: "image_url", image_url: %{url: url}}) when is_binary(url) do
+    # Parse data URI format: data:mime/type;base64,<data>
+    case String.split(url, ",", parts: 2) do
+      [header, base64_data] ->
+        mime_type =
+          case Regex.run(~r/data:([^;]+)/, header) do
+            [_, type] -> type
+            _ -> "image/jpeg"
+          end
 
+        %{
+          inline_data: %{
+            mime_type: mime_type,
+            data: base64_data
+          }
+        }
+
+      _ ->
+        # Not a data URI, might be a URL
+        %{text: "[Unsupported image URL]"}
+    end
+  end
+
+  # Handle OpenAI-format image_url with string keys
+  defp convert_content_part(%{"type" => "image_url", "image_url" => %{"url" => url}})
+       when is_binary(url) do
+    # Parse data URI format: data:mime/type;base64,<data>
+    case String.split(url, ",", parts: 2) do
+      [header, base64_data] ->
+        mime_type =
+          case Regex.run(~r/data:([^;]+)/, header) do
+            [_, type] -> type
+            _ -> "image/jpeg"
+          end
+
+        %{
+          inline_data: %{
+            mime_type: mime_type,
+            data: base64_data
+          }
+        }
+
+      _ ->
+        # Not a data URI, might be a URL
+        %{text: "[Unsupported image URL]"}
+    end
+  end
+
+  # Most specific patterns first (file, image, etc.) - for ContentPart structs
   defp convert_content_part(%{type: :file, data: data, media_type: media_type})
        when is_binary(data) do
     encoded_data = Base.encode64(data)
@@ -1066,6 +1110,15 @@ defmodule ReqLLM.Providers.Google do
       }
     }
   end
+
+  # Specific text patterns
+  defp convert_content_part(%{type: :text, content: text}), do: %{text: text}
+  defp convert_content_part(%{"type" => "text", "text" => text}), do: %{text: text}
+
+  # Generic catch-all patterns (must come after specific patterns)
+  defp convert_content_part(%{text: text}) when is_binary(text), do: %{text: text}
+  defp convert_content_part(%{"text" => text}) when is_binary(text), do: %{text: text}
+  defp convert_content_part(text) when is_binary(text), do: %{text: text}
 
   defp convert_content_part(part), do: %{text: to_string(part)}
 
