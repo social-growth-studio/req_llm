@@ -123,6 +123,7 @@ defmodule ReqLLM.Provider.Registry do
 
     * `{:ok, module}` - Provider module found
     * `{:error, :not_found}` - Provider not registered
+    * `{:error, :not_implemented}` - Provider exists but has no implementation (metadata-only)
 
   ## Examples
 
@@ -133,9 +134,10 @@ defmodule ReqLLM.Provider.Registry do
       #=> {:error, :not_found}
 
   """
-  @spec get_provider(atom()) :: {:ok, module()} | {:error, :not_found}
+  @spec get_provider(atom()) :: {:ok, module()} | {:error, :not_found | :not_implemented}
   def get_provider(provider_id) when is_atom(provider_id) do
     case get_registry() do
+      %{^provider_id => %{module: nil}} -> {:error, :not_implemented}
       %{^provider_id => %{module: module}} -> {:ok, module}
       _ -> {:error, :not_found}
     end
@@ -144,7 +146,7 @@ defmodule ReqLLM.Provider.Registry do
   @doc """
   Alias for get_provider/1 to match legacy API expectations.
   """
-  @spec fetch(atom()) :: {:ok, module()} | {:error, :not_found}
+  @spec fetch(atom()) :: {:ok, module()} | {:error, :not_found | :not_implemented}
   def fetch(provider_id), do: get_provider(provider_id)
 
   @doc """
