@@ -591,8 +591,11 @@ defmodule ReqLLM.Provider.Registry do
   @doc false
   @spec provider_module?(module()) :: boolean()
   def provider_module?(module) do
-    behaviours = module.__info__(:attributes)[:behaviour] || []
-    ReqLLM.Provider in behaviours
+    # Ensure module is loaded before checking
+    Code.ensure_loaded?(module) and
+      function_exported?(module, :prepare_request, 4) and
+      function_exported?(module, :attach, 3) and
+      function_exported?(module, :provider_id, 0)
   rescue
     _ -> false
   end
