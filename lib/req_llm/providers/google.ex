@@ -544,6 +544,7 @@ defmodule ReqLLM.Providers.Google do
 
   defp convert_to_google_schema(schema) when is_map(schema) do
     schema
+    |> Map.delete("additionalProperties")
     |> Map.new(fn {key, value} ->
       case key do
         "type" -> {"type", to_google_type(value)}
@@ -639,10 +640,17 @@ defmodule ReqLLM.Providers.Google do
             {:ok, response} =
               ReqLLM.Provider.Defaults.decode_response_body_openai_format(openai_format, model)
 
+            # Extract and set object from JSON text content (like OpenAI json_schema mode)
+            response_with_object =
+              case ReqLLM.Response.unwrap_object(response) do
+                {:ok, object} -> %{response | object: object}
+                {:error, _} -> response
+              end
+
             merged_response =
               ReqLLM.Context.merge_response(
                 req.options[:context] || %ReqLLM.Context{messages: []},
-                response
+                response_with_object
               )
 
             {req, %{resp | body: merged_response}}
@@ -784,21 +792,12 @@ defmodule ReqLLM.Providers.Google do
             |> Enum.filter(&Map.has_key?(&1, "text"))
             |> Enum.map_join("", & &1["text"])
 
-          parsed_json =
-            case Jason.decode(json_text) do
-              {:ok, json} -> json
-              {:error, _} -> %{}
-            end
-
+          # Return as text content (like OpenAI json_schema mode)
+          # ReqLLM.Response.unwrap_object will parse the JSON
           %{
             "message" => %{
               "role" => "assistant",
-              "content" => [
-                %{
-                  "type" => "object",
-                  "object" => parsed_json
-                }
-              ]
+              "content" => json_text
             },
             "finish_reason" => normalize_google_finish_reason(candidate["finishReason"])
           }
