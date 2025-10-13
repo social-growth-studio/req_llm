@@ -146,6 +146,80 @@ defmodule ReqLLM.Provider.OptionsTest do
     end
   end
 
+  describe "Options.process/4 - model options extraction" do
+    test "extracts max_tokens from model struct" do
+      model = %ReqLLM.Model{provider: :mock, model: "test-model", max_tokens: 4}
+      opts = []
+
+      assert {:ok, processed} = Options.process(MockProvider, :chat, model, opts)
+      assert processed[:max_tokens] == 4
+    end
+
+    test "opts take precedence over model max_tokens" do
+      model = %ReqLLM.Model{provider: :mock, model: "test-model", max_tokens: 4}
+      opts = [max_tokens: 100]
+
+      assert {:ok, processed} = Options.process(MockProvider, :chat, model, opts)
+      assert processed[:max_tokens] == 100
+    end
+
+    test "merges model max_tokens with other opts" do
+      model = %ReqLLM.Model{provider: :mock, model: "test-model", max_tokens: 4}
+      opts = [temperature: 0.7, top_p: 0.9]
+
+      assert {:ok, processed} = Options.process(MockProvider, :chat, model, opts)
+      assert processed[:max_tokens] == 4
+      assert processed[:temperature] == 0.7
+      assert processed[:top_p] == 0.9
+    end
+
+    test "handles model without max_tokens gracefully" do
+      model = %ReqLLM.Model{provider: :mock, model: "test-model", max_tokens: nil}
+      opts = [temperature: 0.7]
+
+      assert {:ok, processed} = Options.process(MockProvider, :chat, model, opts)
+      assert processed[:temperature] == 0.7
+      refute Keyword.has_key?(processed, :max_tokens)
+    end
+
+    test "works across different providers" do
+      # Test with MockProvider
+      model1 = %ReqLLM.Model{provider: :mock, model: "test-model", max_tokens: 50}
+      assert {:ok, processed1} = Options.process(MockProvider, :chat, model1, [])
+      assert processed1[:max_tokens] == 50
+
+      # Test with SimpleProvider
+      model2 = %ReqLLM.Model{provider: :simple, model: "test-model", max_tokens: 75}
+      assert {:ok, processed2} = Options.process(SimpleProvider, :chat, model2, [])
+      assert processed2[:max_tokens] == 75
+    end
+
+    test "extraction happens before provider translation" do
+      # MockProvider translates max_tokens -> max_completion_tokens for o1 models
+      model = %ReqLLM.Model{provider: :mock, model: "o1-preview", max_tokens: 1000}
+      opts = []
+
+      assert {:ok, processed} = Options.process(MockProvider, :chat, model, opts)
+
+      # max_tokens should be extracted from model, then translated
+      assert processed[:max_completion_tokens] == 1000
+      refute Keyword.has_key?(processed, :max_tokens)
+    end
+
+    test "does not extract max_tokens: 0 (embedding models)" do
+      # Embedding models have max_tokens: 0 in their limit.output
+      # This should NOT be extracted as it's not a valid max_tokens value
+      model = %ReqLLM.Model{provider: :mock, model: "embedding-model", max_tokens: 0}
+      opts = [temperature: 0.5]
+
+      assert {:ok, processed} = Options.process(MockProvider, :chat, model, opts)
+
+      # max_tokens: 0 should NOT be extracted
+      refute Keyword.has_key?(processed, :max_tokens)
+      assert processed[:temperature] == 0.5
+    end
+  end
+
   describe "Options.process/4 - req_http_options handling" do
     test "preserves req_http_options for merging into Req request" do
       model = %ReqLLM.Model{provider: :mock, model: "test-model"}

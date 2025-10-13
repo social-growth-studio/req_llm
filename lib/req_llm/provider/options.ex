@@ -225,6 +225,9 @@ defmodule ReqLLM.Provider.Options do
     user_opts = handle_stream_alias(user_opts)
     user_opts = normalize_legacy_options(user_opts)
 
+    # Extract model options (e.g. max_tokens) if present
+    user_opts = extract_model_options(model, user_opts)
+
     # Check for key collisions before schema validation
     check_provider_key_collisions!(provider_mod, user_opts)
 
@@ -395,6 +398,14 @@ defmodule ReqLLM.Provider.Options do
     |> normalize_legacy_reasoning()
     |> normalize_req_http_options()
     |> normalize_tools()
+  end
+
+  defp extract_model_options(%ReqLLM.Model{} = model, opts) do
+    if model.max_tokens && model.max_tokens > 0 do
+      Keyword.put_new(opts, :max_tokens, model.max_tokens)
+    else
+      opts
+    end
   end
 
   defp normalize_stop_sequences(opts) do
