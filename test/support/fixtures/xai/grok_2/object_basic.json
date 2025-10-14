@@ -1,7 +1,7 @@
 {
   "request": {
     "body": {
-      "b64": "eyJtYXhfY29tcGxldGlvbl90b2tlbnMiOjUwMCwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJHZW5lcmF0ZSBhIHNvZnR3YXJlIGVuZ2luZWVyIHByb2ZpbGUiLCJyb2xlIjoidXNlciJ9XSwibW9kZWwiOiJncm9rLTIiLCJzZWVkIjo0Miwic3RyZWFtIjpmYWxzZSwidGVtcGVyYXR1cmUiOjAuMCwidG9vbF9jaG9pY2UiOnsiZnVuY3Rpb24iOnsibmFtZSI6InN0cnVjdHVyZWRfb3V0cHV0In0sInR5cGUiOiJmdW5jdGlvbiJ9LCJ0b29scyI6W3siZnVuY3Rpb24iOnsiZGVzY3JpcHRpb24iOiJHZW5lcmF0ZSBzdHJ1Y3R1cmVkIG91dHB1dCBtYXRjaGluZyB0aGUgcHJvdmlkZWQgc2NoZW1hIiwibmFtZSI6InN0cnVjdHVyZWRfb3V0cHV0IiwicGFyYW1ldGVycyI6eyJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInByb3BlcnRpZXMiOnsiYWdlIjp7ImRlc2NyaXB0aW9uIjoiUGVyc29uJ3MgYWdlIGluIHllYXJzIiwibWluaW11bSI6MSwidHlwZSI6ImludGVnZXIifSwibmFtZSI6eyJkZXNjcmlwdGlvbiI6IlBlcnNvbidzIGZ1bGwgbmFtZSIsInR5cGUiOiJzdHJpbmcifSwib2NjdXBhdGlvbiI6eyJkZXNjcmlwdGlvbiI6IlBlcnNvbidzIGpvYiBvciBwcm9mZXNzaW9uIiwidHlwZSI6InN0cmluZyJ9fSwicmVxdWlyZWQiOlsibmFtZSIsImFnZSJdLCJ0eXBlIjoib2JqZWN0In19LCJ0eXBlIjoiZnVuY3Rpb24ifV19"
+      "b64": "eyJtYXhfY29tcGxldGlvbl90b2tlbnMiOjUwMCwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJHZW5lcmF0ZSBhIHNvZnR3YXJlIGVuZ2luZWVyIHByb2ZpbGUiLCJyb2xlIjoidXNlciJ9XSwibW9kZWwiOiJncm9rLTIiLCJwYXJhbGxlbF90b29sX2NhbGxzIjpmYWxzZSwic2VlZCI6NDIsInN0cmVhbSI6ZmFsc2UsInRlbXBlcmF0dXJlIjowLjAsInRvb2xfY2hvaWNlIjp7ImZ1bmN0aW9uIjp7Im5hbWUiOiJzdHJ1Y3R1cmVkX291dHB1dCJ9LCJ0eXBlIjoiZnVuY3Rpb24ifSwidG9vbHMiOlt7ImZ1bmN0aW9uIjp7ImRlc2NyaXB0aW9uIjoiR2VuZXJhdGUgc3RydWN0dXJlZCBvdXRwdXQgbWF0Y2hpbmcgdGhlIHByb3ZpZGVkIHNjaGVtYSIsIm5hbWUiOiJzdHJ1Y3R1cmVkX291dHB1dCIsInBhcmFtZXRlcnMiOnsiYWRkaXRpb25hbFByb3BlcnRpZXMiOmZhbHNlLCJwcm9wZXJ0aWVzIjp7ImFnZSI6eyJkZXNjcmlwdGlvbiI6IlBlcnNvbidzIGFnZSBpbiB5ZWFycyIsIm1pbmltdW0iOjEsInR5cGUiOiJpbnRlZ2VyIn0sIm5hbWUiOnsiZGVzY3JpcHRpb24iOiJQZXJzb24ncyBmdWxsIG5hbWUiLCJ0eXBlIjoic3RyaW5nIn0sIm9jY3VwYXRpb24iOnsiZGVzY3JpcHRpb24iOiJQZXJzb24ncyBqb2Igb3IgcHJvZmVzc2lvbiIsInR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbIm5hbWUiLCJhZ2UiXSwidHlwZSI6Im9iamVjdCJ9LCJzdHJpY3QiOnRydWV9LCJ0eXBlIjoiZnVuY3Rpb24ifV19"
     },
     "canonical_json": {
       "max_completion_tokens": 500,
@@ -12,6 +12,7 @@
         }
       ],
       "model": "grok-2",
+      "parallel_tool_calls": false,
       "seed": 42,
       "stream": false,
       "temperature": 0.0,
@@ -48,7 +49,8 @@
                 "age"
               ],
               "type": "object"
-            }
+            },
+            "strict": true
           },
           "type": "function"
         }
@@ -85,15 +87,15 @@
                   "arguments": "{\"age\":30,\"name\":\"John Doe\",\"occupation\":\"Software Engineer\"}",
                   "name": "structured_output"
                 },
-                "id": "call_21248742",
+                "id": "call_14971552",
                 "type": "function"
               }
             ]
           }
         }
       ],
-      "created": 1760391833,
-      "id": "038f3ad1-5078-d097-d351-2d73b517e31b_us-east-1",
+      "created": 1760458005,
+      "id": "877218ba-c174-9cd3-0040-533579af31eb_us-east-1",
       "model": "grok-2-1212",
       "object": "chat.completion",
       "system_fingerprint": "fp_fced99f24f",
@@ -127,7 +129,7 @@
         "DYNAMIC"
       ],
       "cf-ray": [
-        "98e203dd0fc3fa19-ORD"
+        "98e853681bfc0012-ORD"
       ],
       "connection": [
         "keep-alive"
@@ -136,13 +138,13 @@
         "application/json"
       ],
       "date": [
-        "Mon, 13 Oct 2025 21:43:53 GMT"
+        "Tue, 14 Oct 2025 16:06:46 GMT"
       ],
       "server": [
         "cloudflare"
       ],
       "set-cookie": [
-        "__cf_bm=PEKuF9NiHWy0r1S140x_gxLkM11Cv.KJiCa3EyhyqqU-1760391833-1.0.1.1-J1qB2r4qBubEtnBM.VKq4AakMW75oZwUX6eZz292lpIG3dg7uZ1tKKmYzu98Cn_vv25_ZQX2J9hRCrfKGoDjyZbS9PP_B.xzbkJZ5Fv0Z4U; path=/; expires=Mon, 13-Oct-25 22:13:53 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
+        "__cf_bm=9pUl4lggOjc7wxQhi6LWWTz8Yvdfo5EM6eokXwqHokE-1760458006-1.0.1.1-AecyydFhqbK0rDcHntEhv7X7zzFiUSVCV4OmRwh2wZFK6YqIeF3ECEXUEerXJ9IOvVcVAOSPacg12e9xeFCDQk0cNWq2TuhbAs5FpZDjfYM; path=/; expires=Tue, 14-Oct-25 16:36:46 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
       ],
       "strict-transport-security": [
         "max-age=31536000"
@@ -154,7 +156,7 @@
         "origin, access-control-request-method, access-control-request-headers"
       ],
       "x-request-id": [
-        "00-076b347f48d5e6f4b58aeff974259178-fc6ec90a00386d60-01"
+        "00-23f05648004ace41e8c4a7e1fe4e6c28-6e9a5f3f00525eb3-01"
       ],
       "x-zero-data-retention": [
         "false"

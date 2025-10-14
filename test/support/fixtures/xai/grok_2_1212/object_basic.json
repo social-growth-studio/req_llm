@@ -1,7 +1,7 @@
 {
   "request": {
     "body": {
-      "b64": "eyJtYXhfY29tcGxldGlvbl90b2tlbnMiOjUwMCwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJHZW5lcmF0ZSBhIHNvZnR3YXJlIGVuZ2luZWVyIHByb2ZpbGUiLCJyb2xlIjoidXNlciJ9XSwibW9kZWwiOiJncm9rLTItMTIxMiIsInNlZWQiOjQyLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MC4wLCJ0b29sX2Nob2ljZSI6eyJmdW5jdGlvbiI6eyJuYW1lIjoic3RydWN0dXJlZF9vdXRwdXQifSwidHlwZSI6ImZ1bmN0aW9uIn0sInRvb2xzIjpbeyJmdW5jdGlvbiI6eyJkZXNjcmlwdGlvbiI6IkdlbmVyYXRlIHN0cnVjdHVyZWQgb3V0cHV0IG1hdGNoaW5nIHRoZSBwcm92aWRlZCBzY2hlbWEiLCJuYW1lIjoic3RydWN0dXJlZF9vdXRwdXQiLCJwYXJhbWV0ZXJzIjp7ImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjpmYWxzZSwicHJvcGVydGllcyI6eyJhZ2UiOnsiZGVzY3JpcHRpb24iOiJQZXJzb24ncyBhZ2UgaW4geWVhcnMiLCJtaW5pbXVtIjoxLCJ0eXBlIjoiaW50ZWdlciJ9LCJuYW1lIjp7ImRlc2NyaXB0aW9uIjoiUGVyc29uJ3MgZnVsbCBuYW1lIiwidHlwZSI6InN0cmluZyJ9LCJvY2N1cGF0aW9uIjp7ImRlc2NyaXB0aW9uIjoiUGVyc29uJ3Mgam9iIG9yIHByb2Zlc3Npb24iLCJ0eXBlIjoic3RyaW5nIn19LCJyZXF1aXJlZCI6WyJuYW1lIiwiYWdlIl0sInR5cGUiOiJvYmplY3QifX0sInR5cGUiOiJmdW5jdGlvbiJ9XX0="
+      "b64": "eyJtYXhfY29tcGxldGlvbl90b2tlbnMiOjUwMCwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJHZW5lcmF0ZSBhIHNvZnR3YXJlIGVuZ2luZWVyIHByb2ZpbGUiLCJyb2xlIjoidXNlciJ9XSwibW9kZWwiOiJncm9rLTItMTIxMiIsInBhcmFsbGVsX3Rvb2xfY2FsbHMiOmZhbHNlLCJyZXNwb25zZV9mb3JtYXQiOnsianNvbl9zY2hlbWEiOnsibmFtZSI6Im91dHB1dF9zY2hlbWEiLCJzY2hlbWEiOnsiYWRkaXRpb25hbFByb3BlcnRpZXMiOmZhbHNlLCJwcm9wZXJ0aWVzIjp7ImFnZSI6eyJkZXNjcmlwdGlvbiI6IlBlcnNvbidzIGFnZSBpbiB5ZWFycyIsIm1pbmltdW0iOjEsInR5cGUiOiJpbnRlZ2VyIn0sIm5hbWUiOnsiZGVzY3JpcHRpb24iOiJQZXJzb24ncyBmdWxsIG5hbWUiLCJ0eXBlIjoic3RyaW5nIn0sIm9jY3VwYXRpb24iOnsiZGVzY3JpcHRpb24iOiJQZXJzb24ncyBqb2Igb3IgcHJvZmVzc2lvbiIsInR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbIm5hbWUiLCJhZ2UiXSwidHlwZSI6Im9iamVjdCJ9LCJzdHJpY3QiOnRydWV9LCJ0eXBlIjoianNvbl9zY2hlbWEifSwic2VlZCI6NDIsInN0cmVhbSI6ZmFsc2UsInRlbXBlcmF0dXJlIjowLjB9"
     },
     "canonical_json": {
       "max_completion_tokens": 500,
@@ -12,47 +12,40 @@
         }
       ],
       "model": "grok-2-1212",
+      "parallel_tool_calls": false,
+      "response_format": {
+        "json_schema": {
+          "name": "output_schema",
+          "schema": {
+            "additionalProperties": false,
+            "properties": {
+              "age": {
+                "description": "Person's age in years",
+                "minimum": 1,
+                "type": "integer"
+              },
+              "name": {
+                "description": "Person's full name",
+                "type": "string"
+              },
+              "occupation": {
+                "description": "Person's job or profession",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "age"
+            ],
+            "type": "object"
+          },
+          "strict": true
+        },
+        "type": "json_schema"
+      },
       "seed": 42,
       "stream": false,
-      "temperature": 0.0,
-      "tool_choice": {
-        "function": {
-          "name": "structured_output"
-        },
-        "type": "function"
-      },
-      "tools": [
-        {
-          "function": {
-            "description": "Generate structured output matching the provided schema",
-            "name": "structured_output",
-            "parameters": {
-              "additionalProperties": false,
-              "properties": {
-                "age": {
-                  "description": "Person's age in years",
-                  "minimum": 1,
-                  "type": "integer"
-                },
-                "name": {
-                  "description": "Person's full name",
-                  "type": "string"
-                },
-                "occupation": {
-                  "description": "Person's job or profession",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "name",
-                "age"
-              ],
-              "type": "object"
-            }
-          },
-          "type": "function"
-        }
-      ]
+      "temperature": 0.0
     },
     "headers": {
       "accept-encoding": [
@@ -73,32 +66,22 @@
     "body": {
       "choices": [
         {
-          "finish_reason": "tool_calls",
+          "finish_reason": "stop",
           "index": 0,
           "message": {
-            "content": "",
+            "content": "{\"age\":30,\"name\":\"John Doe\",\"occupation\":\"Software Engineer\"}",
             "refusal": null,
-            "role": "assistant",
-            "tool_calls": [
-              {
-                "function": {
-                  "arguments": "{\"age\":30,\"name\":\"John Doe\",\"occupation\":\"Software Engineer\"}",
-                  "name": "structured_output"
-                },
-                "id": "call_89847512",
-                "type": "function"
-              }
-            ]
+            "role": "assistant"
           }
         }
       ],
-      "created": 1760391830,
-      "id": "c32c0a15-5676-f814-b324-876b8974c387_us-east-1",
+      "created": 1760458004,
+      "id": "988ce909-1690-38aa-acd5-bc1b4e5ae71f_us-east-1",
       "model": "grok-2-1212",
       "object": "chat.completion",
       "system_fingerprint": "fp_fced99f24f",
       "usage": {
-        "completion_tokens": 51,
+        "completion_tokens": 16,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "audio_tokens": 0,
@@ -106,14 +89,14 @@
           "rejected_prediction_tokens": 0
         },
         "num_sources_used": 0,
-        "prompt_tokens": 165,
+        "prompt_tokens": 112,
         "prompt_tokens_details": {
           "audio_tokens": 0,
           "cached_tokens": 0,
           "image_tokens": 0,
-          "text_tokens": 165
+          "text_tokens": 112
         },
-        "total_tokens": 216
+        "total_tokens": 128
       }
     },
     "headers": {
@@ -127,7 +110,7 @@
         "DYNAMIC"
       ],
       "cf-ray": [
-        "98e203ccca460006-ORD"
+        "98e8535d9d66ead8-ORD"
       ],
       "connection": [
         "keep-alive"
@@ -136,13 +119,13 @@
         "application/json"
       ],
       "date": [
-        "Mon, 13 Oct 2025 21:43:51 GMT"
+        "Tue, 14 Oct 2025 16:06:44 GMT"
       ],
       "server": [
         "cloudflare"
       ],
       "set-cookie": [
-        "__cf_bm=8BYwYxc53SySv_jtKmpCue.5JKEYpSEfrdCYx4uOCb8-1760391831-1.0.1.1-jJReRmqwAVivaYKQJ7HKAfL_qaiJ8YRvAOua0UCfiPXKCaE57x16N8J6CLtNDcpHSG0AGbPGN3SUml0Hq7m3wnBg2xykN1qOeFrw5PQ4.EI; path=/; expires=Mon, 13-Oct-25 22:13:51 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
+        "__cf_bm=3fJiAyM6E_bJ3PlblSiK2oXkl.TswfFSR.32oohY_Do-1760458004-1.0.1.1-3mdIx.4uLPP9dRauoC_pIRGWR5FeUre6FLk60F9rJyZgCmGFHmzGjgw4pTCz1OLK_NexluQ80IjpUi0SArXWOvGk_mDMuBfvuPhgEwlfSQM; path=/; expires=Tue, 14-Oct-25 16:36:44 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
       ],
       "strict-transport-security": [
         "max-age=31536000"
@@ -154,7 +137,7 @@
         "origin, access-control-request-method, access-control-request-headers"
       ],
       "x-request-id": [
-        "00-4a794a792ac6b8d65d43d0a7d3947607-f15db74900307c18-01"
+        "00-5bc9c0159a7391a6ade5dc3d7225509f-cff931c40052b427-01"
       ],
       "x-zero-data-retention": [
         "false"

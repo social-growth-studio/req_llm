@@ -59,35 +59,35 @@
           "finish_reason": "stop",
           "index": 0,
           "message": {
-            "content": "I don't have a function for telling jokes, but I can help with weather information if you'd like! For example, what's your location for a weather update?",
-            "reasoning_content": "First, the user asked: \"Tell me a joke about cats.\" This is a request for a joke, which is not related to any of the available functions. The only available function is \"get_weather\", which is for getting weather information based on a location.\n\nI need to check if this query can be addressed using the available functions. The available functions are limited to getting weather, so no, this doesn't match.\n\nThe instructions say: \"If the user's query can be addressed using an available function, and all required parameters are provided or obviously inferable, trigger a function call.\" In this case, it cannot be addressed using any available function.\n\nFurther, \"Do not call a function if no matching functions apply or if parameters are missing/unclear. Ask for clarification only if none of the provided functions are able to advance the user's request.\"\n\nSince none of the functions can advance this request, I should not call a function. Instead, I should respond directly or ask for clarification if needed. But the query is clear; it's just not something I can handle with the tools I have.\n\nThe instructions emphasize: \"Keep your response to user clear; please do not make your response verbose!\" So, I should be concise.\n\nPossible responses: I could just tell a joke since that's what was asked, but my role is to use the tools provided. However, the system prompt doesn't specify that I have to only use functions; it says to call functions when appropriate.\n\nRe-reading the prompt: \"You can call functions to retrieve information or perform actions.\" But it doesn't say I can't respond directly if no function is needed.\n\nIn the context, it seems I'm an AI that should primarily use functions for tasks, but for something like telling a joke, which isn't covered, I should probably just respond.\n\nThe prompt says: \"If the user's query can be addressed using an available function... trigger a function call.\" Otherwise, don't.\n\nAt the end: \"Ask for clarification only if none of the provided functions are able to advance the user's request.\"\n\nSo, for this, none can advance it, so I shouldn't ask for clarification unless it's unclear. The request is clear; it's just not supported.\n\nI think the best action is to politely respond that I can't do that with the available tools, or perhaps just provide a joke since I'm an AI capable of that.\n\nTo stay true to the instructions, I should not make my response verbose and only call functions when appropriate.\n\nPerhaps a simple response: \"I don't have a function for telling jokes, but I can help with weather information.\"\n\nThat keeps it clear and non-verbose.\n\nI could just say: \"Sorry, I can only provide weather information.\"\n\nBut let's make it helpful.\n\nThe system prompt is about an AI that uses functions, so I should steer back to what I can do.\n\nFinal decision: Respond directly without calling a function, as no function applies.",
+            "content": "I'm sorry, I can't tell jokes as my capabilities are limited to tools like getting weather information. If you'd like, I can check the weather for a specific location instead! Just let me know the place.",
+            "reasoning_content": "First, the user asked: \"Tell me a joke about cats.\" This is a request for a joke, which is not related to any of the available functions. The only available function is \"get_weather\", which is for getting weather information based on a location.\n\nI need to check if this query can be addressed using the available functions. The available functions are limited to getting weather, so no, this doesn't match.\n\nThe instructions say: \"If the user's query can be addressed using an available function, and all required parameters are provided or obviously inferable, trigger a function call.\"\n\nIn this case, it cannot be addressed using any available function, so I should not call a function.\n\nAdditionally: \"Ask for clarification only if none of the provided functions are able to advance the user's request.\"\n\nSince none of the functions can advance this request, I shouldn't ask for clarification unless it's unclear. But this request is clear; it's just not something I can handle with the tools I have.\n\nThe instructions also emphasize: \"Keep your response to user clear; please do not make your response verbose!\"\n\nSo, my response should be straightforward. I need to inform the user that I can't help with that or suggest what I can do.\n\nFinally, if I'm not calling a function, I just respond normally without the <function_call> tags.\n\nResponse idea: Politely say that I'm not able to tell jokes, as my capabilities are limited to things like getting weather information. Maybe offer to help with that instead.\n\nKeep it clear and not verbose. Something like: \"I'm sorry, I can't tell jokes. I can help with weather information. What location would you like the weather for?\"\n\nThat way, I'm redirecting to what I can do.",
             "refusal": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1760391867,
-      "id": "55bc7e1d-83e9-7909-dcca-33d59eba1c2e_us-east-1",
+      "created": 1760458002,
+      "id": "f92be9b9-7019-ec14-63fe-475036b86c1a_us-east-1",
       "model": "grok-3-mini",
       "object": "chat.completion",
       "system_fingerprint": "fp_4fae27f477",
       "usage": {
-        "completion_tokens": 31,
+        "completion_tokens": 41,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "audio_tokens": 0,
-          "reasoning_tokens": 583,
+          "reasoning_tokens": 347,
           "rejected_prediction_tokens": 0
         },
         "num_sources_used": 0,
         "prompt_tokens": 282,
         "prompt_tokens_details": {
           "audio_tokens": 0,
-          "cached_tokens": 281,
+          "cached_tokens": 3,
           "image_tokens": 0,
           "text_tokens": 282
         },
-        "total_tokens": 896
+        "total_tokens": 670
       }
     },
     "headers": {
@@ -101,7 +101,7 @@
         "DYNAMIC"
       ],
       "cf-ray": [
-        "98e204b14d6572d1-ORD"
+        "98e85352e89a0044-ORD"
       ],
       "connection": [
         "keep-alive"
@@ -110,13 +110,13 @@
         "application/json"
       ],
       "date": [
-        "Mon, 13 Oct 2025 21:44:33 GMT"
+        "Tue, 14 Oct 2025 16:06:48 GMT"
       ],
       "server": [
         "cloudflare"
       ],
       "set-cookie": [
-        "__cf_bm=LFu5bN27wjPKA7N4MPu.NA54MuimZhPBOcd02ICTQMk-1760391873-1.0.1.1-0kZoUF5U8R8DcCBFrjD2yomIO3_6Ld6I_oIkbxbSHtzlBVxLbUCyz6Rs4TzQ1YMgSvN0DMV9UyKC7OTJuE7x3lhyD6il7zqTJJIIl4wSCn0; path=/; expires=Mon, 13-Oct-25 22:14:33 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
+        "__cf_bm=wDzdJrawMdOFzdYQtJ0J4mUU3mTjqdlik1b82v4GdTo-1760458008-1.0.1.1-ihqDWtoO3a_sxsEaivz5IRcVDR4h3B1wd5AbAkoYkxUaGkPhDev5SHOTLqPgUSdATTMmDFtUG6xyA4qDZxiKKA9r7Cdx3M.esvr0spPWf2s; path=/; expires=Tue, 14-Oct-25 16:36:48 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
       ],
       "strict-transport-security": [
         "max-age=31536000"
@@ -128,7 +128,7 @@
         "origin, access-control-request-method, access-control-request-headers"
       ],
       "x-request-id": [
-        "00-cbf2af3e8d43f0e47dad476d67872c33-e04fe7720038aa41-01"
+        "00-4bff61bedc58d8dd87d8c9aa6983cc71-086bbbd70051daaf-01"
       ],
       "x-zero-data-retention": [
         "false"

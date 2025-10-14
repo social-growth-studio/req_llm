@@ -103,15 +103,15 @@
                   "arguments": "{\"location\":\"Paris, France\",\"unit\":\"celsius\"}",
                   "name": "get_weather"
                 },
-                "id": "call_04382746",
+                "id": "call_58375727",
                 "type": "function"
               }
             ]
           }
         }
       ],
-      "created": 1760391833,
-      "id": "d0569941-18fe-c955-eead-982cb94170c9_us-east-1",
+      "created": 1760458001,
+      "id": "c8d9db76-c515-fc03-8039-0ff273b239a8_us-east-1",
       "model": "grok-4-fast-non-reasoning",
       "object": "chat.completion",
       "system_fingerprint": "fp_e7507192a3",
@@ -127,7 +127,7 @@
         "prompt_tokens": 446,
         "prompt_tokens_details": {
           "audio_tokens": 0,
-          "cached_tokens": 158,
+          "cached_tokens": 313,
           "image_tokens": 0,
           "text_tokens": 446
         },
@@ -145,7 +145,7 @@
         "DYNAMIC"
       ],
       "cf-ray": [
-        "98e203e0cc70c77f-ORD"
+        "98e8534a9dbfe24f-ORD"
       ],
       "connection": [
         "keep-alive"
@@ -154,13 +154,13 @@
         "application/json"
       ],
       "date": [
-        "Mon, 13 Oct 2025 21:43:55 GMT"
+        "Tue, 14 Oct 2025 16:06:42 GMT"
       ],
       "server": [
         "cloudflare"
       ],
       "set-cookie": [
-        "__cf_bm=KL9xc7UMSOH4mcY6qq1PhzJGC.Q2NtWcNM_ZNQpxlL0-1760391835-1.0.1.1-vO2p_TLiJIlSEM7HwsW2BEFwqNLBX9kIXgFf4mWB3_akqY3M3f.okCbHbVWPVY_6nC2S11yy5p7hb2b4jq0XIG.WhQc.BOF4kNvZ9O_EgXI; path=/; expires=Mon, 13-Oct-25 22:13:55 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
+        "__cf_bm=CSYyKZBSUjVvnV0kPvQ5SS0OpAJmk9dX_5_j0pw9v34-1760458002-1.0.1.1-rXh35Xtq0AweK_Rq9LpkwzKK9sOOernjWc22FiZOS15KkAT538WKAnleWoGSm86Wl35QHfMLrHfcstRlhltMvgFv6LklXkqWI.Z2bDxWWvc; path=/; expires=Tue, 14-Oct-25 16:36:42 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
       ],
       "strict-transport-security": [
         "max-age=31536000"
@@ -172,7 +172,7 @@
         "origin, access-control-request-method, access-control-request-headers"
       ],
       "x-request-id": [
-        "00-09e4f61a0ac1619567d0533b77630639-ffb687270038699d-01"
+        "00-b7e7ad54bd22dc70bf3e53d218f2db91-b9ae07df0052cad8-01"
       ],
       "x-zero-data-retention": [
         "false"

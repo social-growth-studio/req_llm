@@ -103,15 +103,15 @@
                   "arguments": "{\"location\":\"Paris, France\",\"unit\":\"celsius\"}",
                   "name": "get_weather"
                 },
-                "id": "call_54591568",
+                "id": "call_54369049",
                 "type": "function"
               }
             ]
           }
         }
       ],
-      "created": 1760391867,
-      "id": "7a27ae81-7d27-90c4-1ecf-27216023d49b_us-east-1",
+      "created": 1760458052,
+      "id": "422afb0c-ab15-95b3-3d3d-8bd446041490_us-east-1",
       "model": "grok-4-0709",
       "object": "chat.completion",
       "system_fingerprint": "fp_19e21a36c0",
@@ -120,18 +120,18 @@
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "audio_tokens": 0,
-          "reasoning_tokens": 232,
+          "reasoning_tokens": 252,
           "rejected_prediction_tokens": 0
         },
         "num_sources_used": 0,
         "prompt_tokens": 964,
         "prompt_tokens_details": {
           "audio_tokens": 0,
-          "cached_tokens": 963,
+          "cached_tokens": 833,
           "image_tokens": 0,
           "text_tokens": 964
         },
-        "total_tokens": 1234
+        "total_tokens": 1254
       }
     },
     "headers": {
@@ -145,7 +145,7 @@
         "DYNAMIC"
       ],
       "cf-ray": [
-        "98e204b26f90e1db-ORD"
+        "98e854894e0c02ac-ORD"
       ],
       "connection": [
         "keep-alive"
@@ -154,13 +154,13 @@
         "application/json"
       ],
       "date": [
-        "Mon, 13 Oct 2025 21:44:34 GMT"
+        "Tue, 14 Oct 2025 16:07:39 GMT"
       ],
       "server": [
         "cloudflare"
       ],
       "set-cookie": [
-        "__cf_bm=nvCDyJf6DBhdsArjJULrGo4UhTo3L7oIVTlFqyUMWO8-1760391874-1.0.1.1-ILMbgn2bUMZ.bwTNFEQm_PPAArH_7TepMTWwmDWSxX4j.f7dcnu3gPiKibHYXjyyKevDVYnuq9Ws522qzVcrhQjIHyy1e_7cyZh98PHtUTE; path=/; expires=Mon, 13-Oct-25 22:14:34 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
+        "__cf_bm=9Xy7DGUGuwv4cmxf6Q40RiPA6fEYyKzp7vc9MBjagPE-1760458059-1.0.1.1-8UAOGc7qLYtckXK_7eYtv6A3cWAjndSygEmV3wK8xI9z8shWKeE.UlrpHhDvnaj40NsrHaQM73TJ7wugbD4WtNB6kQ9.jQviSp4CfFp2fJY; path=/; expires=Tue, 14-Oct-25 16:37:39 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
       ],
       "strict-transport-security": [
         "max-age=31536000"
@@ -172,7 +172,7 @@
         "origin, access-control-request-method, access-control-request-headers"
       ],
       "x-request-id": [
-        "00-7859120a8aaf9ce44472c85469c7e585-1fbad70e0030b976-01"
+        "00-845b2cbb5851254af137013a1527e81f-a34147c1005fb0a7-01"
       ],
       "x-zero-data-retention": [
         "false"

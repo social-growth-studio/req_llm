@@ -1,7 +1,7 @@
 {
   "request": {
     "body": {
-      "b64": "eyJtYXhfY29tcGxldGlvbl90b2tlbnMiOjUwMCwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJHZW5lcmF0ZSBhIHNvZnR3YXJlIGVuZ2luZWVyIHByb2ZpbGUiLCJyb2xlIjoidXNlciJ9XSwibW9kZWwiOiJncm9rLTMtbWluaSIsInNlZWQiOjQyLCJzdHJlYW0iOmZhbHNlLCJ0ZW1wZXJhdHVyZSI6MC4wLCJ0b29sX2Nob2ljZSI6eyJmdW5jdGlvbiI6eyJuYW1lIjoic3RydWN0dXJlZF9vdXRwdXQifSwidHlwZSI6ImZ1bmN0aW9uIn0sInRvb2xzIjpbeyJmdW5jdGlvbiI6eyJkZXNjcmlwdGlvbiI6IkdlbmVyYXRlIHN0cnVjdHVyZWQgb3V0cHV0IG1hdGNoaW5nIHRoZSBwcm92aWRlZCBzY2hlbWEiLCJuYW1lIjoic3RydWN0dXJlZF9vdXRwdXQiLCJwYXJhbWV0ZXJzIjp7ImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjpmYWxzZSwicHJvcGVydGllcyI6eyJhZ2UiOnsiZGVzY3JpcHRpb24iOiJQZXJzb24ncyBhZ2UgaW4geWVhcnMiLCJtaW5pbXVtIjoxLCJ0eXBlIjoiaW50ZWdlciJ9LCJuYW1lIjp7ImRlc2NyaXB0aW9uIjoiUGVyc29uJ3MgZnVsbCBuYW1lIiwidHlwZSI6InN0cmluZyJ9LCJvY2N1cGF0aW9uIjp7ImRlc2NyaXB0aW9uIjoiUGVyc29uJ3Mgam9iIG9yIHByb2Zlc3Npb24iLCJ0eXBlIjoic3RyaW5nIn19LCJyZXF1aXJlZCI6WyJuYW1lIiwiYWdlIl0sInR5cGUiOiJvYmplY3QifX0sInR5cGUiOiJmdW5jdGlvbiJ9XX0="
+      "b64": "eyJtYXhfY29tcGxldGlvbl90b2tlbnMiOjUwMCwibWVzc2FnZXMiOlt7ImNvbnRlbnQiOiJHZW5lcmF0ZSBhIHNvZnR3YXJlIGVuZ2luZWVyIHByb2ZpbGUiLCJyb2xlIjoidXNlciJ9XSwibW9kZWwiOiJncm9rLTMtbWluaSIsInBhcmFsbGVsX3Rvb2xfY2FsbHMiOmZhbHNlLCJyZXNwb25zZV9mb3JtYXQiOnsianNvbl9zY2hlbWEiOnsibmFtZSI6Im91dHB1dF9zY2hlbWEiLCJzY2hlbWEiOnsiYWRkaXRpb25hbFByb3BlcnRpZXMiOmZhbHNlLCJwcm9wZXJ0aWVzIjp7ImFnZSI6eyJkZXNjcmlwdGlvbiI6IlBlcnNvbidzIGFnZSBpbiB5ZWFycyIsIm1pbmltdW0iOjEsInR5cGUiOiJpbnRlZ2VyIn0sIm5hbWUiOnsiZGVzY3JpcHRpb24iOiJQZXJzb24ncyBmdWxsIG5hbWUiLCJ0eXBlIjoic3RyaW5nIn0sIm9jY3VwYXRpb24iOnsiZGVzY3JpcHRpb24iOiJQZXJzb24ncyBqb2Igb3IgcHJvZmVzc2lvbiIsInR5cGUiOiJzdHJpbmcifX0sInJlcXVpcmVkIjpbIm5hbWUiLCJhZ2UiXSwidHlwZSI6Im9iamVjdCJ9LCJzdHJpY3QiOnRydWV9LCJ0eXBlIjoianNvbl9zY2hlbWEifSwic2VlZCI6NDIsInN0cmVhbSI6ZmFsc2UsInRlbXBlcmF0dXJlIjowLjB9"
     },
     "canonical_json": {
       "max_completion_tokens": 500,
@@ -12,47 +12,40 @@
         }
       ],
       "model": "grok-3-mini",
+      "parallel_tool_calls": false,
+      "response_format": {
+        "json_schema": {
+          "name": "output_schema",
+          "schema": {
+            "additionalProperties": false,
+            "properties": {
+              "age": {
+                "description": "Person's age in years",
+                "minimum": 1,
+                "type": "integer"
+              },
+              "name": {
+                "description": "Person's full name",
+                "type": "string"
+              },
+              "occupation": {
+                "description": "Person's job or profession",
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "age"
+            ],
+            "type": "object"
+          },
+          "strict": true
+        },
+        "type": "json_schema"
+      },
       "seed": 42,
       "stream": false,
-      "temperature": 0.0,
-      "tool_choice": {
-        "function": {
-          "name": "structured_output"
-        },
-        "type": "function"
-      },
-      "tools": [
-        {
-          "function": {
-            "description": "Generate structured output matching the provided schema",
-            "name": "structured_output",
-            "parameters": {
-              "additionalProperties": false,
-              "properties": {
-                "age": {
-                  "description": "Person's age in years",
-                  "minimum": 1,
-                  "type": "integer"
-                },
-                "name": {
-                  "description": "Person's full name",
-                  "type": "string"
-                },
-                "occupation": {
-                  "description": "Person's job or profession",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "name",
-                "age"
-              ],
-              "type": "object"
-            }
-          },
-          "type": "function"
-        }
-      ]
+      "temperature": 0.0
     },
     "headers": {
       "accept-encoding": [
@@ -73,48 +66,38 @@
     "body": {
       "choices": [
         {
-          "finish_reason": "tool_calls",
+          "finish_reason": "stop",
           "index": 0,
           "message": {
-            "content": " ",
-            "reasoning_content": "First, the user asked to \"Generate a software engineer profile.\" This seems to be asking for a profile of a software engineer, which might include details like name, age, and occupation.\n\nLooking at the available functions, there's only one: \"structured_output\". This function is designed to generate structured output based on a schema. The schema requires \"name\", \"age\", and \"occupation\".\n\nThe schema is:\n\n- name: a string for the person's full name\n\n- age: an integer greater than or equal to 1\n\n- occupation: a string for the person's job or profession\n\nSince the user is asking for a software engineer profile, I can use this function to output a profile where the occupation is \"Software Engineer\".\n\nThe function call needs to be in a specific format: enclosed in <function_call> tags, with JSON containing \"action\" and \"action_input\".\n\nFor this, the action should be \"structured_output\", and action_input should provide the required parameters: name, age, and occupation.\n\nThe description of the function is: \"Generate structured output matching the provided schema\". So, when I call this function, I need to provide the data that matches the schema.\n\nIn the function parameters, it's an object with properties: name, age, occupation.\n\nThe user didn't specify any particular details, like a name or age. I need to make something up or ask for clarification?\n\nThe system prompt says: \"If there is anything unclear, ask the user for clarification.\" The user's request is vague; they didn't specify whose profile or any details.\n\nHowever, since the function requires name and age, I could either ask for clarification or assume some values. But to proceed, I should use the function as is.\n\nThe function is for generating structured output, so perhaps I need to call it with sample data.\n\nRe-reading the function: \"Generate structured output matching the provided schema\". In the available actions, it's defined with parameters that I have to provide.\n\nIn the example: <function_call>{\"action\": \"function_name\", \"action_input\": {\"parameter\": \"argument\"}}</function_call>\n\nFor \"structured_output\", action_input should be an object with name, age, and occupation.\n\nI think I need to provide values for these in the action_input.\n\nSince the user said \"Generate a software engineer profile\", I can create a fictional one.\n\nFor example:\n\n- name: \"John Doe\"\n\n- age: 30\n\n- occupation: \"Software Engineer\"\n\nThat seems reasonable.\n\nMy response should only include the function call, as per the system prompt: \"Keep your response to user clear; please do not make your response verbose!\"\n\nSo, I shouldn't add any extra text; just the function call.\n\nFinally, output it in the specified format.\n\nMultiple function calls are allowed, but I only need one here.\n\nSo, plan: Call the \"structured_output\" function with sample data for a software engineer.",
+            "content": "{\"age\":30,\"name\":\"John Doe\",\"occupation\":\"Software Engineer\"}",
+            "reasoning_content": "First, the user input is: \"Generate a software engineer profile\". But I have to respond based on the provided schema. The schema defines an object with properties: \"name\", \"age\", and \"occupation\". It's required to include \"name\" and \"age\", and \"occupation\" is optional but fits here.\n\nThe schema is:\n{\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"age\": {\"description\": \"Person's age in years\", \"minimum\": 1, \"type\": \"integer\"},\n    \"name\": {\"description\": \"Person's full name\", \"type\": \"string\"},\n    \"occupation\": {\"description\": \"Person's job or profession\", \"type\": \"string\"}\n  },\n  \"required\": [\"name\", \"age\"],\n  \"type\": \"object\"\n}\n\nSo, my response must be a single JSON string that matches this schema exactly. That means I need to output something like: {\"name\": \"Some Name\", \"age\": Some Number, \"occupation\": \"Some Occupation\"}\n\nThe user is asking for a software engineer profile, so I should make up a profile that fits. For example:\n- Name: Something like \"John Doe\"\n- Age: A reasonable age for a software engineer, say 30\n- Occupation: \"Software Engineer\"\n\nI need to ensure that my output is a valid JSON object with only these properties. No extra stuff.\n\nThe instructions say: \"Your output MUST be a single JSON string. You MUST use <user_json_schema> to format the JSON string.\"\n\nSo, I should output: {\"name\": \"John Doe\", \"age\": 30, \"occupation\": \"Software Engineer\"}\n\nMake sure it's a string, but in the context of this response, I just need to write it as a JSON object, and the system will handle it as a string.\n\nFinally, remember: \"Keep your response to user clear; please do not make your response verbose!\" So, just the JSON, nothing else.",
             "refusal": null,
-            "role": "assistant",
-            "tool_calls": [
-              {
-                "function": {
-                  "arguments": "{\"age\":30,\"name\":\"John Doe\",\"occupation\":\"Software Engineer\"}",
-                  "name": "structured_output"
-                },
-                "id": "call_55736865",
-                "type": "function"
-              }
-            ]
+            "role": "assistant"
           }
         }
       ],
-      "created": 1760391842,
-      "id": "fbd36449-d852-611e-61a0-50229756a2f0_us-east-1",
+      "created": 1760458005,
+      "id": "8fb69e44-5aec-8c87-4c31-1bb727a098db_us-east-1",
       "model": "grok-3-mini",
       "object": "chat.completion",
       "system_fingerprint": "fp_4fae27f477",
       "usage": {
-        "completion_tokens": 40,
+        "completion_tokens": 15,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "audio_tokens": 0,
-          "reasoning_tokens": 586,
+          "reasoning_tokens": 404,
           "rejected_prediction_tokens": 0
         },
         "num_sources_used": 0,
-        "prompt_tokens": 205,
+        "prompt_tokens": 112,
         "prompt_tokens_details": {
           "audio_tokens": 0,
-          "cached_tokens": 204,
+          "cached_tokens": 111,
           "image_tokens": 0,
-          "text_tokens": 205
+          "text_tokens": 112
         },
-        "total_tokens": 831
+        "total_tokens": 531
       }
     },
     "headers": {
@@ -128,7 +111,7 @@
         "DYNAMIC"
       ],
       "cf-ray": [
-        "98e204146c8e9123-ORD"
+        "98e85367be8e231c-ORD"
       ],
       "connection": [
         "keep-alive"
@@ -137,13 +120,13 @@
         "application/json"
       ],
       "date": [
-        "Mon, 13 Oct 2025 21:44:07 GMT"
+        "Tue, 14 Oct 2025 16:06:51 GMT"
       ],
       "server": [
         "cloudflare"
       ],
       "set-cookie": [
-        "__cf_bm=k6_aMacuP08QHjKsC_cvieaK5C.XO5Ue8kTLgBDs7mU-1760391847-1.0.1.1-oc9UJWnnaqON8DfziiEIkm_ZPio8Ux8rznUUoCqhjEpzhJv0UaSP6SJUm9LCnwtLbGH5Mx28SvvHwSvlVfbez_uNcIgKVdaKoF22VBMQZ5o; path=/; expires=Mon, 13-Oct-25 22:14:07 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
+        "__cf_bm=psdqQzJyxcIw0ADzzTL5KD1V83H4vuewAJLXqpV4wCA-1760458011-1.0.1.1-Fhh2MHMgWo4wl24T1XRbM2F3q2.M7rpQnJJkoVA3XRuq4fwGxLxLunnFTHw9r2RE_VntqAIlDzX7vPzIbhmGmkMIwmhBI5T_YKxkcj.LrWs; path=/; expires=Tue, 14-Oct-25 16:36:51 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
       ],
       "strict-transport-security": [
         "max-age=31536000"
@@ -155,7 +138,7 @@
         "origin, access-control-request-method, access-control-request-headers"
       ],
       "x-request-id": [
-        "00-549f4f4fce22e7e9dcbf8f9ca95fc417-b4884b5e0038aa77-01"
+        "00-92413db95121aa110d0977782e811467-e4ce5ef6005fcd2e-01"
       ],
       "x-zero-data-retention": [
         "false"

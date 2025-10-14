@@ -59,24 +59,24 @@
           "finish_reason": "stop",
           "index": 0,
           "message": {
-            "content": "I apologize, but I don't have the ability to tell jokes. I'm here to help with weather information or similar queries. If you have a question about the weather, let me know!",
-            "reasoning_content": "First, the user asked: \"Tell me a joke about cats.\" This is a request for a joke, which is not related to any of the available functions. The only available function is \"get_weather\", which is for getting weather information based on a location.\n\nI need to check if this query can be addressed using the available functions. The available functions are limited to getting weather, so no, this doesn't match.\n\nThe instructions say: \"If the user's query can be addressed using an available function, and all required parameters are provided or obviously inferable, trigger a function call.\" In this case, it cannot be addressed using any available function.\n\nFurther, it says: \"Do not call a function if no matching functions apply or if parameters are missing/unclear. Ask for clarification only if none of the provided functions are able to advance the user's request.\"\n\nSince none of the functions can advance this request, I should not call a function. Instead, I should respond directly or ask for clarification if needed. But the query is clear; it's just not something I can handle with the tools I have.\n\nThe instructions emphasize: \"Keep your response to user clear; please do not make your response verbose!\" So, I should be concise.\n\nPossible responses: I could just say I don't have the capability to tell jokes, or politely decline and suggest sticking to weather queries.\n\nThe system prompt doesn't specify what to do beyond calling functions or asking for clarification. Since this is unrelated, I should inform the user that I can't help with that.\n\nFinal decision: Respond clearly and concisely that I can't fulfill this request because it's outside my capabilities.",
+            "content": "I don't have the ability to tell jokes, as my tools are limited to things like getting weather information. If you have a question about the weather or something else I can help with, let me know!",
+            "reasoning_content": "First, the user asked: \"Tell me a joke about cats.\" This is a request for a joke, which is not related to any of the available functions. The only available function is \"get_weather\", which is for getting weather information based on a location.\n\nI need to check if this query can be addressed using the available functions. Clearly, it cannot. There's no function for telling jokes or anything related to humor.\n\nThe instructions say: \"If the user's query can be addressed using an available function, and all required parameters are provided or obviously inferable, trigger a function call.\" In this case, no available function applies.\n\nFurther, it says: \"Do not call a function if no matching functions apply or if parameters are missing/unclear. Ask for clarification only if none of the provided functions are able to advance the user's request.\"\n\nSince none of the functions can advance this request, I should not call any function. Instead, I should respond directly or ask for clarification if needed. But the query is clear; it's just not something I can handle with the tools I have.\n\nThe instructions emphasize: \"Keep your response to user clear; please do not make your response verbose!\" So, I should be concise.\n\nPossible responses: I could just say I don't have the capability to tell jokes, or politely redirect or ask if they meant something else. But the instructions don't specify exactly what to say in this case, just to not call a function and to ask for clarification if needed.\n\nAsking for clarification might not be necessary here because the request is straightforward, but it's not related. I could say something like: \"I can't tell jokes, but I can help with weather information. Did you have another question?\"\n\nTo keep it simple, I should just inform them that I can't fulfill this request.\n\nFinal decision: Respond clearly and concisely that I cannot tell jokes, as it's outside my capabilities.",
             "refusal": null,
             "role": "assistant"
           }
         }
       ],
-      "created": 1760391842,
-      "id": "a0daf81b-0d60-e070-d279-26b1862d3034_us-east-1",
+      "created": 1760458032,
+      "id": "1663cb8a-31a7-c3d9-29e7-5e03f5beb465_us-east-1",
       "model": "grok-3-mini",
       "object": "chat.completion",
       "system_fingerprint": "fp_4fae27f477",
       "usage": {
-        "completion_tokens": 37,
+        "completion_tokens": 41,
         "completion_tokens_details": {
           "accepted_prediction_tokens": 0,
           "audio_tokens": 0,
-          "reasoning_tokens": 328,
+          "reasoning_tokens": 383,
           "rejected_prediction_tokens": 0
         },
         "num_sources_used": 0,
@@ -87,7 +87,7 @@
           "image_tokens": 0,
           "text_tokens": 282
         },
-        "total_tokens": 647
+        "total_tokens": 706
       }
     },
     "headers": {
@@ -101,7 +101,7 @@
         "DYNAMIC"
       ],
       "cf-ray": [
-        "98e204167d911393-ORD"
+        "98e8540ebef1fa27-ORD"
       ],
       "connection": [
         "keep-alive"
@@ -110,13 +110,13 @@
         "application/json"
       ],
       "date": [
-        "Mon, 13 Oct 2025 21:44:06 GMT"
+        "Tue, 14 Oct 2025 16:07:18 GMT"
       ],
       "server": [
         "cloudflare"
       ],
       "set-cookie": [
-        "__cf_bm=O603_yiSK3IdMgiic6dpEYbe2l0Y9ipvkxDxkw4APfs-1760391846-1.0.1.1-FcXrP9SL82QWC8bMyUnCZ3qb8kDkdvNG8BUC_gkOryyxFW1Ne8U1F8gcRPQ5o1ER_aopEJFSn.EGjgUSSMYqGfCsk.eD7h9PxCghK35Zfag; path=/; expires=Mon, 13-Oct-25 22:14:06 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
+        "__cf_bm=1l1w2sgHfskeQgCOrp1MGE_l42sOfP2W.yWMXYl13zs-1760458038-1.0.1.1-T8COzEZ.FYVq2LRdTmQ43vwjdbuYWKkrNyTnJjTHVkJvAQHLiwirLBKYnGRXK3njVLmyV5ZPfDtA.Kuo0.r0cKAFJciByEjX5cOw9FSBwis; path=/; expires=Tue, 14-Oct-25 16:37:18 GMT; domain=.x.ai; HttpOnly; Secure; SameSite=None"
       ],
       "strict-transport-security": [
         "max-age=31536000"
@@ -128,7 +128,7 @@
         "origin, access-control-request-method, access-control-request-headers"
       ],
       "x-request-id": [
-        "00-d5afbd1f531832298f863711e7852dab-070ae2020038e1ce-01"
+        "00-65f44d7a198afde14a0f8fc11aacfa9d-b0b799770052fb7b-01"
       ],
       "x-zero-data-retention": [
         "false"
