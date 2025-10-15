@@ -249,16 +249,17 @@ defmodule Mix.Tasks.ReqLlm.ModelSync do
   defp save_provider_files(models_data, verbose?) do
     models_data
     |> Enum.each(fn {provider_id, provider_data} ->
-      models = process_provider_models(provider_data["models"] || %{}, provider_id)
+      normalized_id = normalize_provider_id(provider_id)
+      models = process_provider_models(provider_data["models"] || %{}, normalized_id)
 
       if not Enum.empty?(models) do
-        provider_file = Path.join(@providers_dir, "#{provider_id}.json")
-        config = get_provider_config(provider_id)
+        provider_file = Path.join(@providers_dir, "#{normalized_id}.json")
+        config = get_provider_config(normalized_id)
 
         provider_json = %{
           "provider" => %{
-            "id" => provider_id,
-            "name" => provider_data["name"] || format_provider_name(provider_id),
+            "id" => normalized_id,
+            "name" => provider_data["name"] || format_provider_name(normalized_id),
             "base_url" => config["base_url"],
             "env" => config["env"] || [],
             "doc" => provider_data["description"] || "AI model provider"
@@ -269,7 +270,7 @@ defmodule Mix.Tasks.ReqLlm.ModelSync do
         File.write!(provider_file, Jason.encode!(provider_json, pretty: true))
 
         if verbose? do
-          IO.puts("  Saved #{length(models)} models for #{provider_id}")
+          IO.puts("  Saved #{length(models)} models for #{normalized_id}")
         end
       end
     end)
@@ -281,7 +282,7 @@ defmodule Mix.Tasks.ReqLlm.ModelSync do
         models = provider_data["models"] || %{}
         not Enum.empty?(models)
       end)
-      |> Enum.map(fn {provider_id, _provider_data} -> provider_id end)
+      |> Enum.map(fn {provider_id, _provider_data} -> normalize_provider_id(provider_id) end)
 
     generate_valid_providers_module(provider_ids, verbose?)
 
@@ -311,6 +312,10 @@ defmodule Mix.Tasks.ReqLlm.ModelSync do
     providers_data
     |> Enum.map(fn {_, provider} -> map_size(provider["models"] || %{}) end)
     |> Enum.sum()
+  end
+
+  defp normalize_provider_id(provider_id) do
+    String.replace(provider_id, "-", "_")
   end
 
   defp format_provider_name(provider_id) do
@@ -424,7 +429,7 @@ defmodule Mix.Tasks.ReqLlm.ModelSync do
   end
 
   defp merge_patch_data(models_data, provider_data, {:exclude, exclusions}, verbose?) do
-    provider_id = provider_data["id"]
+    provider_id = normalize_provider_id(provider_data["id"])
 
     case Map.get(models_data, provider_id) do
       nil ->
@@ -451,7 +456,7 @@ defmodule Mix.Tasks.ReqLlm.ModelSync do
   end
 
   defp merge_patch_data(models_data, provider_data, {:models, patch_models}, verbose?) do
-    provider_id = provider_data["id"]
+    provider_id = normalize_provider_id(provider_data["id"])
 
     case Map.get(models_data, provider_id) do
       nil ->
@@ -514,10 +519,8 @@ defmodule Mix.Tasks.ReqLlm.ModelSync do
       IO.puts("Generating ValidProviders module with #{length(provider_ids)} providers")
     end
 
-    # Convert provider IDs to atoms (kebab-case to snake_case)
     provider_atoms =
       provider_ids
-      |> Enum.map(&String.replace(&1, "-", "_"))
       |> Enum.sort()
       |> Enum.uniq()
       |> Enum.map(&String.to_atom/1)
