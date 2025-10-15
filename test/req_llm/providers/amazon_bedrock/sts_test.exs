@@ -62,7 +62,7 @@ defmodule ReqLLM.Providers.AmazonBedrock.STSTest do
 
   describe "XML parsing" do
     test "parses valid AssumeRole response" do
-      xml = """
+      _xml = """
       <?xml version="1.0" encoding="UTF-8"?>
       <AssumeRoleResponse xmlns="https://sts.amazonaws.com/doc/2011-06-15/">
         <AssumeRoleResult>
@@ -111,13 +111,14 @@ defmodule ReqLLM.Providers.AmazonBedrock.STSTest do
 
         # Verify credentials work with Bedrock
         model =
-          ReqLLM.Model.from!(
-            "bedrock:anthropic.claude-3-haiku-20240307-v1:0",
+          ReqLLM.Model.from!({
+            :bedrock,
+            "anthropic.claude-3-haiku-20240307-v1:0",
             access_key_id: temp_creds.access_key_id,
             secret_access_key: temp_creds.secret_access_key,
             session_token: temp_creds.session_token,
             region: "us-east-1"
-          )
+          })
 
         {:ok, response} = ReqLLM.generate_text(model, "Hello!")
         assert response.message.content
