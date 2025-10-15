@@ -41,6 +41,7 @@ defmodule ReqLLM.MixProject do
         main: "readme",
         extras: [
           "README.md",
+          "CONTRIBUTING.md",
           "guides/getting-started.md",
           "guides/core-concepts.md",
           "guides/api-reference.md",
@@ -98,7 +99,8 @@ defmodule ReqLLM.MixProject do
       licenses: ["Apache-2.0"],
       maintainers: ["Mike Hostetler"],
       links: %{"GitHub" => @source_url, "Agent Jido" => "https://agentjido.xyz"},
-      files: ~w(lib priv mix.exs LICENSE README.md AGENTS.md usage-rules.md guides .formatter.exs)
+      files:
+        ~w(lib priv mix.exs LICENSE README.md CONTRIBUTING.md AGENTS.md usage-rules.md guides .formatter.exs)
     ]
   end
 

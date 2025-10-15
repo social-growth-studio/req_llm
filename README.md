@@ -328,11 +328,22 @@ LIVE=true mix test --only "provider:anthropic"
 
 ## Contributing
 
+We welcome contributions! ReqLLM uses a fixture-based testing approach to ensure reliability across all providers.
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines on:
+- Core library contributions
+- Adding new providers
+- Extending provider features
+- Testing requirements and fixture generation
+- Code quality standards
+
+Quick start:
 1. Fork the repository
 2. Create a feature branch  
-3. Add tests for your changes
-4. Run `mix quality` to ensure standards
-5. Submit a pull request
+3. Add tests with fixtures for your changes
+4. Run `mix test` and `mix quality` to ensure standards
+5. Verify `mix mc "*:*"` passes for affected providers
+6. Submit a pull request
 
 ## License
 
