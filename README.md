@@ -291,7 +291,15 @@ See the [Streaming Migration Guide](guides/streaming-migration.md) for complete 
 
 ## Roadmap & Status
 
-ReqLLM is currently in **release candidate** status. The core API is stable, but minor breaking changes may occur before the final 1.0.0 release based on community feedback.
+ReqLLM is currently in **release candidate** status (v1.0.0-rc.6). The core API is stable and we're actively seeking community feedback before the final 1.0.0 release. We're very close to marking this as production-ready and welcome your input on any issues or improvements.
+
+### Test Coverage & Quality Commitment
+
+**135+ models currently pass our comprehensive fixture-based test suite** across 10 providers. The LLM API landscape is highly dynamic. We guarantee that all supported models pass our fixture tests for basic functionality (text generation, streaming, tool calling, structured output, and embeddings where applicable). 
+
+These fixture tests are regularly refreshed against live APIs to ensure accuracy and catch provider-side changes. While we can't guarantee every edge case in production, our fixture-based approach provides a reliable baseline that you can verify with `mix mc "*:*"`.
+
+**We welcome bug reports and feedback!** If you encounter issues with any supported model, please open a GitHub issue with details. The more feedback we receive, the stronger the code will be!
 
 **Planned for 1.x:**
 - Additional open-source providers (Ollama, LocalAI)

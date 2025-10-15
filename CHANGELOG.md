@@ -7,6 +7,66 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-rc.6] - 2025-02-15
+
+### Added
+- AWS Bedrock provider with streaming support and multi-model capabilities
+  - Anthropic Claude models with native API delegation
+  - OpenAI OSS models (gpt-oss-120b, gpt-oss-20b)
+  - Meta Llama models with native prompt formatting
+  - AWS Event Stream binary protocol parser
+  - AWS Signature V4 authentication (OTP 27 compatible)
+  - Converse API for unified tool calling across all Bedrock models
+  - AWS STS AssumeRole support for temporary credentials
+  - Extended thinking support via additionalModelRequestFields
+  - Cross-region inference profiles (global prefix)
+- Z.AI provider with standard and coding endpoints
+  - GLM-4.5, GLM-4.5-air, GLM-4.5-flash models (131K context)
+  - GLM-4.6 (204K context, improved reasoning)
+  - GLM-4.5v (vision model with image/video support)
+  - Tool calling and reasoning capabilities
+  - Separate endpoints for general chat and coding tasks
+- ToolCall struct for standardized tool call representation
+- Context.append/2 and Context.prepend/2 methods replacing push_* methods
+- Comprehensive example scripts (embeddings, context reuse, reasoning tokens, multimodal)
+- StreamServer support for raw fixture generation and reasoning token tracking
+
+### Enhanced
+- Google provider with native responseSchema for structured output
+- Google file/video attachment support with OpenAI-formatted data URIs
+- XAI provider with improved structured output test coverage
+- OpenRouter and Google model fixture coverage
+- Model compatibility task with migrate and failed_only options
+- Context handling to align with OpenAI's tool_calls API format
+- Tool result encoding for multi-turn conversations across all providers
+- max_tokens extraction from Model.new/3 to respect model defaults
+- Error handling for metadata-only providers with structured Splode errors
+- Provider implementations to delegate to shared helper functions
+
+### Fixed
+- get_provider/1 returning {:ok, nil} for metadata-only providers
+- Anthropic tool result encoding for multi-turn conversations (transform :tool role to :user)
+- Google structured output using native responseSchema without additionalProperties
+- Z.AI provider timeout and reasoning token handling
+- max_tokens not being respected from Model.new/3 across providers
+- File/video attachment support in Google provider (regression from b699102)
+- Tool call structure in Bedrock tests with compiler warnings
+- Model ID normalization with dashes to underscores
+
+### Changed
+- Tool call architecture: tool calls now stored in message.tool_calls field instead of content parts
+- Tool result architecture: tool results use message.tool_call_id for correlation
+- Context API: replaced push_user/push_assistant/push_system with append/prepend
+- Streaming protocol: pluggable architecture via parse_stream_protocol/2 callback
+- Provider implementations: improved delegation patterns reducing code duplication
+
+### Infrastructure
+- Massive test fixture update across all providers
+- Enhanced fixture system with amazon_bedrock provider mapping
+- Sanitized credential handling in fixtures (x-amz-security-token)
+- :xmerl added to extra_applications for STS XML parsing
+- Documentation and template improvements
+
 ## [1.0.0-rc.5] - 2025-02-07
 
 ### Added
@@ -186,6 +246,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Quality tooling with Dialyzer, Credo, and formatter
 - LiveFixture testing framework for API mocking
 
+[1.0.0-rc.6]: https://github.com/agentjido/req_llm/releases/tag/v1.0.0-rc.6
 [1.0.0-rc.5]: https://github.com/agentjido/req_llm/releases/tag/v1.0.0-rc.5
 [1.0.0-rc.4]: https://github.com/agentjido/req_llm/releases/tag/v1.0.0-rc.4
 [1.0.0-rc.3]: https://github.com/agentjido/req_llm/releases/tag/v1.0.0-rc.3
