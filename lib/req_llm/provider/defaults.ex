@@ -818,6 +818,15 @@ defmodule ReqLLM.Provider.Defaults do
     end
   end
 
+  # Handle malformed tool call deltas (some APIs send incomplete structures)
+  defp decode_openai_tool_call_delta(%{"type" => "function", "function" => %{"name" => nil}}) do
+    nil
+  end
+
+  defp decode_openai_tool_call_delta(%{"type" => "function", "function" => %{}}) do
+    nil
+  end
+
   defp decode_openai_tool_call_delta(_), do: nil
 
   defp build_openai_message_from_chunks(chunks) when is_list(chunks) and chunks != [] do
@@ -1179,14 +1188,14 @@ defmodule ReqLLM.Provider.Defaults do
         nil
 
       tool_calls ->
-        case Enum.find(tool_calls, &(&1.function.name == "structured_output")) do
+        case Enum.find(tool_calls, &(&1.name == "structured_output")) do
           nil ->
             nil
 
-          %{function: %{arguments: object}} when is_map(object) ->
+          %{arguments: object} when is_map(object) ->
             object
 
-          %{function: %{arguments: json_string}} when is_binary(json_string) ->
+          %{arguments: json_string} when is_binary(json_string) ->
             case Jason.decode(json_string) do
               {:ok, object} -> object
               {:error, _} -> nil
