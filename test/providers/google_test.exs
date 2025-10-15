@@ -765,4 +765,114 @@ defmodule ReqLLM.Providers.GoogleTest do
                    end
     end
   end
+
+  describe "file attachment support" do
+    test "encode_body handles :file ContentPart with inline_data format" do
+      file_content = "test file content"
+
+      file_part = %ReqLLM.Message.ContentPart{
+        type: :file,
+        data: file_content,
+        media_type: "application/pdf"
+      }
+
+      message_with_file = %ReqLLM.Message{
+        role: :user,
+        content: [file_part]
+      }
+
+      context = %ReqLLM.Context{messages: [message_with_file]}
+
+      mock_request = %Req.Request{
+        options: [
+          context: context,
+          model: "gemini-1.5-flash",
+          stream: false
+        ]
+      }
+
+      updated_request = Google.encode_body(mock_request)
+      decoded = Jason.decode!(updated_request.body)
+
+      [user_msg] = decoded["contents"]
+      parts = user_msg["parts"]
+
+      assert length(parts) == 1, "Expected 1 part, got: #{inspect(parts)}"
+      [part] = parts
+
+      assert Map.has_key?(part, "inline_data")
+      assert part["inline_data"]["mime_type"] == "application/pdf"
+      assert Base.decode64!(part["inline_data"]["data"]) == file_content
+    end
+
+    test "encode_body handles video ContentPart with inline_data format" do
+      video_content = "fake video bytes"
+
+      video_part = %ReqLLM.Message.ContentPart{
+        type: :file,
+        data: video_content,
+        media_type: "video/mp4"
+      }
+
+      message_with_video = %ReqLLM.Message{
+        role: :user,
+        content: [video_part]
+      }
+
+      context = %ReqLLM.Context{messages: [message_with_video]}
+
+      mock_request = %Req.Request{
+        options: [
+          context: context,
+          model: "gemini-1.5-flash",
+          stream: false
+        ]
+      }
+
+      updated_request = Google.encode_body(mock_request)
+      decoded = Jason.decode!(updated_request.body)
+
+      [user_msg] = decoded["contents"]
+      [part] = user_msg["parts"]
+
+      assert Map.has_key?(part, "inline_data")
+      assert part["inline_data"]["mime_type"] == "video/mp4"
+      assert Base.decode64!(part["inline_data"]["data"]) == video_content
+    end
+
+    test "encode_body handles image ContentPart with inline_data format" do
+      image_content = <<137, 80, 78, 71, 13, 10, 26, 10>>
+
+      image_part = %ReqLLM.Message.ContentPart{
+        type: :image,
+        data: image_content,
+        media_type: "image/png"
+      }
+
+      message_with_image = %ReqLLM.Message{
+        role: :user,
+        content: [image_part]
+      }
+
+      context = %ReqLLM.Context{messages: [message_with_image]}
+
+      mock_request = %Req.Request{
+        options: [
+          context: context,
+          model: "gemini-1.5-flash",
+          stream: false
+        ]
+      }
+
+      updated_request = Google.encode_body(mock_request)
+      decoded = Jason.decode!(updated_request.body)
+
+      [user_msg] = decoded["contents"]
+      [part] = user_msg["parts"]
+
+      assert Map.has_key?(part, "inline_data")
+      assert part["inline_data"]["mime_type"] == "image/png"
+      assert Base.decode64!(part["inline_data"]["data"]) == image_content
+    end
+  end
 end
