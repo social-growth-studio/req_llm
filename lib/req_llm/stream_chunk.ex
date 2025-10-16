@@ -292,8 +292,7 @@ defmodule ReqLLM.StreamChunk do
     do: {:error, "Thinking chunks must have non-nil text"}
 
   defp validate_by_type(%{type: :tool_call, name: name, arguments: args})
-       when is_binary(name) and is_map(args),
-       do: :ok
+       when is_binary(name) and is_map(args), do: :ok
 
   defp validate_by_type(%{type: :tool_call}),
     do: {:error, "Tool call chunks must have non-nil name and arguments"}
