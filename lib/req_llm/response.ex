@@ -117,47 +117,10 @@ defmodule ReqLLM.Response do
 
   def tool_calls(%__MODULE__{message: %Message{tool_calls: tool_calls}})
       when is_list(tool_calls) do
-    Enum.map(tool_calls, &normalize_tool_call/1)
-  end
-
-  def tool_calls(%__MODULE__{message: %Message{tool_calls: nil, content: content}})
-      when is_list(content) do
-    content
-    |> Enum.filter(&(&1.type == :tool_call))
-    |> Enum.map(fn part ->
-      %{
-        name: part.tool_name,
-        arguments: part.input,
-        id: part.tool_call_id
-      }
-    end)
+    tool_calls
   end
 
   def tool_calls(%__MODULE__{message: %Message{tool_calls: nil}}), do: []
-
-  defp normalize_tool_call(%ReqLLM.ToolCall{} = tool_call) do
-    arguments =
-      case tool_call.function.arguments do
-        args when is_binary(args) ->
-          case Jason.decode(args) do
-            {:ok, decoded} -> decoded
-            _ -> args
-          end
-
-        args ->
-          args
-      end
-
-    %{
-      name: tool_call.function.name,
-      arguments: arguments,
-      id: tool_call.id
-    }
-  end
-
-  defp normalize_tool_call(tool_call) when is_map(tool_call) do
-    tool_call
-  end
 
   @doc """
   Get the finish reason for this response.

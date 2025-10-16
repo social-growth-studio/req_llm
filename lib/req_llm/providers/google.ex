@@ -1080,6 +1080,14 @@ defmodule ReqLLM.Providers.Google do
     end)
   end
 
+  defp convert_tool_call_to_function_call(%ReqLLM.ToolCall{
+         type: "function",
+         function: %{name: name, arguments: args},
+         id: id
+       }) do
+    %{functionCall: %{name: name, args: Jason.decode!(args), id: id}}
+  end
+
   defp convert_tool_call_to_function_call(%{
          "type" => "function",
          "function" => %{"name" => name, "arguments" => args},

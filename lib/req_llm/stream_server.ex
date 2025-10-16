@@ -2,7 +2,7 @@ defmodule ReqLLM.StreamServer do
   @moduledoc """
   GenServer that manages streaming LLM sessions with backpressure and SSE parsing.
 
-  StreamServer acts as a bridge between HTTP streaming clients (like FinchClient) 
+  StreamServer acts as a bridge between HTTP streaming clients (like FinchClient)
   and consumers, providing:
 
   - SSE event parsing across HTTP chunk boundaries
@@ -22,7 +22,7 @@ defmodule ReqLLM.StreamServer do
 
       # Start a streaming session
       {:ok, server} = StreamServer.start_link(
-        provider_mod: ReqLLM.Providers.OpenAI, 
+        provider_mod: ReqLLM.Providers.OpenAI,
         model: %ReqLLM.Model{...}
       )
 
@@ -41,7 +41,7 @@ defmodule ReqLLM.StreamServer do
   The server maintains state for:
 
   - `provider_mod`: Provider module for event decoding
-  - `model`: ReqLLM.Model struct for provider context  
+  - `model`: ReqLLM.Model struct for provider context
   - `provider_state`: Optional provider-specific state for stateful transformations
   - `sse_buffer`: Binary buffer for SSE parsing across chunks
   - `queue`: Token chunks awaiting consumer retrieval
@@ -148,7 +148,7 @@ defmodule ReqLLM.StreamServer do
   ## Returns
 
     * `{:ok, chunk}` - Next StreamChunk
-    * `:halt` - Stream is complete 
+    * `:halt` - Stream is complete
     * `{:error, reason}` - Error occurred
 
   ## Examples
@@ -157,10 +157,10 @@ defmodule ReqLLM.StreamServer do
         {:ok, %ReqLLM.StreamChunk{type: :content, text: text}} ->
           IO.write(text)
           next(server)
-        
+
         :halt ->
           :ok
-        
+
         {:error, reason} ->
           Logger.error("Stream error: " <> inspect(reason))
       end
@@ -197,7 +197,7 @@ defmodule ReqLLM.StreamServer do
 
   ## Parameters
 
-    * `server` - StreamServer process  
+    * `server` - StreamServer process
     * `task_pid` - HTTP task process ID
 
   ## Examples
@@ -245,7 +245,7 @@ defmodule ReqLLM.StreamServer do
   ## Parameters
 
     * `server` - StreamServer process
-    * `http_context` - HTTPContext struct with request/response metadata  
+    * `http_context` - HTTPContext struct with request/response metadata
     * `canonical_json` - The request body as JSON for fixture saving
 
   ## Examples
@@ -274,7 +274,7 @@ defmodule ReqLLM.StreamServer do
   ## Examples
 
       case ReqLLM.StreamServer.await_metadata(server, 10_000) do
-        {:ok, metadata} -> 
+        {:ok, metadata} ->
           IO.puts("Tokens used: " <> inspect(metadata[:usage][:total_tokens]))
         {:error, :timeout} ->
           IO.puts("Metadata not available yet")
@@ -293,7 +293,7 @@ defmodule ReqLLM.StreamServer do
     # Inject protocol parser function
     protocol_parser =
       if function_exported?(state.provider_mod, :parse_stream_protocol, 2) do
-        &state.provider_mod.parse_stream_protocol/2
+        state.provider_mod.parse_stream_protocol
       else
         &ReqLLM.Provider.parse_stream_protocol/2
       end

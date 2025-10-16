@@ -419,7 +419,6 @@ defmodule ReqLLM.Providers.XAI do
       name =
         case tool do
           %{name: n} -> n
-          %ReqLLM.Tool{name: n} -> n
           _ -> nil
         end
 
@@ -683,39 +682,11 @@ defmodule ReqLLM.Providers.XAI do
           extract_from_content(response)
 
         tool_calls ->
-          case find_structured_output(tool_calls) do
-            nil -> nil
-            arguments -> ensure_decoded(arguments)
-          end
+          ReqLLM.ToolCall.find_args(tool_calls, "structured_output")
       end
 
     %{response | object: extracted_object}
   end
-
-  defp find_structured_output(tool_calls) do
-    Enum.find_value(tool_calls, fn tool_call ->
-      cond do
-        get_in(tool_call, [:function, :name]) == "structured_output" ->
-          get_in(tool_call, [:function, :arguments])
-
-        Map.get(tool_call, :name) == "structured_output" ->
-          Map.get(tool_call, :arguments)
-
-        true ->
-          nil
-      end
-    end)
-  end
-
-  defp ensure_decoded(arguments) when is_binary(arguments) do
-    case Jason.decode(arguments) do
-      {:ok, parsed} -> parsed
-      {:error, _} -> nil
-    end
-  end
-
-  defp ensure_decoded(arguments) when is_map(arguments), do: arguments
-  defp ensure_decoded(_), do: nil
 
   defp extract_from_content(response) do
     case response.message do

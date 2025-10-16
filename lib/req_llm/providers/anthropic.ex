@@ -676,19 +676,7 @@ defmodule ReqLLM.Providers.Anthropic do
     extracted_object =
       response
       |> ReqLLM.Response.tool_calls()
-      |> Enum.find_value(fn
-        %{name: "structured_output", arguments: args} when is_map(args) ->
-          args
-
-        %{name: "structured_output", arguments: args} when is_binary(args) ->
-          case Jason.decode(args) do
-            {:ok, obj} -> obj
-            _ -> nil
-          end
-
-        _ ->
-          nil
-      end)
+      |> ReqLLM.ToolCall.find_args("structured_output")
 
     %{response | object: extracted_object}
   end

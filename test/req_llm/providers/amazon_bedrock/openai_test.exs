@@ -158,12 +158,10 @@ defmodule ReqLLM.Providers.AmazonBedrock.OpenAITest do
       assert {:ok, parsed} = OpenAI.parse_response(response_body, [])
       assert parsed.finish_reason == :tool_calls
 
-      tool_calls = ReqLLM.Response.tool_calls(parsed)
-      assert length(tool_calls) == 1
-
-      [tool_call] = tool_calls
-      assert tool_call.name == "get_weather"
-      assert tool_call.arguments["location"] == "Paris"
+      assert [%ReqLLM.ToolCall{} = tool_call] = ReqLLM.Response.tool_calls(parsed)
+      assert tool_call.function.name == "get_weather"
+      assert tool_call.function.arguments == ~s({"location":"Paris"})
+      assert tool_call.id == "call_xyz"
     end
   end
 

@@ -178,12 +178,10 @@ defmodule ReqLLM.Providers.AmazonBedrock.AnthropicTest do
       assert parsed.finish_reason == :tool_calls
 
       # Verify tool call is properly decoded
-      tool_calls = ReqLLM.Response.tool_calls(parsed)
-      assert length(tool_calls) == 1
-
-      [tool_call] = tool_calls
-      assert tool_call.name == "get_weather"
-      assert tool_call.arguments["location"] == "San Francisco"
+      assert [%ReqLLM.ToolCall{} = tool_call] = ReqLLM.Response.tool_calls(parsed)
+      assert tool_call.function.name == "get_weather"
+      assert tool_call.function.arguments == ~s({"location":"San Francisco"})
+      assert tool_call.id == "call_xyz"
     end
   end
 

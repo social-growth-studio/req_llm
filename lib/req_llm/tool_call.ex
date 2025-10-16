@@ -74,6 +74,50 @@ defmodule ReqLLM.ToolCall do
     "call_#{Uniq.UUID.uuid7()}"
   end
 
+  @doc """
+  Extract the function name from a ToolCall.
+  """
+  @spec name(t()) :: String.t()
+  def name(%__MODULE__{function: %{name: n}}), do: n
+
+  @doc """
+  Extract the arguments JSON string from a ToolCall.
+  """
+  @spec args_json(t()) :: String.t()
+  def args_json(%__MODULE__{function: %{arguments: a}}), do: a
+
+  @doc """
+  Extract and decode the arguments as a map from a ToolCall.
+  Returns nil if decoding fails.
+  """
+  @spec args_map(t()) :: map() | nil
+  def args_map(%__MODULE__{function: %{arguments: json}}) do
+    case Jason.decode(json) do
+      {:ok, map} -> map
+      {:error, _} -> nil
+    end
+  end
+
+  @doc """
+  Check if a ToolCall matches the given function name.
+  """
+  @spec matches_name?(t(), String.t()) :: boolean()
+  def matches_name?(%__MODULE__{function: %{name: n}}, expected_name), do: n == expected_name
+
+  @doc """
+  Find the first tool call matching the given name and return its decoded arguments.
+  Returns nil if no match found or if arguments cannot be decoded.
+  """
+  @spec find_args([t()], String.t()) :: map() | nil
+  def find_args(tool_calls, name) do
+    tool_calls
+    |> Enum.find(&matches_name?(&1, name))
+    |> case do
+      nil -> nil
+      call -> args_map(call)
+    end
+  end
+
   defimpl Jason.Encoder do
     def encode(%{id: id, type: type, function: function}, opts) do
       Jason.Encode.map(

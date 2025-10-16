@@ -1200,28 +1200,9 @@ defmodule ReqLLM.Provider.Defaults do
   end
 
   defp extract_from_tool_calls(response) do
-    case ReqLLM.Response.tool_calls(response) do
-      [] ->
-        nil
-
-      tool_calls ->
-        case Enum.find(tool_calls, &(&1.name == "structured_output")) do
-          nil ->
-            nil
-
-          %{arguments: object} when is_map(object) ->
-            object
-
-          %{arguments: json_string} when is_binary(json_string) ->
-            case Jason.decode(json_string) do
-              {:ok, object} -> object
-              {:error, _} -> nil
-            end
-
-          _ ->
-            nil
-        end
-    end
+    response
+    |> ReqLLM.Response.tool_calls()
+    |> ReqLLM.ToolCall.find_args("structured_output")
   end
 
   defp merge_response_with_context(req, response) do
