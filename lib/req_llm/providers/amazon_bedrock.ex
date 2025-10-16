@@ -66,7 +66,7 @@ defmodule ReqLLM.Providers.AmazonBedrock do
   use ReqLLM.Provider.DSL,
     id: :amazon_bedrock,
     base_url: "https://bedrock-runtime.{region}.amazonaws.com",
-    metadata: "priv/models_dev/amazon-bedrock.json",
+    metadata: "priv/models_dev/amazon_bedrock.json",
     default_env_key: "AWS_ACCESS_KEY_ID",
     provider_schema: [
       region: [

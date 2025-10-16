@@ -16,13 +16,6 @@ defmodule ReqLLM.MixProject do
 
       # Test coverage
       test_coverage: [tool: ExCoveralls, export: "cov", exclude: [:coverage]],
-      preferred_cli_env: [
-        coveralls: :test,
-        "coveralls.detail": :test,
-        "coveralls.post": :test,
-        "coveralls.html": :test,
-        "coveralls.github": :test
-      ],
 
       # Dialyzer configuration
       dialyzer: [
@@ -53,6 +46,18 @@ defmodule ReqLLM.MixProject do
         groups_for_extras: [
           Guides: ~r/guides\/.*/
         ]
+      ]
+    ]
+  end
+
+  def cli do
+    [
+      preferred_envs: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test,
+        "coveralls.github": :test
       ]
     ]
   end
