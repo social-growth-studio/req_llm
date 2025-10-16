@@ -87,14 +87,13 @@ defmodule ReqLLM.Providers.OpenAI.ChatAPI do
   end
 
   defp build_request_body(context, model_name, opts, operation \\ :chat) do
-    # Use default encoding first
-    temp_request = %Req.Request{
-      method: :post,
-      url: URI.parse("https://example.com/temp"),
-      headers: %{},
-      body: {:json, %{}},
-      options: Map.new([model: model_name, context: context, operation: operation] ++ opts)
-    }
+    temp_request =
+      Req.new(method: :post, url: URI.parse("https://example.com/temp"))
+      |> Map.put(:body, {:json, %{}})
+      |> Map.put(
+        :options,
+        Map.new([model: model_name, context: context, operation: operation] ++ opts)
+      )
 
     request = ReqLLM.Provider.Defaults.default_encode_body(temp_request)
 

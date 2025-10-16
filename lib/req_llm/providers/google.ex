@@ -919,13 +919,10 @@ defmodule ReqLLM.Providers.Google do
 
     all_options = Keyword.merge(base_options, Keyword.delete(opts, :finch_name))
 
-    temp_request = %Req.Request{
-      method: :post,
-      url: URI.parse("https://example.com/temp"),
-      headers: %{},
-      body: {:json, %{}},
-      options: Map.new(all_options)
-    }
+    temp_request =
+      Req.new(method: :post, url: URI.parse("https://example.com/temp"))
+      |> Map.put(:body, {:json, %{}})
+      |> Map.put(:options, Map.new(all_options))
 
     encoded_request = encode_body(temp_request)
     encoded_request.body

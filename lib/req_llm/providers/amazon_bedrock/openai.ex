@@ -22,12 +22,11 @@ defmodule ReqLLM.Providers.AmazonBedrock.OpenAI do
     tools = Map.get(context, :tools, [])
 
     # Create a minimal request struct to use default OpenAI encoding
-    temp_request = %Req.Request{
-      method: :post,
-      url: URI.parse("https://example.com/temp"),
-      headers: %{},
-      body: {:json, %{}},
-      options:
+    temp_request =
+      Req.new(method: :post, url: URI.parse("https://example.com/temp"))
+      |> Map.put(:body, {:json, %{}})
+      |> Map.put(
+        :options,
         Map.new(
           [
             model: model_id,
@@ -36,9 +35,8 @@ defmodule ReqLLM.Providers.AmazonBedrock.OpenAI do
             tools: tools
           ] ++ Keyword.drop(opts, [:model, :tools])
         )
-    }
+      )
 
-    # Use standard OpenAI encoding
     encoded_request = Defaults.default_encode_body(temp_request)
 
     # Return the parsed body as a map
