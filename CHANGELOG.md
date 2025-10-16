@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0-rc.7] - 2025-10-16
+
+### Changed
+- Updated Elixir compatibility to support 1.19
+- Replaced aws_auth GitHub dependency with ex_aws_auth from Hex for Hex publishing compatibility
+- Enhanced Dialyzer configuration with ignore_warnings option
+- Refactored request struct creation across providers using Req.new/2
+
+### Added
+- Provider normalize_model_id/1 callback for model identifier normalization
+- Amazon Bedrock support for inference profiles with region prefix stripping
+- ToolCall helper functions: function_name/1, json_arguments/1, arguments/1, find_args/2
+- New model definitions for Alibaba, Fireworks AI, GitHub Models, Moonshot AI, and Zhipu AI
+- Claude Haiku 4.5 model entries across multiple providers
+
+### Refactored
+- Removed normalization layer for tool calls, using ReqLLM.ToolCall structs directly
+- Simplified tool call extraction using find_args/2 across provider modules
+
 ## [1.0.0-rc.6] - 2025-02-15
 
 ### Added
