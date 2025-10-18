@@ -182,10 +182,41 @@ defmodule ReqLLM.Streaming do
       {:ok, task_pid, http_context, canonical_json} ->
         {:ok, task_pid, http_context, canonical_json}
 
+      {:error, {:provider_build_failed, {:http2_body_too_large, body_size, protocols}}} ->
+        message = format_http2_error_message(body_size, protocols)
+        Logger.error(message)
+        {:error, {:http2_body_too_large, message}}
+
       {:error, reason} ->
         Logger.error("Failed to start HTTP streaming: #{inspect(reason)}")
         {:error, {:http_streaming_failed, reason}}
     end
+  end
+
+  defp format_http2_error_message(body_size, protocols) do
+    size_kb = div(body_size, 1024)
+
+    """
+    Request body (#{size_kb}KB) exceeds safe limit for HTTP/2 connections (64KB).
+
+    This is due to a known issue in Finch's HTTP/2 implementation:
+    https://github.com/sneako/finch/issues/265
+
+    Your current pool configuration uses: #{inspect(protocols)}
+
+    To fix this, configure ReqLLM to use HTTP/1-only pools (recommended):
+
+        config :req_llm,
+          finch: [
+            name: ReqLLM.Finch,
+            pools: %{
+              :default => [protocols: [:http1], size: 1, count: 8]
+            }
+          ]
+
+    See the ReqLLM README section "HTTP/2 Configuration (Advanced)" for more details:
+    https://github.com/agentjido/req_llm#http2-configuration-advanced
+    """
   end
 
   # Set fixture context if fixture capture is enabled
