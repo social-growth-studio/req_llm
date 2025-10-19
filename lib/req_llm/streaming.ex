@@ -70,6 +70,7 @@ defmodule ReqLLM.Streaming do
   ## Options
 
     * `:timeout` - HTTP request timeout in milliseconds (default: 30_000)
+    * `:metadata_timeout` - Metadata collection timeout in milliseconds (default: 300_000)
     * `:fixture_path` - Path for test fixture capture (testing only)
     * `:finch_name` - Finch pool name (default: ReqLLM.Finch)
 
@@ -123,7 +124,7 @@ defmodule ReqLLM.Streaming do
       stream = create_lazy_stream(server_pid, receive_timeout)
 
       # Start metadata collection task
-      metadata_task = start_metadata_task(server_pid)
+      metadata_task = start_metadata_task(server_pid, opts)
 
       # Create cancel function
       cancel_fn = fn -> StreamServer.cancel(server_pid) end
@@ -267,9 +268,10 @@ defmodule ReqLLM.Streaming do
   end
 
   # Start metadata collection task that awaits completion
-  defp start_metadata_task(server_pid) do
+  defp start_metadata_task(server_pid, opts) do
     Task.async(fn ->
-      metadata_timeout = Application.get_env(:req_llm, :metadata_timeout, 60_000)
+      default_metadata_timeout = Application.get_env(:req_llm, :metadata_timeout, 300_000)
+      metadata_timeout = Keyword.get(opts, :metadata_timeout, default_metadata_timeout)
 
       case StreamServer.await_metadata(server_pid, metadata_timeout) do
         {:ok, metadata} ->
