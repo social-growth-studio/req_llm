@@ -108,8 +108,8 @@ usage = ReqLLM.StreamResponse.usage(response)
   - Accepts `"provider:model"`, `{:provider, "model", opts}` tuples, or `%ReqLLM.Model{}` structs
   - Helper functions for parsing, introspection and default-merging
 
-- **Secure, layered key management** (`ReqLLM.Keys`)
-  - Per-request override → in-memory keyring (JidoKeys) → application config → env vars /.env files
+- **Secure, layered key management** (`ReqLLM.Keys`)  
+  - Per-request override → application config → env vars / .env files  
 
 - **Extensive reliability tooling**
   - Fixture-backed test matrix (`LiveFixture`) supports cached, live, or provider-filtered runs
