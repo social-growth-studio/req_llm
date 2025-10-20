@@ -21,6 +21,7 @@ defmodule ReqLLM.StreamingCase do
   using do
     quote do
       use ExUnit.Case, async: false
+
       import ReqLLM.StreamingCase
     end
   end
