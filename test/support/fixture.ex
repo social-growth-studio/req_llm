@@ -110,7 +110,7 @@ defmodule ReqLLM.Step.Fixture.Backend do
         Logger.debug("Fixture loaded successfully, status=#{response.status}")
 
         request = Req.Request.put_private(request, :llm_fixture_replay, true)
-        run_response_steps(request, response)
+        {request, response}
       end
     end
   end
@@ -196,13 +196,6 @@ defmodule ReqLLM.Step.Fixture.Backend do
   defp provider_module(:groq), do: ReqLLM.Providers.Groq
   defp provider_module(:openrouter), do: ReqLLM.Providers.OpenRouter
   defp provider_module(:xai), do: ReqLLM.Providers.XAI
-
-  # Run response steps manually for fixture replay to ensure Usage step calculates costs
-  defp run_response_steps(%Req.Request{} = request, %Req.Response{} = response) do
-    Enum.reduce(request.response_steps, {request, response}, fn {_name, step}, acc ->
-      step.(acc)
-    end)
-  end
 
   # ---------------------------------------------------------------------------
   # Response step for saving fixtures in LIVE mode
