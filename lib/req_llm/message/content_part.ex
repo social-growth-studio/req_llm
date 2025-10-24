@@ -6,7 +6,8 @@ defmodule ReqLLM.Message.ContentPart do
   - `:text` - Plain text content
   - `:image_url` - Image from URL
   - `:image` - Image from binary data
-  - `:file` - File attachment
+  - `:file` - File attachment with inline data
+  - `:file_uri` - File reference by URI (e.g., Google File API URI)
   - `:thinking` - Chain-of-thought thinking content
 
   ## See also
@@ -17,7 +18,7 @@ defmodule ReqLLM.Message.ContentPart do
   use TypedStruct
 
   typedstruct enforce: true do
-    field(:type, :text | :image_url | :image | :file | :thinking, enforce: true)
+    field(:type, :text | :image_url | :image | :file | :file_uri | :thinking, enforce: true)
 
     field(:text, String.t() | nil, default: nil)
     field(:url, String.t() | nil, default: nil)
@@ -55,6 +56,10 @@ defmodule ReqLLM.Message.ContentPart do
   def file(data, filename, media_type \\ "application/octet-stream"),
     do: %__MODULE__{type: :file, data: data, filename: filename, media_type: media_type}
 
+  @spec file_uri(String.t(), String.t()) :: t()
+  def file_uri(uri, media_type),
+    do: %__MODULE__{type: :file_uri, url: uri, media_type: media_type}
+
   defimpl Inspect do
     def inspect(%{type: type} = part, opts) do
       content_desc =
@@ -64,6 +69,7 @@ defmodule ReqLLM.Message.ContentPart do
           :image_url -> "url: #{part.url}"
           :image -> "#{part.media_type} (#{byte_size(part.data)} bytes)"
           :file -> "#{part.media_type} (#{byte_size(part.data || <<>>)} bytes)"
+          :file_uri -> "uri: #{part.url}, mime: #{part.media_type}"
         end
 
       Inspect.Algebra.concat([

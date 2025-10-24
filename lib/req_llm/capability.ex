@@ -285,4 +285,79 @@ defmodule ReqLLM.Capability do
     do: "#{provider}:#{model}"
 
   defp format_model_name(model_spec) when is_binary(model_spec), do: model_spec
+
+  @doc """
+  Check if a provider supports a specific provider capability.
+
+  Provider capabilities are extensions beyond standard operations (chat, embed) that
+  provide additional functionality like file uploads, batch processing, etc.
+
+  ## Examples
+
+      iex> ReqLLM.Capability.provider_supports?(:google, :files)
+      true
+
+      iex> ReqLLM.Capability.provider_supports?(:openai, :files)
+      false
+  """
+  @spec provider_supports?(atom(), atom()) :: boolean()
+  def provider_supports?(provider, capability) when is_atom(provider) and is_atom(capability) do
+    case get_provider_capability_module(provider, capability) do
+      {:ok, _module} -> true
+      :error -> false
+    end
+  end
+
+  @doc """
+  Get the capability module for a provider.
+
+  Returns the module that implements the given capability for the provider,
+  or `:error` if the provider doesn't support that capability.
+
+  ## Examples
+
+      iex> ReqLLM.Capability.get_provider_capability_module(:google, :files)
+      {:ok, ReqLLM.Providers.Google.Files}
+
+      iex> ReqLLM.Capability.get_provider_capability_module(:openai, :files)
+      :error
+  """
+  @spec get_provider_capability_module(atom(), atom()) ::
+          {:ok, module()} | :error
+  def get_provider_capability_module(provider, capability)
+      when is_atom(provider) and is_atom(capability) do
+    module_name =
+      Module.concat([
+        ReqLLM.Providers,
+        Macro.camelize(to_string(provider)),
+        Macro.camelize(to_string(capability))
+      ])
+
+    if Code.ensure_loaded?(module_name) do
+      {:ok, module_name}
+    else
+      :error
+    end
+  end
+
+  @doc """
+  List all capabilities supported by a provider.
+
+  Returns a list of capability atoms that the provider supports.
+
+  ## Examples
+
+      iex> ReqLLM.Capability.provider_capabilities(:google)
+      [:files]
+
+      iex> ReqLLM.Capability.provider_capabilities(:openai)
+      []
+  """
+  @spec provider_capabilities(atom()) :: [atom()]
+  def provider_capabilities(provider) when is_atom(provider) do
+    known_capabilities = [:files, :batches, :fine_tuning]
+
+    known_capabilities
+    |> Enum.filter(&provider_supports?(provider, &1))
+  end
 end

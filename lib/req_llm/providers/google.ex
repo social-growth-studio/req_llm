@@ -414,18 +414,8 @@ defmodule ReqLLM.Providers.Google do
   end
 
   defp encode_chat_body(request) do
-    {system_instruction, contents} =
-      case request.options[:context] do
-        %ReqLLM.Context{} = ctx ->
-          model_name = request.options[:model]
-          # Convert OpenAI-style context to Gemini format
-          encoded = ReqLLM.Provider.Defaults.encode_context_to_openai_format(ctx, model_name)
-          messages = encoded[:messages] || encoded["messages"] || []
-          split_messages_for_gemini(messages)
-
-        _ ->
-          split_messages_for_gemini(request.options[:messages] || [])
-      end
+    %ReqLLM.Context{messages: messages} = request.options[:context]
+    {system_instruction, contents} = split_messages_for_gemini(messages)
 
     tools_data =
       case request.options[:tools] do
@@ -485,17 +475,8 @@ defmodule ReqLLM.Providers.Google do
   end
 
   defp encode_object_body(request) do
-    {system_instruction, contents} =
-      case request.options[:context] do
-        %ReqLLM.Context{} = ctx ->
-          model_name = request.options[:model]
-          encoded = ReqLLM.Provider.Defaults.encode_context_to_openai_format(ctx, model_name)
-          messages = encoded[:messages] || encoded["messages"] || []
-          split_messages_for_gemini(messages)
-
-        _ ->
-          split_messages_for_gemini(request.options[:messages] || [])
-      end
+    %ReqLLM.Context{messages: messages} = request.options[:context]
+    {system_instruction, contents} = split_messages_for_gemini(messages)
 
     compiled_schema =
       case request.options do
@@ -527,6 +508,8 @@ defmodule ReqLLM.Providers.Google do
     |> maybe_put(:generationConfig, generation_config)
     |> maybe_put(:safetySettings, request.options[:google_safety_settings])
   end
+
+  # Schema conversion helpers
 
   defp gemini_2_5?(model_name) when is_binary(model_name) do
     String.starts_with?(model_name, "gemini-2.5-") or model_name == "gemini-2.5"
@@ -624,6 +607,10 @@ defmodule ReqLLM.Providers.Google do
   end
 
   defp normalize_embedding_response(other), do: other
+
+  # ========================================
+  # Response Decoding
+  # ========================================
 
   @impl ReqLLM.Provider
   def decode_response({req, resp}) do
@@ -966,17 +953,10 @@ defmodule ReqLLM.Providers.Google do
     end
   end
 
-  # Split messages into system instruction and contents for Google Gemini
   defp split_messages_for_gemini(messages) do
     {system_msgs, chat_msgs} =
       Enum.split_with(messages, fn message ->
-        case message do
-          %{role: :system} -> true
-          %{"role" => "system"} -> true
-          %{"role" => :system} -> true
-          %{role: "system"} -> true
-          _ -> false
-        end
+        message.role == :system
       end)
 
     system_instruction =
@@ -987,7 +967,7 @@ defmodule ReqLLM.Providers.Google do
         system_messages ->
           combined_text =
             system_messages
-            |> Enum.map_join("\n\n", &extract_text_content/1)
+            |> Enum.map_join("\n\n", &extract_text_from_content_parts/1)
 
           %{parts: [%{text: combined_text}]}
       end
@@ -997,81 +977,35 @@ defmodule ReqLLM.Providers.Google do
     {system_instruction, contents}
   end
 
+  defp extract_text_from_content_parts(%ReqLLM.Message{content: content}) do
+    content
+    |> Enum.filter(&(&1.type == :text))
+    |> Enum.map_join(" ", & &1.text)
+  end
+
   defp convert_messages_to_gemini(messages) do
-    Enum.map(messages, fn message ->
-      raw_role =
-        case message do
-          %{role: role} -> role
-          %{"role" => role} -> role
-          _ -> "user"
-        end
-
+    Enum.map(messages, fn %ReqLLM.Message{} = message ->
       role =
-        case raw_role do
+        case message.role do
           :user -> "user"
-          "user" -> "user"
           :assistant -> "model"
-          "assistant" -> "model"
           :tool -> "user"
-          "tool" -> "user"
           :system -> "user"
-          "system" -> "user"
-          other when is_binary(other) -> other
-          other -> to_string(other)
-        end
-
-      raw_content =
-        case message do
-          %{content: content} -> content
-          %{"content" => content} -> content
-          _ -> ""
         end
 
       content_parts =
-        case raw_content do
-          content when is_binary(content) -> [%{text: content}]
-          parts when is_list(parts) -> Enum.map(parts, &convert_content_part/1)
-        end
+        message.content
+        |> Enum.map(&convert_content_part/1)
+        |> Enum.reject(&is_nil/1)
 
       tool_call_parts =
-        case message do
-          %{"tool_calls" => tool_calls} when is_list(tool_calls) ->
-            Enum.map(tool_calls, &convert_tool_call_to_function_call/1)
-
-          %{tool_calls: tool_calls} when is_list(tool_calls) ->
-            Enum.map(tool_calls, &convert_tool_call_to_function_call/1)
-
-          _ ->
-            []
+        case message.tool_calls do
+          nil -> []
+          [] -> []
+          tool_calls -> Enum.map(tool_calls, &convert_tool_call_to_function_call/1)
         end
 
-      tool_result_parts =
-        case message do
-          %{"tool_call_id" => _call_id, "role" => "tool"} ->
-            [
-              %{
-                functionResponse: %{
-                  name: "unknown",
-                  response: %{content: extract_content_text(raw_content)}
-                }
-              }
-            ]
-
-          %{tool_call_id: _call_id, role: :tool} ->
-            [
-              %{
-                functionResponse: %{
-                  name: "unknown",
-                  response: %{content: extract_content_text(raw_content)}
-                }
-              }
-            ]
-
-          _ ->
-            []
-        end
-
-      parts = content_parts ++ tool_call_parts ++ tool_result_parts
+      parts = content_parts ++ tool_call_parts
 
       %{role: role, parts: parts}
     end)
@@ -1085,90 +1019,25 @@ defmodule ReqLLM.Providers.Google do
     %{functionCall: %{name: name, args: Jason.decode!(args), id: id}}
   end
 
-  defp convert_tool_call_to_function_call(%{
-         "type" => "function",
-         "function" => %{"name" => name, "arguments" => args},
-         "id" => id
-       }) do
-    %{functionCall: %{name: name, args: Jason.decode!(args), id: id}}
-  end
-
-  defp convert_tool_call_to_function_call(%{
-         type: "function",
-         function: %{name: name, arguments: args},
-         id: id
-       }) do
-    %{functionCall: %{name: name, args: Jason.decode!(args), id: id}}
-  end
-
   defp convert_tool_call_to_function_call(_), do: nil
 
-  defp extract_content_text(content) when is_binary(content), do: content
+  # ========================================
+  # Content Part Conversion
+  # ========================================
 
-  defp extract_content_text(parts) when is_list(parts) do
-    parts
-    |> Enum.map_join("", fn
-      %{"type" => "text", "text" => text} -> text
-      %{type: :text, text: text} -> text
-      text when is_binary(text) -> text
-      _ -> ""
-    end)
+  # ContentPart struct conversions
+  defp convert_content_part(%{type: :image, data: data, media_type: media_type})
+       when is_binary(data) do
+    encoded_data = Base.encode64(data)
+
+    %{
+      inline_data: %{
+        mime_type: media_type,
+        data: encoded_data
+      }
+    }
   end
 
-  defp extract_content_text(_), do: ""
-
-  # Extract text content from a message for system instruction
-  defp extract_text_content(%{content: content}) when is_binary(content), do: content
-  defp extract_text_content(%{"content" => content}) when is_binary(content), do: content
-
-  defp extract_text_content(%{content: parts}) when is_list(parts) do
-    extract_parts_text(parts)
-  end
-
-  defp extract_text_content(%{"content" => parts}) when is_list(parts) do
-    extract_parts_text(parts)
-  end
-
-  defp extract_text_content(content) when is_binary(content), do: content
-  defp extract_text_content(_), do: ""
-
-  defp extract_parts_text(parts) do
-    parts
-    |> Enum.map_join("", fn
-      %{type: :text, content: text} -> text
-      %{"type" => "text", "text" => text} -> text
-      %{text: text} -> text
-      %{"text" => text} -> text
-      text when is_binary(text) -> text
-      part -> to_string(part)
-    end)
-  end
-
-  # Handle OpenAI-format image_url (from Provider.Defaults.encode_openai_content_part)
-  defp convert_content_part(%{type: "image_url", image_url: %{url: url}}) when is_binary(url) do
-    # Parse data URI format: data:mime/type;base64,<data>
-    case String.split(url, ",", parts: 2) do
-      [header, base64_data] ->
-        mime_type =
-          case Regex.run(~r/data:([^;]+)/, header) do
-            [_, type] -> type
-            _ -> "image/jpeg"
-          end
-
-        %{
-          inline_data: %{
-            mime_type: mime_type,
-            data: base64_data
-          }
-        }
-
-      _ ->
-        # Not a data URI, might be a URL
-        %{text: "[Unsupported image URL]"}
-    end
-  end
-
-  # Most specific patterns first (file, image, etc.) - for ContentPart structs
   defp convert_content_part(%{type: :file, data: data, media_type: media_type})
        when is_binary(data) do
     encoded_data = Base.encode64(data)
@@ -1181,16 +1050,21 @@ defmodule ReqLLM.Providers.Google do
     }
   end
 
-  # Specific text patterns
-  defp convert_content_part(%{type: :text, content: text}), do: %{text: text}
-  defp convert_content_part(%{"type" => "text", "text" => text}), do: %{text: text}
+  defp convert_content_part(%{type: :file_uri, url: uri, media_type: media_type})
+       when is_binary(uri) do
+    %{
+      file_data: %{
+        mime_type: media_type,
+        file_uri: uri
+      }
+    }
+  end
 
-  # Generic catch-all patterns (must come after specific patterns)
-  defp convert_content_part(%{text: text}) when is_binary(text), do: %{text: text}
-  defp convert_content_part(%{"text" => text}) when is_binary(text), do: %{text: text}
-  defp convert_content_part(text) when is_binary(text), do: %{text: text}
+  defp convert_content_part(%{type: :text, text: text}), do: %{text: text}
 
-  defp convert_content_part(part), do: %{text: to_string(part)}
+  # ========================================
+  # Streaming Event Decoding
+  # ========================================
 
   # Decode Google streaming events.
   # 
