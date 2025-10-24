@@ -872,5 +872,95 @@ defmodule ReqLLM.Providers.GoogleTest do
       assert part["inline_data"]["mime_type"] == "image/png"
       assert Base.decode64!(part["inline_data"]["data"]) == image_content
     end
+
+    test "encode_body handles file_uri ContentPart with file_data format" do
+      file_uri = "https://generativelanguage.googleapis.com/v1beta/files/abc123"
+
+      file_uri_part = %ReqLLM.Message.ContentPart{
+        type: :file_uri,
+        url: file_uri,
+        media_type: "audio/mp3"
+      }
+
+      message_with_file_uri = %ReqLLM.Message{
+        role: :user,
+        content: [
+          ReqLLM.Message.ContentPart.text("Describe this audio"),
+          file_uri_part
+        ]
+      }
+
+      context = %ReqLLM.Context{messages: [message_with_file_uri]}
+
+      mock_request = %Req.Request{
+        options: [
+          context: context,
+          model: "gemini-1.5-flash",
+          stream: false
+        ]
+      }
+
+      updated_request = Google.encode_body(mock_request)
+      decoded = Jason.decode!(updated_request.body)
+
+      [user_msg] = decoded["contents"]
+      parts = user_msg["parts"]
+
+      assert length(parts) == 2
+      [text_part, uri_part] = parts
+
+      assert text_part == %{"text" => "Describe this audio"}
+
+      assert Map.has_key?(uri_part, "file_data")
+      assert uri_part["file_data"]["mime_type"] == "audio/mp3"
+      assert uri_part["file_data"]["file_uri"] == file_uri
+    end
+  end
+
+  describe "file upload capability" do
+    alias ReqLLM.Providers.Google.Files
+
+    test "capability module is available" do
+      assert Code.ensure_loaded?(Files)
+      assert Files.capability_name() == :files
+      assert :upload in Files.supported_operations()
+    end
+
+    test "upload/4 and delete/2 functions are exported" do
+      assert function_exported?(Files, :upload, 4)
+      assert function_exported?(Files, :upload, 3)
+      assert function_exported?(Files, :delete, 2)
+      assert function_exported?(Files, :delete, 1)
+    end
+
+    @tag :skip
+    test "upload/4 raises error when no API key is provided" do
+      original_env = System.get_env("GOOGLE_API_KEY")
+      System.delete_env("GOOGLE_API_KEY")
+
+      try do
+        assert_raise ReqLLM.Error.Invalid.Parameter, fn ->
+          Files.upload("test data", "audio/mp3", "test.mp3", [])
+        end
+      after
+        if original_env, do: System.put_env("GOOGLE_API_KEY", original_env)
+      end
+    end
+  end
+
+  describe "capability discovery" do
+    test "provider_supports? returns true for files capability" do
+      assert ReqLLM.Capability.provider_supports?(:google, :files)
+    end
+
+    test "get_provider_capability_module returns Files module" do
+      assert {:ok, ReqLLM.Providers.Google.Files} =
+               ReqLLM.Capability.get_provider_capability_module(:google, :files)
+    end
+
+    test "provider_capabilities includes files" do
+      capabilities = ReqLLM.Capability.provider_capabilities(:google)
+      assert :files in capabilities
+    end
   end
 end

@@ -78,17 +78,18 @@ defmodule ReqLLM.Providers.GoogleRoleFixTest do
     end
 
     test "handles messages with different content formats" do
-      # Test with string content and list content
-      messages = [
-        %{"role" => "user", "content" => "Hello"},
-        %{"role" => "assistant", "content" => [%{"type" => "text", "text" => "Hi!"}]},
-        %{"role" => "user", "content" => "How are you?"},
-        %{"role" => "assistant", "content" => "I'm doing well, thanks!"}
-      ]
+      # Test with Context messages
+      context =
+        ReqLLM.Context.new([
+          ReqLLM.Context.user("Hello"),
+          ReqLLM.Context.assistant("Hi!"),
+          ReqLLM.Context.user("How are you?"),
+          ReqLLM.Context.assistant("I'm doing well, thanks!")
+        ])
 
       request = %Req.Request{
         options: %{
-          messages: messages,
+          context: context,
           model: "gemini-1.5-flash"
         }
       }
